@@ -1,0 +1,388 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="FabrikaMasterPage.master.cs" Inherits="fabrika_FabrikaMasterPage" %>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, İşletme Paneli, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    
+    <link rel="shortcut icon" href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/favicon.png") %>">
+    <link rel="icon" href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/favicon.ico") %>" type="image/x-icon">
+
+    <title>Zeytinyağı Fabrikası Yönetim Paneli</title>
+    
+    <asp:ContentPlaceHolder runat="server" ID="head"></asp:ContentPlaceHolder><!-- Bootstrap core CSS -->
+    <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css") %>" rel="stylesheet">
+    <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/bootstrap-reset.css") %>" rel="stylesheet">
+    <!--external css-->
+    <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css") %>" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/owl.carousel.css") %>" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/style.css") %>" rel="stylesheet">
+    <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/style-responsive.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/App_Themes/admin/css/dashboard.css") %>" rel="stylesheet" />
+
+    <!-- Aktif menü için ek stil -->
+    <style>
+        .sidebar-menu li.active > a,
+        .sidebar-menu li > a.active,
+        .sidebar-menu .sub li.active > a,
+        .sidebar-menu .sub li > a.active {
+            color: #ff6c60 !important;
+            background-color: #35404d !important;
+        }
+        .sub-menu.active {
+            display: block !important;
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/html5shiv.js") %>"></script>
+      <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/respond.min.js") %>"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <section id="container">
+            <!--header start-->
+            <header class="header white-bg">
+                <div class="sidebar-toggle-box">
+                    <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
+                </div>
+                <!--logo start-->
+                <a href="<%= ResolveUrl("~/fabrika/Default.aspx") %>" class="logo">Zeytin<span>Fabrika</span></a>
+                <!--logo end-->
+                <div class="nav notify-row" id="top_menu">
+                    <!--  bildirimler başlangıç -->
+                    <ul class="nav top-menu">
+                        <!-- görevler başlangıç -->
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-tasks"></i>
+                                <span class="badge bg-success">6</span>
+                            </a>
+                            <ul class="dropdown-menu extended tasks-bar">
+                                <div class="notify-arrow notify-arrow-green"></div>
+                                <li>
+                                    <p class="green">6 bekleyen göreviniz var</p>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <div class="desc">İşletme Paneli v1.3</div>
+                                            <div class="percent">40%</div>
+                                        </div>
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">%40 Tamamlandı (başarılı)</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <div class="desc">Veritabanı Güncelleme</div>
+                                            <div class="percent">60%</div>
+                                        </div>
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                <span class="sr-only">%60 Tamamlandı (uyarı)</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <div class="desc">Iphone Geliştirme</div>
+                                            <div class="percent">87%</div>
+                                        </div>
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%">
+                                                <span class="sr-only">%87 Tamamlandı</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <div class="desc">Mobil Uygulama</div>
+                                            <div class="percent">33%</div>
+                                        </div>
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
+                                                <span class="sr-only">%33 Tamamlandı (hata)</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <div class="desc">İşletme Paneli v1.3</div>
+                                            <div class="percent">45%</div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                <span class="sr-only">%45 Tamamlandı</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="external">
+                                    <a href="<%= ResolveUrl("~/fabrika/YapimAsamasinda.aspx") %>">Tüm Görevleri Gör</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- görevler bitiş -->
+                        <!-- mesajlar başlangıç -->
+                        <li id="header_inbox_bar" class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-envelope-alt"></i>
+                                <span class="badge bg-important">5</span>
+                            </a>
+                            <ul class="dropdown-menu extended inbox">
+                                <div class="notify-arrow notify-arrow-red"></div>
+                                <li>
+                                    <p class="red">5 yeni mesajınız var</p>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="photo">
+                                            <img src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/avatar-mini.jpg") %>" alt="avatar"></span>
+                                        <span class="subject">
+                                            <span class="from">Jonathan Smith</span>
+                                            <span class="time">Az önce</span>
+                                        </span>
+                                        <span class="message">Merhaba, bu bir örnek mesajdır.
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="photo">
+                                            <img src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/avatar-mini2.jpg") %>" alt="avatar"></span>
+                                        <span class="subject">
+                                            <span class="from">Jhon Doe</span>
+                                            <span class="time">10 dk</span>
+                                        </span>
+                                        <span class="message">Merhaba, nasılsın?
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="photo">
+                                            <img src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/avatar-mini3.jpg") %>" alt="avatar"></span>
+                                        <span class="subject">
+                                            <span class="from">Jason Stathum</span>
+                                            <span class="time">3 saat</span>
+                                        </span>
+                                        <span class="message">Bu harika bir panel.
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="photo">
+                                            <img src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/avatar-mini4.jpg") %>" alt="avatar"></span>
+                                        <span class="subject">
+                                            <span class="from">Jondi Rose</span>
+                                            <span class="time">Az önce</span>
+                                        </span>
+                                        <span class="message">Merhaba, bu metrolab.
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<%= ResolveUrl("~/fabrika/YapimAsamasinda.aspx") %>">Tüm mesajları gör</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- mesajlar bitiş -->
+                        <!-- uyarılar başlangıç -->
+                        <li id="header_notification_bar" class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-bell-alt"></i>
+                                <span class="badge bg-warning">7</span>
+                            </a>
+                            <ul class="dropdown-menu extended notification">
+                                <div class="notify-arrow notify-arrow-yellow"></div>
+                                <li>
+                                    <p class="yellow">7 yeni bildiriminiz var</p>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="label label-danger"><i class="icon-bolt"></i></span>
+                                        Sunucu #3 aşırı yüklenmiş.
+                                          <span class="small italic">34 dk</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="label label-warning"><i class="icon-bell"></i></span>
+                                        Sunucu #10 yanıt vermiyor.
+                                          <span class="small italic">1 saat</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="label label-danger"><i class="icon-bolt"></i></span>
+                                        Veritabanı %24 aşırı yüklenmiş.
+                                          <span class="small italic">4 saat</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="label label-success"><i class="icon-plus"></i></span>
+                                        Yeni kullanıcı kaydoldu.
+                                          <span class="small italic">Az önce</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="label label-info"><i class="icon-bullhorn"></i></span>
+                                        Uygulama hatası.
+                                          <span class="small italic">10 dk</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<%= ResolveUrl("~/fabrika/YapimAsamasinda.aspx") %>">Tüm bildirimleri gör</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- uyarılar bitiş -->
+                        <asp:Label ID="lblSirketAd" runat="server" Text="şirket Adi"></asp:Label>
+                    </ul>
+                    <!--  bildirimler bitiş -->
+                </div>
+                <div class="top-nav ">
+                    <!--arama & kullanıcı bilgisi başlangıç-->
+                    <ul class="nav pull-right top-menu">
+                        <!-- kullanıcı login dropdown başlangıç -->
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/img/avatar1_small.jpg") %>">
+                                <span class="username">
+                                    <asp:Label ID="lblKullaniciAdi" runat="server" Text="Kullanıcı"></asp:Label>
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                <div class="log-arrow-up"></div>
+                                <li><a href="<%= ResolveUrl("~/fabrika/Sirket/SirketProfil.aspx") %>"><i class="icon-cog"></i>Sirket Ayarları</a></li>
+                                <li><a href="#"><i class="icon-bell-alt"></i>Bildirimler</a></li>
+                                <li><a href="<%= ResolveUrl("~/fabrika/Kullanici/KullaniciProfil.aspx") %>"><i class="icon-key"></i>Şifre Değiştir</a></li>
+                                <li>
+                                    <asp:LinkButton ID="btnCikis" runat="server" OnClick="btnCikis_Click">
+                                          <i class="icon-key"></i> Çıkış Yap
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- kullanıcı login dropdown bitiş -->
+                        <li>
+                            <input type="text" class="form-control search" placeholder="Ara">
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <!--header end-->
+            <!--sidebar start-->
+            <aside>
+                <div id="sidebar" class="nav-collapse ">
+                    <!-- sidebar menu start-->
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <asp:Literal ID="ltlMenu" runat="server"></asp:Literal>
+                    </ul>
+                    <!-- sidebar menu end-->
+                </div>
+            </aside>
+            <!--sidebar end-->
+            <!--main content start-->
+            <section id="main-content">
+                <section class="wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!--breadcrumbs start -->
+                            <ul class="breadcrumb">
+                                <li><a href="<%= ResolveUrl("~/fabrika/Default.aspx") %>"><i class="icon-home"></i> Anasayfa</a></li>
+                                <li><a href="#">
+                                    <asp:Label ID="lblKlasörAdi" runat="server" Text="Label"></asp:Label></a></li>
+                                <li class="active">
+                                    <asp:Label ID="lblSayfaAdi" runat="server" Text="Label"></asp:Label></li>
+                            </ul>
+                            <!--breadcrumbs end -->
+                        </div>
+                    </div>
+                    <!--state overview start-->
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                </section>
+            </section>
+            <!--main content end-->
+            <!--footer start-->
+            <footer class="site-footer">
+                <div class="text-center">
+                    2025 &copy; Zeytinyağı Fabrikası Yönetim Paneli.
+                    <a href="../App_Themes/serdarnas_admin_flat/#" class="go-top">
+                        <i class="icon-angle-up"></i>
+                    </a>
+                </div>
+            </footer>
+            <!--footer end-->
+        </section>
+    </form>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery-1.8.3.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/bootstrap.min.js") %>"></script>
+    <script class="include" type="text/javascript" src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.dcjqaccordion.2.7.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.scrollTo.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.nicescroll.js") %>" type="text/javascript"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.sparkline.js") %>" type="text/javascript"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/owl.carousel.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.customSelect.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/respond.min.js") %>"></script>
+    <script class="include" type="text/javascript" src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/jquery.dcjqaccordion.2.7.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/common-scripts.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/sparkline-chart.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/easy-pie-chart.js") %>"></script>
+    <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/count.js") %>"></script>
+
+    <script>
+
+        //owl carousel
+
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true,
+                autoPlay: true
+
+            });
+        });
+
+        //custom select box
+
+        $(function () {
+            $('select.styled').customSelect();
+        });
+
+    </script>
+
+</body>
+</html>

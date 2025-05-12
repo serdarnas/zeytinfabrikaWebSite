@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class fabrika_YapimAsamasinda : System.Web.UI.Page
+{
+    protected int RemainingSeconds = 0;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        var master = this.Master as fabrika_FabrikaMasterPage;
+        if (master != null)
+        {
+            master.KlasorAdi = "Fabrika";
+            master.SayfaAdi = "Yapim Aşamasinda";
+        }
+        // 45 gün sonrası için bitiş tarihi
+        DateTime endDate = DateTime.Today.AddDays(45);
+        DateTime now = DateTime.Now;
+        if (now < endDate)
+        {
+            RemainingSeconds = (int)(endDate - now).TotalSeconds;
+        }
+        else
+        {
+            RemainingSeconds = 0;
+        }
+    }
+}

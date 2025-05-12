@@ -1,0 +1,251 @@
+/* Zeytin Fabrikası Dashboard Styles */
+
+/* Custom Card Styles */
+.card {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    background-color: transparent;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+}
+
+/* Badge Styles */
+.badge {
+    padding: 0.5em 0.8em;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+.bg-primary {
+    background-color: #007bff !important;
+}
+
+.bg-info {
+    background-color: #17a2b8 !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Tab Navigation Styles */
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 1.5rem;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.8rem 1.5rem;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #007bff;
+}
+
+.nav-tabs .nav-link.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    background-color: transparent;
+}
+
+/* Progress Circular */
+.progress-circular {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    background: #f8f9fa;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.progress-circular.blue {
+    background: #f0f7ff;
+}
+
+.progress-circular::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    border: 8px solid #e9ecef;
+}
+
+.progress-circular::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    border-top-color: #28a745;
+    border-right-color: #28a745;
+    border-bottom-color: #28a745;
+    transform: rotate(45deg);
+}
+
+.progress-circular.blue::after {
+    border-top-color: #007bff;
+    border-right-color: #007bff;
+    border-bottom-color: #007bff;
+}
+
+.progress-circular-inner {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: white;
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-circular-content {
+    text-align: center;
+}
+
+.progress-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #212529;
+    display: block;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Progress Bar */
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    border-radius: 4px;
+}
+
+/* Customer Stats */
+.stat-item {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.stat-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #212529;
+    margin-top: 5px;
+}
+
+/* Chart Placeholder */
+.placeholder-chart {
+    border-radius: 4px;
+}
+
+/* List Group */
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    padding: 12px 15px;
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Table */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+}
+
+.table td, .table th {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 1.5rem;
+    color: #495057;
+    font-weight: 400;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 0.5rem;
+}
+
+/* Responsive Fixes */
+@media (max-width: 767.98px) {
+    .progress-circular {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .progress-value {
+        font-size: 22px;
+    }
+    
+    .progress-text {
+        font-size: 12px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}

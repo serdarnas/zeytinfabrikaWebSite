@@ -1,0 +1,168 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="YonetimMasterPage.master.cs" Inherits="yonetim_YonetimMasterPage" %>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zeytin Fabrikası Yönetim Paneli">
+    <meta name="author" content="Zeytin Fabrikası">
+    <link rel="shortcut icon" href="/App_Themes/serdarnas_admin_flat/img/favicon.png">
+
+    <title>Zeytin Fabrikası Yönetim</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/App_Themes/serdarnas_admin_flat/css/style.css" rel="stylesheet">
+    <link href="/App_Themes/serdarnas_admin_flat/css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="/App_Themes/serdarnas_admin_flat/js/html5shiv.js"></script>
+      <script src="/App_Themes/serdarnas_admin_flat/js/respond.min.js"></script>
+    <![endif]-->
+    
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <section id="container" class="">
+            <!--header start-->
+            <header class="header white-bg">
+                <div class="sidebar-toggle-box">
+                    <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
+                </div>
+                <!--logo start-->
+                <a href="/yonetim/Default.aspx" class="logo">Zeytin<span>Fabrikası</span></a>
+                <!--logo end-->
+                
+                <div class="top-nav ">
+                    <ul class="nav pull-right top-menu">
+                        <!-- user login dropdown start-->
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" src="/App_Themes/serdarnas_admin_flat/img/avatar1_small.jpg">
+                                <span class="username"><asp:Label ID="lblKullaniciAdi" runat="server" Text="Yönetici"></asp:Label></span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                <div class="log-arrow-up"></div>
+                                <li><a href="/fabrika/Kullanici/YeniKullanici.aspx?KullaniciID=1"><i class="fa fa-user"></i> Profil</a></li>
+                                <li><a href="/yonetim/Ayarlar.aspx"><i class="fa fa-cog"></i> Ayarlar</a></li>
+                                <li><a href="/yonetim/login.aspx?cikis=1"><i class="fa fa-key"></i> Çıkış Yap</a></li>
+                            </ul>
+                        </li>
+                        <!-- user login dropdown end -->
+                    </ul>
+                </div>
+            </header>
+            <!--header end-->
+            
+            <!--sidebar start-->
+            <aside>
+                <div id="sidebar" class="nav-collapse ">
+                    <!-- sidebar menu start-->
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <li>
+                            <a href="/yonetim/Default.aspx">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Ana Sayfa</span>
+                            </a>
+                        </li>
+                        
+                        <!-- Statik Menü -->
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-cogs"></i>
+                                <span>Sistem Yönetimi</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/yonetim/MenuYonetimi.aspx"><i class="fa fa-list"></i> Menü Yönetimi</a></li>
+                                <li><a href="/yonetim/KullaniciYetki.aspx"><i class="fa fa-key"></i> Kullanıcı Yetki</a></li>
+                                <li><a href="/yonetim/Ayarlar.aspx"><i class="fa fa-gear"></i> Sistem Ayarları</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Kullanıcı İşlemleri</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/fabrika/Kullanici/YeniKullanici.aspx"><i class="fa fa-user-plus"></i> Yeni Kullanıcı</a></li>
+                                <li><a href="/fabrika/Kullanici/KullaniciListesi.aspx"><i class="fa fa-users"></i> Kullanıcı Listesi</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-file-text-o"></i>
+                                <span>Rapor İşlemleri</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/fabrika/Rapor/SatisRaporlari.aspx"><i class="fa fa-line-chart"></i> Satış Raporları</a></li>
+                                <li><a href="/fabrika/Rapor/CariRaporlar.aspx"><i class="fa fa-pie-chart"></i> Cari Raporlar</a></li>
+                                <li><a href="/fabrika/Rapor/StokRaporlari.aspx"><i class="fa fa-bar-chart"></i> Stok Raporları</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- sidebar menu end-->
+                </div>
+            </aside>
+            <!--sidebar end-->
+            
+            <!--main content start-->
+            <section id="main-content">
+                <section class="wrapper site-min-height">
+                    <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </section>
+            </section>
+            <!--main content end-->
+            
+            <!--footer start-->
+            <footer class="site-footer">
+                <div class="text-center">
+                    2023 &copy; Zeytin Fabrikası Yönetim Sistemi
+                    <a href="#" class="go-top">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </footer>
+            <!--footer end-->
+        </section>
+
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="/App_Themes/serdarnas_admin_flat/js/jquery.js"></script>
+        <script src="/App_Themes/serdarnas_admin_flat/js/bootstrap.min.js"></script>
+        <script class="include" type="text/javascript" src="/App_Themes/serdarnas_admin_flat/js/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="/App_Themes/serdarnas_admin_flat/js/jquery.scrollTo.min.js"></script>
+        <script src="/App_Themes/serdarnas_admin_flat/js/jquery.nicescroll.js" type="text/javascript"></script>
+        <script src="/App_Themes/serdarnas_admin_flat/js/respond.min.js"></script>
+
+        <!--common script for all pages-->
+        <script src="/App_Themes/serdarnas_admin_flat/js/common-scripts.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+                // Aktif menü öğesini belirle
+                var currentUrl = window.location.pathname.toLowerCase();
+                $(".sidebar-menu a").each(function () {
+                    var linkUrl = $(this).attr("href").toLowerCase();
+                    if (currentUrl.indexOf(linkUrl) !== -1 && linkUrl !== '/yonetim/default.aspx') {
+                        $(this).parent().addClass("active");
+                        $(this).closest(".sub-menu").addClass("active");
+                        $(this).closest(".sub-menu").parent().addClass("active");
+                    }
+                });
+            });
+        </script>
+    </form>
+</body>
+</html>
