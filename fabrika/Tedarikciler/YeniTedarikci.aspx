@@ -5,8 +5,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    
     <!-- Modern CSS -->
     <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -24,14 +22,6 @@
                     </ul>
                 </header>
                 <div class="panel-body">
-                    <!-- Hata ve Başarı Mesajları -->
-                    <asp:Panel ID="pnlHata" runat="server" CssClass="alert alert-danger" Visible="false">
-                        <asp:Label ID="lblHata" runat="server" Text=""></asp:Label>
-                    </asp:Panel>
-                    <asp:Panel ID="pnlBasari" runat="server" CssClass="alert alert-success" Visible="false">
-                        <asp:Label ID="lblBasari" runat="server" Text=""></asp:Label>
-                    </asp:Panel>
-
                     <!-- Tablar -->
                     <div class="tab-content">
                         <!-- Temel Bilgiler -->

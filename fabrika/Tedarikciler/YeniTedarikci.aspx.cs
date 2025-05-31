@@ -69,14 +69,15 @@ public partial class fabrika_Tedarikciler_YeniTedarikci : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            ShowError("Tedarikçi yüklenirken hata: " + ex.Message);
+            //ShowError("Tedarikçi yüklenirken hata: " + ex.Message);
+            MessageHelper.ShowErrorMessage(this, "Yeni Tedarikçi", ex.Message);
         }
     }
 
     protected void btnKaydet_Click(object sender, EventArgs e)
     {
-        pnlHata.Visible = false;
-        pnlBasari.Visible = false;
+        //pnlHata.Visible = false;
+        //pnlBasari.Visible = false;
 
         if (string.IsNullOrWhiteSpace(txtFirmaAdi.Text))
         {
@@ -136,12 +137,15 @@ public partial class fabrika_Tedarikciler_YeniTedarikci : System.Web.UI.Page
 
     private void ShowError(string mesaj)
     {
-        pnlHata.Visible = true;
-        lblHata.Text = mesaj;
-    }
+        //pnlHata.Visible = true;
+        //lblHata.Text = mesaj;
+        MessageHelper.ShowErrorMessage(this, "Yeni Tedrikçi", mesaj);
+        }
     private void ShowSuccess(string mesaj)
     {
-        pnlBasari.Visible = true;
-        lblBasari.Text = mesaj;
+        //pnlBasari.Visible = true;
+        //lblBasari.Text = mesaj;
+
+        MessageHelper.ShowSuccessMessage(this, "Yeni Tedrikçi", mesaj);
     }
 }

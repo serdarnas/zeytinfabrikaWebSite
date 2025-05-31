@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Süreç Yönetim Ekranı - Zeytin İşletmesi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (İlk tasarıma uygun ve Süreç Yönetimi için eklemeler) -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: sans-serif;
+        }
+        .sidebar {
+            position: fixed; top: 0; bottom: 0; left: 0; z-index: 100;
+            padding: 48px 0 0; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #343a40;
+        }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: auto; }
+        .nav-link { color: #adb5bd; transition: color .15s ease-in-out, background-color .15s ease-in-out; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { color: #fff; background-color: #495057; }
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text-bottom; }
+        .navbar-brand { padding-top: .75rem; padding-bottom: .75rem; font-size: 1.2rem; background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25); color: #fff; }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }
+
+        /* Süreç Yönetim Ekranı Stilleri */
+        .process-board-container {
+            display: flex;
+            overflow-x: auto; /* Yatayda kaydırma */
+            padding-bottom: 1rem; /* Kaydırma çubuğu için boşluk */
+            gap: 1rem; /* Sütunlar arası boşluk */
+            min-height: calc(100vh - 150px); /* Navbar ve başlık sonrası yükseklik */
+        }
+        .process-column {
+            flex: 0 0 300px; /* Sabit sütun genişliği, ayarlanabilir */
+            background-color: #e9ecef; /* Sütun arka planı */
+            border-radius: 0.5rem;
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 2px solid #ced4da;
+        }
+        .column-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #495057;
+        }
+        .column-title .bi {
+            margin-right: 5px;
+            color: #6c757d;
+        }
+        .item-count {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background-color: #6c757d;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+        }
+        .process-cards-container {
+            flex-grow: 1;
+            overflow-y: auto; /* Sütun içi dikey kaydırma */
+            padding-right: 5px; /* Kaydırma çubuğu için */
+            min-height: 200px; /* Kartlar yokken bile bir yükseklik */
+        }
+        .process-card {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            cursor: grab; /* Sürükleme hissi */
+            transition: box-shadow 0.2s ease;
+        }
+        .process-card:hover {
+            box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+        }
+        .card-id {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0d6efd; /* Bootstrap primary */
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .card-details {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 0.3rem;
+        }
+        .card-details .bi {
+            margin-right: 3px;
+        }
+        .card-tags {
+            margin-top: 0.5rem;
+        }
+        .card-tag {
+            font-size: 0.7rem;
+            padding: 0.2em 0.5em;
+            margin-right: 0.3rem;
+            border-radius: 0.25rem;
+        }
+        .tag-priority-high { background-color: #dc3545; color: white; }
+        .tag-quality-issue { background-color: #ffc107; color: black; }
+        .tag-olive-type-gemlik { background-color: #20c997; color: white; }
+        /* Scrollbar Stilleri (Opsiyonel) */
+        ::-webkit-scrollbar { width: 6px; height: 6px;}
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px;}
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px;}
+        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav"> <div class="nav-item text-nowrap"> <a class="nav-link px-3" href="#"><i class="bi bi-box-arrow-right"></i> Çıkış Yap</a></div></div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-kanban-fill"></i> Süreç Yönetimi</a></li> <!-- Aktif -->
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-basket3-fill"></i> Zeytin Kabul</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-gear-wide-connected"></i> Üretim Takibi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-droplet-half"></i> Yağ Stokları</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-clipboard2-check-fill"></i> Kalite Kontrol</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-truck"></i> Sevkiyat ve Satış</a></li>
+                        <!-- Diğer menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Sayfa Başlığı ve Filtreler -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"><i class="bi bi-diagram-3-fill text-primary"></i> İş Akışı ve Süreç Yönetimi</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <input type="date" class="form-control form-control-sm" id="tarihFilterBaslangic" value="2023-10-01">
+                            <span class="align-self-center px-1">-</span>
+                            <input type="date" class="form-control form-control-sm" id="tarihFilterBitis" value="2023-10-31">
+                        </div>
+                        <select class="form-select form-select-sm me-2" style="width: auto;">
+                            <option selected>Tüm Ürün Tipleri</option>
+                            <option value="1">Erken Hasat NS</option>
+                            <option value="2">Olgun Hasat NS</option>
+                            <option value="3">Natürel Birinci</option>
+                        </select>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Filtrele</button>
+                    </div>
+                </div>
+
+                <!-- Süreç Sütunları (Kanban Board) -->
+                <div class="process-board-container" id="processBoard">
+                    <!-- Sütun: Zeytin Kabul -->
+                    <div class="process-column" data-stage="kabul">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-box-arrow-in-down"></i> Zeytin Kabul</span>
+                            <span class="item-count" id="count-kabul">3</span>
+                        </div>
+                        <div class="process-cards-container">
+                            <!-- Örnek Kart -->
+                            <div class="process-card" draggable="true" data-id="ZK108">
+                                <span class="card-id">#ZK108</span>
+                                <div class="card-details"><i class="bi bi-person-fill"></i> M. Çiftçi</div>
+                                <div class="card-details"><i class="bi bi-basket2-fill"></i> 2.5 Ton Gemlik</div>
+                                <div class="card-details"><i class="bi bi-calendar-event"></i> 28.10.23 10:30</div>
+                                <div class="card-tags">
+                                    <span class="card-tag tag-olive-type-gemlik">Gemlik</span>
+                                </div>
+                            </div>
+                             <div class="process-card" draggable="true" data-id="ZK109">
+                                <span class="card-id">#ZK109</span>
+                                <div class="card-details"><i class="bi bi-person-fill"></i> A. Tarım</div>
+                                <div class="card-details"><i class="bi bi-basket2-fill"></i> 1.8 Ton Ayvalık</div>
+                                <div class="card-details"><i class="bi bi-calendar-event"></i> 28.10.23 14:00</div>
+                            </div>
+                            <!-- Diğer kabul kartları -->
+                        </div>
+                    </div>
+
+                    <!-- Sütun: Üretim Bekleyen -->
+                    <div class="process-column" data-stage="uretim-bekleyen">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-hourglass-split"></i> Üretim Bekleyen</span>
+                            <span class="item-count" id="count-uretim-bekleyen">2</span>
+                        </div>
+                        <div class="process-cards-container">
+                             <div class="process-card" draggable="true" data-id="ZK107-P">
+                                <span class="card-id">#ZK107</span>
+                                <div class="card-details"><i class="bi bi-person-fill"></i> Koop. Birlik</div>
+                                <div class="card-details"><i class="bi bi-basket2-fill"></i> 4.2 Ton Memecik</div>
+                                <div class="card-details"><i class="bi bi-clock-history"></i> Bekleme: 12 Saat</div>
+                                 <div class="card-tags">
+                                    <span class="card-tag tag-priority-high">Öncelikli</span>
+                                </div>
+                            </div>
+                            <!-- Diğer üretim bekleyen kartlar -->
+                        </div>
+                    </div>
+
+                    <!-- Sütun: Üretimde -->
+                    <div class="process-column" data-stage="uretimde">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-gear-wide-connected"></i> Üretimde</span>
+                            <span class="item-count" id="count-uretimde">1</span>
+                        </div>
+                        <div class="process-cards-container">
+                            <div class="process-card" draggable="true" data-id="P087">
+                                <span class="card-id">#P087 (ZK106)</span>
+                                <div class="card-details"><i class="bi bi-funnel-fill"></i> Aşama: Yoğurma</div>
+                                <div class="card-details"><i class="bi bi-thermometer-half"></i> 26°C</div>
+                                <div class="card-details"><i class="bi bi-clock-fill"></i> Kalan: ~45 dk</div>
+                                <div class="progress mt-2" style="height: 8px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 65%;" aria-valuenow="65"></div>
+                                </div>
+                            </div>
+                            <!-- Diğer üretimdeki kartlar -->
+                        </div>
+                    </div>
+
+                    <!-- Sütun: Kalite Kontrol -->
+                     <div class="process-column" data-stage="kalite-kontrol">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-clipboard2-check-fill"></i> Kalite Kontrol</span>
+                            <span class="item-count" id="count-kalite">1</span>
+                        </div>
+                        <div class="process-cards-container">
+                            <div class="process-card" draggable="true" data-id="TNK01-NSH">
+                                <span class="card-id">Tank: TNK-01 NSH</span>
+                                <div class="card-details"><i class="bi bi-eyedropper"></i> Test: Asidite, Peroksit</div>
+                                <div class="card-details"><i class="bi bi-person-workspace"></i> Analist: AY</div>
+                                <div class="card-tags">
+                                    <span class="card-tag tag-quality-issue">Sonuç Bekliyor</span>
+                                </div>
+                            </div>
+                            <!-- Diğer kalite kontrol kartları -->
+                        </div>
+                    </div>
+
+                     <!-- Sütun: Stokta (Mamul) -->
+                     <div class="process-column" data-stage="stokta-mamul">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-droplet-half"></i> Stokta (Yağ)</span>
+                            <span class="item-count" id="count-stokta-mamul">2</span>
+                        </div>
+                        <div class="process-cards-container">
+                            <div class="process-card" draggable="true" data-id="TNK02-OH">
+                                <span class="card-id">Tank: TNK-02 Olgun H.</span>
+                                <div class="card-details"><i class="bi bi-moisture"></i> 3100 Lt</div>
+                                <div class="card-details"><i class="bi bi-patch-check-fill"></i> Kalite: Uygun</div>
+                            </div>
+                            <!-- Diğer stoktaki yağlar -->
+                        </div>
+                    </div>
+
+                    <!-- Sütun: Sevkiyat Bekleyen -->
+                     <div class="process-column" data-stage="sevkiyat-bekleyen">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-box-seam-fill"></i> Sevkiyat Bekleyen</span>
+                            <span class="item-count" id="count-sevkiyat">1</span>
+                        </div>
+                        <div class="process-cards-container">
+                             <div class="process-card" draggable="true" data-id="SP159">
+                                <span class="card-id">Sipariş #SP159</span>
+                                <div class="card-details"><i class="bi bi-person-badge-fill"></i> Bereket Gıda</div>
+                                <div class="card-details"><i class="bi bi-box2-fill"></i> 50 Koli Erken Hasat</div>
+                                <div class="card-details"><i class="bi bi-calendar-plus"></i> Teslim: 30.10.23</div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Sütun: Tamamlandı -->
+                     <div class="process-column" data-stage="tamamlandi">
+                        <div class="column-header">
+                            <span class="column-title"><i class="bi bi-check-circle-fill"></i> Tamamlandı</span>
+                            <span class="item-count" id="count-tamamlandi">5</span>
+                        </div>
+                        <div class="process-cards-container">
+                             <div class="process-card" draggable="true" data-id="SP158" style="opacity: 0.7;">
+                                <span class="card-id">Sipariş #SP158</span>
+                                <div class="card-details"><i class="bi bi-truck"></i> Sevk Edildi: 27.10.23</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- /process-board-container -->
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Opsiyonel: Kart Detay Modalı -->
+    <!-- <div class="modal fade" id="cardDetailModal" ...> ... </div> -->
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Basit Sürükle-Bırak (Drag and Drop) İşlevselliği (Temel Örnek)
+        const processBoard = document.getElementById('processBoard');
+        let draggedItem = null;
+
+        if (processBoard) {
+            processBoard.addEventListener('dragstart', (event) => {
+                if (event.target.classList.contains('process-card')) {
+                    draggedItem = event.target;
+                    setTimeout(() => {
+                        event.target.style.opacity = '0.5'; // Sürüklerken yarı saydam yap
+                    }, 0);
+                }
+            });
+
+            processBoard.addEventListener('dragend', (event) => {
+                if (draggedItem) {
+                    draggedItem.style.opacity = '1'; // Bırakınca normale döndür
+                    draggedItem = null;
+                }
+            });
+
+            const columns = processBoard.querySelectorAll('.process-column');
+            columns.forEach(column => {
+                column.addEventListener('dragover', (event) => {
+                    event.preventDefault(); // Bırakılabilir alan olduğunu belirt
+                    const cardsContainer = column.querySelector('.process-cards-container');
+                    // const afterElement = getDragAfterElement(cardsContainer, event.clientY);
+                });
+
+                column.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    if (draggedItem) {
+                        const cardsContainer = column.querySelector('.process-cards-container');
+                        // const afterElement = getDragAfterElement(cardsContainer, event.clientY);
+                        // if (afterElement == null) {
+                        //     cardsContainer.appendChild(draggedItem);
+                        // } else {
+                        //     cardsContainer.insertBefore(draggedItem, afterElement);
+                        // }
+                        cardsContainer.appendChild(draggedItem); // Basitçe sona ekle
+
+                        const oldStage = draggedItem.closest('.process-column').dataset.stage;
+                        const newStage = column.dataset.stage;
+                        const itemId = draggedItem.dataset.id;
+                        console.log(`Kart ${itemId}, ${oldStage} aşamasından ${newStage} aşamasına taşındı.`);
+                        // Burada backend'e güncelleme gönderilmeli.
+                        updateItemCounts();
+                    }
+                });
+            });
+        }
+
+        // function getDragAfterElement(container, y) {
+        //     const draggableElements = [...container.querySelectorAll('.process-card:not(.dragging)')];
+        //     return draggableElements.reduce((closest, child) => {
+        //         const box = child.getBoundingClientRect();
+        //         const offset = y - box.top - box.height / 2;
+        //         if (offset < 0 && offset > closest.offset) {
+        //             return { offset: offset, element: child };
+        //         } else {
+        //             return closest;
+        //         }
+        //     }, { offset: Number.NEGATIVE_INFINITY }).element;
+        // }
+
+        // Sütunlardaki eleman sayılarını güncelle
+        function updateItemCounts() {
+             const columns = processBoard.querySelectorAll('.process-column');
+             columns.forEach(column => {
+                 const stage = column.dataset.stage;
+                 const countElement = document.getElementById(`count-${stage}`);
+                 if(countElement) {
+                     countElement.textContent = column.querySelectorAll('.process-card').length;
+                 }
+             });
+        }
+        // Sayfa yüklendiğinde sayıları güncelle
+        document.addEventListener('DOMContentLoaded', updateItemCounts);
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

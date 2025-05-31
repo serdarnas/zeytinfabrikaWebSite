@@ -215,8 +215,8 @@ public partial class fabrika_Kullanici_YeniKullanici : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "Menü yetkileri yüklenirken bir hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this,"Yeni Kullanci", "Menü yetkileri yüklenirken bir hata oluştu: " + ex.Message);
+            
         }
     }
     
@@ -263,9 +263,8 @@ public partial class fabrika_Kullanici_YeniKullanici : System.Web.UI.Page
             }
         }
         catch (Exception ex)
-        {
-            pnlHata.Visible = true;
-            lblHata.Text = "Kullanıcı bilgileri yüklenirken bir hata oluştu: " + ex.Message;
+        { 
+            MessageHelper.ShowErrorMessage(this, "Yeni Kullanci", "Kullanıcı bilgileri yüklenirken bir hata oluştu: " + ex.Message);
         }
     }
     
@@ -298,13 +297,13 @@ public partial class fabrika_Kullanici_YeniKullanici : System.Web.UI.Page
             MenuYetkileriniKaydet(kullaniciID);
             
             // Başarılı mesajı göster
-            pnlBasari.Visible = true;
-            lblBasari.Text = _duzenlemeModu ? "Kullanıcı bilgileri başarıyla güncellendi." : "Kullanıcı başarıyla kaydedildi.";
+          
+            MessageHelper.ShowSuccessMessage(this, "Yeni Kullanci", "Kullanıcı bilgileri başarıyla güncellendi. ");
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = _duzenlemeModu ? "Kullanıcı güncellenirken bir hata oluştu: " : "Kullanıcı kaydedilirken bir hata oluştu: " + ex.Message;
+          
+            MessageHelper.ShowErrorMessage(this, "Yeni Kullanci", "Kullanıcı güncellenirken bir hata oluştu: " + ex.Message);
         }
     }
     

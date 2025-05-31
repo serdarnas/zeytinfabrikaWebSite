@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı: HAM YEŞİL ZEYTİN - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (Görsele ve ilk tasarıma uygun) -->
+    <style>
+        body {
+            background-color: #f0f2f5; /* Görseldeki gibi daha açık bir gri */
+            font-family: sans-serif;
+        }
+        .sidebar {
+            position: fixed; top: 0; bottom: 0; left: 0; z-index: 100;
+            padding: 48px 0 0; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #343a40;
+        }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: auto; }
+        .nav-link { color: #adb5bd; transition: color .15s ease-in-out, background-color .15s ease-in-out; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { color: #fff; background-color: #495057; }
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text-bottom; }
+        .navbar-brand { padding-top: .75rem; padding-bottom: .75rem; font-size: 1.2rem; background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25); color: #fff; }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }
+
+        .page-header {
+            background-color: #3b5998; /* Görseldeki maviye yakın */
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+        }
+        .page-header h1 {
+            margin-bottom: 0;
+            font-size: 1.75rem;
+        }
+        .vat-info {
+            background-color: #ffc107; /* KDV sarısı */
+            color: #212529;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .stat-card {
+            padding: 1.25rem;
+            border-radius: 0.375rem;
+            color: white;
+            margin-bottom: 1rem; /* Alt alta gelirse boşluk */
+            display: flex;
+            align-items: center;
+        }
+        .stat-card .stat-icon {
+            font-size: 2.5rem; /* İkon boyutu */
+            margin-right: 1rem;
+            opacity: 0.8;
+        }
+        .stat-card .stat-content .stat-label {
+            font-size: 0.85rem;
+            margin-bottom: 0.1rem;
+            opacity: 0.9;
+        }
+        .stat-card .stat-content .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .stat-card .stat-action-icon {
+            margin-left: auto;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .bg-stat-alis { background-color: #e9573f; } /* Kırmızımsı */
+        .bg-stat-satis { background-color: #52b6f2; } /* Mavi */
+        .bg-stat-stok { background-color: #5cb85c; } /* Yeşil */
+        .bg-stat-deger { background-color: #f0ad4e; } /* Turuncu/Sarı */
+
+        .action-buttons .btn {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem; /* Küçük ekranlarda alt alta gelirse */
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .transaction-panel .card-header {
+            background-color: #37474f; /* Koyu panel başlığı */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+        }
+         .transaction-panel .card-header .bi {
+             margin-right: 0.5rem;
+         }
+        .transaction-panel .card-header .btn-icon {
+            color: #adb5bd;
+            background: none;
+            border: none;
+            padding: 0.25rem 0.5rem;
+        }
+         .transaction-panel .card-header .btn-icon:hover {
+             color: white;
+         }
+        .transaction-panel .table {
+            margin-bottom: 0; /* Kart içinde alt boşluk olmasın */
+        }
+        .transaction-panel .table th {
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-top: none; /* Üst kenarlık yok */
+        }
+        .transaction-panel .table td {
+            font-size: 0.85rem;
+            vertical-align: middle;
+        }
+        .no-data-message {
+            background-color: #fff3cd; /* Sarımsı uyarı */
+            color: #664d03;
+            border: 1px solid #ffecb5;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav"> <div class="nav-item text-nowrap"> <a class="nav-link px-3" href="#"><i class="bi bi-box-arrow-right"></i> Çıkış Yap</a></div></div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-tags-fill"></i> Ürünler</a></li> <!-- Ürünler aktif olabilir -->
+                        <!-- Diğer menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Ürün Başlığı ve KDV -->
+                <div class="page-header">
+                    <nav aria-label="breadcrumb" class="mb-1">
+                      <ol class="breadcrumb breadcrumb-transparent small p-0 m-0">
+                        <li class="breadcrumb-item"><a href="#" class="text-white">Ürün Listesi</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Ürün Detayı</li>
+                      </ol>
+                    </nav>
+                    <h1>HAM YEŞİL ZEYTİN</h1>
+                    <div class="vat-info">KDV %1,00</div>
+                </div>
+
+                <!-- İstatistik Kartları -->
+                <div class="row g-3">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card bg-stat-alis">
+                            <i class="bi bi-cash-stack stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-label">Alış Fiyatı</div>
+                                <div class="stat-value">TL 40,00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card bg-stat-satis">
+                             <i class="bi bi-tag-fill stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-label">Satış Fiyatı</div>
+                                <div class="stat-value">TL 50,00</div>
+                            </div>
+                            <i class="bi bi-arrow-right-circle-fill stat-action-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                         <div class="stat-card bg-stat-stok">
+                             <i class="bi bi-hammer stat-icon"></i> <!-- Görseldeki gibi bir ikon -->
+                            <div class="stat-content">
+                                <div class="stat-label">Toplam Stok</div>
+                                <div class="stat-value">-30388 Adet</div> <!-- Görseldeki gibi Adet -->
+                            </div>
+                            <i class="bi bi-arrow-right-circle-fill stat-action-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card bg-stat-deger">
+                            <i class="bi bi-eye-fill stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-label">Stok Değeri</div>
+                                <div class="stat-value">₺ 0,00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aksiyon Butonları -->
+                <div class="my-4 action-buttons">
+                    <button class="btn btn-warning text-dark"><i class="bi bi-pencil-fill me-1"></i> Güncelle</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success"><i class="bi bi-arrow-down-circle-fill me-1"></i> Stoklara Giriş Yap</button>
+                        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Hızlı Giriş Formu</a></li>
+                            <li><a class="dropdown-item" href="#">İrsaliye ile Giriş</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-secondary"><i class="bi bi-clipboard-data-fill me-1"></i> Stok Ekstresi</button>
+                    <button class="btn btn-info text-white"><i class="bi bi-hdd-stack-fill me-1"></i> E-Ticaret Kodları</button>
+                    <button class="btn btn-danger"><i class="bi bi-currency-exchange me-1"></i> Rakip Fiyatları</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                           <i class="bi bi-three-dots-vertical me-1"></i> Diğer İşlemler
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Ürünü Pasife Al</a></li>
+                            <li><a class="dropdown-item" href="#">Stok Sayımı Başlat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#">Ürünü Sil</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- İşlem Geçmişi Panelleri -->
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card transaction-panel">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-cart-check"></i> ÖNCEKİ SATIŞLAR</span>
+                                <div>
+                                    <button class="btn-icon" title="Yenile"><i class="bi bi-arrow-clockwise"></i></button>
+                                    <button class="btn-icon" title="Daralt/Genişlet" data-bs-toggle="collapse" data-bs-target="#satislarTabloCollapse"><i class="bi bi-chevron-down"></i></button>
+                                </div>
+                            </div>
+                            <div class="collapse show" id="satislarTabloCollapse">
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr><th>Tarih</th><th>Müşteri</th><th>Miktar</th><th>Fiyat</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>18.03.2024</td><td>Arslan Gold International Dış Tica...</td><td>15000 ad</td><td>73,00 TL</td></tr>
+                                                <tr><td>12.03.2024</td><td>Arslan Gold International Dış Tica...</td><td>10750 ad</td><td>77,00 TL</td></tr>
+                                                <tr><td>28.02.2024</td><td>SUNMA ZEYTİNCİLİK KUYUMCULUK SANAY...</td><td>4638 ad</td><td>48,3829 TL</td></tr>
+                                                <!-- Daha fazla satış kaydı -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                         <div class="card transaction-panel">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-cart-plus"></i> ÖNCEKİ ALIŞLAR</span>
+                                <div>
+                                    <button class="btn-icon" title="Yenile"><i class="bi bi-arrow-clockwise"></i></button>
+                                    <button class="btn-icon" title="Daralt/Genişlet" data-bs-toggle="collapse" data-bs-target="#alislarTabloCollapse"><i class="bi bi-chevron-down"></i></button>
+                                </div>
+                            </div>
+                             <div class="collapse show" id="alislarTabloCollapse">
+                                <div class="card-body">
+                                    <!-- Örnek: Alış yoksa mesaj -->
+                                    <div class="no-data-message">
+                                        Bu üründen hiç alış yapılmamış.
+                                    </div>
+                                    <!-- Alış varsa tablo:
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr><th>Tarih</th><th>Tedarikçi</th><th>Miktar</th><th>Alış Fiyatı</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>15.02.2024</td><td>Güvenilir Tedarikçi A.Ş.</td><td>50000 ad</td><td>38,00 TL</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 50px;"></div> <!-- Sayfa sonuna biraz boşluk -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

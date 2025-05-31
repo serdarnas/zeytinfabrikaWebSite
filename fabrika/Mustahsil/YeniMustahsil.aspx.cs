@@ -2,6 +2,7 @@
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Linq;
+using System.Web.Services;
 
 public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
 {
@@ -36,6 +37,71 @@ public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
             {
                 btnKaydet.Text = "Müstahsili Kaydet";
             }
+            
+            // TC Kimlik Numarası için JavaScript olayını kaydet
+            SetupTCKimlikValidation();
+        }
+    }
+
+    private void SetupTCKimlikValidation()
+    {
+        // TC Kimlik Numarası değiştiğinde kontrol eden JavaScript kodu
+        string script = @"
+            function checkTCKimlik() {
+                var tcKimlik = $('#" + txtTCKimlikNo.ClientID + @"').val();
+                if (tcKimlik && tcKimlik.length === 11) {
+                    // Ajax çağrısı ile TC Kimlik No kontrolü
+                    $.ajax({
+                        type: 'POST',
+                        url: '" + ResolveUrl("~/fabrika/Mustahsil/YeniMustahsil.aspx/CheckTCKimlikNo") + @"',
+                        data: JSON.stringify({ tcKimlikNo: tcKimlik }),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function(response) {
+                            var result = response.d;
+                            if (result && result.Exists) {
+                                if (confirm('Bu TC Kimlik Numarası ile kayıtlı bir müstahsil bulunmaktadır. Bilgilerini getirmek ister misiniz?')) {
+                                    window.location.href = 'YeniMustahsil.aspx?id=' + result.MustahsilID;
+                                }
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('TC Kimlik kontrolünde hata: ' + error);
+                        }
+                    });
+                }
+            }
+
+            $(document).ready(function() {
+                $('#" + txtTCKimlikNo.ClientID + @"').on('blur', checkTCKimlik);
+            });";
+
+        ScriptManager.RegisterStartupScript(this, GetType(), "TCKimlikValidation", script, true);
+    }
+
+    [WebMethod]
+    public static object CheckTCKimlikNo(string tcKimlikNo)
+    {
+        if (string.IsNullOrEmpty(tcKimlikNo) || tcKimlikNo.Length != 11)
+        {
+            return new { Exists = false };
+        }
+
+        try
+        {
+            using (var db = new FabrikaDataClassesDataContext())
+            {
+                var mustahsil = db.Mustahsillers.Where(m => m.TCKimlikNo != null && m.TCKimlikNo == tcKimlikNo).FirstOrDefault();
+                if (mustahsil != null)
+                {
+                    return new { Exists = true, MustahsilID = mustahsil.MustahsilID };
+                }
+                return new { Exists = false };
+            }
+        }
+        catch
+        {
+            return new { Exists = false, Error = true };
         }
     }
 
@@ -47,7 +113,8 @@ public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
             {
                 var m = db.Mustahsillers.FirstOrDefault(x => x.MustahsilID == id);
                 if (m != null)
-                {txtAd.Text = m.Ad;
+                {
+                    txtAd.Text = m.Ad;
                     txtSoyad.Text = m.Soyad;
                     txtTCKimlikNo.Text = m.TCKimlikNo;
                     txtTelefon.Text = m.Telefon;
@@ -72,8 +139,7 @@ public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
 
     protected void btnKaydet_Click(object sender, EventArgs e)
     {
-        pnlHata.Visible = false;
-        pnlBasari.Visible = false;
+        
 
         if (string.IsNullOrWhiteSpace(txtAd.Text))
         {
@@ -84,6 +150,33 @@ public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
         {
             ShowError("Soyad alanı zorunludur.");
             return;
+        }
+
+        // TC Kimlik No benzersizlik kontrolü
+        if (!string.IsNullOrWhiteSpace(txtTCKimlikNo.Text))
+        {
+            try
+            {
+                using (var db = new FabrikaDataClassesDataContext())
+                {
+
+                    string tcKimlik = txtTCKimlikNo.Text;
+                    int _sirketID = SessionHelper.GetSirketID();
+                    Mustahsiller existingMustahsil = db.Mustahsillers.Where(m => m.SirketID == _sirketID && m.TCKimlikNo == tcKimlik).FirstOrDefault();
+
+                    if (existingMustahsil != null)
+                    {
+                        MessageHelper.ShowErrorMessage(this, "Yeni Müstahsil", "Bu TC Kimlik Numarası başka bir müstahsil tarafından kullanılmaktadır. Lütfen kontrol ediniz. ");
+                        
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError("TC Kimlik Numarası kontrolünde hata: " + ex.Message);
+                return;
+            }
         }
 
         try
@@ -121,8 +214,12 @@ public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
                 mustahsil.Durum = cbAktif.Checked;
 
                 db.SubmitChanges();
+                
+                // Kayıt işlemi başarılı ise
+                MustahsilID = mustahsil.MustahsilID;
+                btnKaydet.Text = "Güncelle";
+                ShowSuccess(MustahsilID.HasValue ? "Müstahsil başarıyla güncellendi." : "Müstahsil başarıyla kaydedildi.");
             }
-            ShowSuccess(MustahsilID.HasValue ? "Müstahsil başarıyla güncellendi." : "Müstahsil başarıyla kaydedildi.");
         }
         catch (Exception ex)
         {
@@ -131,13 +228,43 @@ public partial class fabrika_Mustahsil_YeniMustahsil : System.Web.UI.Page
     }
 
     private void ShowError(string mesaj)
-    {
-        pnlHata.Visible = true;
-        lblHata.Text = mesaj;
+    { 
+        
+        // Gritter bildirimi ekle
+        ScriptManager.RegisterStartupScript(this, GetType(), "ShowErrorNotification", 
+            string.Format("showErrorMessage('Hata', '{0}');", mesaj.Replace("'", "\\'")), true);
     }
+
     private void ShowSuccess(string mesaj)
     {
-        pnlBasari.Visible = true;
-        lblBasari.Text = mesaj;
+        
+        
+        // Gritter bildirimi ekle
+        ScriptManager.RegisterStartupScript(this, GetType(), "ShowSuccessNotification", 
+            string.Format("showSuccessMessage('Başarılı', '{0}');", mesaj.Replace("'", "\\'")), true);
+    }
+
+    protected void txtTCKimlikNo_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            using (var db = new FabrikaDataClassesDataContext())
+            {
+                string tcKimlik = txtTCKimlikNo.Text;
+                int _sirketID = SessionHelper.GetSirketID();
+                Mustahsiller existingMustahsil = db.Mustahsillers.Where(m =>m.SirketID==_sirketID&&m.TCKimlikNo== tcKimlik).FirstOrDefault();
+
+                if (existingMustahsil != null)
+                {
+                    ShowError("Bu TC Kimlik Numarası başka bir müstahsil tarafından kullanılmaktadır. Lütfen kontrol ediniz.");
+                    return;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowError("TC Kimlik Numarası kontrolünde hata: " + ex.Message);
+            return;
+        }
     }
 }

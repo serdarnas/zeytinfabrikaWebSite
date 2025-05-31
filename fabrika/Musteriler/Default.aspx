@@ -74,17 +74,17 @@
                             <ItemTemplate>
                                 <tr>
                                     <td>
-                                        <div style="background: #4fc3f7; color: white; border-radius: 6px; padding: 8px 12px; margin-bottom: 4px;">
-                                            <a href='MusteriDetay.aspx?id=<%# Eval("MusteriID") %>' style="color: white; text-decoration: none; font-weight: bold;">
+                                        <div style=" border-radius: 6px; padding: 8px 12px; margin-bottom: 4px;">
+                                            <a href='MusteriDetay.aspx?id=<%# Eval("MusteriID") %>' style="  text-decoration: none; font-weight: bold;">
                                                 <%# Eval("FirmaAdi") %>
                                             </a>
-                                            <span style="background: #66bb6a; color: white; border-radius: 4px; padding: 2px 8px; margin-left: 10px; font-weight: bold;">
+                                           <%-- <span style=  border-radius: 4px; padding: 2px 8px; margin-left: 10px; font-weight: bold;">
                                                 <%# Eval("Telefon") %>
-                                            </span>
+                                            </span>--%>
                                         </div>
                                     </td>
                                     <td>
-                                        <span style="background: #1976d2; color: white; border-radius: 4px; padding: 4px 10px; font-size: 13px;">
+                                        <span style="  border-radius: 4px; padding: 4px 10px; font-size: 13px;">
                                             <%# Eval("KategoriAdi") %>
                                         </span>
                                     </td>

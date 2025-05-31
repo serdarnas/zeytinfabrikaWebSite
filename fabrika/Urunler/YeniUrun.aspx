@@ -1,232 +1,653 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/fabrika/FabrikaMasterPage.master" AutoEventWireup="true" CodeFile="YeniUrun.aspx.cs" Inherits="fabrika_Urunler_YeniUrun" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/fabrika/FabrikaMasterPage.master" AutoEventWireup="true" CodeFile="YeniUrun.aspx.cs" Inherits="fabrika_Urunler_YeniUrun" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+
+    <!-- Modern CSS -->
+    <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/App_Themes/serdarnas_admin_flat/css/style.css" rel="stylesheet" />
+    <link href="/App_Themes/serdarnas_admin_flat/css/style-responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/App_Themes/serdarnas_admin_flat/assets/jquery-multi-select/css/multi-select.css" />
+
     <div class="row">
-        <div class="col-lg-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <h3>Yeni Ürün Kayit</h3>
-                </header>
-                <!-- İşlem Butonları -->
-                <div class="panel-body">
-                    <div class="btn-group">
-                        <%--<asp:Button ID="btnKaydet" runat="server" Text="Kaydet" CssClass="btn btn-shadow btn-success" Style="margin-right: 5px;"/>--%>
-                        <asp:LinkButton ID="btnKaydet" runat="server" CssClass="btn btn-shadow btn-success" Style="margin-right: 5px;" OnClick="btnKaydet_Click">
-                            <i class="icon-file-text"></i> Kaydet
-                        </asp:LinkButton>
-                        <asp:HyperLink ID="hplbtnGeriDon" runat="server" CssClass="btn btn-shadow btn-warning" NavigateUrl="~/fabrika/Urunler/UrunListesi.aspx"><i class="icon-arrow-left"></i>Geri Dön</asp:HyperLink>
-
-
-
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-11">
-            <!--widget start-->
+        <div class="col-md-10 col-md-offset-1">
             <section class="panel">
                 <header class="panel-heading tab-bg-dark-navy-blue">
-                    <ul class="nav nav-tabs nav-justified ">
-                        <li class="active">
-                            <a href="#tanim" data-toggle="tab">Tanimlar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#fiyat" data-toggle="tab">Fiyat
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#detaylar" data-toggle="tab">Detaylar
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#resimler" data-toggle="tab">Resimler
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#varyant" data-toggle="tab">Varyanlar
-                            </a>
-                        </li>
-                        
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a href="#temel" data-toggle="tab"><i class="fa fa-info-circle"></i>Temel Bilgiler</a></li>
+                        <li><a href="#fiyat" data-toggle="tab"><i class="fa fa-money"></i>Fiyat Bilgileri</a></li>
+                        <li><a href="#detay" data-toggle="tab"><i class="fa fa-list"></i>Detaylar</a></li>
+                        <li><a href="#resimler" data-toggle="tab"><i class="fa fa-picture-o"></i>Resimler</a></li>
+                        <li><a href="#varyant" data-toggle="tab"><i class="fa fa-th"></i>Varyantlar</a></li>
+                        <li><a href="#paketleme" data-toggle="tab"><i class="fa fa-cube"></i>Paketleme & Lojistik</a></li>
                     </ul>
                 </header>
                 <div class="panel-body">
-                    <div class="tab-content tasi-tab">
-                        <div class="tab-pane active" id="tanim">
-                            <asp:Panel ID="pnlUrunForm" runat="server">
-                                <asp:HiddenField ID="hfUrunID" runat="server" />
+
+                    <div class="tab-content">
+                        <!-- Temel Bilgiler -->
+                        <div class="tab-pane fade in active" id="temel">
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-cube"></i>Ürün Adı <span class="text-danger">*</span></label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                                            <asp:TextBox ID="txtUrunAdi" runat="server" CssClass="form-control" placeholder="Ürün Adı" />
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-tags"></i>Kategori</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                                            <asp:DropDownList ID="ddlKategoriID" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <span class="input-group-btn">
+                                                <asp:Button ID="Button1" runat="server" CssClass="btn btn-success" Text="+ Yeni" data-toggle="modal" data-target="#modalYeniKategori" type="button" />
+                                                --
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-balance-scale"></i>Birim</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+                                            <asp:DropDownList ID="ddlBirimID" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-money"></i>Para Birimi</label>
+                                    <div class="col-sm-4">
+                                        <asp:DropDownList ID="ddlParaBirimiID" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="TL" Value="1" />
+                                            <asp:ListItem Text="USD" Value="2" />
+                                            <asp:ListItem Text="EUR" Value="3" />
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
 
 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-warning"></i>Ürün Durumlari</label>
+                                    <div class="col-lg-8">
+                                        <div class="checkbox-inline">
+                                            <asp:CheckBox ID="chkUrunTipiStoklu" runat="server" Text="Stoklu Ürün" /><br />
+                                            <asp:CheckBox ID="chkDurum" runat="server" Text="Aktif" /><br />
+                                            <asp:CheckBox ID="chkMamul" runat="server" Text="Manul" /><br />
+                                            <asp:CheckBox ID="chkYariMamul" runat="server" Text="Yari Mamul" /><br />
+                                            <asp:CheckBox ID="chkPerakendeSatisVarmi" runat="server" Text="Perekende Satiş Var" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="txtUrunAdi">Ürün Adı</label>
-                                        <asp:TextBox ID="txtUrunAdi" runat="server" CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="ddlKategoriID">Kategori</label>
-                                        <asp:DropDownList ID="ddlKategoriID" runat="server" CssClass="form-control"></asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="ddlBirimID">Birim</label>
-                                        <asp:DropDownList ID="ddlBirimID" runat="server" CssClass="form-control"></asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="txtStokMiktari">Stok Miktarı</label>
-                                        <asp:TextBox ID="txtStokMiktari" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="txtMinimumStok">Minimum Stok</label>
-                                        <asp:TextBox ID="txtMinimumStok" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="chkUrunTipiStoklu">Stoklu Ürün</label>
-                                        <asp:CheckBox ID="chkUrunTipiStoklu" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="chkDurum">Durum (Aktif/Pasif)</label>
-                                        <asp:CheckBox ID="chkDurum" runat="server" />
-                                    </div>
-                                </div>
-                             
-                            </asp:Panel>
-                        </div>
-                        <div class="tab-pane" id="fiyat">
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="txtAlisFiyati">Alış Fiyatı</label>
-                                    <asp:TextBox ID="txtAlisFiyati" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="txtAlisKdv">Alış KDV</label>
-                                    <asp:TextBox ID="txtAlisKdv" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="ddlAlisParaBirimi">Alış Para Birimi</label>
-                                    <asp:DropDownList ID="ddlAlisParaBirimi" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="chkAlisFiyatiKdvDahilmi">Alış Fiyatı KDV Dahil mi?</label>
-                                    <asp:CheckBox ID="chkAlisFiyatiKdvDahilmi" runat="server" />
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="txtSatisFiyati">Satış Fiyatı</label>
-                                    <asp:TextBox ID="txtSatisFiyati" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="txtSatisKdv">Satış KDV</label>
-                                    <asp:TextBox ID="txtSatisKdv" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="ddlSatisParaBirimi">Satış Para Birimi</label>
-                                    <asp:DropDownList ID="ddlSatisParaBirimi" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="chkSatisFiyatiKdvDahilmi">Satış Fiyatı KDV Dahil mi?</label>
-                                    <asp:CheckBox ID="chkSatisFiyatiKdvDahilmi" runat="server" />
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="ddlParaBirimiID">Para Birimi</label>
-                                    <asp:DropDownList ID="ddlParaBirimiID" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="txtKDVOrani">KDV Oranı</label>
-                                    <asp:TextBox ID="txtKDVOrani" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane " id="detaylar">
+                        <!-- Fiyat Bilgileri -->
+                        <div class="tab-pane fade" id="fiyat">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-shopping-cart"></i>Alış Fiyatı</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-shopping-cart"></i></span>
+                                            <asp:TextBox ID="txtAlisFiyati" runat="server" CssClass="form-control" TextMode="Number" placeholder="0.00" />
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-percent"></i>Alış KDV</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                            <asp:TextBox ID="txtAlisKdv" runat="server" CssClass="form-control" TextMode="Number" placeholder="1" />
+                                        </div>
+                                    </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="ddlMarkaID">Marka</label>
-                                    <asp:DropDownList ID="ddlMarkaID" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    <div class="col-sm-3">
+                                        <div class="checkboxes">
+                                            <asp:CheckBox ID="chkAlisFiyatiKdvDahilmi" runat="server" Text="Alış Fiyatı KDV Dahil" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="txtUrunKodu">Ürün Kodu</label>
-                                    <asp:TextBox ID="txtUrunKodu" runat="server" CssClass="form-control"></asp:TextBox>
+
+                                    <label class="col-sm-2 control-label"><i class="fa fa-money"></i>Satış Fiyatı</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                            <asp:TextBox ID="txtSatisFiyati" runat="server" CssClass="form-control" TextMode="Number" placeholder="0.00" />
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label"><i class="fa fa-percent"></i>Satış KDV</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                            <asp:TextBox ID="txtSatisKdv" runat="server" CssClass="form-control" TextMode="Number" placeholder="1" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="checkboxes">
+                                            <asp:CheckBox ID="chkSatisFiyatiKdvDahilmi" runat="server" Text="Satış Fiyatı KDV Dahil" />
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="txtBarkod">Barkod</label>
-                                    <asp:TextBox ID="txtBarkod" runat="server" CssClass="form-control"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="txtNotlar">Notlar</label>
-                                    <asp:TextBox ID="txtNotlar" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="txtOlusturmaTarihi">Oluşturma Tarihi</label>
-                                    <asp:TextBox ID="txtOlusturmaTarihi" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-money"></i>Perakende Fiyatı</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                            <asp:TextBox ID="txtPerakendeSatisFiyati" runat="server" CssClass="form-control" TextMode="Number" placeholder="0.00" />
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-percent"></i>KDV Oranı</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                            <asp:TextBox ID="txtKDVOrani" runat="server" CssClass="form-control" TextMode="Number" placeholder="1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="checkboxes">
+                                            <asp:CheckBox ID="chkPerakendeSatisKdvDahilmi" runat="server" Text="Perakende Fiyatı KDV Dahil" />
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="resimler">
-                            <asp:FileUpload ID="fuResimler" runat="server" AllowMultiple="true" CssClass="form-control" />
-                            <asp:Button ID="btnResimYukle" runat="server" Text="Resimleri Yükle" CssClass="btn btn-info" OnClick="btnResimYukle_Click" />
-                            <hr />
-                            <asp:Repeater ID="rptResimler" runat="server">
-                                <ItemTemplate>
-                                    <div class="col-md-3" style="margin-bottom:10px;">
-                                        <asp:Image ID="imgUrunResim" runat="server" ImageUrl='<%# Eval("ImageUrl") %>' CssClass="img-thumbnail" Width="150" Height="150" />
+                        <!-- Detaylar -->
+                        <div class="tab-pane fade" id="detay">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-trademark"></i>Marka</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-trademark"></i></span>
+                                            <asp:DropDownList ID="ddlMarkaID" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        </div>
                                     </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-barcode"></i>Ürün Kodu</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                            <asp:TextBox ID="txtUrunKodu" runat="server" CssClass="form-control" placeholder="Ürün Kodu" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-warning"></i>Minimum Stok</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-warning"></i></span>
+                                            <asp:TextBox ID="txtMinimumStok" runat="server" CssClass="form-control" TextMode="Number" placeholder="0" />
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label"><i class="fa fa-cubes"></i>Stok Miktarı</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                                            <asp:TextBox ID="txtStokMiktari" runat="server" CssClass="form-control" TextMode="Number" placeholder="0" />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-barcode"></i>Barkod</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                            <asp:TextBox ID="txtBarkod" runat="server" CssClass="form-control" placeholder="Barkod" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-sticky-note"></i>Notlar</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-sticky-note"></i></span>
+                                            <asp:TextBox ID="txtNotlar" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Notlar" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="varyant">
-                            Varyantlar
+                        <!-- Resimler -->
+                        <div class="tab-pane fade" id="resimler">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-upload"></i>Resim Yükle</label>
+                                    <div class="col-sm-8">
+                                        <asp:FileUpload ID="fuResimler" runat="server" AllowMultiple="true" CssClass="form-control" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <asp:Button ID="btnResimYukle" runat="server" Text="Yükle" CssClass="btn btn-primary btn-block" OnClick="btnResimYukle_Click" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <asp:Repeater ID="rptResimler" runat="server">
+                                            <ItemTemplate>
+                                                <div class="col-md-3" style="margin-bottom: 10px;">
+                                                    <div class="thumbnail">
+                                                        <asp:Image ID="imgUrunResim" runat="server" ImageUrl='<%# Eval("ImageUrl") %>' CssClass="img-responsive" />
+                                                    </div>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Varyantlar -->
+                        <div class="tab-pane fade" id="varyant">
+                            <div class="form-horizontal">
+                                <asp:UpdatePanel ID="upVaryant" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <asp:CheckBox ID="chkVaryantKullan" runat="server" AutoPostBack="true" OnCheckedChanged="chkVaryantKullan_CheckedChanged" Text="Bu ürün için varyant kullan" />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <asp:Panel ID="pnlVaryantlar" runat="server" Visible="false">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label"><i class="fa fa-list"></i>Varyant Türü</label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                                                        <asp:DropDownList ID="ddlVaryantTuru" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlVaryantTuru_SelectedIndexChanged"></asp:DropDownList>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label"><i class="fa fa-sitemap"></i>Varyant Seçimi</label>
+                                                <div class="col-sm-10">
+                                                    <select multiple="multiple" class="multi-select" id="varyantSecici" name="varyantSecici[]">
+                                                    </select>
+                                                    <span class="help-block">Birden fazla varyant seçmek için CTRL tuşuna basılı tutarak seçim yapabilirsiniz.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label"><i class="fa fa-image"></i>Varyant Resmi</label>
+                                                <div class="col-sm-8">
+                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                        <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                                            <img src="/App_Themes/serdarnas_admin_flat/img/no-image.png" alt="Resim yok" />
+                                                        </div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                        <div>
+                                                            <span class="btn btn-white btn-file">
+                                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i>Resim Seç</span>
+                                                                <span class="fileupload-exists"><i class="fa fa-undo"></i>Değiştir</span>
+                                                                <asp:FileUpload ID="fuVaryantResim" runat="server" class="default" />
+                                                            </span>
+                                                            <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i>Sil</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <asp:Button ID="btnVaryantEkle" runat="server" Text="Ekle" CssClass="btn btn-success btn-block" OnClick="btnVaryantEkle_Click" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <asp:GridView ID="gvVaryantlar" runat="server" CssClass="table table-striped table-bordered table-hover" AutoGenerateColumns="false"
+                                                        OnRowCommand="gvVaryantlar_RowCommand" OnRowEditing="gvVaryantlar_RowEditing" OnRowDeleting="gvVaryantlar_RowDeleting"
+                                                        OnRowUpdating="gvVaryantlar_RowUpdating" OnRowCancelingEdit="gvVaryantlar_RowCancelingEdit">
+                                                        <Columns>
+                                                            <asp:BoundField DataField="VaryantID" HeaderText="ID" ReadOnly="true" />
+                                                            <asp:BoundField DataField="VaryantTuru" HeaderText="Varyant Türü" />
+                                                            <asp:BoundField DataField="VaryantDegeri" HeaderText="Varyant Değeri" />
+                                                            <asp:TemplateField HeaderText="Resim">
+                                                                <ItemTemplate>
+                                                                    <asp:Image ID="imgVaryant" runat="server" ImageUrl='<%# Eval("ResimYolu") %>' Width="50" Height="50" CssClass="img-thumbnail" />
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>
+                                                            <asp:TemplateField HeaderText="İşlemler">
+                                                                <ItemTemplate>
+                                                                    <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" CssClass="btn btn-danger btn-xs" ToolTip="Sil"
+                                                                        OnClientClick="return confirm('Bu varyantı silmek istediğinizden emin misiniz?');">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </asp:LinkButton>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>
+                                                        </Columns>
+                                                    </asp:GridView>
+                                                </div>
+                                            </div>
+                                        </asp:Panel>
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="chkVaryantKullan" EventName="CheckedChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="ddlVaryantTuru" EventName="SelectedIndexChanged" />
+                                        <asp:PostBackTrigger ControlID="btnVaryantEkle" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                        <!-- Paketleme & Lojistik -->
+                        <div class="tab-pane fade" id="paketleme">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Ürün Net Ağırlık (Ürün gr)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtUrunNetAgirlik_gr" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ürün Net Ağırlık (gr)" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">Ürün Brüt Ağırlık (Ürün + Ambalaj gr)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtUrunBurutAgirlik_gr" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ürün Brüt Ağırlık (gr)" />
+                                    </div>
+                                </div>
+                                <!-- Koli Bilgileri -->
+                                <div class="form-section-title"><i class="fa fa-dropbox"></i>Koli Bilgileri</div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Koli İçi Ürün Adedi</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtKoliIciAdet" runat="server" CssClass="form-control" TextMode="Number" placeholder="Koli İçi Adet" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">Koli Boyutları (cm)</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <asp:TextBox ID="txtKoliUzunluk" runat="server" CssClass="form-control" TextMode="Number" placeholder="U" Style="min-width: 70px; max-width: 110px;" />
+                                            <span class="input-group-addon">x</span>
+                                            <asp:TextBox ID="txtKoliGenislik" runat="server" CssClass="form-control" TextMode="Number" placeholder="G" Style="min-width: 70px; max-width: 110px;" />
+                                            <span class="input-group-addon">x</span>
+                                            <asp:TextBox ID="txtKoliYukseklik" runat="server" CssClass="form-control" TextMode="Number" placeholder="Y" Style="min-width: 70px; max-width: 110px;" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Koli Brüt Ağırlığı (Kg)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtKoliBrutAgirlik" runat="server" CssClass="form-control" TextMode="Number" placeholder="Brüt Ağırlık" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">Koli Net Ağırlığı (Kg)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtKoliNetAgirlik" runat="server" CssClass="form-control" TextMode="Number" placeholder="Net Ağırlık" ReadOnly="true" />
+                                        <span class="form-text">Ürün ağırlığı ve adedine göre otomatik hesaplanır.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Koli Hacmi (m³)</label>
+                                    <div class="col-sm-4">
+                                        <div class="calculated-value" id="koliHacmiHesaplanan">-</div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Koli Malzemesi</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtKoliMalzemesi" runat="server" CssClass="form-control" placeholder="Örn: Oluklu Mukavva B Dalga" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Koli Barkodu</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtKoliBarkodu" runat="server" CssClass="form-control" placeholder="GTIN-14 / ITF-14" />
+                                    </div>
+                                </div>
+                                <!-- Palet Bilgileri -->
+                                <div class="form-section-title"><i class="fa fa-cubes"></i>Palet Bilgileri</div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Palet Tipi</label>
+                                    <div class="col-sm-4">
+                                        <asp:DropDownList ID="ddlPaletTipi" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="Euro Palet (80x120cm)" Value="euro_80x120" Selected="True" />
+                                            <asp:ListItem Text="Standart Palet (100x120cm)" Value="standart_100x120" />
+                                            <asp:ListItem Text="Özel Boyut" Value="custom" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-sm-6" id="customPaletBoyutlari" style="display: none;">
+                                        <div class="input-group">
+                                            <asp:TextBox ID="txtPaletUzunlukCustom" runat="server" CssClass="form-control" TextMode="Number" placeholder="Uzunluk" />
+                                            <span class="input-group-addon">x</span>
+                                            <asp:TextBox ID="txtPaletGenislikCustom" runat="server" CssClass="form-control" TextMode="Number" placeholder="Genişlik" />
+                                            <span class="input-group-addon">cm</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Paletteki Koli Sayısı</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtPalettekiKoliSayisi" runat="server" CssClass="form-control" TextMode="Number" placeholder="Paletteki Koli" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">Paletteki Toplam Ürün</label>
+                                    <div class="col-sm-4">
+                                        <div class="calculated-value" id="palettekiUrunAdediHesaplanan">-</div>
+                                        <span class="form-text">Koli içi adet ve koli sayısına göre otomatik hesaplanır.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Yüklü Palet Yüksekliği (cm)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtPaletYuksekligi" runat="server" CssClass="form-control" TextMode="Number" placeholder="Yüklü Palet Yüksekliği" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">Yüklü Palet Brüt Ağırlığı (Kg)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtPaletBrutAgirlik" runat="server" CssClass="form-control" TextMode="Number" placeholder="Brüt Ağırlık" ReadOnly="true" />
+                                        <span class="form-text">Koli ağırlığı ve sayısına göre otomatik hesaplanır (palet dara ağırlığı eklenebilir).</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Boş Palet Dara Ağırlığı (Kg)</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtPaletDaraAgirligi" runat="server" CssClass="form-control" TextMode="Number" placeholder="Dara Ağırlığı" Text="25" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">Paletleme Notları</label>
+                                    <div class="col-sm-4">
+                                        <asp:TextBox ID="txtPaletlemeNotlari" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" placeholder="Örn: Streç film ile sarılı, Köşe bentli, Maks. 5 kat istif vb." />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <div class="footer-legal">
-                <div class="form-group">
-                    <asp:Button ID="btnKaydet_" runat="server" Text="Kaydet" CssClass="btn btn-success" OnClick="btnKaydet_Click" />
-                    <asp:Button ID="btnGuncelle" runat="server" Text="Güncelle" CssClass="btn btn-primary" OnClick="btnGuncelle_Click" />
+
+                    <div class="form-group mt-4">
+                        <div class="col-sm-12 text-right">
+                            <asp:HyperLink ID="btnIptal" runat="server" CssClass="btn btn-default" NavigateUrl="~/fabrika/Urunler/UrunListesi.aspx">
+                            <i class="fa fa-times"></i> İptal
+                            </asp:HyperLink>
+                            <asp:Button ID="btnKaydet" runat="server" CssClass="btn btn-success" Text="Ürünü Kaydet" OnClick="btnKaydet_Click" />
+                        </div>
                     </div>
+
                 </div>
             </section>
-            <!--widget end-->
         </div>
     </div>
+    <!-- Tüm JS dosyaları ve kendi scriptleriniz buraya taşındı -->
+    <!-- Kendi scriptleriniz ve fonksiyonlarınız -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Tüm sayfa içi fonksiyonlarınız ve kodlarınız buraya taşındı
+            var multiSelectInitialized = false;
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+            function initializeMultiSelect() {
+                if (!$('#varyantSecici').length) {
+                    console.log('MultiSelect element not found');
+                    return;
+                }
+
+                try {
+                    if (multiSelectInitialized) {
+                        $('#varyantSecici').multiSelect('destroy');
+                        console.log('Previous MultiSelect instance destroyed');
+                    }
+
+                    $('#varyantSecici').multiSelect({
+                        selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Varyant Ara...'>",
+                        selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Seçili Varyantlarda Ara...'>",
+                        afterInit: function (ms) {
+                            var that = this,
+                                $selectableSearch = that.$selectableUl.prev(),
+                                $selectionSearch = that.$selectionUl.prev(),
+                                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                                .on('keydown', function (e) {
+                                    if (e.which === 40) {
+                                        that.$selectableUl.focus();
+                                        return false;
+                                    }
+                                });
+
+                            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                                .on('keydown', function (e) {
+                                    if (e.which == 40) {
+                                        that.$selectionUl.focus();
+                                        return false;
+                                    }
+                                });
+                        },
+                        afterSelect: function () {
+                            this.qs1.cache();
+                            this.qs2.cache();
+                        },
+                        afterDeselect: function () {
+                            this.qs1.cache();
+                            this.qs2.cache();
+                        }
+                    });
+                    multiSelectInitialized = true;
+                    console.log('MultiSelect initialized successfully');
+                } catch (e) {
+                    console.error('Error initializing multiSelect:', e);
+                }
+            }
+
+            function setupVaryantTurAjax() {
+                $('#<%= ddlVaryantTuru.ClientID %>').on('change', function () {
+                    var varyantTurID = $(this).val();
+                    if (varyantTurID != "0") {
+                        $.ajax({
+                            type: "POST",
+                            url: "YeniUrun.aspx/GetVaryantDegerleri",
+                            data: '{varyantTurID: ' + varyantTurID + '}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                $('#varyantSecici').empty();
+                                $.each(response.d, function (index, item) {
+                                    $('#varyantSecici').append($('<option></option>').val(item.VaryantDegerID).text(item.DegerAdi));
+                                });
+                                initializeMultiSelect(); // Re-initialize after populating options
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Varyant değerleri yüklenirken hata oluştu:", error);
+                            }
+                        });
+                    } else {
+                        $('#varyantSecici').empty();
+                        initializeMultiSelect(); // Re-initialize after clearing options
+                    }
+                });
+            }
+
+            function setupCheckboxVisuals() {
+                var d = document;
+                var gebtn = function (parEl, child) { return parEl.getElementsByTagName(child); };
+                var inputs = gebtn(d, 'input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'checkbox') {
+                        var parent = inputs[i].parentNode;
+                        if (parent.tagName.toLowerCase() == 'label' && parent.className.indexOf('label_check') != -1) {
+                            parent.className = inputs[i].checked ? 'label_check c_on' : 'label_check c_off';
+                            inputs[i].onclick = function () {
+                                var parent = this.parentNode;
+                                parent.className = this.checked ? 'label_check c_on' : 'label_check c_off';
+                            };
+                        }
+                    }
+                }
+            }
+
+            function setupKoliHesaplamalar() {
+                // Koli Net Ağırlık
+                var txtKoliIciAdet = $('#<%= txtKoliIciAdet.ClientID %>');
+                    var txtUrunNetAgirlik_gr = $('#<%= txtUrunNetAgirlik_gr.ClientID %>');
+                    var txtKoliNetAgirlik = $('#<%= txtKoliNetAgirlik.ClientID %>');
+
+                    function hesaplaKoliNetAgirlik() {
+                        var koliAdet = parseInt(txtKoliIciAdet.val());
+                        var urunNetAgirlik = parseFloat(txtUrunNetAgirlik_gr.val());
+                        if (!isNaN(koliAdet) && !isNaN(urunNetAgirlik)) {
+                            var netAgirlikKg = (koliAdet * urunNetAgirlik) / 1000;
+                            txtKoliNetAgirlik.val(netAgirlikKg.toFixed(2));
+                        } else {
+                            txtKoliNetAgirlik.val('');
+                        }
+                    }
+
+                    // Önce eski event'leri kaldır
+                    txtKoliIciAdet.off('input', hesaplaKoliNetAgirlik);
+                    txtUrunNetAgirlik_gr.off('input', hesaplaKoliNetAgirlik);
+
+                    // Sonra tekrar bağla
+                    txtKoliIciAdet.on('input', hesaplaKoliNetAgirlik);
+                    txtUrunNetAgirlik_gr.on('input', hesaplaKoliNetAgirlik);
+
+                    // Sayfa ilk açıldığında da hesaplama yap
+                    hesaplaKoliNetAgirlik();
+                }
+
+            initializeMultiSelect();
+            setupVaryantTurAjax();
+            setupCheckboxVisuals();
+            setupKoliHesaplamalar();
+
+            // Handle partial postbacks
+            prm.add_endRequest(function () {
+                initializeMultiSelect();
+                setupVaryantTurAjax();
+                setupCheckboxVisuals();
+                setupKoliHesaplamalar();
+            });
+        });
+    </script>
+
+    <script>
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+            if ($('#modalYeniKategori').length > 0 && $('#txtYeniKategoriAdi').val() === '') {
+                $('#modalYeniKategori').modal('hide');
+            }
+        });
+    </script>
+
+    <!-- Yeni Kategori Modal -->
+    <div class="modal fade" id="modalYeniKategori" tabindex="-1" role="dialog" aria-labelledby="modalYeniKategoriLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="formYeniKategori">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalYeniKategoriLabel">Yeni Kategori Ekle</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Kapat"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="txtYeniKategoriAdi">Kategori Adı</label>
+                            <asp:TextBox ID="txtYeniKategoriAdi" runat="server" CssClass="form-control" placeholder="Kategori Adı" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btnKategoriKaydet" runat="server" CssClass="btn btn-success" Text="Kaydet" OnClick="btnKategoriKaydet_Click" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
+<asp:Content ID="scripts" ContentPlaceHolderID="scripts" runat="server"></asp:Content>
 

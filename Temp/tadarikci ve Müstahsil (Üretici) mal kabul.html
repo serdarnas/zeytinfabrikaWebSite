@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Zeytin Kabul Kaydı - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (İlk tasarıma uygun) -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: sans-serif;
+        }
+        .sidebar {
+            position: fixed; top: 0; bottom: 0; left: 0; z-index: 100;
+            padding: 48px 0 0; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #343a40;
+        }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: auto; }
+        .nav-link { color: #adb5bd; transition: color .15s ease-in-out, background-color .15s ease-in-out; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { color: #fff; background-color: #495057; }
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text-bottom; }
+        .navbar-brand { padding-top: .75rem; padding-bottom: .75rem; font-size: 1.2rem; background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25); color: #fff; }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }
+        .card { border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card-header { background-color: #e9ecef; font-weight: 600; padding: 1rem 1.25rem; }
+        .card-header i { margin-right: 8px; }
+        .card-body { padding: 1.5rem; } /* Form için padding */
+        .form-label { font-weight: 500; }
+        .btn-success { background-color: #198754; border-color: #198754; }
+        .btn-success:hover { background-color: #157347; border-color: #146c43; }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav"> <div class="nav-item text-nowrap"> <a class="nav-link px-3" href="#"><i class="bi bi-box-arrow-right"></i> Çıkış Yap</a></div></div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-basket3-fill"></i> Zeytin Kabul</a></li> <!-- Aktif -->
+                        <!-- Diğer menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Sayfa Başlığı ve Breadcrumb -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb bg-transparent p-0 m-0">
+                            <li class="breadcrumb-item"><a href="#">Zeytin Kabul İşlemleri</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Yeni Kayıt Ekle</li>
+                          </ol>
+                        </nav>
+                        <h1 class="h2"><i class="bi bi-box-arrow-in-down text-success"></i> Yeni Zeytin Kabul Kaydı</h1>
+                    </div>
+                </div>
+
+                <!-- Yeni Kayıt Formu -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-pencil-square"></i> Zeytin Giriş Bilgileri
+                    </div>
+                    <div class="card-body">
+                        <form id="yeniZeytinKabulForm" class="row g-3 needs-validation" novalidate>
+                            <div class="col-md-12">
+                                <label class="form-label">Alım Kaynağı</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="alimKaynagi" id="kaynakMustahsil" value="mustahsil" checked required>
+                                        <label class="form-check-label" for="kaynakMustahsil">Müstahsil (Üretici)</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="alimKaynagi" id="kaynakTedarikci" value="tedarikci" required>
+                                        <label class="form-check-label" for="kaynakTedarikci">Tedarikçi</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="partiNo" class="form-label">Parti No / Referans</label>
+                                <input type="text" class="form-control" id="partiNo" placeholder="Örn: P2023-109" required>
+                                <div class="invalid-feedback">Lütfen parti numarasını girin.</div>
+                            </div>
+
+                            <!-- Müstahsil Seçim Alanı (Alım Kaynağı Müstahsil ise görünür) -->
+                            <div class="col-md-6" id="mustahsilSecimAlani">
+                                <label for="mustahsilId" class="form-label">Müstahsil (Üretici)</label>
+                                <select class="form-select" id="mustahsilId">
+                                    <option selected disabled value="">Müstahsil Seçiniz...</option>
+                                    <option value="1">Mehmet Çiftçi (TC: 11122233344)</option>
+                                    <option value="2">Ayşe Tarım (TC: 22233344455)</option>
+                                    <!-- Bu liste backend'den doldurulmalı -->
+                                </select>
+                                <div class="invalid-feedback">Lütfen müstahsili seçin.</div>
+                            </div>
+
+                            <!-- Tedarikçi Seçim Alanı (Alım Kaynağı Tedarikçi ise görünür) -->
+                            <div class="col-md-6" id="tedarikciSecimAlani" style="display: none;">
+                                <label for="tedarikciId" class="form-label">Tedarikçi</label>
+                                <select class="form-select" id="tedarikciId">
+                                    <option selected disabled value="">Tedarikçi Seçiniz...</option>
+                                    <option value="101">XYZ Tarım Ürünleri A.Ş.</option>
+                                    <option value="102">Bereketli Topraklar Kooperatifi</option>
+                                    <!-- Bu liste backend'den doldurulmalı -->
+                                </select>
+                                <div class="invalid-feedback">Lütfen tedarikçiyi seçin.</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="gelisTarihi" class="form-label">Geliş Tarihi ve Saati</label>
+                                <input type="datetime-local" class="form-control" id="gelisTarihi" required>
+                                <div class="invalid-feedback">Lütfen geliş tarih ve saatini seçin.</div>
+                            </div>
+                            <!-- Tedarikçi için ek alanlar (Fatura, İrsaliye) -->
+                            <div class="col-md-3" id="faturaNoAlani" style="display: none;">
+                                <label for="faturaNo" class="form-label">Fatura No</label>
+                                <input type="text" class="form-control" id="faturaNo">
+                            </div>
+                            <div class="col-md-3" id="irsaliyeNoAlani" style="display: none;">
+                                <label for="irsaliyeNo" class="form-label">İrsaliye No</label>
+                                <input type="text" class="form-control" id="irsaliyeNo">
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label for="zeytinTuru" class="form-label">Zeytin Cinsi</label>
+                                <select class="form-select" id="zeytinTuru" required>
+                                    <option selected disabled value="">Cins Seçiniz...</option>
+                                    <option value="Gemlik">Gemlik</option>
+                                    <option value="Ayvalık">Ayvalık</option>
+                                    <option value="Memecik">Memecik</option>
+                                    <option value="Edremit">Edremit</option>
+                                    <option value="Domat">Domat</option>
+                                    <option value="Trilye">Trilye</option>
+                                    <option value="Diğer">Diğer</option>
+                                </select>
+                                <div class="invalid-feedback">Lütfen zeytin cinsini seçin.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="zeytinSinifi" class="form-label">Zeytin Sınıfı/Kalitesi</label>
+                                <select class="form-select" id="zeytinSinifi" required>
+                                    <option selected disabled value="">Sınıf Seçiniz...</option>
+                                    <option value="elenmemis_karisik">Elenmemiş Karışık</option>
+                                    <option value="1_numara">1 Numara (İri)</option>
+                                    <option value="2_numara">2 Numara</option>
+                                    <option value="3_numara">3 Numara</option>
+                                    <option value="4_numara">4 Numara</option>
+                                    <option value="5_numara">5 Numara (Ufak)</option>
+                                    <option value="yaglik">Yağlık</option>
+                                    <option value="dip">Dip Zeytini</option>
+                                </select>
+                                <div class="invalid-feedback">Lütfen zeytin sınıfını seçin.</div>
+                            </div>
+                             <div class="col-md-4">
+                                <label for="miktarBrut" class="form-label">Brüt Miktar (Kg)</label>
+                                <div class="input-group">
+                                     <input type="number" step="0.1" class="form-control" id="miktarBrut" placeholder="Kantar Okuması" required min="1">
+                                     <span class="input-group-text">Kg</span>
+                                     <div class="invalid-feedback">Lütfen brüt miktarı girin.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="fireOrani" class="form-label">Fire Oranı (%) (Opsiyonel)</label>
+                                <div class="input-group">
+                                     <input type="number" step="0.1" class="form-control" id="fireOrani" placeholder="Yaprak, dal vb.">
+                                     <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                             <div class="col-md-6">
+                                <label for="miktarNet" class="form-label">Net Miktar (Kg)</label>
+                                <div class="input-group">
+                                     <input type="number" step="0.1" class="form-control" id="miktarNet" readonly required>
+                                     <span class="input-group-text">Kg</span>
+                                     <div class="invalid-feedback">Net miktar hesaplanamadı.</div>
+                                </div>
+                            </div>
+
+                             <div class="col-md-4">
+                                <label for="aracPlaka" class="form-label">Araç Plakası (Opsiyonel)</label>
+                                <input type="text" class="form-control" id="aracPlaka" placeholder="Örn: 16 ABC 123">
+                            </div>
+                             <div class="col-md-4">
+                                <label for="kasaTipiAdet" class="form-label">Kasa Tipi ve Adedi (Opsiyonel)</label>
+                                <input type="text" class="form-control" id="kasaTipiAdet" placeholder="Örn: Plastik Kasa x 50">
+                            </div>
+                             <div class="col-md-4">
+                                <label for="teslimAlan" class="form-label">Teslim Alan Personel</label>
+                                <input type="text" class="form-control" id="teslimAlan" required>
+                                <div class="invalid-feedback">Teslim alan personel bilgisini girin.</div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <h5 class="text-muted">İlk Kalite Değerlendirmesi (Gözlem)</h5>
+                                <hr class="my-2">
+                            </div>
+                            <!-- Kalite Değerlendirme Alanları (Önceki gibi) -->
+                            <div class="col-md-3"> <label for="yabanciMadde" class="form-label">Yabancı Madde</label> <select class="form-select" id="yabanciMadde"><option selected value="dusuk">Düşük</option><option value="orta">Orta</option><option value="yuksek">Yüksek</option></select> </div>
+                            <div class="col-md-3"> <label for="eziklikDurumu" class="form-label">Eziklik/Hasar</label> <select class="form-select" id="eziklikDurumu"><option selected value="az">Az/Yok</option><option value="orta">Orta</option><option value="cok">Çok</option></select> </div>
+                            <div class="col-md-3"> <label for="hastalikZararli" class="form-label">Hastalık/Zararlı</label> <select class="form-select" id="hastalikZararli"><option selected value="yok">Yok</option><option value="az">Az</option><option value="belirgin">Belirgin</option></select> </div>
+                            <div class="col-md-3"> <label for="genelGörünüm" class="form-label">Görünüm/Olgunluk</label> <select class="form-select" id="genelGörünüm"><option selected value="cok_iyi">Çok İyi</option><option value="iyi">İyi</option><option value="orta">Orta</option><option value="zayif">Zayıf</option></select> </div>
+
+                             <div class="col-12">
+                                <label for="kabulNotlari" class="form-label">Kabul Notları (Opsiyonel)</label>
+                                <textarea class="form-control" id="kabulNotlari" rows="3" placeholder="Özel durumlar, müstahsil/tedarikçi talepleri vb."></textarea>
+                            </div>
+
+                            <div class="col-12 text-end mt-4">
+                                <a href="#" class="btn btn-outline-secondary me-2">İptal Et / Listeye Dön</a>
+                                <button class="btn btn-success btn-lg" type="submit"><i class="bi bi-save2-fill me-2"></i> Kaydı Tamamla</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Bootstrap Form Doğrulama JS
+        (() => {
+          'use strict'; const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) { event.preventDefault(); event.stopPropagation(); }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+
+        // Net Miktar Hesaplama
+        const miktarBrutInput = document.getElementById('miktarBrut');
+        const fireOraniInput = document.getElementById('fireOrani');
+        const miktarNetInput = document.getElementById('miktarNet');
+        function calculateNetMiktar() {
+            const brut = parseFloat(miktarBrutInput.value); const fire = parseFloat(fireOraniInput.value);
+            if (!isNaN(brut)) { miktarNetInput.value = (!isNaN(fire) && fire >= 0 && fire < 100) ? (brut * (1 - (fire / 100))).toFixed(2) : brut.toFixed(2); }
+            else { miktarNetInput.value = ''; }
+        }
+        if (miktarBrutInput && fireOraniInput && miktarNetInput) {
+            miktarBrutInput.addEventListener('input', calculateNetMiktar);
+            fireOraniInput.addEventListener('input', calculateNetMiktar);
+        }
+
+        // Alım Kaynağına Göre Alanları Göster/Gizle
+        const alimKaynagiRadiolari = document.querySelectorAll('input[name="alimKaynagi"]');
+        const mustahsilSecimAlani = document.getElementById('mustahsilSecimAlani');
+        const tedarikciSecimAlani = document.getElementById('tedarikciSecimAlani');
+        const mustahsilSelect = document.getElementById('mustahsilId');
+        const tedarikciSelect = document.getElementById('tedarikciId');
+        const faturaNoAlani = document.getElementById('faturaNoAlani');
+        const irsaliyeNoAlani = document.getElementById('irsaliyeNoAlani');
+
+        alimKaynagiRadiolari.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'mustahsil') {
+                    mustahsilSecimAlani.style.display = 'block';
+                    mustahsilSelect.required = true;
+                    tedarikciSecimAlani.style.display = 'none';
+                    tedarikciSelect.required = false;
+                    tedarikciSelect.value = ''; // Tedarikçi seçimini temizle
+                    faturaNoAlani.style.display = 'none';
+                    irsaliyeNoAlani.style.display = 'none';
+                    document.getElementById('faturaNo').value = ''; // Fatura No'yu temizle
+                    document.getElementById('irsaliyeNo').value = ''; // İrsaliye No'yu temizle
+                } else if (this.value === 'tedarikci') {
+                    mustahsilSecimAlani.style.display = 'none';
+                    mustahsilSelect.required = false;
+                    mustahsilSelect.value = ''; // Müstahsil seçimini temizle
+                    tedarikciSecimAlani.style.display = 'block';
+                    tedarikciSelect.required = true;
+                    faturaNoAlani.style.display = 'block';
+                    irsaliyeNoAlani.style.display = 'block';
+                }
+            });
+        });
+        // Başlangıçta müstahsil seçili olduğu için müstahsil alanını `required` yap
+        if(mustahsilSelect) mustahsilSelect.required = true;
+
+
+        // Form Gönderimi (Simülasyon)
+        const yeniZeytinKabulForm = document.getElementById('yeniZeytinKabulForm');
+        if (yeniZeytinKabulForm) {
+            yeniZeytinKabulForm.addEventListener('submit', function(event) {
+                // Alım kaynağına göre doğru select'in seçilip seçilmediğini kontrol et
+                const seciliAlimKaynagi = document.querySelector('input[name="alimKaynagi"]:checked').value;
+                if (seciliAlimKaynagi === 'mustahsil' && !mustahsilSelect.value) {
+                    mustahsilSelect.setCustomValidity("Lütfen bir müstahsil seçin.");
+                } else {
+                    mustahsilSelect.setCustomValidity("");
+                }
+                if (seciliAlimKaynagi === 'tedarikci' && !tedarikciSelect.value) {
+                    tedarikciSelect.setCustomValidity("Lütfen bir tedarikçi seçin.");
+                } else {
+                    tedarikciSelect.setCustomValidity("");
+                }
+
+                if (this.checkValidity()) {
+                    event.preventDefault();
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => data[key] = value);
+                    console.log("Gönderilecek Zeytin Kabul Verisi:", data);
+                    alert("Yeni zeytin kabul kaydı başarıyla oluşturuldu! (Simülasyon)");
+                } else {
+                    event.preventDefault(); // Form geçerli değilse göndermeyi engelle
+                    event.stopPropagation();
+                }
+                this.classList.add('was-validated'); // Doğrulama stillerini her durumda göster
+            });
+        }
+
+        // Sayfa yüklendiğinde varsayılan tarih ve saati ayarla
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const gelisTarihiInput = document.getElementById('gelisTarihi');
+            if (gelisTarihiInput) {
+                const now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                gelisTarihiInput.value = now.toISOString().slice(0,16);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

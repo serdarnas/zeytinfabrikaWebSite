@@ -11,7 +11,8 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
 {
     public string KlasorAdi
     {
-        get { return lblKlasörAdi.Text; }set { lblKlasörAdi.Text = value; }
+        get { return lblKlasörAdi.Text; }
+        set { lblKlasörAdi.Text = value; }
     }
 
     public string SayfaAdi
@@ -20,9 +21,31 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         set { lblSayfaAdi.Text = value; }
     }
 
+    //public string SayfaHata
+    //{
+    //    get { return lblHata.Text; }
+    //    set { lblHata.Text = value; }
+    //}
+    //public string Sayfabilgi
+    //{
+    //    get { return lblSayfabilgi.Text; }
+    //    set { lblSayfabilgi.Text = value; }
+    //}
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        //if (lblHata != null)
+        //{
+        //    pnlHata.Visible = true; 
+        //}
+
+        //if (lblSayfabilgi != null)
+        //{
+        //    pnlBilgi.Visible = true; 
+        //}
+
         YetkiHelper.TumMenuYetkileriniVer(SessionHelper.GetKullaniciID());
+
         if (!IsPostBack)
         {
             // Kullanıcı giriş yapmış mı kontrol et
@@ -52,7 +75,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
 
             // URL'leri düzenle - ResolveUrl kullanarak tüm URL'leri düzenle
             menuHtml = DuzenleResolveUrl(menuHtml);
-            
+
             // Menüleri sayfaya ekle
             ltlMenu.Text = menuHtml;
 
@@ -73,17 +96,17 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
     {
         if (string.IsNullOrEmpty(html))
             return html;
-        
+
         // URL formatlarını düzenle
         html = html.Replace("href='~/", "href='" + ResolveUrl("~/"));
         html = html.Replace("href=\"~/", "href=\"" + ResolveUrl("~/"));
-        
+
         // Olası çift fabrika durumlarını düzelt
         html = html.Replace("href='/fabrika/fabrika/", "href='/fabrika/");
         html = html.Replace("href=\"/fabrika/fabrika/", "href=\"/fabrika/");
         html = html.Replace("href='fabrika/fabrika/", "href='fabrika/");
         html = html.Replace("href=\"fabrika/fabrika/", "href=\"fabrika/");
-        
+
         return html;
     }
 
@@ -98,8 +121,8 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
             // Önce alt menülerde ara
             foreach (var anaMenu in menuler)
             {
-                var altMenu = anaMenu.AltMenuler.Find(m => 
-                    !string.IsNullOrEmpty(m.SayfaURL) && 
+                var altMenu = anaMenu.AltMenuler.Find(m =>
+                    !string.IsNullOrEmpty(m.SayfaURL) &&
                     currentUrl.EndsWith(m.SayfaURL, StringComparison.OrdinalIgnoreCase));
 
                 if (altMenu != null)
@@ -113,8 +136,8 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
             // Alt menülerde bulunamadıysa ana menülerde ara
             if (aktifMenu == null)
             {
-                aktifMenu = menuler.Find(m => 
-                    !string.IsNullOrEmpty(m.SayfaURL) && 
+                aktifMenu = menuler.Find(m =>
+                    !string.IsNullOrEmpty(m.SayfaURL) &&
                     currentUrl.EndsWith(m.SayfaURL, StringComparison.OrdinalIgnoreCase));
             }
 
@@ -160,7 +183,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         {
             // Forms Authentication çerezini temizle
             FormsAuthentication.SignOut();
-            
+
             // Diğer çerezleri temizle
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
             cookie.Expires = DateTime.Now.AddYears(-1);
@@ -174,7 +197,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
             System.Diagnostics.Debug.WriteLine("Çıkış yapma hatası: " + ex.Message);
         }
     }
-    
+
     /// <summary>
     /// Mevcut URL'ye göre ilgili menü öğesini aktif olarak işaretler
     /// </summary>
@@ -184,60 +207,60 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         {
             // Mevcut sayfa URL'sini al
             string currentUrl = Request.Url.AbsolutePath.ToLower();
-            
+
             // Sidebar menüsünü bul
             HtmlGenericControl sidebarMenu = (HtmlGenericControl)FindControl("nav-accordion");
             if (sidebarMenu == null)
             {
                 // ID'yi bulamadıysak CSS sınıfıyla deneme yapalım
                 var sidebarMenus = FindControl("sidebar").Controls.OfType<HtmlGenericControl>()
-                                 .Where(ul => ul.Attributes["class"] != null && 
+                                 .Where(ul => ul.Attributes["class"] != null &&
                                         ul.Attributes["class"].Contains("sidebar-menu")).FirstOrDefault();
-                
+
                 if (sidebarMenus != null)
                     sidebarMenu = sidebarMenus;
                 else
                     return; // Menü bulunamadı
             }
-            
+
             // Menu öğelerinin her birini kontrol et
             var menuItems = sidebarMenu.Controls.OfType<HtmlGenericControl>()
                             .Where(li => li.TagName.Equals("li", StringComparison.OrdinalIgnoreCase));
-            
+
             foreach (var menuItem in menuItems)
             {
                 // Önce mevcut sınıfı kontrol edelim
                 string currentClass = menuItem.Attributes["class"] ?? string.Empty;
-                
+
                 // Alt menü varsa (sub-menu sınıfına sahip mi?)
                 bool hasSubMenu = currentClass.Contains("sub-menu");
-                
+
                 if (hasSubMenu)
                 {
                     // Alt menü ul etiketini bul
                     var subMenu = menuItem.Controls.OfType<HtmlGenericControl>()
-                                    .FirstOrDefault(ul => ul.TagName.Equals("ul", StringComparison.OrdinalIgnoreCase) && 
-                                                    ul.Attributes["class"] != null && 
+                                    .FirstOrDefault(ul => ul.TagName.Equals("ul", StringComparison.OrdinalIgnoreCase) &&
+                                                    ul.Attributes["class"] != null &&
                                                     ul.Attributes["class"].Contains("sub"));
-                    
+
                     if (subMenu != null)
                     {
                         // Alt menüleri kontrol et
                         var subItems = subMenu.Controls.OfType<HtmlGenericControl>()
                                              .Where(li => li.TagName.Equals("li", StringComparison.OrdinalIgnoreCase));
-                        
+
                         bool subMenuActive = false;
-                        
+
                         foreach (var subItem in subItems)
                         {
                             // Alt menü bağlantısını bul
                             var anchor = subItem.Controls.OfType<HtmlAnchor>().FirstOrDefault();
                             if (anchor != null)
-                            {   
+                            {
                                 // Sayfanın URL'sini normalize et
                                 string href = NormalizeUrl(anchor.HRef.ToLower());
                                 string normalizedCurrentUrl = NormalizeUrl(currentUrl);
-                                
+
                                 if (normalizedCurrentUrl.EndsWith(href))
                                 {
                                     // Alt menüyü aktif et
@@ -246,7 +269,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
                                 }
                             }
                         }
-                        
+
                         // Ana menüyü aktif et (eğer alt menü aktifse)
                         if (subMenuActive)
                         {
@@ -267,7 +290,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
                         // Sayfanın URL'sini normalize et
                         string href = NormalizeUrl(anchor.HRef.ToLower());
                         string normalizedCurrentUrl = NormalizeUrl(currentUrl);
-                        
+
                         if (normalizedCurrentUrl.EndsWith(href))
                         {
                             // Menüyü aktif et
@@ -294,7 +317,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
             System.Diagnostics.Debug.WriteLine("SetActiveMenuItem Hatası: " + ex.Message);
         }
     }
-    
+
     /// <summary>
     /// URL'yi normalize eder, tekrarlanan yol segmentlerini kaldırır
     /// </summary>
@@ -302,14 +325,14 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
     {
         if (string.IsNullOrEmpty(url))
             return "";
-            
+
         // URL'den "fabrika/fabrika/" gibi tekrarları temizleme
         url = url.Replace("/fabrika/fabrika/", "/fabrika/");
         url = url.Replace("/Fabrika/Fabrika/", "/Fabrika/");
-        
+
         // Başındaki ve sonundaki '/' karakterini kaldırma
         url = url.Trim('/');
-        
+
         return url;
     }
 }

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- user-scalable=no dokunmatik için önemli -->
+    <title>Perakende Satış Ekranı</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts (Opsiyonel - Roboto iyi bir seçim olabilir) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #4CAF50; /* Yeşil tonu */
+            --secondary-color: #FFC107; /* Sarı/Altın tonu */
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --border-color: #dee2e6;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden; /* Sayfanın kaymasını engelle */
+            background-color: #e0e0e0; /* Ekran çerçevesi gibi bir arka plan */
+        }
+
+        .pos-container {
+            display: flex;
+            height: 100vh; /* Tam ekran yüksekliği */
+            padding: 10px; /* Kenar boşluğu */
+            gap: 10px;
+        }
+
+        .product-grid {
+            flex: 3; /* Ürünler alanı daha geniş */
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto; /* Ürünler çoksa scroll */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cart-section {
+            flex: 2; /* Sepet alanı biraz daha dar */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .category-tabs .nav-link {
+            color: var(--dark-text);
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 20px !important;
+            margin-right: 10px;
+            border: 1px solid transparent;
+        }
+        .category-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+         .category-tabs .nav-link:hover {
+             background-color: #e9ecef;
+         }
+
+        .product-card {
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+            background-color: #fff;
+            height: 100%; /* Kolon yüksekliğini doldur */
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 120px; /* Sabit yükseklik, veya aspect-ratio kullan */
+            object-fit: cover; /* Resmin orantılı sığması */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .product-card .card-body {
+            padding: 10px;
+            flex-grow: 1; /* İçeriğin kalan alanı doldurması */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card .product-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            min-height: 40px; /* İki satırlık isim için */
+            line-height: 1.2;
+        }
+        .product-card .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 5px; /* Scrollbar için boşluk */
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item-name {
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        .cart-item-quantity button {
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            color: var(--dark-text);
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            line-height: 1;
+            border-radius: 4px;
+        }
+        .cart-item-quantity input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ced4da;
+            border-left: none;
+            border-right: none;
+            height: 30px;
+            padding: 0;
+             font-size: 0.9rem;
+        }
+         .cart-item-price {
+            width: 80px;
+            text-align: right;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #dc3545;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+
+        .cart-summary {
+            padding-top: 15px;
+            border-top: 2px solid var(--primary-color);
+        }
+        .cart-summary .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .cart-summary .summary-row.total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .btn-checkout {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.2rem;
+            padding: 15px;
+            font-weight: 700;
+            border-radius: 8px;
+        }
+         .btn-checkout:hover {
+            background-color: #3e8e41;
+            color: white;
+         }
+         .btn-clear-cart {
+             font-size: 0.9rem;
+             color: #6c757d;
+         }
+         .btn-clear-cart:hover {
+             color: #dc3545;
+         }
+
+         /* Scrollbar Stilleri (Opsiyonel) */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px;}
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px;}
+        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+    </style>
+</head>
+<body>
+
+    <div class="pos-container">
+        <!-- Ürünler Alanı -->
+        <div class="product-grid">
+            <!-- Kategori Sekmeleri -->
+            <ul class="nav nav-pills mb-3 category-tabs" id="categoryTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="zeytinyagi-tab" data-bs-toggle="tab" data-bs-target="#zeytinyagi-pane" type="button" role="tab" aria-controls="zeytinyagi-pane" aria-selected="true"><i class="bi bi-droplet-fill me-1"></i> Zeytinyağları</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="zeytin-tab" data-bs-toggle="tab" data-bs-target="#zeytin-pane" type="button" role="tab" aria-controls="zeytin-pane" aria-selected="false"><i class="bi bi-basket3-fill me-1"></i> Zeytinler</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sabun-tab" data-bs-toggle="tab" data-bs-target="#sabun-pane" type="button" role="tab" aria-controls="sabun-pane" aria-selected="false"><i class="bi bi-brightness-alt-high-fill me-1"></i> Sabunlar</button>
+                </li>
+                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="diger-tab" data-bs-toggle="tab" data-bs-target="#diger-pane" type="button" role="tab" aria-controls="diger-pane" aria-selected="false"><i class="bi bi-box-seam me-1"></i> Diğer Ürünler</button>
+                </li>
+            </ul>
+
+            <!-- Ürün Kartları -->
+            <div class="tab-content" id="categoryTabContent">
+                <!-- Zeytinyağları Sekmesi -->
+                <div class="tab-pane fade show active" id="zeytinyagi-pane" role="tabpanel" aria-labelledby="zeytinyagi-tab" tabindex="0">
+                    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+                        <!-- Örnek Ürün Kartı -->
+                        <div class="col">
+                            <div class="card product-card" data-id="1" data-name="N. Sızma Erken Hasat 500ml" data-price="250.00">
+                                <img src="https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Erken+Hasat" alt="Erken Hasat Zeytinyağı">
+                                <div class="card-body">
+                                    <div class="product-name">N. Sızma Erken Hasat 500ml Cam Şişe</div>
+                                    <div class="product-price">₺250.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card product-card" data-id="2" data-name="N. Sızma Olgun Hasat 1L" data-price="450.00">
+                                <img src="https://via.placeholder.com/300x200/8BC34A/FFFFFF?text=Olgun+Hasat" alt="Olgun Hasat Zeytinyağı">
+                                <div class="card-body">
+                                    <div class="product-name">N. Sızma Olgun Hasat 1L Teneke</div>
+                                    <div class="product-price">₺450.00</div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col">
+                            <div class="card product-card" data-id="3" data-name="Organik N. Sızma 750ml" data-price="320.00">
+                                <img src="https://via.placeholder.com/300x200/388E3C/FFFFFF?text=Organik" alt="Organik Zeytinyağı">
+                                <div class="card-body">
+                                    <div class="product-name">Organik N. Sızma Filtresiz 750ml Koyu Cam</div>
+                                    <div class="product-price">₺320.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Daha fazla zeytinyağı ürünü buraya eklenebilir -->
+                         <div class="col"> <div class="card product-card" data-id="4" data-name="N. Birinci 5L Teneke" data-price="1800.00"> <img src="https://via.placeholder.com/300x200/CDDC39/000000?text=Natürel+Birinci" alt="Natürel Birinci"> <div class="card-body"> <div class="product-name">Natürel Birinci Yemeklik 5L Teneke</div> <div class="product-price">₺1800.00</div> </div> </div> </div>
+                         <div class="col"> <div class="card product-card" data-id="5" data-name="Taş Baskı Sızma 250ml" data-price="180.00"> <img src="https://via.placeholder.com/300x200/689F38/FFFFFF?text=Taş+Baskı" alt="Taş Baskı"> <div class="card-body"> <div class="product-name">Taş Baskı Soğuk Sıkım Sızma 250ml</div> <div class="product-price">₺180.00</div> </div> </div> </div>
+                    </div>
+                </div>
+                <!-- Zeytinler Sekmesi -->
+                <div class="tab-pane fade" id="zeytin-pane" role="tabpanel" aria-labelledby="zeytin-tab" tabindex="0">
+                     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+                        <div class="col">
+                            <div class="card product-card" data-id="10" data-name="Gemlik Siyah Sele 1kg" data-price="150.00">
+                                <img src="https://via.placeholder.com/300x200/795548/FFFFFF?text=Siyah+Zeytin" alt="Siyah Zeytin">
+                                <div class="card-body">
+                                    <div class="product-name">Gemlik Tipi Siyah Sele Zeytin (XL) 1kg Paket</div>
+                                    <div class="product-price">₺150.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card product-card" data-id="11" data-name="Yeşil Çizik Zeytin 750g" data-price="120.00">
+                                <img src="https://via.placeholder.com/300x200/AED581/000000?text=Yeşil+Zeytin" alt="Yeşil Zeytin">
+                                <div class="card-body">
+                                    <div class="product-name">Ayvalık Yeşil Çizik Zeytin Salamura 750g Kavanoz</div>
+                                    <div class="product-price">₺120.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Daha fazla zeytin ürünü -->
+                    </div>
+                </div>
+                <!-- Sabunlar Sekmesi -->
+                <div class="tab-pane fade" id="sabun-pane" role="tabpanel" aria-labelledby="sabun-tab" tabindex="0">
+                     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+                        <div class="col">
+                            <div class="card product-card" data-id="20" data-name="Doğal Zeytinyağı Sabunu" data-price="80.00">
+                                <img src="https://via.placeholder.com/300x200/FFF9C4/000000?text=Sabun" alt="Zeytinyağı Sabunu">
+                                <div class="card-body">
+                                    <div class="product-name">El Yapımı Doğal Zeytinyağı Sabunu (Kalıp)</div>
+                                    <div class="product-price">₺80.00</div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col">
+                            <div class="card product-card" data-id="21" data-name="Defneli Zeytinyağı Sabunu" data-price="95.00">
+                                <img src="https://via.placeholder.com/300x200/E8F5E9/000000?text=Defneli+Sabun" alt="Defneli Sabun">
+                                <div class="card-body">
+                                    <div class="product-name">Geleneksel Defneli Zeytinyağı Sabunu</div>
+                                    <div class="product-price">₺95.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Daha fazla sabun ürünü -->
+                    </div>
+                </div>
+                 <!-- Diğer Ürünler Sekmesi -->
+                <div class="tab-pane fade" id="diger-pane" role="tabpanel" aria-labelledby="diger-tab" tabindex="0">
+                    <h4 class="text-center text-muted mt-5">Bu kategoride henüz ürün bulunmamaktadır.</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sepet ve Ödeme Alanı -->
+        <div class="cart-section">
+            <h4 class="mb-3"><i class="bi bi-cart3 me-2" style="color: var(--primary-color);"></i>Alışveriş Sepeti</h4>
+            <div class="cart-items mb-auto" id="cartItemsList">
+                <!-- Sepet Boş Mesajı -->
+                <div class="text-center text-muted p-5" id="emptyCartMessage">
+                    <i class="bi bi-cart-x fs-1"></i>
+                    <p class="mt-2">Sepetiniz henüz boş.</p>
+                </div>
+                <!-- Sepete eklenen ürünler buraya JS ile eklenecek -->
+                <!-- Örnek Sepet Öğesi:
+                <div class="cart-item" data-id="1">
+                    <div class="cart-item-name">N. Sızma Erken Hasat 500ml</div>
+                    <div class="cart-item-quantity">
+                        <button class="btn btn-sm btn-decrease-qty">-</button>
+                        <input type="number" value="1" min="1" class="form-control form-control-sm qty-input" readonly>
+                        <button class="btn btn-sm btn-increase-qty">+</button>
+                    </div>
+                    <div class="cart-item-price">₺250.00</div>
+                    <button class="cart-item-remove" title="Ürünü Kaldır"><i class="bi bi-x-circle"></i></button>
+                </div>
+                -->
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Ara Toplam:</span>
+                    <span id="subtotalPrice">₺0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>KDV (%10):</span> <!-- KDV oranı değişebilir -->
+                    <span id="taxPrice">₺0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>TOPLAM:</span>
+                    <span id="totalPrice">₺0.00</span>
+                </div>
+                <button class="btn btn-checkout w-100 mt-3" id="checkoutButton" disabled> <i class="bi bi-credit-card-fill me-2"></i> ÖDEME YAP</button>
+                <div class="text-center mt-2">
+                    <button class="btn btn-link btn-sm btn-clear-cart" id="clearCartButton">Sepeti Temizle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product-card');
+            const cartItemsList = document.getElementById('cartItemsList');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const subtotalPriceEl = document.getElementById('subtotalPrice');
+            const taxPriceEl = document.getElementById('taxPrice');
+            const totalPriceEl = document.getElementById('totalPrice');
+            const checkoutButton = document.getElementById('checkoutButton');
+            const clearCartButton = document.getElementById('clearCartButton');
+
+            let cart = []; // Sepet dizisi: [{id, name, price, quantity}, ...]
+            const KDV_ORANI = 0.10; // %10 KDV
+
+            // Ürün kartına tıklanınca sepete ekle
+            productCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const productId = card.dataset.id;
+                    const productName = card.dataset.name;
+                    const productPrice = parseFloat(card.dataset.price);
+                    addToCart(productId, productName, productPrice);
+                });
+            });
+
+            function addToCart(id, name, price) {
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ id, name, price, quantity: 1 });
+                }
+                renderCart();
+                updateSummary();
+            }
+
+            function renderCart() {
+                cartItemsList.innerHTML = ''; // Önceki sepeti temizle
+                if (cart.length === 0) {
+                    emptyCartMessage.style.display = 'block';
+                    checkoutButton.disabled = true;
+                    return;
+                }
+                emptyCartMessage.style.display = 'none';
+                checkoutButton.disabled = false;
+
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.dataset.id = item.id;
+                    itemElement.innerHTML = `
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-quantity">
+                            <button class="btn btn-sm btn-decrease-qty" data-id="${item.id}">-</button>
+                            <input type="number" value="${item.quantity}" min="1" class="form-control form-control-sm qty-input" data-id="${item.id}" readonly>
+                            <button class="btn btn-sm btn-increase-qty" data-id="${item.id}">+</button>
+                        </div>
+                        <div class="cart-item-price">₺${(item.price * item.quantity).toFixed(2)}</div>
+                        <button class="cart-item-remove" title="Ürünü Kaldır" data-id="${item.id}"><i class="bi bi-x-circle"></i></button>
+                    `;
+                    cartItemsList.appendChild(itemElement);
+                });
+
+                // Sepet içi butonlara event listener ekle
+                addCartItemEventListeners();
+            }
+
+            function addCartItemEventListeners() {
+                document.querySelectorAll('.btn-increase-qty').forEach(button => {
+                    button.addEventListener('click', () => updateQuantity(button.dataset.id, 1));
+                });
+                document.querySelectorAll('.btn-decrease-qty').forEach(button => {
+                    button.addEventListener('click', () => updateQuantity(button.dataset.id, -1));
+                });
+                document.querySelectorAll('.cart-item-remove').forEach(button => {
+                    button.addEventListener('click', () => removeFromCart(button.dataset.id));
+                });
+                // Input ile miktar değiştirme (opsiyonel - şimdilik readonly)
+                // document.querySelectorAll('.qty-input').forEach(input => {
+                //     input.addEventListener('change', (e) => {
+                //         const newQuantity = parseInt(e.target.value);
+                //         if (newQuantity > 0) {
+                //             updateItemQuantity(input.dataset.id, newQuantity);
+                //         } else { // Miktar 0 veya daha azsa ürünü kaldır
+                //            removeFromCart(input.dataset.id);
+                //         }
+                //     });
+                // });
+            }
+
+            function updateQuantity(id, change) {
+                const item = cart.find(item => item.id === id);
+                if (item) {
+                    item.quantity += change;
+                    if (item.quantity <= 0) {
+                        removeFromCart(id);
+                    } else {
+                        renderCart();
+                        updateSummary();
+                    }
+                }
+            }
+
+            // function updateItemQuantity(id, newQuantity) {
+            //     const item = cart.find(item => item.id === id);
+            //     if(item) {
+            //         item.quantity = newQuantity;
+            //         renderCart();
+            //         updateSummary();
+            //     }
+            // }
+
+            function removeFromCart(id) {
+                cart = cart.filter(item => item.id !== id);
+                renderCart();
+                updateSummary();
+            }
+
+            function updateSummary() {
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const tax = subtotal * KDV_ORANI;
+                const total = subtotal + tax;
+
+                subtotalPriceEl.textContent = `₺${subtotal.toFixed(2)}`;
+                taxPriceEl.textContent = `₺${tax.toFixed(2)}`;
+                totalPriceEl.textContent = `₺${total.toFixed(2)}`;
+            }
+
+            clearCartButton.addEventListener('click', () => {
+                if (confirm("Sepeti tamamen temizlemek istediğinizden emin misiniz?")) {
+                    cart = [];
+                    renderCart();
+                    updateSummary();
+                }
+            });
+
+            checkoutButton.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert("Sepetiniz boş. Lütfen ürün ekleyin.");
+                    return;
+                }
+                // Gerçek ödeme işlemi burada başlar (entegrasyon gerekir)
+                alert(`Toplam Tutar: ₺${totalPriceEl.textContent.substring(1)}\nÖdeme işlemi simülasyonu...`);
+                // Başarılı ödeme sonrası sepet temizlenebilir
+                // cart = []; renderCart(); updateSummary();
+            });
+
+            // Başlangıçta sepeti render et (boş mesajı için)
+            renderCart();
+
+        });
+    </script>
+</body>
+</html>

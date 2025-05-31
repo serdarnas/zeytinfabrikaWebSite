@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalite Kontrol - Zeytin/Zeytinyağı Tesisleri Paneli</title>
+    <!-- Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (Mini Sidebar ve genel tasarım) -->
+    <style>
+        :root {
+            --brand-primary-green: #1E4620; --brand-light-green: #4A7856; --brand-gold: #D4AF37;
+            --brand-text-light: #FFFFFF; --brand-text-dark: #212529; --brand-text-muted: #6c757d;
+            --brand-bg-light: #f9fbf8; --brand-border-color: #dee2e6;
+            --facility-olive-color: #8FBC8F; --facility-oil-color: #DAA520;
+            --sidebar-width-mini: 75px; --sidebar-width-full: 240px; --sidebar-transition-speed: 0.3s;
+            --status-pass: #28a745; --status-fail: #dc3545; --status-warning: #ffc107; --status-pending: #6c757d;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-bg-light); color: var(--brand-text-dark); font-size: 0.95rem; }
+        /* Sidebar ve Navbar Stilleri (Önceki koddan) */
+        .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; padding: 56px 0 0; background-color: var(--brand-primary-green); box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.1); width: var(--sidebar-width-full); transition: width var(--sidebar-transition-speed) ease-in-out; overflow-x: hidden; }
+        .sidebar.sidebar-mini { width: var(--sidebar-width-mini); }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 56px); padding-top: 1rem; overflow-x: hidden; overflow-y: auto; }
+        .sidebar .nav-link { color: rgba(255, 255, 255, 0.75); font-weight: 400; padding: 0.75rem 1rem; border-left: 3px solid transparent; transition: all .15s ease; }
+        .sidebar .nav-link .bi { color: var(--brand-gold); opacity: 0.9; margin-right: 12px; font-size: 1rem; vertical-align: middle; margin-top: -3px; width: 20px; text-align: center; }
+        .sidebar .nav-link:hover { background-color: var(--brand-light-green); color: var(--brand-text-light); border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active { background-color: var(--brand-light-green); color: var(--brand-text-light); font-weight: 600; border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active .bi { color: var(--brand-text-light); opacity: 1; }
+        .sidebar .nav-link .sidebar-text, .sidebar .sidebar-heading .sidebar-text { opacity: 1; visibility: visible; transition: opacity calc(var(--sidebar-transition-speed) * 0.5) ease-in-out calc(var(--sidebar-transition-speed) * 0.5), visibility 0s linear calc(var(--sidebar-transition-speed) * 0.5); white-space: nowrap; display: inline-block; vertical-align: middle; margin-left: 5px; }
+        .sidebar.sidebar-mini .nav-link .sidebar-text, .sidebar.sidebar-mini .sidebar-heading .sidebar-text { opacity: 0; visibility: hidden; transition: opacity calc(var(--sidebar-transition-speed) * 0.5) ease-in-out, visibility 0s linear calc(var(--sidebar-transition-speed) * 0.5); pointer-events: none; }
+        .sidebar.sidebar-mini:hover { width: var(--sidebar-width-full); box-shadow: 0 0 20px rgba(0,0,0,0.1); z-index: 1031; }
+        .sidebar.sidebar-mini:hover .nav-link .sidebar-text, .sidebar.sidebar-mini:hover .sidebar-heading .sidebar-text { opacity: 1; visibility: visible; transition-delay: calc(var(--sidebar-transition-speed) * 0.3); pointer-events: auto; }
+        .navbar.sticky-top { background-color: var(--brand-text-light); box-shadow: 0 .125rem .25rem rgba(0,0,0,.05) !important; padding-top: 0.3rem; padding-bottom: 0.3rem; z-index: 1020; }
+        .navbar-brand { background-color: transparent; box-shadow: none; color: var(--brand-primary-green) !important; font-weight: 700; font-size: 1.3rem; padding-left: 1.5rem !important; }
+        .navbar-brand .bi { color: var(--brand-gold); margin-right: 5px; font-size: 1.4rem; vertical-align: middle; }
+        main { margin-left: var(--sidebar-width-full); transition: margin-left var(--sidebar-transition-speed) ease-in-out; padding: 1.5rem; }
+        body.sidebar-is-mini main { margin-left: var(--sidebar-width-mini); }
+        @media (max-width: 767.98px) {
+            .sidebar { width: var(--sidebar-width-full); margin-left: calc(var(--sidebar-width-full) * -1); transition: margin-left var(--sidebar-transition-speed) ease-in-out; padding-top: 1rem; z-index: 1030; }
+            .sidebar.collapse.show { margin-left: 0; }
+            .sidebar.sidebar-mini { width: var(--sidebar-width-full); }
+            .sidebar .nav-link .sidebar-text, .sidebar .sidebar-heading .sidebar-text { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+            main { margin-left: 0 !important; }
+            body.sidebar-is-mini main { margin-left: 0 !important; }
+        }
+        /* Diğer Stiller (Kart, Tablo vb. önceki koddan) */
+        .card { border: none; border-radius: 0.6rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); margin-bottom: 1.5rem; }
+        .card-header { background-color: transparent; border-bottom: 1px solid #eee; color: var(--brand-light-green); font-weight: 600; padding: 0.8rem 1.2rem; }
+        .card-header i { color: var(--brand-gold); margin-right: 8px; }
+        .card-body { padding: 1.5rem; }
+        .table thead th { background-color: var(--brand-bg-light); color: var(--brand-primary-green); border-bottom: 2px solid var(--brand-light-green); font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.5px; vertical-align: middle; padding: 0.8rem 0.75rem; }
+        .table tbody td { vertical-align: middle; padding: 0.8rem 0.75rem; border-bottom-color: #f0f0f0; color: var(--brand-text-dark); }
+        .table-hover > tbody > tr:hover > * { background-color: rgba(212, 175, 55, 0.08); color: var(--brand-text-dark); }
+        /* Kalite Durum Renkleri */
+        .status-pass { color: var(--status-pass); font-weight: 600; }
+        .status-fail { color: var(--status-fail); font-weight: 600; }
+        .status-warning { color: var(--status-warning); font-weight: 600; }
+        .status-pending { color: var(--status-pending); font-style: italic; }
+        .badge-pass { background-color: var(--status-pass); }
+        .badge-fail { background-color: var(--status-fail); }
+        .badge-warning { background-color: var(--status-warning); color: var(--brand-text-dark) !important; }
+        .badge-pending { background-color: var(--status-pending); }
+        /* Facility Badge */
+        .facility-badge { font-size: 0.7em; font-weight: 600; padding: 0.2em 0.5em; border-radius: 4px; vertical-align: middle; margin-left: 5px; color: white; display: inline-block; line-height: 1; }
+        .badge-olive { background-color: var(--facility-olive-color); }
+        .badge-oil { background-color: var(--facility-oil-color); color: var(--brand-text-dark) !important; }
+        /* Tab Stilleri */
+        .nav-tabs { border-bottom: 2px solid var(--brand-light-green); }
+        .nav-tabs .nav-link { margin-bottom: -2px; border: none; border-bottom: 2px solid transparent; padding: 0.8rem 1.2rem; color: var(--brand-text-muted); font-weight: 600; background-color: transparent; transition: all .2s ease; }
+        .nav-tabs .nav-link:hover { border-bottom-color: var(--brand-gold); color: var(--brand-primary-green); }
+        .nav-tabs .nav-link.active { color: var(--brand-primary-green); background-color: var(--brand-bg-light); border-bottom-color: var(--brand-light-green); }
+        .nav-tabs .nav-link .bi { margin-right: 5px; color: var(--brand-gold); }
+        .nav-tabs .nav-link.active .bi { color: var(--brand-light-green); }
+        .tab-content { padding-top: 1.5rem; }
+        .tab-pane { background-color: #fff; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    </style>
+</head>
+<body class="sidebar-is-mini"> <!-- Mini sidebar ile başla -->
+
+    <!-- Üst Navbar (Aynı) -->
+    <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-diagram-3-fill"></i> Zeytin & Yağ A.Ş.
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Sağ Taraf (Profil vb.) -->
+         <div class="w-100 px-3 d-flex justify-content-end align-items-center">
+             <!-- Sağ navbar içeriği -->
+         </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü (Kalite Kontrol aktif) -->
+            <nav id="sidebarMenu" class="d-md-block sidebar collapse sidebar-mini">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-pie-chart-fill"></i> <span class="sidebar-text">Ana Panel</span></a></li>
+                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-uppercase"><span class="sidebar-text">İş Akışı</span></h6>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-box-arrow-in-down"></i> <span class="sidebar-text">Zeytin Kabul</span> <span class="facility-badge badge-olive sidebar-text">ZT</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-arrow-repeat"></i> <span class="sidebar-text">Üretim Takibi</span> <span class="facility-badge badge-oil sidebar-text">YT</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-inboxes-fill"></i> <span class="sidebar-text">Stok Yönetimi</span></a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-clipboard-check-fill"></i> <span class="sidebar-text">Kalite Kontrol</span></a></li> <!-- Aktif -->
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-box-seam-fill"></i> <span class="sidebar-text">Paketleme & Dolum</span> <span class="facility-badge badge-oil sidebar-text">YT</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-truck"></i> <span class="sidebar-text">Sevkiyat Yönetimi</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-graph-up-arrow"></i> <span class="sidebar-text">Raporlar</span></a></li>
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-uppercase"><span class="sidebar-text">Yönetim</span></h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-people-fill"></i><span class="sidebar-text">Kullanıcılar</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-buildings-fill"></i><span class="sidebar-text">Tesis Yönetimi</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-tools"></i><span class="sidebar-text">Bakım Takvimi</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-sliders"></i><span class="sidebar-text">Sistem Ayarları</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="px-md-4">
+                 <!-- Sayfa Başlığı ve Buton -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"><i class="bi bi-clipboard-data-fill"></i> Kalite Kontrol Yönetimi</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#yeniTestModal">
+                            <i class="bi bi-plus-circle-fill me-1"></i> Yeni Test Kaydı Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Özet Kalite Kartları -->
+                 <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="fs-1 text-primary"><i class="bi bi-journal-check"></i></div>
+                                <h3 class="card-title mt-2">18</h3>
+                                <p class="card-text text-muted">Bugünkü Test Sayısı</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-md-6">
+                         <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="fs-1 text-warning"><i class="bi bi-hourglass-split"></i></div>
+                                <h3 class="card-title mt-2">4</h3>
+                                <p class="card-text text-muted">Sonuç Bekleyen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="fs-1 text-danger"><i class="bi bi-exclamation-octagon-fill"></i></div>
+                                <h3 class="card-title mt-2">2</h3>
+                                <p class="card-text text-muted">Limit Dışı Sonuç</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                         <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="fs-1 text-success"><i class="bi bi-graph-up"></i></div>
+                                <h3 class="card-title mt-2">0.45%</h3>
+                                <p class="card-text text-muted">Ort. N. Sızma Asidite</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kalite Testleri Sekmeleri -->
+                <ul class="nav nav-tabs mb-3" id="kaliteTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tank-yag-tab" data-bs-toggle="tab" data-bs-target="#tank-yag-pane" type="button" role="tab" aria-controls="tank-yag-pane" aria-selected="true"><i class="bi bi-droplet-half"></i> Tank Yağları <span class="facility-badge badge-oil">YT</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="gelen-zeytin-tab" data-bs-toggle="tab" data-bs-target="#gelen-zeytin-pane" type="button" role="tab" aria-controls="gelen-zeytin-pane" aria-selected="false"><i class="bi bi-box-arrow-in-down"></i> Gelen Zeytin <span class="facility-badge badge-olive">ZT</span></button>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="uretim-tab" data-bs-toggle="tab" data-bs-target="#uretim-pane" type="button" role="tab" aria-controls="uretim-pane" aria-selected="false"><i class="bi bi-gear-wide-connected"></i> Üretim Aşaması <span class="facility-badge badge-oil">YT</span></button>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="paketli-urun-tab" data-bs-toggle="tab" data-bs-target="#paketli-urun-pane" type="button" role="tab" aria-controls="paketli-urun-pane" aria-selected="false"><i class="bi bi-box-seam"></i> Paketli Ürün <span class="facility-badge badge-oil">YT</span></button>
+                    </li>
+                </ul>
+
+                <!-- Sekme İçerikleri -->
+                 <div class="tab-content" id="kaliteTabContent">
+                    <!-- 1. Tank Yağları Sekmesi (Örnek İçerik) -->
+                    <div class="tab-pane fade show active" id="tank-yag-pane" role="tabpanel" aria-labelledby="tank-yag-tab" tabindex="0">
+                         <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Tanklardaki Yağların Son Testleri</h5>
+                              <input type="search" class="form-control form-control-sm w-25" placeholder="Tank ID veya Parti No Ara...">
+                         </div>
+                         <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tank ID</th><th>Yağ Tipi</th><th>Kaynak Parti</th><th>Test Tarihi</th><th>Parametre</th><th>Sonuç</th><th>Limit</th><th>Durum</th><th>Analist</th><th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TNK-01</td><td>N. Sızma</td><td>YT-P086</td><td>27.10.23</td><td>Asidite (%)</td><td>0.45</td><td>&lt; 0.8</td><td class="status-pass">Uygun</td><td>AY</td><td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Detay"><i class="bi bi-search"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TNK-03</td><td>N. Birinci</td><td>YT-P084</td><td>27.10.23</td><td>Asidite (%)</td><td>1.10</td><td>&lt; 2.0</td><td class="status-pass">Uygun</td><td>BD</td><td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Detay"><i class="bi bi-search"></i></button></td>
+                                    </tr>
+                                     <tr>
+                                        <td>TNK-02</td><td>N. Sızma</td><td>YT-P085</td><td>26.10.23</td><td>Peroksit (meqO2/kg)</td><td>12.5</td><td>&lt; 20</td><td class="status-pass">Uygun</td><td>AY</td><td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Detay"><i class="bi bi-search"></i></button></td>
+                                    </tr>
+                                     <tr>
+                                        <td>TNK-04</td><td>N. Sızma</td><td>YT-P087</td><td>28.10.23</td><td>Asidite (%)</td><td>0.95</td><td>&lt; 0.8</td><td class="status-fail">Limit Dışı</td><td>BD</td><td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Detay"><i class="bi bi-search"></i></button></td>
+                                    </tr>
+                                      <tr>
+                                        <td>TNK-01</td><td>N. Sızma</td><td>YT-P086</td><td>28.10.23</td><td>Duyusal Analiz</td><td>(Bekleniyor)</td><td>-</td><td class="status-pending">Bekliyor</td><td>Panel</td><td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Detay"><i class="bi bi-search"></i></button></td>
+                                    </tr>
+                                    <!-- Diğer Testler -->
+                                </tbody>
+                            </table>
+                            <!-- Sayfalama Eklenebilir -->
+                        </div>
+                    </div>
+
+                    <!-- 2. Gelen Zeytin Sekmesi (Boş Taslak) -->
+                    <div class="tab-pane fade" id="gelen-zeytin-pane" role="tabpanel" aria-labelledby="gelen-zeytin-tab" tabindex="0">
+                         <h5>Gelen Zeytin Partileri Kalite Sonuçları <span class="facility-badge badge-olive">ZT</span></h5>
+                         <p>Buraya gelen zeytinlerin nem, yaprak, eziklik oranları ve ilk değerlendirme sonuçları tablosu eklenecek.</p>
+                         <!-- Tablo ve Filtreler Buraya -->
+                          <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>Parti No</th><th>Tedarikçi</th><th>Geliş Tarihi</th><th>Nem (%)</th><th>Yab. Madde (%)</th><th>Değerlendirme</th><th>Durum</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>ZK108</td><td>Ahmet Çiftçi</td><td>28.10.23</td><td>55.2</td><td>2.1</td><td>(Bekleniyor)</td><td><span class="badge bg-warning text-dark">Bekliyor</span></td><td>...</td></tr>
+                                     <tr><td>ZK107</td><td>Koop. Birlik</td><td>27.10.23</td><td>52.8</td><td>1.5</td><td>İyi</td><td><span class="badge bg-success">Onaylandı</span></td><td>...</td></tr>
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+
+                    <!-- 3. Üretim Aşaması Sekmesi (Boş Taslak) -->
+                    <div class="tab-pane fade" id="uretim-pane" role="tabpanel" aria-labelledby="uretim-tab" tabindex="0">
+                        <h5>Üretim Aşaması Kalite Kontrol Noktaları <span class="facility-badge badge-oil">YT</span></h5>
+                        <p>Buraya hamur sıcaklığı, erken yağ numunesi asiditesi gibi üretim sırasındaki kritik kontrol noktalarının sonuçları listelenecek.</p>
+                        <!-- Tablo ve Filtreler Buraya -->
+                    </div>
+
+                    <!-- 4. Paketli Ürün Sekmesi (Boş Taslak) -->
+                    <div class="tab-pane fade" id="paketli-urun-pane" role="tabpanel" aria-labelledby="paketli-urun-tab" tabindex="0">
+                         <h5>Paketli Ürün Son Kontrol Sonuçları <span class="facility-badge badge-oil">YT</span></h5>
+                        <p>Buraya rafa çıkmadan önce veya belirli periyotlarla paketli ürünlerden alınan numunelerin test sonuçları (asidite, peroksit, etiket kontrolü vb.) listelenecek.</p>
+                         <!-- Tablo ve Filtreler Buraya -->
+                    </div>
+                </div> <!-- /tab-content -->
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Yeni Test Kaydı Modalı -->
+    <div class="modal fade" id="yeniTestModal" tabindex="-1" aria-labelledby="yeniTestModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="yeniTestModalLabel"><i class="bi bi-eyedropper me-2"></i>Yeni Kalite Testi Kaydı</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-6">
+                    <label for="testTipi" class="form-label">Test Aşaması/Tipi</label>
+                    <select class="form-select" id="testTipi" required>
+                        <option selected disabled value="">Seçiniz...</option>
+                        <option value="gelen_zeytin">Gelen Zeytin (ZT)</option>
+                        <option value="uretim_hamur">Üretim - Hamur (YT)</option>
+                        <option value="uretim_yag">Üretim - Ham Yağ (YT)</option>
+                        <option value="tank_yag">Tank Yağı (YT)</option>
+                        <option value="paketli_urun">Paketli Ürün (YT)</option>
+                    </select>
+                    <div class="invalid-feedback">Lütfen test tipini seçin.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="ilgiliId" class="form-label">İlgili Parti/Tank ID</label>
+                    <input type="text" class="form-control" id="ilgiliId" placeholder="Örn: ZK108, YT-P087, TNK-01..." required>
+                     <div class="invalid-feedback">Lütfen ilgili ID'yi girin.</div>
+                     <!-- Not: Burası dinamik olarak doldurulabilir -->
+                </div>
+                 <div class="col-md-4">
+                    <label for="parametre" class="form-label">Test Edilen Parametre</label>
+                     <select class="form-select" id="parametre" required>
+                        <option selected disabled value="">Seçiniz...</option>
+                        <option value="asidite">Asidite (%)</option>
+                        <option value="peroksit">Peroksit (meqO2/kg)</option>
+                        <option value="k232">K232</option>
+                        <option value="k270">K270</option>
+                        <option value="delta_k">Delta K</option>
+                        <option value="duyusal">Duyusal Analiz</option>
+                        <option value="nem">Nem (%)</option>
+                        <option value="yab_madde">Yabancı Madde (%)</option>
+                        <option value="sicaklik">Sıcaklık (°C)</option>
+                        <option value="diger">Diğer...</option>
+                    </select>
+                     <div class="invalid-feedback">Lütfen parametreyi seçin.</div>
+                </div>
+                 <div class="col-md-4">
+                    <label for="sonuc" class="form-label">Sonuç Değeri</label>
+                    <input type="text" class="form-control" id="sonuc" required> <!-- Text yapıldı, sayısal veya metinsel olabilir -->
+                     <div class="invalid-feedback">Lütfen sonucu girin.</div>
+                </div>
+                 <div class="col-md-4">
+                    <label for="testTarihi" class="form-label">Test Tarihi ve Saati</label>
+                    <input type="datetime-local" class="form-control" id="testTarihi" required>
+                    <div class="invalid-feedback">Lütfen tarihi seçin.</div>
+                </div>
+                 <div class="col-md-6">
+                    <label for="analist" class="form-label">Analist / Operatör</label>
+                    <input type="text" class="form-control" id="analist" required>
+                     <div class="invalid-feedback">Lütfen analist adını girin.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="durum" class="form-label">Durum</label>
+                     <select class="form-select" id="durum" required>
+                        <option value="pending" selected>Bekliyor</option>
+                        <option value="pass">Uygun (Pass)</option>
+                        <option value="fail">Limit Dışı (Fail)</option>
+                        <option value="warning">Uyarı (Warning)</option>
+                    </select>
+                     <div class="invalid-feedback">Lütfen durumu seçin.</div>
+                </div>
+                <div class="col-12">
+                    <label for="notlar" class="form-label">Notlar</label>
+                    <textarea class="form-control" id="notlar" rows="2"></textarea>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+            <button type="submit" class="btn btn-success" form="ilgiliFormIdEklenecek"><i class="bi bi-save-fill me-1"></i> Test Kaydını Kaydet</button> <!-- Form ID'si ile eşleştirilmeli -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Mini Sidebar JS (Önceki koddan)
+        const sidebar = document.getElementById('sidebarMenu');
+        const body = document.body;
+        if (sidebar) {
+            sidebar.addEventListener('mouseenter', () => { if (sidebar.classList.contains('sidebar-mini') && window.innerWidth >= 768) { body.classList.remove('sidebar-is-mini'); } });
+            sidebar.addEventListener('mouseleave', () => { if (sidebar.classList.contains('sidebar-mini') && window.innerWidth >= 768) { body.classList.add('sidebar-is-mini'); } });
+            function toggleBodyClass() { if (window.innerWidth >= 768) { if (sidebar.classList.contains('sidebar-mini')) { body.classList.add('sidebar-is-mini'); } else { body.classList.remove('sidebar-is-mini'); } } else { body.classList.remove('sidebar-is-mini'); } }
+            window.addEventListener('DOMContentLoaded', toggleBodyClass); window.addEventListener('resize', toggleBodyClass);
+        } else { body.classList.remove('sidebar-is-mini'); }
+
+        // Bootstrap Form Doğrulama JS (Önceki koddan)
+        (() => {
+          'use strict'; const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) { event.preventDefault(); event.stopPropagation(); }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

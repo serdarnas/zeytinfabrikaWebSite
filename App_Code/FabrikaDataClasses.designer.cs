@@ -32,9 +32,9 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertAlisDetaylari(AlisDetaylari instance);
   partial void UpdateAlisDetaylari(AlisDetaylari instance);
   partial void DeleteAlisDetaylari(AlisDetaylari instance);
-  partial void InsertYetkiler(Yetkiler instance);
-  partial void UpdateYetkiler(Yetkiler instance);
-  partial void DeleteYetkiler(Yetkiler instance);
+  partial void InsertZeytinyagiUretimleri(ZeytinyagiUretimleri instance);
+  partial void UpdateZeytinyagiUretimleri(ZeytinyagiUretimleri instance);
+  partial void DeleteZeytinyagiUretimleri(ZeytinyagiUretimleri instance);
   partial void InsertAlislar(Alislar instance);
   partial void UpdateAlislar(Alislar instance);
   partial void DeleteAlislar(Alislar instance);
@@ -56,6 +56,9 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertDepolar(Depolar instance);
   partial void UpdateDepolar(Depolar instance);
   partial void DeleteDepolar(Depolar instance);
+  partial void InsertDepoStok(DepoStok instance);
+  partial void UpdateDepoStok(DepoStok instance);
+  partial void DeleteDepoStok(DepoStok instance);
   partial void InsertFaturalar(Faturalar instance);
   partial void UpdateFaturalar(Faturalar instance);
   partial void DeleteFaturalar(Faturalar instance);
@@ -77,9 +80,15 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertMenu(Menu instance);
   partial void UpdateMenu(Menu instance);
   partial void DeleteMenu(Menu instance);
+  partial void InsertMustahsilCKSBelgeleri(MustahsilCKSBelgeleri instance);
+  partial void UpdateMustahsilCKSBelgeleri(MustahsilCKSBelgeleri instance);
+  partial void DeleteMustahsilCKSBelgeleri(MustahsilCKSBelgeleri instance);
   partial void InsertMustahsiller(Mustahsiller instance);
   partial void UpdateMustahsiller(Mustahsiller instance);
   partial void DeleteMustahsiller(Mustahsiller instance);
+  partial void InsertMustahsilTarlalar(MustahsilTarlalar instance);
+  partial void UpdateMustahsilTarlalar(MustahsilTarlalar instance);
+  partial void DeleteMustahsilTarlalar(MustahsilTarlalar instance);
   partial void InsertMusteriKategorileri(MusteriKategorileri instance);
   partial void UpdateMusteriKategorileri(MusteriKategorileri instance);
   partial void DeleteMusteriKategorileri(MusteriKategorileri instance);
@@ -92,6 +101,9 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertNakitIslemler(NakitIslemler instance);
   partial void UpdateNakitIslemler(NakitIslemler instance);
   partial void DeleteNakitIslemler(NakitIslemler instance);
+  partial void InsertPaletTipleri(PaletTipleri instance);
+  partial void UpdatePaletTipleri(PaletTipleri instance);
+  partial void DeletePaletTipleri(PaletTipleri instance);
   partial void InsertParaBirimileri(ParaBirimileri instance);
   partial void UpdateParaBirimileri(ParaBirimileri instance);
   partial void DeleteParaBirimileri(ParaBirimileri instance);
@@ -113,6 +125,15 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertSirketler(Sirketler instance);
   partial void UpdateSirketler(Sirketler instance);
   partial void DeleteSirketler(Sirketler instance);
+  partial void InsertSirketZeytinyagiMakinaBakimDefteri(SirketZeytinyagiMakinaBakimDefteri instance);
+  partial void UpdateSirketZeytinyagiMakinaBakimDefteri(SirketZeytinyagiMakinaBakimDefteri instance);
+  partial void DeleteSirketZeytinyagiMakinaBakimDefteri(SirketZeytinyagiMakinaBakimDefteri instance);
+  partial void InsertSirketZeytinyagiMakinalari(SirketZeytinyagiMakinalari instance);
+  partial void UpdateSirketZeytinyagiMakinalari(SirketZeytinyagiMakinalari instance);
+  partial void DeleteSirketZeytinyagiMakinalari(SirketZeytinyagiMakinalari instance);
+  partial void InsertStokHareketleri(StokHareketleri instance);
+  partial void UpdateStokHareketleri(StokHareketleri instance);
+  partial void DeleteStokHareketleri(StokHareketleri instance);
   partial void InsertTanklar(Tanklar instance);
   partial void UpdateTanklar(Tanklar instance);
   partial void DeleteTanklar(Tanklar instance);
@@ -137,9 +158,42 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertUrunler(Urunler instance);
   partial void UpdateUrunler(Urunler instance);
   partial void DeleteUrunler(Urunler instance);
+  partial void InsertUrunPaketlemeveLojistikBilgiIeri(UrunPaketlemeveLojistikBilgiIeri instance);
+  partial void UpdateUrunPaketlemeveLojistikBilgiIeri(UrunPaketlemeveLojistikBilgiIeri instance);
+  partial void DeleteUrunPaketlemeveLojistikBilgiIeri(UrunPaketlemeveLojistikBilgiIeri instance);
+  partial void InsertUrunVaryantDetay(UrunVaryantDetay instance);
+  partial void UpdateUrunVaryantDetay(UrunVaryantDetay instance);
+  partial void DeleteUrunVaryantDetay(UrunVaryantDetay instance);
+  partial void InsertUrunVaryantlari(UrunVaryantlari instance);
+  partial void UpdateUrunVaryantlari(UrunVaryantlari instance);
+  partial void DeleteUrunVaryantlari(UrunVaryantlari instance);
+  partial void InsertVaryantDegerleri(VaryantDegerleri instance);
+  partial void UpdateVaryantDegerleri(VaryantDegerleri instance);
+  partial void DeleteVaryantDegerleri(VaryantDegerleri instance);
+  partial void InsertVaryantTurleri(VaryantTurleri instance);
+  partial void UpdateVaryantTurleri(VaryantTurleri instance);
+  partial void DeleteVaryantTurleri(VaryantTurleri instance);
   partial void InsertWeb_iletisimFormu(Web_iletisimFormu instance);
   partial void UpdateWeb_iletisimFormu(Web_iletisimFormu instance);
   partial void DeleteWeb_iletisimFormu(Web_iletisimFormu instance);
+  partial void InsertYetkiler(Yetkiler instance);
+  partial void UpdateYetkiler(Yetkiler instance);
+  partial void DeleteYetkiler(Yetkiler instance);
+  partial void InsertZeytinBoxKasalari(ZeytinBoxKasalari instance);
+  partial void UpdateZeytinBoxKasalari(ZeytinBoxKasalari instance);
+  partial void DeleteZeytinBoxKasalari(ZeytinBoxKasalari instance);
+  partial void InsertZeytinyagiMakinaMarkalari(ZeytinyagiMakinaMarkalari instance);
+  partial void UpdateZeytinyagiMakinaMarkalari(ZeytinyagiMakinaMarkalari instance);
+  partial void DeleteZeytinyagiMakinaMarkalari(ZeytinyagiMakinaMarkalari instance);
+  partial void InsertZeytinyagiMakinaModelleri(ZeytinyagiMakinaModelleri instance);
+  partial void UpdateZeytinyagiMakinaModelleri(ZeytinyagiMakinaModelleri instance);
+  partial void DeleteZeytinyagiMakinaModelleri(ZeytinyagiMakinaModelleri instance);
+  partial void InsertZeytinyagiUretim_islemleri(ZeytinyagiUretim_islemleri instance);
+  partial void UpdateZeytinyagiUretim_islemleri(ZeytinyagiUretim_islemleri instance);
+  partial void DeleteZeytinyagiUretim_islemleri(ZeytinyagiUretim_islemleri instance);
+  partial void InsertZeytinyagiUretimi_ZeytinBoxKasa_Map(ZeytinyagiUretimi_ZeytinBoxKasa_Map instance);
+  partial void UpdateZeytinyagiUretimi_ZeytinBoxKasa_Map(ZeytinyagiUretimi_ZeytinBoxKasa_Map instance);
+  partial void DeleteZeytinyagiUretimi_ZeytinBoxKasa_Map(ZeytinyagiUretimi_ZeytinBoxKasa_Map instance);
   #endregion
 	
 	public FabrikaDataClassesDataContext() : 
@@ -180,11 +234,11 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		}
 	}
 	
-	public System.Data.Linq.Table<Yetkiler> Yetkilers
+	public System.Data.Linq.Table<ZeytinyagiUretimleri> ZeytinyagiUretimleris
 	{
 		get
 		{
-			return this.GetTable<Yetkiler>();
+			return this.GetTable<ZeytinyagiUretimleri>();
 		}
 	}
 	
@@ -244,6 +298,14 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		}
 	}
 	
+	public System.Data.Linq.Table<DepoStok> DepoStoks
+	{
+		get
+		{
+			return this.GetTable<DepoStok>();
+		}
+	}
+	
 	public System.Data.Linq.Table<Faturalar> Faturalars
 	{
 		get
@@ -300,11 +362,27 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		}
 	}
 	
+	public System.Data.Linq.Table<MustahsilCKSBelgeleri> MustahsilCKSBelgeleris
+	{
+		get
+		{
+			return this.GetTable<MustahsilCKSBelgeleri>();
+		}
+	}
+	
 	public System.Data.Linq.Table<Mustahsiller> Mustahsillers
 	{
 		get
 		{
 			return this.GetTable<Mustahsiller>();
+		}
+	}
+	
+	public System.Data.Linq.Table<MustahsilTarlalar> MustahsilTarlalars
+	{
+		get
+		{
+			return this.GetTable<MustahsilTarlalar>();
 		}
 	}
 	
@@ -337,6 +415,14 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		get
 		{
 			return this.GetTable<NakitIslemler>();
+		}
+	}
+	
+	public System.Data.Linq.Table<PaletTipleri> PaletTipleris
+	{
+		get
+		{
+			return this.GetTable<PaletTipleri>();
 		}
 	}
 	
@@ -393,6 +479,30 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		get
 		{
 			return this.GetTable<Sirketler>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SirketZeytinyagiMakinaBakimDefteri> SirketZeytinyagiMakinaBakimDefteris
+	{
+		get
+		{
+			return this.GetTable<SirketZeytinyagiMakinaBakimDefteri>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SirketZeytinyagiMakinalari> SirketZeytinyagiMakinalaris
+	{
+		get
+		{
+			return this.GetTable<SirketZeytinyagiMakinalari>();
+		}
+	}
+	
+	public System.Data.Linq.Table<StokHareketleri> StokHareketleris
+	{
+		get
+		{
+			return this.GetTable<StokHareketleri>();
 		}
 	}
 	
@@ -468,12 +578,107 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		}
 	}
 	
+	public System.Data.Linq.Table<UrunPaketlemeveLojistikBilgiIeri> UrunPaketlemeveLojistikBilgiIeris
+	{
+		get
+		{
+			return this.GetTable<UrunPaketlemeveLojistikBilgiIeri>();
+		}
+	}
+	
+	public System.Data.Linq.Table<UrunVaryantDetay> UrunVaryantDetays
+	{
+		get
+		{
+			return this.GetTable<UrunVaryantDetay>();
+		}
+	}
+	
+	public System.Data.Linq.Table<UrunVaryantlari> UrunVaryantlaris
+	{
+		get
+		{
+			return this.GetTable<UrunVaryantlari>();
+		}
+	}
+	
+	public System.Data.Linq.Table<VaryantDegerleri> VaryantDegerleris
+	{
+		get
+		{
+			return this.GetTable<VaryantDegerleri>();
+		}
+	}
+	
+	public System.Data.Linq.Table<VaryantTurleri> VaryantTurleris
+	{
+		get
+		{
+			return this.GetTable<VaryantTurleri>();
+		}
+	}
+	
 	public System.Data.Linq.Table<Web_iletisimFormu> Web_iletisimFormus
 	{
 		get
 		{
 			return this.GetTable<Web_iletisimFormu>();
 		}
+	}
+	
+	public System.Data.Linq.Table<Yetkiler> Yetkilers
+	{
+		get
+		{
+			return this.GetTable<Yetkiler>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ZeytinBoxKasalari> ZeytinBoxKasalaris
+	{
+		get
+		{
+			return this.GetTable<ZeytinBoxKasalari>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ZeytinyagiMakinaMarkalari> ZeytinyagiMakinaMarkalaris
+	{
+		get
+		{
+			return this.GetTable<ZeytinyagiMakinaMarkalari>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ZeytinyagiMakinaModelleri> ZeytinyagiMakinaModelleris
+	{
+		get
+		{
+			return this.GetTable<ZeytinyagiMakinaModelleri>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ZeytinyagiUretim_islemleri> ZeytinyagiUretim_islemleris
+	{
+		get
+		{
+			return this.GetTable<ZeytinyagiUretim_islemleri>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ZeytinyagiUretimi_ZeytinBoxKasa_Map> ZeytinyagiUretimi_ZeytinBoxKasa_Maps
+	{
+		get
+		{
+			return this.GetTable<ZeytinyagiUretimi_ZeytinBoxKasa_Map>();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_StokHareket")]
+	public ISingleResult<SP_StokHareketResult> SP_StokHareket([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SirketID", DbType="Int")] System.Nullable<int> sirketID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="HareketTipi", DbType="NVarChar(20)")] string hareketTipi, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DepoID", DbType="Int")] System.Nullable<int> depoID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UrunID", DbType="Int")] System.Nullable<int> urunID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Miktar", DbType="Decimal(10,2)")] System.Nullable<decimal> miktar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReferansNo", DbType="NVarChar(50)")] string referansNo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReferansID", DbType="Int")] System.Nullable<int> referansID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReferansTipi", DbType="NVarChar(20)")] string referansTipi, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Aciklama", DbType="NVarChar(500)")] string aciklama, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KullaniciID", DbType="Int")] System.Nullable<int> kullaniciID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sirketID, hareketTipi, depoID, urunID, miktar, referansNo, referansID, referansTipi, aciklama, kullaniciID);
+		return ((ISingleResult<SP_StokHareketResult>)(result.ReturnValue));
 	}
 }
 
@@ -854,58 +1059,135 @@ public partial class AlisDetaylari : INotifyPropertyChanging, INotifyPropertyCha
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Yetkiler")]
-public partial class Yetkiler : INotifyPropertyChanging, INotifyPropertyChanged
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZeytinyagiUretimleri")]
+public partial class ZeytinyagiUretimleri : INotifyPropertyChanging, INotifyPropertyChanged
 {
 	
 	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 	
-	private int _YetkiID;
+	private int _ZeytinyagiUretimID;
 	
 	private int _SirketID;
 	
-	private string _YetkiAdi;
+	private System.Nullable<int> _MustahsilID;
 	
-	private string _Aciklama;
+	private string _PartiNo;
+	
+	private System.Nullable<byte> _PlakaNo;
+	
+	private System.Nullable<System.DateTime> _GelisTarihi;
+	
+	private System.Nullable<int> _GelisKg;
+	
+	private System.Nullable<int> _UretimeAlinanKg;
+	
+	private int _UrunID;
+	
+	private System.Nullable<int> _ZeytinyagiUretim_islemID;
+	
+	private System.Nullable<int> _Operator_KullaniciID;
+	
+	private System.Nullable<System.DateTime> _UretimBaslamaZamani;
+	
+	private System.Nullable<System.DateTime> _UretimBitisZamani;
+	
+	private System.Nullable<int> _Cikan_UrunID;
+	
+	private System.Nullable<int> _TankID;
+	
+	private System.Nullable<decimal> _Asidite;
+	
+	private System.Nullable<decimal> _TahsiliyeKgUcreti;
+	
+	private System.Nullable<decimal> _TahsiliyeToplamUcreti;
+	
+	private EntitySet<ZeytinyagiUretimi_ZeytinBoxKasa_Map> _ZeytinyagiUretimi_ZeytinBoxKasa_Maps;
+	
+	private EntityRef<Kullanicilar> _Kullanicilar;
+	
+	private EntityRef<Mustahsiller> _Mustahsiller;
 	
 	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<Tanklar> _Tanklar;
+	
+	private EntityRef<Urunler> _Urunler;
+	
+	private EntityRef<Urunler> _Urunler1;
+	
+	private EntityRef<ZeytinyagiUretim_islemleri> _ZeytinyagiUretim_islemleri;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnYetkiIDChanging(int value);
-    partial void OnYetkiIDChanged();
+    partial void OnZeytinyagiUretimIDChanging(int value);
+    partial void OnZeytinyagiUretimIDChanged();
     partial void OnSirketIDChanging(int value);
     partial void OnSirketIDChanged();
-    partial void OnYetkiAdiChanging(string value);
-    partial void OnYetkiAdiChanged();
-    partial void OnAciklamaChanging(string value);
-    partial void OnAciklamaChanged();
+    partial void OnMustahsilIDChanging(System.Nullable<int> value);
+    partial void OnMustahsilIDChanged();
+    partial void OnPartiNoChanging(string value);
+    partial void OnPartiNoChanged();
+    partial void OnPlakaNoChanging(System.Nullable<byte> value);
+    partial void OnPlakaNoChanged();
+    partial void OnGelisTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnGelisTarihiChanged();
+    partial void OnGelisKgChanging(System.Nullable<int> value);
+    partial void OnGelisKgChanged();
+    partial void OnUretimeAlinanKgChanging(System.Nullable<int> value);
+    partial void OnUretimeAlinanKgChanged();
+    partial void OnUrunIDChanging(int value);
+    partial void OnUrunIDChanged();
+    partial void OnZeytinyagiUretim_islemIDChanging(System.Nullable<int> value);
+    partial void OnZeytinyagiUretim_islemIDChanged();
+    partial void OnOperator_KullaniciIDChanging(System.Nullable<int> value);
+    partial void OnOperator_KullaniciIDChanged();
+    partial void OnUretimBaslamaZamaniChanging(System.Nullable<System.DateTime> value);
+    partial void OnUretimBaslamaZamaniChanged();
+    partial void OnUretimBitisZamaniChanging(System.Nullable<System.DateTime> value);
+    partial void OnUretimBitisZamaniChanged();
+    partial void OnCikan_UrunIDChanging(System.Nullable<int> value);
+    partial void OnCikan_UrunIDChanged();
+    partial void OnTankIDChanging(System.Nullable<int> value);
+    partial void OnTankIDChanged();
+    partial void OnAsiditeChanging(System.Nullable<decimal> value);
+    partial void OnAsiditeChanged();
+    partial void OnTahsiliyeKgUcretiChanging(System.Nullable<decimal> value);
+    partial void OnTahsiliyeKgUcretiChanged();
+    partial void OnTahsiliyeToplamUcretiChanging(System.Nullable<decimal> value);
+    partial void OnTahsiliyeToplamUcretiChanged();
     #endregion
 	
-	public Yetkiler()
+	public ZeytinyagiUretimleri()
 	{
+		this._ZeytinyagiUretimi_ZeytinBoxKasa_Maps = new EntitySet<ZeytinyagiUretimi_ZeytinBoxKasa_Map>(new Action<ZeytinyagiUretimi_ZeytinBoxKasa_Map>(this.attach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps), new Action<ZeytinyagiUretimi_ZeytinBoxKasa_Map>(this.detach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps));
+		this._Kullanicilar = default(EntityRef<Kullanicilar>);
+		this._Mustahsiller = default(EntityRef<Mustahsiller>);
 		this._Sirketler = default(EntityRef<Sirketler>);
+		this._Tanklar = default(EntityRef<Tanklar>);
+		this._Urunler = default(EntityRef<Urunler>);
+		this._Urunler1 = default(EntityRef<Urunler>);
+		this._ZeytinyagiUretim_islemleri = default(EntityRef<ZeytinyagiUretim_islemleri>);
 		OnCreated();
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YetkiID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int YetkiID
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiUretimID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ZeytinyagiUretimID
 	{
 		get
 		{
-			return this._YetkiID;
+			return this._ZeytinyagiUretimID;
 		}
 		set
 		{
-			if ((this._YetkiID != value))
+			if ((this._ZeytinyagiUretimID != value))
 			{
-				this.OnYetkiIDChanging(value);
+				this.OnZeytinyagiUretimIDChanging(value);
 				this.SendPropertyChanging();
-				this._YetkiID = value;
-				this.SendPropertyChanged("YetkiID");
-				this.OnYetkiIDChanged();
+				this._ZeytinyagiUretimID = value;
+				this.SendPropertyChanged("ZeytinyagiUretimID");
+				this.OnZeytinyagiUretimIDChanged();
 			}
 		}
 	}
@@ -934,47 +1216,432 @@ public partial class Yetkiler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YetkiAdi", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-	public string YetkiAdi
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MustahsilID", DbType="Int")]
+	public System.Nullable<int> MustahsilID
 	{
 		get
 		{
-			return this._YetkiAdi;
+			return this._MustahsilID;
 		}
 		set
 		{
-			if ((this._YetkiAdi != value))
+			if ((this._MustahsilID != value))
 			{
-				this.OnYetkiAdiChanging(value);
+				if (this._Mustahsiller.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnMustahsilIDChanging(value);
 				this.SendPropertyChanging();
-				this._YetkiAdi = value;
-				this.SendPropertyChanged("YetkiAdi");
-				this.OnYetkiAdiChanged();
+				this._MustahsilID = value;
+				this.SendPropertyChanged("MustahsilID");
+				this.OnMustahsilIDChanged();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Aciklama", DbType="NVarChar(200)")]
-	public string Aciklama
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartiNo", DbType="NVarChar(50)")]
+	public string PartiNo
 	{
 		get
 		{
-			return this._Aciklama;
+			return this._PartiNo;
 		}
 		set
 		{
-			if ((this._Aciklama != value))
+			if ((this._PartiNo != value))
 			{
-				this.OnAciklamaChanging(value);
+				this.OnPartiNoChanging(value);
 				this.SendPropertyChanging();
-				this._Aciklama = value;
-				this.SendPropertyChanged("Aciklama");
-				this.OnAciklamaChanged();
+				this._PartiNo = value;
+				this.SendPropertyChanged("PartiNo");
+				this.OnPartiNoChanged();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_Yetkiler", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlakaNo", DbType="TinyInt")]
+	public System.Nullable<byte> PlakaNo
+	{
+		get
+		{
+			return this._PlakaNo;
+		}
+		set
+		{
+			if ((this._PlakaNo != value))
+			{
+				this.OnPlakaNoChanging(value);
+				this.SendPropertyChanging();
+				this._PlakaNo = value;
+				this.SendPropertyChanged("PlakaNo");
+				this.OnPlakaNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GelisTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> GelisTarihi
+	{
+		get
+		{
+			return this._GelisTarihi;
+		}
+		set
+		{
+			if ((this._GelisTarihi != value))
+			{
+				this.OnGelisTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._GelisTarihi = value;
+				this.SendPropertyChanged("GelisTarihi");
+				this.OnGelisTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GelisKg", DbType="Int")]
+	public System.Nullable<int> GelisKg
+	{
+		get
+		{
+			return this._GelisKg;
+		}
+		set
+		{
+			if ((this._GelisKg != value))
+			{
+				this.OnGelisKgChanging(value);
+				this.SendPropertyChanging();
+				this._GelisKg = value;
+				this.SendPropertyChanged("GelisKg");
+				this.OnGelisKgChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UretimeAlinanKg", DbType="Int")]
+	public System.Nullable<int> UretimeAlinanKg
+	{
+		get
+		{
+			return this._UretimeAlinanKg;
+		}
+		set
+		{
+			if ((this._UretimeAlinanKg != value))
+			{
+				this.OnUretimeAlinanKgChanging(value);
+				this.SendPropertyChanging();
+				this._UretimeAlinanKg = value;
+				this.SendPropertyChanged("UretimeAlinanKg");
+				this.OnUretimeAlinanKgChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunID", DbType="Int NOT NULL")]
+	public int UrunID
+	{
+		get
+		{
+			return this._UrunID;
+		}
+		set
+		{
+			if ((this._UrunID != value))
+			{
+				if (this._Urunler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnUrunIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunID = value;
+				this.SendPropertyChanged("UrunID");
+				this.OnUrunIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiUretim_islemID", DbType="Int")]
+	public System.Nullable<int> ZeytinyagiUretim_islemID
+	{
+		get
+		{
+			return this._ZeytinyagiUretim_islemID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiUretim_islemID != value))
+			{
+				if (this._ZeytinyagiUretim_islemleri.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnZeytinyagiUretim_islemIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiUretim_islemID = value;
+				this.SendPropertyChanged("ZeytinyagiUretim_islemID");
+				this.OnZeytinyagiUretim_islemIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Operator_KullaniciID", DbType="Int")]
+	public System.Nullable<int> Operator_KullaniciID
+	{
+		get
+		{
+			return this._Operator_KullaniciID;
+		}
+		set
+		{
+			if ((this._Operator_KullaniciID != value))
+			{
+				if (this._Kullanicilar.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnOperator_KullaniciIDChanging(value);
+				this.SendPropertyChanging();
+				this._Operator_KullaniciID = value;
+				this.SendPropertyChanged("Operator_KullaniciID");
+				this.OnOperator_KullaniciIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UretimBaslamaZamani", DbType="DateTime")]
+	public System.Nullable<System.DateTime> UretimBaslamaZamani
+	{
+		get
+		{
+			return this._UretimBaslamaZamani;
+		}
+		set
+		{
+			if ((this._UretimBaslamaZamani != value))
+			{
+				this.OnUretimBaslamaZamaniChanging(value);
+				this.SendPropertyChanging();
+				this._UretimBaslamaZamani = value;
+				this.SendPropertyChanged("UretimBaslamaZamani");
+				this.OnUretimBaslamaZamaniChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UretimBitisZamani", DbType="DateTime")]
+	public System.Nullable<System.DateTime> UretimBitisZamani
+	{
+		get
+		{
+			return this._UretimBitisZamani;
+		}
+		set
+		{
+			if ((this._UretimBitisZamani != value))
+			{
+				this.OnUretimBitisZamaniChanging(value);
+				this.SendPropertyChanging();
+				this._UretimBitisZamani = value;
+				this.SendPropertyChanged("UretimBitisZamani");
+				this.OnUretimBitisZamaniChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cikan_UrunID", DbType="Int")]
+	public System.Nullable<int> Cikan_UrunID
+	{
+		get
+		{
+			return this._Cikan_UrunID;
+		}
+		set
+		{
+			if ((this._Cikan_UrunID != value))
+			{
+				if (this._Urunler1.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnCikan_UrunIDChanging(value);
+				this.SendPropertyChanging();
+				this._Cikan_UrunID = value;
+				this.SendPropertyChanged("Cikan_UrunID");
+				this.OnCikan_UrunIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TankID", DbType="Int")]
+	public System.Nullable<int> TankID
+	{
+		get
+		{
+			return this._TankID;
+		}
+		set
+		{
+			if ((this._TankID != value))
+			{
+				if (this._Tanklar.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnTankIDChanging(value);
+				this.SendPropertyChanging();
+				this._TankID = value;
+				this.SendPropertyChanged("TankID");
+				this.OnTankIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Asidite", DbType="Decimal(8,2)")]
+	public System.Nullable<decimal> Asidite
+	{
+		get
+		{
+			return this._Asidite;
+		}
+		set
+		{
+			if ((this._Asidite != value))
+			{
+				this.OnAsiditeChanging(value);
+				this.SendPropertyChanging();
+				this._Asidite = value;
+				this.SendPropertyChanged("Asidite");
+				this.OnAsiditeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TahsiliyeKgUcreti", DbType="Decimal(8,2)")]
+	public System.Nullable<decimal> TahsiliyeKgUcreti
+	{
+		get
+		{
+			return this._TahsiliyeKgUcreti;
+		}
+		set
+		{
+			if ((this._TahsiliyeKgUcreti != value))
+			{
+				this.OnTahsiliyeKgUcretiChanging(value);
+				this.SendPropertyChanging();
+				this._TahsiliyeKgUcreti = value;
+				this.SendPropertyChanged("TahsiliyeKgUcreti");
+				this.OnTahsiliyeKgUcretiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TahsiliyeToplamUcreti", DbType="Decimal(8,2)")]
+	public System.Nullable<decimal> TahsiliyeToplamUcreti
+	{
+		get
+		{
+			return this._TahsiliyeToplamUcreti;
+		}
+		set
+		{
+			if ((this._TahsiliyeToplamUcreti != value))
+			{
+				this.OnTahsiliyeToplamUcretiChanging(value);
+				this.SendPropertyChanging();
+				this._TahsiliyeToplamUcreti = value;
+				this.SendPropertyChanged("TahsiliyeToplamUcreti");
+				this.OnTahsiliyeToplamUcretiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinyagiUretimleri_ZeytinyagiUretimi_ZeytinBoxKasa_Map", Storage="_ZeytinyagiUretimi_ZeytinBoxKasa_Maps", ThisKey="ZeytinyagiUretimID", OtherKey="ZeytinyagiUretimID")]
+	public EntitySet<ZeytinyagiUretimi_ZeytinBoxKasa_Map> ZeytinyagiUretimi_ZeytinBoxKasa_Maps
+	{
+		get
+		{
+			return this._ZeytinyagiUretimi_ZeytinBoxKasa_Maps;
+		}
+		set
+		{
+			this._ZeytinyagiUretimi_ZeytinBoxKasa_Maps.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kullanicilar_ZeytinyagiUretimleri", Storage="_Kullanicilar", ThisKey="Operator_KullaniciID", OtherKey="KullaniciID", IsForeignKey=true)]
+	public Kullanicilar Kullanicilar
+	{
+		get
+		{
+			return this._Kullanicilar.Entity;
+		}
+		set
+		{
+			Kullanicilar previousValue = this._Kullanicilar.Entity;
+			if (((previousValue != value) 
+						|| (this._Kullanicilar.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Kullanicilar.Entity = null;
+					previousValue.ZeytinyagiUretimleris.Remove(this);
+				}
+				this._Kullanicilar.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimleris.Add(this);
+					this._Operator_KullaniciID = value.KullaniciID;
+				}
+				else
+				{
+					this._Operator_KullaniciID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Kullanicilar");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_ZeytinyagiUretimleri", Storage="_Mustahsiller", ThisKey="MustahsilID", OtherKey="MustahsilID", IsForeignKey=true)]
+	public Mustahsiller Mustahsiller
+	{
+		get
+		{
+			return this._Mustahsiller.Entity;
+		}
+		set
+		{
+			Mustahsiller previousValue = this._Mustahsiller.Entity;
+			if (((previousValue != value) 
+						|| (this._Mustahsiller.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Mustahsiller.Entity = null;
+					previousValue.ZeytinyagiUretimleris.Remove(this);
+				}
+				this._Mustahsiller.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimleris.Add(this);
+					this._MustahsilID = value.MustahsilID;
+				}
+				else
+				{
+					this._MustahsilID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Mustahsiller");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_ZeytinyagiUretimleri", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
 	public Sirketler Sirketler
 	{
 		get
@@ -991,12 +1658,12 @@ public partial class Yetkiler : INotifyPropertyChanging, INotifyPropertyChanged
 				if ((previousValue != null))
 				{
 					this._Sirketler.Entity = null;
-					previousValue.Yetkilers.Remove(this);
+					previousValue.ZeytinyagiUretimleris.Remove(this);
 				}
 				this._Sirketler.Entity = value;
 				if ((value != null))
 				{
-					value.Yetkilers.Add(this);
+					value.ZeytinyagiUretimleris.Add(this);
 					this._SirketID = value.SirketID;
 				}
 				else
@@ -1004,6 +1671,142 @@ public partial class Yetkiler : INotifyPropertyChanging, INotifyPropertyChanged
 					this._SirketID = default(int);
 				}
 				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tanklar_ZeytinyagiUretimleri", Storage="_Tanklar", ThisKey="TankID", OtherKey="TankID", IsForeignKey=true)]
+	public Tanklar Tanklar
+	{
+		get
+		{
+			return this._Tanklar.Entity;
+		}
+		set
+		{
+			Tanklar previousValue = this._Tanklar.Entity;
+			if (((previousValue != value) 
+						|| (this._Tanklar.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Tanklar.Entity = null;
+					previousValue.ZeytinyagiUretimleris.Remove(this);
+				}
+				this._Tanklar.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimleris.Add(this);
+					this._TankID = value.TankID;
+				}
+				else
+				{
+					this._TankID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Tanklar");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_ZeytinyagiUretimleri", Storage="_Urunler", ThisKey="UrunID", OtherKey="UrunID", IsForeignKey=true)]
+	public Urunler Urunler
+	{
+		get
+		{
+			return this._Urunler.Entity;
+		}
+		set
+		{
+			Urunler previousValue = this._Urunler.Entity;
+			if (((previousValue != value) 
+						|| (this._Urunler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Urunler.Entity = null;
+					previousValue.ZeytinyagiUretimleris.Remove(this);
+				}
+				this._Urunler.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimleris.Add(this);
+					this._UrunID = value.UrunID;
+				}
+				else
+				{
+					this._UrunID = default(int);
+				}
+				this.SendPropertyChanged("Urunler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_ZeytinyagiUretimleri1", Storage="_Urunler1", ThisKey="Cikan_UrunID", OtherKey="UrunID", IsForeignKey=true)]
+	public Urunler Urunler1
+	{
+		get
+		{
+			return this._Urunler1.Entity;
+		}
+		set
+		{
+			Urunler previousValue = this._Urunler1.Entity;
+			if (((previousValue != value) 
+						|| (this._Urunler1.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Urunler1.Entity = null;
+					previousValue.ZeytinyagiUretimleris1.Remove(this);
+				}
+				this._Urunler1.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimleris1.Add(this);
+					this._Cikan_UrunID = value.UrunID;
+				}
+				else
+				{
+					this._Cikan_UrunID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Urunler1");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinyagiUretim_islemleri_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretim_islemleri", ThisKey="ZeytinyagiUretim_islemID", OtherKey="ZeytinyagiUretim_islemID", IsForeignKey=true)]
+	public ZeytinyagiUretim_islemleri ZeytinyagiUretim_islemleri
+	{
+		get
+		{
+			return this._ZeytinyagiUretim_islemleri.Entity;
+		}
+		set
+		{
+			ZeytinyagiUretim_islemleri previousValue = this._ZeytinyagiUretim_islemleri.Entity;
+			if (((previousValue != value) 
+						|| (this._ZeytinyagiUretim_islemleri.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._ZeytinyagiUretim_islemleri.Entity = null;
+					previousValue.ZeytinyagiUretimleris.Remove(this);
+				}
+				this._ZeytinyagiUretim_islemleri.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimleris.Add(this);
+					this._ZeytinyagiUretim_islemID = value.ZeytinyagiUretim_islemID;
+				}
+				else
+				{
+					this._ZeytinyagiUretim_islemID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("ZeytinyagiUretim_islemleri");
 			}
 		}
 	}
@@ -1027,6 +1830,18 @@ public partial class Yetkiler : INotifyPropertyChanging, INotifyPropertyChanged
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
+	
+	private void attach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps(ZeytinyagiUretimi_ZeytinBoxKasa_Map entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinyagiUretimleri = this;
+	}
+	
+	private void detach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps(ZeytinyagiUretimi_ZeytinBoxKasa_Map entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinyagiUretimleri = null;
+	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Alislar")]
@@ -1043,15 +1858,15 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.DateTime _AlisTarihi;
 	
-	private int _TedarikciID;
+	private System.Nullable<int> _TedarikciID;
 	
 	private System.Nullable<int> _MustahsilID;
 	
-	private decimal _ToplamTutar;
+	private System.Nullable<decimal> _ToplamTutar;
 	
-	private decimal _KDVToplam;
+	private System.Nullable<decimal> _KDVToplam;
 	
-	private decimal _GenelToplam;
+	private System.Nullable<decimal> _GenelToplam;
 	
 	private string _OdemeDurumu;
 	
@@ -1079,15 +1894,15 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnAlisNoChanged();
     partial void OnAlisTarihiChanging(System.DateTime value);
     partial void OnAlisTarihiChanged();
-    partial void OnTedarikciIDChanging(int value);
+    partial void OnTedarikciIDChanging(System.Nullable<int> value);
     partial void OnTedarikciIDChanged();
     partial void OnMustahsilIDChanging(System.Nullable<int> value);
     partial void OnMustahsilIDChanged();
-    partial void OnToplamTutarChanging(decimal value);
+    partial void OnToplamTutarChanging(System.Nullable<decimal> value);
     partial void OnToplamTutarChanged();
-    partial void OnKDVToplamChanging(decimal value);
+    partial void OnKDVToplamChanging(System.Nullable<decimal> value);
     partial void OnKDVToplamChanged();
-    partial void OnGenelToplamChanging(decimal value);
+    partial void OnGenelToplamChanging(System.Nullable<decimal> value);
     partial void OnGenelToplamChanged();
     partial void OnOdemeDurumuChanging(string value);
     partial void OnOdemeDurumuChanged();
@@ -1190,8 +2005,8 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TedarikciID", DbType="Int NOT NULL")]
-	public int TedarikciID
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TedarikciID", DbType="Int")]
+	public System.Nullable<int> TedarikciID
 	{
 		get
 		{
@@ -1238,8 +2053,8 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToplamTutar", DbType="Decimal(10,2) NOT NULL")]
-	public decimal ToplamTutar
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToplamTutar", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> ToplamTutar
 	{
 		get
 		{
@@ -1258,8 +2073,8 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KDVToplam", DbType="Decimal(10,2) NOT NULL")]
-	public decimal KDVToplam
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KDVToplam", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> KDVToplam
 	{
 		get
 		{
@@ -1278,8 +2093,8 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenelToplam", DbType="Decimal(10,2) NOT NULL")]
-	public decimal GenelToplam
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenelToplam", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> GenelToplam
 	{
 		get
 		{
@@ -1466,7 +2281,7 @@ public partial class Alislar : INotifyPropertyChanging, INotifyPropertyChanged
 				}
 				else
 				{
-					this._TedarikciID = default(int);
+					this._TedarikciID = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("Tedarikciler");
 			}
@@ -3027,6 +3842,10 @@ public partial class Depolar : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<bool> _Durum;
 	
+	private EntitySet<DepoStok> _DepoStoks;
+	
+	private EntitySet<StokHareketleri> _StokHareketleris;
+	
 	private EntitySet<Uretim> _Uretims;
 	
 	private EntityRef<Sirketler> _Sirketler;
@@ -3053,6 +3872,8 @@ public partial class Depolar : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Depolar()
 	{
+		this._DepoStoks = new EntitySet<DepoStok>(new Action<DepoStok>(this.attach_DepoStoks), new Action<DepoStok>(this.detach_DepoStoks));
+		this._StokHareketleris = new EntitySet<StokHareketleri>(new Action<StokHareketleri>(this.attach_StokHareketleris), new Action<StokHareketleri>(this.detach_StokHareketleris));
 		this._Uretims = new EntitySet<Uretim>(new Action<Uretim>(this.attach_Uretims), new Action<Uretim>(this.detach_Uretims));
 		this._Sirketler = default(EntityRef<Sirketler>);
 		OnCreated();
@@ -3202,6 +4023,32 @@ public partial class Depolar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Depolar_DepoStok", Storage="_DepoStoks", ThisKey="DepoID", OtherKey="DepoID")]
+	public EntitySet<DepoStok> DepoStoks
+	{
+		get
+		{
+			return this._DepoStoks;
+		}
+		set
+		{
+			this._DepoStoks.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Depolar_StokHareketleri", Storage="_StokHareketleris", ThisKey="DepoID", OtherKey="DepoID")]
+	public EntitySet<StokHareketleri> StokHareketleris
+	{
+		get
+		{
+			return this._StokHareketleris;
+		}
+		set
+		{
+			this._StokHareketleris.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Depolar_Uretim", Storage="_Uretims", ThisKey="DepoID", OtherKey="DepoID")]
 	public EntitySet<Uretim> Uretims
 	{
@@ -3269,6 +4116,30 @@ public partial class Depolar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	private void attach_DepoStoks(DepoStok entity)
+	{
+		this.SendPropertyChanging();
+		entity.Depolar = this;
+	}
+	
+	private void detach_DepoStoks(DepoStok entity)
+	{
+		this.SendPropertyChanging();
+		entity.Depolar = null;
+	}
+	
+	private void attach_StokHareketleris(StokHareketleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Depolar = this;
+	}
+	
+	private void detach_StokHareketleris(StokHareketleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Depolar = null;
+	}
+	
 	private void attach_Uretims(Uretim entity)
 	{
 		this.SendPropertyChanging();
@@ -3279,6 +4150,335 @@ public partial class Depolar : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Depolar = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DepoStok")]
+public partial class DepoStok : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _DepoStokID;
+	
+	private int _SirketID;
+	
+	private int _DepoID;
+	
+	private int _UrunID;
+	
+	private decimal _Miktar;
+	
+	private System.Nullable<decimal> _MinimumMiktar;
+	
+	private System.Nullable<System.DateTime> _SonGuncellemeTarihi;
+	
+	private EntityRef<Depolar> _Depolar;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<Urunler> _Urunler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDepoStokIDChanging(int value);
+    partial void OnDepoStokIDChanged();
+    partial void OnSirketIDChanging(int value);
+    partial void OnSirketIDChanged();
+    partial void OnDepoIDChanging(int value);
+    partial void OnDepoIDChanged();
+    partial void OnUrunIDChanging(int value);
+    partial void OnUrunIDChanged();
+    partial void OnMiktarChanging(decimal value);
+    partial void OnMiktarChanged();
+    partial void OnMinimumMiktarChanging(System.Nullable<decimal> value);
+    partial void OnMinimumMiktarChanged();
+    partial void OnSonGuncellemeTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnSonGuncellemeTarihiChanged();
+    #endregion
+	
+	public DepoStok()
+	{
+		this._Depolar = default(EntityRef<Depolar>);
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._Urunler = default(EntityRef<Urunler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepoStokID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int DepoStokID
+	{
+		get
+		{
+			return this._DepoStokID;
+		}
+		set
+		{
+			if ((this._DepoStokID != value))
+			{
+				this.OnDepoStokIDChanging(value);
+				this.SendPropertyChanging();
+				this._DepoStokID = value;
+				this.SendPropertyChanged("DepoStokID");
+				this.OnDepoStokIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int NOT NULL")]
+	public int SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepoID", DbType="Int NOT NULL")]
+	public int DepoID
+	{
+		get
+		{
+			return this._DepoID;
+		}
+		set
+		{
+			if ((this._DepoID != value))
+			{
+				if (this._Depolar.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDepoIDChanging(value);
+				this.SendPropertyChanging();
+				this._DepoID = value;
+				this.SendPropertyChanged("DepoID");
+				this.OnDepoIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunID", DbType="Int NOT NULL")]
+	public int UrunID
+	{
+		get
+		{
+			return this._UrunID;
+		}
+		set
+		{
+			if ((this._UrunID != value))
+			{
+				if (this._Urunler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnUrunIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunID = value;
+				this.SendPropertyChanged("UrunID");
+				this.OnUrunIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Miktar", DbType="Decimal(10,2) NOT NULL")]
+	public decimal Miktar
+	{
+		get
+		{
+			return this._Miktar;
+		}
+		set
+		{
+			if ((this._Miktar != value))
+			{
+				this.OnMiktarChanging(value);
+				this.SendPropertyChanging();
+				this._Miktar = value;
+				this.SendPropertyChanged("Miktar");
+				this.OnMiktarChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MinimumMiktar", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> MinimumMiktar
+	{
+		get
+		{
+			return this._MinimumMiktar;
+		}
+		set
+		{
+			if ((this._MinimumMiktar != value))
+			{
+				this.OnMinimumMiktarChanging(value);
+				this.SendPropertyChanging();
+				this._MinimumMiktar = value;
+				this.SendPropertyChanged("MinimumMiktar");
+				this.OnMinimumMiktarChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SonGuncellemeTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> SonGuncellemeTarihi
+	{
+		get
+		{
+			return this._SonGuncellemeTarihi;
+		}
+		set
+		{
+			if ((this._SonGuncellemeTarihi != value))
+			{
+				this.OnSonGuncellemeTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._SonGuncellemeTarihi = value;
+				this.SendPropertyChanged("SonGuncellemeTarihi");
+				this.OnSonGuncellemeTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Depolar_DepoStok", Storage="_Depolar", ThisKey="DepoID", OtherKey="DepoID", IsForeignKey=true)]
+	public Depolar Depolar
+	{
+		get
+		{
+			return this._Depolar.Entity;
+		}
+		set
+		{
+			Depolar previousValue = this._Depolar.Entity;
+			if (((previousValue != value) 
+						|| (this._Depolar.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Depolar.Entity = null;
+					previousValue.DepoStoks.Remove(this);
+				}
+				this._Depolar.Entity = value;
+				if ((value != null))
+				{
+					value.DepoStoks.Add(this);
+					this._DepoID = value.DepoID;
+				}
+				else
+				{
+					this._DepoID = default(int);
+				}
+				this.SendPropertyChanged("Depolar");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_DepoStok", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.DepoStoks.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.DepoStoks.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(int);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_DepoStok", Storage="_Urunler", ThisKey="UrunID", OtherKey="UrunID", IsForeignKey=true)]
+	public Urunler Urunler
+	{
+		get
+		{
+			return this._Urunler.Entity;
+		}
+		set
+		{
+			Urunler previousValue = this._Urunler.Entity;
+			if (((previousValue != value) 
+						|| (this._Urunler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Urunler.Entity = null;
+					previousValue.DepoStoks.Remove(this);
+				}
+				this._Urunler.Entity = value;
+				if ((value != null))
+				{
+					value.DepoStoks.Add(this);
+					this._UrunID = value.UrunID;
+				}
+				else
+				{
+					this._UrunID = default(int);
+				}
+				this.SendPropertyChanged("Urunler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 
@@ -4117,7 +5317,11 @@ public partial class Kullanicilar : INotifyPropertyChanging, INotifyPropertyChan
 	
 	private System.Nullable<System.DateTime> _SonGirisTarihi;
 	
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris;
+	
 	private EntitySet<BlogYazilari> _BlogYazilaris;
+	
+	private EntitySet<StokHareketleri> _StokHareketleris;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4147,7 +5351,9 @@ public partial class Kullanicilar : INotifyPropertyChanging, INotifyPropertyChan
 	
 	public Kullanicilar()
 	{
+		this._ZeytinyagiUretimleris = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris));
 		this._BlogYazilaris = new EntitySet<BlogYazilari>(new Action<BlogYazilari>(this.attach_BlogYazilaris), new Action<BlogYazilari>(this.detach_BlogYazilaris));
+		this._StokHareketleris = new EntitySet<StokHareketleri>(new Action<StokHareketleri>(this.attach_StokHareketleris), new Action<StokHareketleri>(this.detach_StokHareketleris));
 		OnCreated();
 	}
 	
@@ -4351,6 +5557,19 @@ public partial class Kullanicilar : INotifyPropertyChanging, INotifyPropertyChan
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kullanicilar_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretimleris", ThisKey="KullaniciID", OtherKey="Operator_KullaniciID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleris;
+		}
+		set
+		{
+			this._ZeytinyagiUretimleris.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kullanicilar_BlogYazilari", Storage="_BlogYazilaris", ThisKey="KullaniciID", OtherKey="YazarID")]
 	public EntitySet<BlogYazilari> BlogYazilaris
 	{
@@ -4361,6 +5580,19 @@ public partial class Kullanicilar : INotifyPropertyChanging, INotifyPropertyChan
 		set
 		{
 			this._BlogYazilaris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kullanicilar_StokHareketleri", Storage="_StokHareketleris", ThisKey="KullaniciID", OtherKey="KullaniciID")]
+	public EntitySet<StokHareketleri> StokHareketleris
+	{
+		get
+		{
+			return this._StokHareketleris;
+		}
+		set
+		{
+			this._StokHareketleris.Assign(value);
 		}
 	}
 	
@@ -4384,6 +5616,18 @@ public partial class Kullanicilar : INotifyPropertyChanging, INotifyPropertyChan
 		}
 	}
 	
+	private void attach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Kullanicilar = this;
+	}
+	
+	private void detach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Kullanicilar = null;
+	}
+	
 	private void attach_BlogYazilaris(BlogYazilari entity)
 	{
 		this.SendPropertyChanging();
@@ -4391,6 +5635,18 @@ public partial class Kullanicilar : INotifyPropertyChanging, INotifyPropertyChan
 	}
 	
 	private void detach_BlogYazilaris(BlogYazilari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Kullanicilar = null;
+	}
+	
+	private void attach_StokHareketleris(StokHareketleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Kullanicilar = this;
+	}
+	
+	private void detach_StokHareketleris(StokHareketleri entity)
 	{
 		this.SendPropertyChanging();
 		entity.Kullanicilar = null;
@@ -5280,6 +6536,229 @@ public partial class Menu : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 }
 
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MustahsilCKSBelgeleri")]
+public partial class MustahsilCKSBelgeleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _BelgeID;
+	
+	private System.Nullable<int> _MustahsilID;
+	
+	private string _DosyaYolu;
+	
+	private System.Nullable<int> _UretimYili;
+	
+	private System.Nullable<System.DateTime> _GecerlilikBitis;
+	
+	private System.Nullable<System.DateTime> _EklenmeTarihi;
+	
+	private EntityRef<Mustahsiller> _Mustahsiller;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBelgeIDChanging(int value);
+    partial void OnBelgeIDChanged();
+    partial void OnMustahsilIDChanging(System.Nullable<int> value);
+    partial void OnMustahsilIDChanged();
+    partial void OnDosyaYoluChanging(string value);
+    partial void OnDosyaYoluChanged();
+    partial void OnUretimYiliChanging(System.Nullable<int> value);
+    partial void OnUretimYiliChanged();
+    partial void OnGecerlilikBitisChanging(System.Nullable<System.DateTime> value);
+    partial void OnGecerlilikBitisChanged();
+    partial void OnEklenmeTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnEklenmeTarihiChanged();
+    #endregion
+	
+	public MustahsilCKSBelgeleri()
+	{
+		this._Mustahsiller = default(EntityRef<Mustahsiller>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BelgeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int BelgeID
+	{
+		get
+		{
+			return this._BelgeID;
+		}
+		set
+		{
+			if ((this._BelgeID != value))
+			{
+				this.OnBelgeIDChanging(value);
+				this.SendPropertyChanging();
+				this._BelgeID = value;
+				this.SendPropertyChanged("BelgeID");
+				this.OnBelgeIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MustahsilID", DbType="Int")]
+	public System.Nullable<int> MustahsilID
+	{
+		get
+		{
+			return this._MustahsilID;
+		}
+		set
+		{
+			if ((this._MustahsilID != value))
+			{
+				if (this._Mustahsiller.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnMustahsilIDChanging(value);
+				this.SendPropertyChanging();
+				this._MustahsilID = value;
+				this.SendPropertyChanged("MustahsilID");
+				this.OnMustahsilIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DosyaYolu", DbType="NVarChar(500)")]
+	public string DosyaYolu
+	{
+		get
+		{
+			return this._DosyaYolu;
+		}
+		set
+		{
+			if ((this._DosyaYolu != value))
+			{
+				this.OnDosyaYoluChanging(value);
+				this.SendPropertyChanging();
+				this._DosyaYolu = value;
+				this.SendPropertyChanged("DosyaYolu");
+				this.OnDosyaYoluChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UretimYili", DbType="Int")]
+	public System.Nullable<int> UretimYili
+	{
+		get
+		{
+			return this._UretimYili;
+		}
+		set
+		{
+			if ((this._UretimYili != value))
+			{
+				this.OnUretimYiliChanging(value);
+				this.SendPropertyChanging();
+				this._UretimYili = value;
+				this.SendPropertyChanged("UretimYili");
+				this.OnUretimYiliChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GecerlilikBitis", DbType="Date")]
+	public System.Nullable<System.DateTime> GecerlilikBitis
+	{
+		get
+		{
+			return this._GecerlilikBitis;
+		}
+		set
+		{
+			if ((this._GecerlilikBitis != value))
+			{
+				this.OnGecerlilikBitisChanging(value);
+				this.SendPropertyChanging();
+				this._GecerlilikBitis = value;
+				this.SendPropertyChanged("GecerlilikBitis");
+				this.OnGecerlilikBitisChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EklenmeTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> EklenmeTarihi
+	{
+		get
+		{
+			return this._EklenmeTarihi;
+		}
+		set
+		{
+			if ((this._EklenmeTarihi != value))
+			{
+				this.OnEklenmeTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._EklenmeTarihi = value;
+				this.SendPropertyChanged("EklenmeTarihi");
+				this.OnEklenmeTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_MustahsilCKSBelgeleri", Storage="_Mustahsiller", ThisKey="MustahsilID", OtherKey="MustahsilID", IsForeignKey=true)]
+	public Mustahsiller Mustahsiller
+	{
+		get
+		{
+			return this._Mustahsiller.Entity;
+		}
+		set
+		{
+			Mustahsiller previousValue = this._Mustahsiller.Entity;
+			if (((previousValue != value) 
+						|| (this._Mustahsiller.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Mustahsiller.Entity = null;
+					previousValue.MustahsilCKSBelgeleris.Remove(this);
+				}
+				this._Mustahsiller.Entity = value;
+				if ((value != null))
+				{
+					value.MustahsilCKSBelgeleris.Add(this);
+					this._MustahsilID = value.MustahsilID;
+				}
+				else
+				{
+					this._MustahsilID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Mustahsiller");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Mustahsiller")]
 public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -5312,7 +6791,13 @@ public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChan
 	
 	private string _BankaBilgileri;
 	
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris;
+	
 	private EntitySet<Alislar> _Alislars;
+	
+	private EntitySet<MustahsilCKSBelgeleri> _MustahsilCKSBelgeleris;
+	
+	private EntitySet<MustahsilTarlalar> _MustahsilTarlalars;
 	
 	private EntityRef<Sirketler> _Sirketler;
 	
@@ -5350,7 +6835,10 @@ public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChan
 	
 	public Mustahsiller()
 	{
+		this._ZeytinyagiUretimleris = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris));
 		this._Alislars = new EntitySet<Alislar>(new Action<Alislar>(this.attach_Alislars), new Action<Alislar>(this.detach_Alislars));
+		this._MustahsilCKSBelgeleris = new EntitySet<MustahsilCKSBelgeleri>(new Action<MustahsilCKSBelgeleri>(this.attach_MustahsilCKSBelgeleris), new Action<MustahsilCKSBelgeleri>(this.detach_MustahsilCKSBelgeleris));
+		this._MustahsilTarlalars = new EntitySet<MustahsilTarlalar>(new Action<MustahsilTarlalar>(this.attach_MustahsilTarlalars), new Action<MustahsilTarlalar>(this.detach_MustahsilTarlalars));
 		this._Sirketler = default(EntityRef<Sirketler>);
 		OnCreated();
 	}
@@ -5619,6 +7107,19 @@ public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChan
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretimleris", ThisKey="MustahsilID", OtherKey="MustahsilID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleris;
+		}
+		set
+		{
+			this._ZeytinyagiUretimleris.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_Alislar", Storage="_Alislars", ThisKey="MustahsilID", OtherKey="MustahsilID")]
 	public EntitySet<Alislar> Alislars
 	{
@@ -5629,6 +7130,32 @@ public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChan
 		set
 		{
 			this._Alislars.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_MustahsilCKSBelgeleri", Storage="_MustahsilCKSBelgeleris", ThisKey="MustahsilID", OtherKey="MustahsilID")]
+	public EntitySet<MustahsilCKSBelgeleri> MustahsilCKSBelgeleris
+	{
+		get
+		{
+			return this._MustahsilCKSBelgeleris;
+		}
+		set
+		{
+			this._MustahsilCKSBelgeleris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_MustahsilTarlalar", Storage="_MustahsilTarlalars", ThisKey="MustahsilID", OtherKey="MustahsilID")]
+	public EntitySet<MustahsilTarlalar> MustahsilTarlalars
+	{
+		get
+		{
+			return this._MustahsilTarlalars;
+		}
+		set
+		{
+			this._MustahsilTarlalars.Assign(value);
 		}
 	}
 	
@@ -5686,6 +7213,18 @@ public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChan
 		}
 	}
 	
+	private void attach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Mustahsiller = this;
+	}
+	
+	private void detach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Mustahsiller = null;
+	}
+	
 	private void attach_Alislars(Alislar entity)
 	{
 		this.SendPropertyChanging();
@@ -5696,6 +7235,397 @@ public partial class Mustahsiller : INotifyPropertyChanging, INotifyPropertyChan
 	{
 		this.SendPropertyChanging();
 		entity.Mustahsiller = null;
+	}
+	
+	private void attach_MustahsilCKSBelgeleris(MustahsilCKSBelgeleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Mustahsiller = this;
+	}
+	
+	private void detach_MustahsilCKSBelgeleris(MustahsilCKSBelgeleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Mustahsiller = null;
+	}
+	
+	private void attach_MustahsilTarlalars(MustahsilTarlalar entity)
+	{
+		this.SendPropertyChanging();
+		entity.Mustahsiller = this;
+	}
+	
+	private void detach_MustahsilTarlalars(MustahsilTarlalar entity)
+	{
+		this.SendPropertyChanging();
+		entity.Mustahsiller = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MustahsilTarlalar")]
+public partial class MustahsilTarlalar : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _TarlaID;
+	
+	private System.Nullable<int> _MustahsilID;
+	
+	private string _AdaParsel;
+	
+	private System.Nullable<double> _TapuAlan;
+	
+	private System.Nullable<double> _KullanilanAlan;
+	
+	private string _Urun;
+	
+	private string _Sulama;
+	
+	private string _MulkTipi;
+	
+	private string _Il;
+	
+	private string _Ilce;
+	
+	private string _Mahalle;
+	
+	private System.Nullable<bool> _Durumu;
+	
+	private EntityRef<Mustahsiller> _Mustahsiller;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTarlaIDChanging(int value);
+    partial void OnTarlaIDChanged();
+    partial void OnMustahsilIDChanging(System.Nullable<int> value);
+    partial void OnMustahsilIDChanged();
+    partial void OnAdaParselChanging(string value);
+    partial void OnAdaParselChanged();
+    partial void OnTapuAlanChanging(System.Nullable<double> value);
+    partial void OnTapuAlanChanged();
+    partial void OnKullanilanAlanChanging(System.Nullable<double> value);
+    partial void OnKullanilanAlanChanged();
+    partial void OnUrunChanging(string value);
+    partial void OnUrunChanged();
+    partial void OnSulamaChanging(string value);
+    partial void OnSulamaChanged();
+    partial void OnMulkTipiChanging(string value);
+    partial void OnMulkTipiChanged();
+    partial void OnIlChanging(string value);
+    partial void OnIlChanged();
+    partial void OnIlceChanging(string value);
+    partial void OnIlceChanged();
+    partial void OnMahalleChanging(string value);
+    partial void OnMahalleChanged();
+    partial void OnDurumuChanging(System.Nullable<bool> value);
+    partial void OnDurumuChanged();
+    #endregion
+	
+	public MustahsilTarlalar()
+	{
+		this._Mustahsiller = default(EntityRef<Mustahsiller>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TarlaID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int TarlaID
+	{
+		get
+		{
+			return this._TarlaID;
+		}
+		set
+		{
+			if ((this._TarlaID != value))
+			{
+				this.OnTarlaIDChanging(value);
+				this.SendPropertyChanging();
+				this._TarlaID = value;
+				this.SendPropertyChanged("TarlaID");
+				this.OnTarlaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MustahsilID", DbType="Int")]
+	public System.Nullable<int> MustahsilID
+	{
+		get
+		{
+			return this._MustahsilID;
+		}
+		set
+		{
+			if ((this._MustahsilID != value))
+			{
+				if (this._Mustahsiller.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnMustahsilIDChanging(value);
+				this.SendPropertyChanging();
+				this._MustahsilID = value;
+				this.SendPropertyChanged("MustahsilID");
+				this.OnMustahsilIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdaParsel", DbType="NVarChar(50)")]
+	public string AdaParsel
+	{
+		get
+		{
+			return this._AdaParsel;
+		}
+		set
+		{
+			if ((this._AdaParsel != value))
+			{
+				this.OnAdaParselChanging(value);
+				this.SendPropertyChanging();
+				this._AdaParsel = value;
+				this.SendPropertyChanged("AdaParsel");
+				this.OnAdaParselChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TapuAlan", DbType="Float")]
+	public System.Nullable<double> TapuAlan
+	{
+		get
+		{
+			return this._TapuAlan;
+		}
+		set
+		{
+			if ((this._TapuAlan != value))
+			{
+				this.OnTapuAlanChanging(value);
+				this.SendPropertyChanging();
+				this._TapuAlan = value;
+				this.SendPropertyChanged("TapuAlan");
+				this.OnTapuAlanChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KullanilanAlan", DbType="Float")]
+	public System.Nullable<double> KullanilanAlan
+	{
+		get
+		{
+			return this._KullanilanAlan;
+		}
+		set
+		{
+			if ((this._KullanilanAlan != value))
+			{
+				this.OnKullanilanAlanChanging(value);
+				this.SendPropertyChanging();
+				this._KullanilanAlan = value;
+				this.SendPropertyChanged("KullanilanAlan");
+				this.OnKullanilanAlanChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Urun", DbType="NVarChar(100)")]
+	public string Urun
+	{
+		get
+		{
+			return this._Urun;
+		}
+		set
+		{
+			if ((this._Urun != value))
+			{
+				this.OnUrunChanging(value);
+				this.SendPropertyChanging();
+				this._Urun = value;
+				this.SendPropertyChanged("Urun");
+				this.OnUrunChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sulama", DbType="NVarChar(20)")]
+	public string Sulama
+	{
+		get
+		{
+			return this._Sulama;
+		}
+		set
+		{
+			if ((this._Sulama != value))
+			{
+				this.OnSulamaChanging(value);
+				this.SendPropertyChanging();
+				this._Sulama = value;
+				this.SendPropertyChanged("Sulama");
+				this.OnSulamaChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MulkTipi", DbType="NVarChar(10)")]
+	public string MulkTipi
+	{
+		get
+		{
+			return this._MulkTipi;
+		}
+		set
+		{
+			if ((this._MulkTipi != value))
+			{
+				this.OnMulkTipiChanging(value);
+				this.SendPropertyChanging();
+				this._MulkTipi = value;
+				this.SendPropertyChanged("MulkTipi");
+				this.OnMulkTipiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Il", DbType="NVarChar(50)")]
+	public string Il
+	{
+		get
+		{
+			return this._Il;
+		}
+		set
+		{
+			if ((this._Il != value))
+			{
+				this.OnIlChanging(value);
+				this.SendPropertyChanging();
+				this._Il = value;
+				this.SendPropertyChanged("Il");
+				this.OnIlChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ilce", DbType="NVarChar(50)")]
+	public string Ilce
+	{
+		get
+		{
+			return this._Ilce;
+		}
+		set
+		{
+			if ((this._Ilce != value))
+			{
+				this.OnIlceChanging(value);
+				this.SendPropertyChanging();
+				this._Ilce = value;
+				this.SendPropertyChanged("Ilce");
+				this.OnIlceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mahalle", DbType="NVarChar(50)")]
+	public string Mahalle
+	{
+		get
+		{
+			return this._Mahalle;
+		}
+		set
+		{
+			if ((this._Mahalle != value))
+			{
+				this.OnMahalleChanging(value);
+				this.SendPropertyChanging();
+				this._Mahalle = value;
+				this.SendPropertyChanged("Mahalle");
+				this.OnMahalleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Durumu", DbType="Bit")]
+	public System.Nullable<bool> Durumu
+	{
+		get
+		{
+			return this._Durumu;
+		}
+		set
+		{
+			if ((this._Durumu != value))
+			{
+				this.OnDurumuChanging(value);
+				this.SendPropertyChanging();
+				this._Durumu = value;
+				this.SendPropertyChanged("Durumu");
+				this.OnDurumuChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Mustahsiller_MustahsilTarlalar", Storage="_Mustahsiller", ThisKey="MustahsilID", OtherKey="MustahsilID", IsForeignKey=true)]
+	public Mustahsiller Mustahsiller
+	{
+		get
+		{
+			return this._Mustahsiller.Entity;
+		}
+		set
+		{
+			Mustahsiller previousValue = this._Mustahsiller.Entity;
+			if (((previousValue != value) 
+						|| (this._Mustahsiller.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Mustahsiller.Entity = null;
+					previousValue.MustahsilTarlalars.Remove(this);
+				}
+				this._Mustahsiller.Entity = value;
+				if ((value != null))
+				{
+					value.MustahsilTarlalars.Add(this);
+					this._MustahsilID = value.MustahsilID;
+				}
+				else
+				{
+					this._MustahsilID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Mustahsiller");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 
@@ -7214,6 +9144,212 @@ public partial class NakitIslemler : INotifyPropertyChanging, INotifyPropertyCha
 	}
 }
 
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PaletTipleri")]
+public partial class PaletTipleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _PaletTipID;
+	
+	private string _PaletAd;
+	
+	private System.Nullable<byte> _En_cm;
+	
+	private System.Nullable<byte> _Boy_cm;
+	
+	private System.Nullable<byte> _Yukseklik_cm;
+	
+	private System.Nullable<byte> _Agirlik_kg;
+	
+	private string _PaletGorsel;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPaletTipIDChanging(int value);
+    partial void OnPaletTipIDChanged();
+    partial void OnPaletAdChanging(string value);
+    partial void OnPaletAdChanged();
+    partial void OnEn_cmChanging(System.Nullable<byte> value);
+    partial void OnEn_cmChanged();
+    partial void OnBoy_cmChanging(System.Nullable<byte> value);
+    partial void OnBoy_cmChanged();
+    partial void OnYukseklik_cmChanging(System.Nullable<byte> value);
+    partial void OnYukseklik_cmChanged();
+    partial void OnAgirlik_kgChanging(System.Nullable<byte> value);
+    partial void OnAgirlik_kgChanged();
+    partial void OnPaletGorselChanging(string value);
+    partial void OnPaletGorselChanged();
+    #endregion
+	
+	public PaletTipleri()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaletTipID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int PaletTipID
+	{
+		get
+		{
+			return this._PaletTipID;
+		}
+		set
+		{
+			if ((this._PaletTipID != value))
+			{
+				this.OnPaletTipIDChanging(value);
+				this.SendPropertyChanging();
+				this._PaletTipID = value;
+				this.SendPropertyChanged("PaletTipID");
+				this.OnPaletTipIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaletAd", DbType="NVarChar(50)")]
+	public string PaletAd
+	{
+		get
+		{
+			return this._PaletAd;
+		}
+		set
+		{
+			if ((this._PaletAd != value))
+			{
+				this.OnPaletAdChanging(value);
+				this.SendPropertyChanging();
+				this._PaletAd = value;
+				this.SendPropertyChanged("PaletAd");
+				this.OnPaletAdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_En_cm", DbType="TinyInt")]
+	public System.Nullable<byte> En_cm
+	{
+		get
+		{
+			return this._En_cm;
+		}
+		set
+		{
+			if ((this._En_cm != value))
+			{
+				this.OnEn_cmChanging(value);
+				this.SendPropertyChanging();
+				this._En_cm = value;
+				this.SendPropertyChanged("En_cm");
+				this.OnEn_cmChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Boy_cm", DbType="TinyInt")]
+	public System.Nullable<byte> Boy_cm
+	{
+		get
+		{
+			return this._Boy_cm;
+		}
+		set
+		{
+			if ((this._Boy_cm != value))
+			{
+				this.OnBoy_cmChanging(value);
+				this.SendPropertyChanging();
+				this._Boy_cm = value;
+				this.SendPropertyChanged("Boy_cm");
+				this.OnBoy_cmChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Yukseklik_cm", DbType="TinyInt")]
+	public System.Nullable<byte> Yukseklik_cm
+	{
+		get
+		{
+			return this._Yukseklik_cm;
+		}
+		set
+		{
+			if ((this._Yukseklik_cm != value))
+			{
+				this.OnYukseklik_cmChanging(value);
+				this.SendPropertyChanging();
+				this._Yukseklik_cm = value;
+				this.SendPropertyChanged("Yukseklik_cm");
+				this.OnYukseklik_cmChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Agirlik_kg", DbType="TinyInt")]
+	public System.Nullable<byte> Agirlik_kg
+	{
+		get
+		{
+			return this._Agirlik_kg;
+		}
+		set
+		{
+			if ((this._Agirlik_kg != value))
+			{
+				this.OnAgirlik_kgChanging(value);
+				this.SendPropertyChanging();
+				this._Agirlik_kg = value;
+				this.SendPropertyChanged("Agirlik_kg");
+				this.OnAgirlik_kgChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaletGorsel", DbType="NVarChar(250)")]
+	public string PaletGorsel
+	{
+		get
+		{
+			return this._PaletGorsel;
+		}
+		set
+		{
+			if ((this._PaletGorsel != value))
+			{
+				this.OnPaletGorselChanging(value);
+				this.SendPropertyChanging();
+				this._PaletGorsel = value;
+				this.SendPropertyChanged("PaletGorsel");
+				this.OnPaletGorselChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ParaBirimileri")]
 public partial class ParaBirimileri : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -8507,13 +10643,15 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _ProjeID;
 	
+	private string _SatisTipi;
+	
 	private string _SatisBelgeNo;
 	
 	private System.DateTime _SatisTarihi;
 	
 	private System.Nullable<System.DateTime> _VadeTarihi;
 	
-	private System.Nullable<int> _IrsaliyeNo;
+	private string _IrsaliyeNo;
 	
 	private System.Nullable<System.DateTime> _SevkTarihi;
 	
@@ -8523,7 +10661,7 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private decimal _ToplamTutar;
 	
-	private System.Nullable<int> _indirimOrani;
+	private System.Nullable<decimal> _indirimOrani;
 	
 	private System.Nullable<decimal> _indirimTutari;
 	
@@ -8557,13 +10695,15 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnSirketIDChanged();
     partial void OnProjeIDChanging(System.Nullable<int> value);
     partial void OnProjeIDChanged();
+    partial void OnSatisTipiChanging(string value);
+    partial void OnSatisTipiChanged();
     partial void OnSatisBelgeNoChanging(string value);
     partial void OnSatisBelgeNoChanged();
     partial void OnSatisTarihiChanging(System.DateTime value);
     partial void OnSatisTarihiChanged();
     partial void OnVadeTarihiChanging(System.Nullable<System.DateTime> value);
     partial void OnVadeTarihiChanged();
-    partial void OnIrsaliyeNoChanging(System.Nullable<int> value);
+    partial void OnIrsaliyeNoChanging(string value);
     partial void OnIrsaliyeNoChanged();
     partial void OnSevkTarihiChanging(System.Nullable<System.DateTime> value);
     partial void OnSevkTarihiChanged();
@@ -8573,7 +10713,7 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnPazarlamaciIDChanged();
     partial void OnToplamTutarChanging(decimal value);
     partial void OnToplamTutarChanged();
-    partial void OnindirimOraniChanging(System.Nullable<int> value);
+    partial void OnindirimOraniChanging(System.Nullable<decimal> value);
     partial void OnindirimOraniChanged();
     partial void OnindirimTutariChanging(System.Nullable<decimal> value);
     partial void OnindirimTutariChanged();
@@ -8663,6 +10803,26 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SatisTipi", DbType="NVarChar(50)")]
+	public string SatisTipi
+	{
+		get
+		{
+			return this._SatisTipi;
+		}
+		set
+		{
+			if ((this._SatisTipi != value))
+			{
+				this.OnSatisTipiChanging(value);
+				this.SendPropertyChanging();
+				this._SatisTipi = value;
+				this.SendPropertyChanged("SatisTipi");
+				this.OnSatisTipiChanged();
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SatisBelgeNo", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 	public string SatisBelgeNo
 	{
@@ -8723,8 +10883,8 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IrsaliyeNo", DbType="Int")]
-	public System.Nullable<int> IrsaliyeNo
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IrsaliyeNo", DbType="NVarChar(50)")]
+	public string IrsaliyeNo
 	{
 		get
 		{
@@ -8831,8 +10991,8 @@ public partial class Satislar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_indirimOrani", DbType="Int")]
-	public System.Nullable<int> indirimOrani
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_indirimOrani", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> indirimOrani
 	{
 		get
 		{
@@ -9419,7 +11579,7 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<AlisDetaylari> _AlisDetaylaris;
 	
-	private EntitySet<Yetkiler> _Yetkilers;
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris;
 	
 	private EntitySet<Alislar> _Alislars;
 	
@@ -9434,6 +11594,8 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	private EntitySet<CekSenetler> _CekSenetlers;
 	
 	private EntitySet<Depolar> _Depolars;
+	
+	private EntitySet<DepoStok> _DepoStoks;
 	
 	private EntitySet<Faturalar> _Faturalars;
 	
@@ -9463,6 +11625,12 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<SirketAyarlari> _SirketAyarlaris;
 	
+	private EntitySet<SirketZeytinyagiMakinaBakimDefteri> _SirketZeytinyagiMakinaBakimDefteris;
+	
+	private EntitySet<SirketZeytinyagiMakinalari> _SirketZeytinyagiMakinalaris;
+	
+	private EntitySet<StokHareketleri> _StokHareketleris;
+	
 	private EntitySet<Tanklar> _Tanklars;
 	
 	private EntitySet<Tedarikciler> _Tedarikcilers;
@@ -9478,6 +11646,18 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	private EntitySet<UrunKategorileri> _UrunKategorileris;
 	
 	private EntitySet<Urunler> _Urunlers;
+	
+	private EntitySet<UrunPaketlemeveLojistikBilgiIeri> _UrunPaketlemeveLojistikBilgiIeris;
+	
+	private EntitySet<UrunVaryantlari> _UrunVaryantlaris;
+	
+	private EntitySet<VaryantDegerleri> _VaryantDegerleris;
+	
+	private EntitySet<VaryantTurleri> _VaryantTurleris;
+	
+	private EntitySet<Yetkiler> _Yetkilers;
+	
+	private EntitySet<ZeytinBoxKasalari> _ZeytinBoxKasalaris;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9508,7 +11688,7 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	public Sirketler()
 	{
 		this._AlisDetaylaris = new EntitySet<AlisDetaylari>(new Action<AlisDetaylari>(this.attach_AlisDetaylaris), new Action<AlisDetaylari>(this.detach_AlisDetaylaris));
-		this._Yetkilers = new EntitySet<Yetkiler>(new Action<Yetkiler>(this.attach_Yetkilers), new Action<Yetkiler>(this.detach_Yetkilers));
+		this._ZeytinyagiUretimleris = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris));
 		this._Alislars = new EntitySet<Alislar>(new Action<Alislar>(this.attach_Alislars), new Action<Alislar>(this.detach_Alislars));
 		this._BankaHesaplaris = new EntitySet<BankaHesaplari>(new Action<BankaHesaplari>(this.attach_BankaHesaplaris), new Action<BankaHesaplari>(this.detach_BankaHesaplaris));
 		this._Birimlers = new EntitySet<Birimler>(new Action<Birimler>(this.attach_Birimlers), new Action<Birimler>(this.detach_Birimlers));
@@ -9516,6 +11696,7 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		this._BlogYazilaris = new EntitySet<BlogYazilari>(new Action<BlogYazilari>(this.attach_BlogYazilaris), new Action<BlogYazilari>(this.detach_BlogYazilaris));
 		this._CekSenetlers = new EntitySet<CekSenetler>(new Action<CekSenetler>(this.attach_CekSenetlers), new Action<CekSenetler>(this.detach_CekSenetlers));
 		this._Depolars = new EntitySet<Depolar>(new Action<Depolar>(this.attach_Depolars), new Action<Depolar>(this.detach_Depolars));
+		this._DepoStoks = new EntitySet<DepoStok>(new Action<DepoStok>(this.attach_DepoStoks), new Action<DepoStok>(this.detach_DepoStoks));
 		this._Faturalars = new EntitySet<Faturalar>(new Action<Faturalar>(this.attach_Faturalars), new Action<Faturalar>(this.detach_Faturalars));
 		this._Finans = new EntitySet<Finan>(new Action<Finan>(this.attach_Finans), new Action<Finan>(this.detach_Finans));
 		this._MailListeleris = new EntitySet<MailListeleri>(new Action<MailListeleri>(this.attach_MailListeleris), new Action<MailListeleri>(this.detach_MailListeleris));
@@ -9530,6 +11711,9 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		this._SatisDetaylaris = new EntitySet<SatisDetaylari>(new Action<SatisDetaylari>(this.attach_SatisDetaylaris), new Action<SatisDetaylari>(this.detach_SatisDetaylaris));
 		this._Satislars = new EntitySet<Satislar>(new Action<Satislar>(this.attach_Satislars), new Action<Satislar>(this.detach_Satislars));
 		this._SirketAyarlaris = new EntitySet<SirketAyarlari>(new Action<SirketAyarlari>(this.attach_SirketAyarlaris), new Action<SirketAyarlari>(this.detach_SirketAyarlaris));
+		this._SirketZeytinyagiMakinaBakimDefteris = new EntitySet<SirketZeytinyagiMakinaBakimDefteri>(new Action<SirketZeytinyagiMakinaBakimDefteri>(this.attach_SirketZeytinyagiMakinaBakimDefteris), new Action<SirketZeytinyagiMakinaBakimDefteri>(this.detach_SirketZeytinyagiMakinaBakimDefteris));
+		this._SirketZeytinyagiMakinalaris = new EntitySet<SirketZeytinyagiMakinalari>(new Action<SirketZeytinyagiMakinalari>(this.attach_SirketZeytinyagiMakinalaris), new Action<SirketZeytinyagiMakinalari>(this.detach_SirketZeytinyagiMakinalaris));
+		this._StokHareketleris = new EntitySet<StokHareketleri>(new Action<StokHareketleri>(this.attach_StokHareketleris), new Action<StokHareketleri>(this.detach_StokHareketleris));
 		this._Tanklars = new EntitySet<Tanklar>(new Action<Tanklar>(this.attach_Tanklars), new Action<Tanklar>(this.detach_Tanklars));
 		this._Tedarikcilers = new EntitySet<Tedarikciler>(new Action<Tedarikciler>(this.attach_Tedarikcilers), new Action<Tedarikciler>(this.detach_Tedarikcilers));
 		this._TeklifDetaylaris = new EntitySet<TeklifDetaylari>(new Action<TeklifDetaylari>(this.attach_TeklifDetaylaris), new Action<TeklifDetaylari>(this.detach_TeklifDetaylaris));
@@ -9538,6 +11722,12 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		this._UrunGorselleris = new EntitySet<UrunGorselleri>(new Action<UrunGorselleri>(this.attach_UrunGorselleris), new Action<UrunGorselleri>(this.detach_UrunGorselleris));
 		this._UrunKategorileris = new EntitySet<UrunKategorileri>(new Action<UrunKategorileri>(this.attach_UrunKategorileris), new Action<UrunKategorileri>(this.detach_UrunKategorileris));
 		this._Urunlers = new EntitySet<Urunler>(new Action<Urunler>(this.attach_Urunlers), new Action<Urunler>(this.detach_Urunlers));
+		this._UrunPaketlemeveLojistikBilgiIeris = new EntitySet<UrunPaketlemeveLojistikBilgiIeri>(new Action<UrunPaketlemeveLojistikBilgiIeri>(this.attach_UrunPaketlemeveLojistikBilgiIeris), new Action<UrunPaketlemeveLojistikBilgiIeri>(this.detach_UrunPaketlemeveLojistikBilgiIeris));
+		this._UrunVaryantlaris = new EntitySet<UrunVaryantlari>(new Action<UrunVaryantlari>(this.attach_UrunVaryantlaris), new Action<UrunVaryantlari>(this.detach_UrunVaryantlaris));
+		this._VaryantDegerleris = new EntitySet<VaryantDegerleri>(new Action<VaryantDegerleri>(this.attach_VaryantDegerleris), new Action<VaryantDegerleri>(this.detach_VaryantDegerleris));
+		this._VaryantTurleris = new EntitySet<VaryantTurleri>(new Action<VaryantTurleri>(this.attach_VaryantTurleris), new Action<VaryantTurleri>(this.detach_VaryantTurleris));
+		this._Yetkilers = new EntitySet<Yetkiler>(new Action<Yetkiler>(this.attach_Yetkilers), new Action<Yetkiler>(this.detach_Yetkilers));
+		this._ZeytinBoxKasalaris = new EntitySet<ZeytinBoxKasalari>(new Action<ZeytinBoxKasalari>(this.attach_ZeytinBoxKasalaris), new Action<ZeytinBoxKasalari>(this.detach_ZeytinBoxKasalaris));
 		OnCreated();
 	}
 	
@@ -9754,16 +11944,16 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_Yetkiler", Storage="_Yetkilers", ThisKey="SirketID", OtherKey="SirketID")]
-	public EntitySet<Yetkiler> Yetkilers
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretimleris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris
 	{
 		get
 		{
-			return this._Yetkilers;
+			return this._ZeytinyagiUretimleris;
 		}
 		set
 		{
-			this._Yetkilers.Assign(value);
+			this._ZeytinyagiUretimleris.Assign(value);
 		}
 	}
 	
@@ -9855,6 +12045,19 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._Depolars.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_DepoStok", Storage="_DepoStoks", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<DepoStok> DepoStoks
+	{
+		get
+		{
+			return this._DepoStoks;
+		}
+		set
+		{
+			this._DepoStoks.Assign(value);
 		}
 	}
 	
@@ -10040,6 +12243,45 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_SirketZeytinyagiMakinaBakimDefteri", Storage="_SirketZeytinyagiMakinaBakimDefteris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<SirketZeytinyagiMakinaBakimDefteri> SirketZeytinyagiMakinaBakimDefteris
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaBakimDefteris;
+		}
+		set
+		{
+			this._SirketZeytinyagiMakinaBakimDefteris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_SirketZeytinyagiMakinalari", Storage="_SirketZeytinyagiMakinalaris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<SirketZeytinyagiMakinalari> SirketZeytinyagiMakinalaris
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinalaris;
+		}
+		set
+		{
+			this._SirketZeytinyagiMakinalaris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_StokHareketleri", Storage="_StokHareketleris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<StokHareketleri> StokHareketleris
+	{
+		get
+		{
+			return this._StokHareketleris;
+		}
+		set
+		{
+			this._StokHareketleris.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_Tanklar", Storage="_Tanklars", ThisKey="SirketID", OtherKey="SirketID")]
 	public EntitySet<Tanklar> Tanklars
 	{
@@ -10144,6 +12386,84 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_UrunPaketlemeveLojistikBilgiIeri", Storage="_UrunPaketlemeveLojistikBilgiIeris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<UrunPaketlemeveLojistikBilgiIeri> UrunPaketlemeveLojistikBilgiIeris
+	{
+		get
+		{
+			return this._UrunPaketlemeveLojistikBilgiIeris;
+		}
+		set
+		{
+			this._UrunPaketlemeveLojistikBilgiIeris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_UrunVaryantlari", Storage="_UrunVaryantlaris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<UrunVaryantlari> UrunVaryantlaris
+	{
+		get
+		{
+			return this._UrunVaryantlaris;
+		}
+		set
+		{
+			this._UrunVaryantlaris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_VaryantDegerleri", Storage="_VaryantDegerleris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<VaryantDegerleri> VaryantDegerleris
+	{
+		get
+		{
+			return this._VaryantDegerleris;
+		}
+		set
+		{
+			this._VaryantDegerleris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_VaryantTurleri", Storage="_VaryantTurleris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<VaryantTurleri> VaryantTurleris
+	{
+		get
+		{
+			return this._VaryantTurleris;
+		}
+		set
+		{
+			this._VaryantTurleris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_Yetkiler", Storage="_Yetkilers", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<Yetkiler> Yetkilers
+	{
+		get
+		{
+			return this._Yetkilers;
+		}
+		set
+		{
+			this._Yetkilers.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_ZeytinBoxKasalari", Storage="_ZeytinBoxKasalaris", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<ZeytinBoxKasalari> ZeytinBoxKasalaris
+	{
+		get
+		{
+			return this._ZeytinBoxKasalaris;
+		}
+		set
+		{
+			this._ZeytinBoxKasalaris.Assign(value);
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -10176,13 +12496,13 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Sirketler = null;
 	}
 	
-	private void attach_Yetkilers(Yetkiler entity)
+	private void attach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
 	{
 		this.SendPropertyChanging();
 		entity.Sirketler = this;
 	}
 	
-	private void detach_Yetkilers(Yetkiler entity)
+	private void detach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
 	{
 		this.SendPropertyChanging();
 		entity.Sirketler = null;
@@ -10267,6 +12587,18 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_Depolars(Depolar entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_DepoStoks(DepoStok entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_DepoStoks(DepoStok entity)
 	{
 		this.SendPropertyChanging();
 		entity.Sirketler = null;
@@ -10440,6 +12772,42 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Sirketler = null;
 	}
 	
+	private void attach_SirketZeytinyagiMakinaBakimDefteris(SirketZeytinyagiMakinaBakimDefteri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_SirketZeytinyagiMakinaBakimDefteris(SirketZeytinyagiMakinaBakimDefteri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_SirketZeytinyagiMakinalaris(SirketZeytinyagiMakinalari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_SirketZeytinyagiMakinalaris(SirketZeytinyagiMakinalari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_StokHareketleris(StokHareketleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_StokHareketleris(StokHareketleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
 	private void attach_Tanklars(Tanklar entity)
 	{
 		this.SendPropertyChanging();
@@ -10535,6 +12903,1172 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		this.SendPropertyChanging();
 		entity.Sirketler = null;
 	}
+	
+	private void attach_UrunPaketlemeveLojistikBilgiIeris(UrunPaketlemeveLojistikBilgiIeri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_UrunPaketlemeveLojistikBilgiIeris(UrunPaketlemeveLojistikBilgiIeri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_UrunVaryantlaris(UrunVaryantlari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_UrunVaryantlaris(UrunVaryantlari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_VaryantDegerleris(VaryantDegerleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_VaryantDegerleris(VaryantDegerleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_VaryantTurleris(VaryantTurleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_VaryantTurleris(VaryantTurleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_Yetkilers(Yetkiler entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_Yetkilers(Yetkiler entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
+	private void attach_ZeytinBoxKasalaris(ZeytinBoxKasalari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_ZeytinBoxKasalaris(ZeytinBoxKasalari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SirketZeytinyagiMakinaBakimDefteri")]
+public partial class SirketZeytinyagiMakinaBakimDefteri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _SirketZeytinyagiMakinaBakimDefterID;
+	
+	private int _SirketID;
+	
+	private int _SirketZeytinyagiMakinaID;
+	
+	private System.Nullable<System.DateTime> _BakimTarihi;
+	
+	private string _BakimNotlari;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<SirketZeytinyagiMakinalari> _SirketZeytinyagiMakinalari;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSirketZeytinyagiMakinaBakimDefterIDChanging(int value);
+    partial void OnSirketZeytinyagiMakinaBakimDefterIDChanged();
+    partial void OnSirketIDChanging(int value);
+    partial void OnSirketIDChanged();
+    partial void OnSirketZeytinyagiMakinaIDChanging(int value);
+    partial void OnSirketZeytinyagiMakinaIDChanged();
+    partial void OnBakimTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnBakimTarihiChanged();
+    partial void OnBakimNotlariChanging(string value);
+    partial void OnBakimNotlariChanged();
+    #endregion
+	
+	public SirketZeytinyagiMakinaBakimDefteri()
+	{
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._SirketZeytinyagiMakinalari = default(EntityRef<SirketZeytinyagiMakinalari>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketZeytinyagiMakinaBakimDefterID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int SirketZeytinyagiMakinaBakimDefterID
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaBakimDefterID;
+		}
+		set
+		{
+			if ((this._SirketZeytinyagiMakinaBakimDefterID != value))
+			{
+				this.OnSirketZeytinyagiMakinaBakimDefterIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketZeytinyagiMakinaBakimDefterID = value;
+				this.SendPropertyChanged("SirketZeytinyagiMakinaBakimDefterID");
+				this.OnSirketZeytinyagiMakinaBakimDefterIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int NOT NULL")]
+	public int SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketZeytinyagiMakinaID", DbType="Int NOT NULL")]
+	public int SirketZeytinyagiMakinaID
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaID;
+		}
+		set
+		{
+			if ((this._SirketZeytinyagiMakinaID != value))
+			{
+				if (this._SirketZeytinyagiMakinalari.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketZeytinyagiMakinaIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketZeytinyagiMakinaID = value;
+				this.SendPropertyChanged("SirketZeytinyagiMakinaID");
+				this.OnSirketZeytinyagiMakinaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BakimTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> BakimTarihi
+	{
+		get
+		{
+			return this._BakimTarihi;
+		}
+		set
+		{
+			if ((this._BakimTarihi != value))
+			{
+				this.OnBakimTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._BakimTarihi = value;
+				this.SendPropertyChanged("BakimTarihi");
+				this.OnBakimTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BakimNotlari", DbType="NVarChar(MAX)")]
+	public string BakimNotlari
+	{
+		get
+		{
+			return this._BakimNotlari;
+		}
+		set
+		{
+			if ((this._BakimNotlari != value))
+			{
+				this.OnBakimNotlariChanging(value);
+				this.SendPropertyChanging();
+				this._BakimNotlari = value;
+				this.SendPropertyChanged("BakimNotlari");
+				this.OnBakimNotlariChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_SirketZeytinyagiMakinaBakimDefteri", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.SirketZeytinyagiMakinaBakimDefteris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.SirketZeytinyagiMakinaBakimDefteris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(int);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaBakimDefteri", Storage="_SirketZeytinyagiMakinalari", ThisKey="SirketZeytinyagiMakinaID", OtherKey="SirketZeytinyagiMakinaID", IsForeignKey=true)]
+	public SirketZeytinyagiMakinalari SirketZeytinyagiMakinalari
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinalari.Entity;
+		}
+		set
+		{
+			SirketZeytinyagiMakinalari previousValue = this._SirketZeytinyagiMakinalari.Entity;
+			if (((previousValue != value) 
+						|| (this._SirketZeytinyagiMakinalari.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._SirketZeytinyagiMakinalari.Entity = null;
+					previousValue.SirketZeytinyagiMakinaBakimDefteris.Remove(this);
+				}
+				this._SirketZeytinyagiMakinalari.Entity = value;
+				if ((value != null))
+				{
+					value.SirketZeytinyagiMakinaBakimDefteris.Add(this);
+					this._SirketZeytinyagiMakinaID = value.SirketZeytinyagiMakinaID;
+				}
+				else
+				{
+					this._SirketZeytinyagiMakinaID = default(int);
+				}
+				this.SendPropertyChanged("SirketZeytinyagiMakinalari");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SirketZeytinyagiMakinalari")]
+public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _SirketZeytinyagiMakinaID;
+	
+	private int _SirketID;
+	
+	private int _ZeytinyagiMakinaModelID;
+	
+	private System.Nullable<System.DateTime> _AlimTarihi;
+	
+	private System.Nullable<byte> _YikamaYaprakAyiklama_kg_dk;
+	
+	private System.Nullable<byte> _Kirma_kg_dk;
+	
+	private System.Nullable<byte> _Malaksasyon_kg_dk;
+	
+	private System.Nullable<byte> _Dekantasyon_Santrifüj_kg_dk;
+	
+	private System.Nullable<bool> _Durumu;
+	
+	private EntitySet<SirketZeytinyagiMakinaBakimDefteri> _SirketZeytinyagiMakinaBakimDefteris;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<ZeytinyagiMakinaModelleri> _ZeytinyagiMakinaModelleri;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSirketZeytinyagiMakinaIDChanging(int value);
+    partial void OnSirketZeytinyagiMakinaIDChanged();
+    partial void OnSirketIDChanging(int value);
+    partial void OnSirketIDChanged();
+    partial void OnZeytinyagiMakinaModelIDChanging(int value);
+    partial void OnZeytinyagiMakinaModelIDChanged();
+    partial void OnAlimTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnAlimTarihiChanged();
+    partial void OnYikamaYaprakAyiklama_kg_dkChanging(System.Nullable<byte> value);
+    partial void OnYikamaYaprakAyiklama_kg_dkChanged();
+    partial void OnKirma_kg_dkChanging(System.Nullable<byte> value);
+    partial void OnKirma_kg_dkChanged();
+    partial void OnMalaksasyon_kg_dkChanging(System.Nullable<byte> value);
+    partial void OnMalaksasyon_kg_dkChanged();
+    partial void OnDekantasyon_Santrifüj_kg_dkChanging(System.Nullable<byte> value);
+    partial void OnDekantasyon_Santrifüj_kg_dkChanged();
+    partial void OnDurumuChanging(System.Nullable<bool> value);
+    partial void OnDurumuChanged();
+    #endregion
+	
+	public SirketZeytinyagiMakinalari()
+	{
+		this._SirketZeytinyagiMakinaBakimDefteris = new EntitySet<SirketZeytinyagiMakinaBakimDefteri>(new Action<SirketZeytinyagiMakinaBakimDefteri>(this.attach_SirketZeytinyagiMakinaBakimDefteris), new Action<SirketZeytinyagiMakinaBakimDefteri>(this.detach_SirketZeytinyagiMakinaBakimDefteris));
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._ZeytinyagiMakinaModelleri = default(EntityRef<ZeytinyagiMakinaModelleri>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketZeytinyagiMakinaID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int SirketZeytinyagiMakinaID
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaID;
+		}
+		set
+		{
+			if ((this._SirketZeytinyagiMakinaID != value))
+			{
+				this.OnSirketZeytinyagiMakinaIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketZeytinyagiMakinaID = value;
+				this.SendPropertyChanged("SirketZeytinyagiMakinaID");
+				this.OnSirketZeytinyagiMakinaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int NOT NULL")]
+	public int SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiMakinaModelID", DbType="Int NOT NULL")]
+	public int ZeytinyagiMakinaModelID
+	{
+		get
+		{
+			return this._ZeytinyagiMakinaModelID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiMakinaModelID != value))
+			{
+				if (this._ZeytinyagiMakinaModelleri.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnZeytinyagiMakinaModelIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiMakinaModelID = value;
+				this.SendPropertyChanged("ZeytinyagiMakinaModelID");
+				this.OnZeytinyagiMakinaModelIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlimTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> AlimTarihi
+	{
+		get
+		{
+			return this._AlimTarihi;
+		}
+		set
+		{
+			if ((this._AlimTarihi != value))
+			{
+				this.OnAlimTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._AlimTarihi = value;
+				this.SendPropertyChanged("AlimTarihi");
+				this.OnAlimTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YikamaYaprakAyiklama_kg_dk", DbType="TinyInt")]
+	public System.Nullable<byte> YikamaYaprakAyiklama_kg_dk
+	{
+		get
+		{
+			return this._YikamaYaprakAyiklama_kg_dk;
+		}
+		set
+		{
+			if ((this._YikamaYaprakAyiklama_kg_dk != value))
+			{
+				this.OnYikamaYaprakAyiklama_kg_dkChanging(value);
+				this.SendPropertyChanging();
+				this._YikamaYaprakAyiklama_kg_dk = value;
+				this.SendPropertyChanged("YikamaYaprakAyiklama_kg_dk");
+				this.OnYikamaYaprakAyiklama_kg_dkChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kirma_kg_dk", DbType="TinyInt")]
+	public System.Nullable<byte> Kirma_kg_dk
+	{
+		get
+		{
+			return this._Kirma_kg_dk;
+		}
+		set
+		{
+			if ((this._Kirma_kg_dk != value))
+			{
+				this.OnKirma_kg_dkChanging(value);
+				this.SendPropertyChanging();
+				this._Kirma_kg_dk = value;
+				this.SendPropertyChanged("Kirma_kg_dk");
+				this.OnKirma_kg_dkChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Malaksasyon_kg_dk", DbType="TinyInt")]
+	public System.Nullable<byte> Malaksasyon_kg_dk
+	{
+		get
+		{
+			return this._Malaksasyon_kg_dk;
+		}
+		set
+		{
+			if ((this._Malaksasyon_kg_dk != value))
+			{
+				this.OnMalaksasyon_kg_dkChanging(value);
+				this.SendPropertyChanging();
+				this._Malaksasyon_kg_dk = value;
+				this.SendPropertyChanged("Malaksasyon_kg_dk");
+				this.OnMalaksasyon_kg_dkChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dekantasyon_Santrifüj_kg_dk", DbType="TinyInt")]
+	public System.Nullable<byte> Dekantasyon_Santrifüj_kg_dk
+	{
+		get
+		{
+			return this._Dekantasyon_Santrifüj_kg_dk;
+		}
+		set
+		{
+			if ((this._Dekantasyon_Santrifüj_kg_dk != value))
+			{
+				this.OnDekantasyon_Santrifüj_kg_dkChanging(value);
+				this.SendPropertyChanging();
+				this._Dekantasyon_Santrifüj_kg_dk = value;
+				this.SendPropertyChanged("Dekantasyon_Santrifüj_kg_dk");
+				this.OnDekantasyon_Santrifüj_kg_dkChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Durumu", DbType="Bit")]
+	public System.Nullable<bool> Durumu
+	{
+		get
+		{
+			return this._Durumu;
+		}
+		set
+		{
+			if ((this._Durumu != value))
+			{
+				this.OnDurumuChanging(value);
+				this.SendPropertyChanging();
+				this._Durumu = value;
+				this.SendPropertyChanged("Durumu");
+				this.OnDurumuChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaBakimDefteri", Storage="_SirketZeytinyagiMakinaBakimDefteris", ThisKey="SirketZeytinyagiMakinaID", OtherKey="SirketZeytinyagiMakinaID")]
+	public EntitySet<SirketZeytinyagiMakinaBakimDefteri> SirketZeytinyagiMakinaBakimDefteris
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaBakimDefteris;
+		}
+		set
+		{
+			this._SirketZeytinyagiMakinaBakimDefteris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_SirketZeytinyagiMakinalari", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.SirketZeytinyagiMakinalaris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.SirketZeytinyagiMakinalaris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(int);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinyagiMakinaModelleri_SirketZeytinyagiMakinalari", Storage="_ZeytinyagiMakinaModelleri", ThisKey="ZeytinyagiMakinaModelID", OtherKey="ZeytinyagiMakinaModelID", IsForeignKey=true)]
+	public ZeytinyagiMakinaModelleri ZeytinyagiMakinaModelleri
+	{
+		get
+		{
+			return this._ZeytinyagiMakinaModelleri.Entity;
+		}
+		set
+		{
+			ZeytinyagiMakinaModelleri previousValue = this._ZeytinyagiMakinaModelleri.Entity;
+			if (((previousValue != value) 
+						|| (this._ZeytinyagiMakinaModelleri.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._ZeytinyagiMakinaModelleri.Entity = null;
+					previousValue.SirketZeytinyagiMakinalaris.Remove(this);
+				}
+				this._ZeytinyagiMakinaModelleri.Entity = value;
+				if ((value != null))
+				{
+					value.SirketZeytinyagiMakinalaris.Add(this);
+					this._ZeytinyagiMakinaModelID = value.ZeytinyagiMakinaModelID;
+				}
+				else
+				{
+					this._ZeytinyagiMakinaModelID = default(int);
+				}
+				this.SendPropertyChanged("ZeytinyagiMakinaModelleri");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_SirketZeytinyagiMakinaBakimDefteris(SirketZeytinyagiMakinaBakimDefteri entity)
+	{
+		this.SendPropertyChanging();
+		entity.SirketZeytinyagiMakinalari = this;
+	}
+	
+	private void detach_SirketZeytinyagiMakinaBakimDefteris(SirketZeytinyagiMakinaBakimDefteri entity)
+	{
+		this.SendPropertyChanging();
+		entity.SirketZeytinyagiMakinalari = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StokHareketleri")]
+public partial class StokHareketleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _HareketID;
+	
+	private int _SirketID;
+	
+	private System.DateTime _IslemTarihi;
+	
+	private string _HareketTipi;
+	
+	private int _DepoID;
+	
+	private int _UrunID;
+	
+	private decimal _Miktar;
+	
+	private string _ReferansNo;
+	
+	private System.Nullable<int> _ReferansID;
+	
+	private string _ReferansTipi;
+	
+	private string _Aciklama;
+	
+	private System.Nullable<int> _KullaniciID;
+	
+	private EntityRef<Depolar> _Depolar;
+	
+	private EntityRef<Kullanicilar> _Kullanicilar;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<Urunler> _Urunler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnHareketIDChanging(int value);
+    partial void OnHareketIDChanged();
+    partial void OnSirketIDChanging(int value);
+    partial void OnSirketIDChanged();
+    partial void OnIslemTarihiChanging(System.DateTime value);
+    partial void OnIslemTarihiChanged();
+    partial void OnHareketTipiChanging(string value);
+    partial void OnHareketTipiChanged();
+    partial void OnDepoIDChanging(int value);
+    partial void OnDepoIDChanged();
+    partial void OnUrunIDChanging(int value);
+    partial void OnUrunIDChanged();
+    partial void OnMiktarChanging(decimal value);
+    partial void OnMiktarChanged();
+    partial void OnReferansNoChanging(string value);
+    partial void OnReferansNoChanged();
+    partial void OnReferansIDChanging(System.Nullable<int> value);
+    partial void OnReferansIDChanged();
+    partial void OnReferansTipiChanging(string value);
+    partial void OnReferansTipiChanged();
+    partial void OnAciklamaChanging(string value);
+    partial void OnAciklamaChanged();
+    partial void OnKullaniciIDChanging(System.Nullable<int> value);
+    partial void OnKullaniciIDChanged();
+    #endregion
+	
+	public StokHareketleri()
+	{
+		this._Depolar = default(EntityRef<Depolar>);
+		this._Kullanicilar = default(EntityRef<Kullanicilar>);
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._Urunler = default(EntityRef<Urunler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HareketID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int HareketID
+	{
+		get
+		{
+			return this._HareketID;
+		}
+		set
+		{
+			if ((this._HareketID != value))
+			{
+				this.OnHareketIDChanging(value);
+				this.SendPropertyChanging();
+				this._HareketID = value;
+				this.SendPropertyChanged("HareketID");
+				this.OnHareketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int NOT NULL")]
+	public int SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IslemTarihi", DbType="DateTime NOT NULL")]
+	public System.DateTime IslemTarihi
+	{
+		get
+		{
+			return this._IslemTarihi;
+		}
+		set
+		{
+			if ((this._IslemTarihi != value))
+			{
+				this.OnIslemTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._IslemTarihi = value;
+				this.SendPropertyChanged("IslemTarihi");
+				this.OnIslemTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HareketTipi", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+	public string HareketTipi
+	{
+		get
+		{
+			return this._HareketTipi;
+		}
+		set
+		{
+			if ((this._HareketTipi != value))
+			{
+				this.OnHareketTipiChanging(value);
+				this.SendPropertyChanging();
+				this._HareketTipi = value;
+				this.SendPropertyChanged("HareketTipi");
+				this.OnHareketTipiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepoID", DbType="Int NOT NULL")]
+	public int DepoID
+	{
+		get
+		{
+			return this._DepoID;
+		}
+		set
+		{
+			if ((this._DepoID != value))
+			{
+				if (this._Depolar.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDepoIDChanging(value);
+				this.SendPropertyChanging();
+				this._DepoID = value;
+				this.SendPropertyChanged("DepoID");
+				this.OnDepoIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunID", DbType="Int NOT NULL")]
+	public int UrunID
+	{
+		get
+		{
+			return this._UrunID;
+		}
+		set
+		{
+			if ((this._UrunID != value))
+			{
+				if (this._Urunler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnUrunIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunID = value;
+				this.SendPropertyChanged("UrunID");
+				this.OnUrunIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Miktar", DbType="Decimal(10,2) NOT NULL")]
+	public decimal Miktar
+	{
+		get
+		{
+			return this._Miktar;
+		}
+		set
+		{
+			if ((this._Miktar != value))
+			{
+				this.OnMiktarChanging(value);
+				this.SendPropertyChanging();
+				this._Miktar = value;
+				this.SendPropertyChanged("Miktar");
+				this.OnMiktarChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferansNo", DbType="NVarChar(50)")]
+	public string ReferansNo
+	{
+		get
+		{
+			return this._ReferansNo;
+		}
+		set
+		{
+			if ((this._ReferansNo != value))
+			{
+				this.OnReferansNoChanging(value);
+				this.SendPropertyChanging();
+				this._ReferansNo = value;
+				this.SendPropertyChanged("ReferansNo");
+				this.OnReferansNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferansID", DbType="Int")]
+	public System.Nullable<int> ReferansID
+	{
+		get
+		{
+			return this._ReferansID;
+		}
+		set
+		{
+			if ((this._ReferansID != value))
+			{
+				this.OnReferansIDChanging(value);
+				this.SendPropertyChanging();
+				this._ReferansID = value;
+				this.SendPropertyChanged("ReferansID");
+				this.OnReferansIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferansTipi", DbType="NVarChar(20)")]
+	public string ReferansTipi
+	{
+		get
+		{
+			return this._ReferansTipi;
+		}
+		set
+		{
+			if ((this._ReferansTipi != value))
+			{
+				this.OnReferansTipiChanging(value);
+				this.SendPropertyChanging();
+				this._ReferansTipi = value;
+				this.SendPropertyChanged("ReferansTipi");
+				this.OnReferansTipiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Aciklama", DbType="NVarChar(500)")]
+	public string Aciklama
+	{
+		get
+		{
+			return this._Aciklama;
+		}
+		set
+		{
+			if ((this._Aciklama != value))
+			{
+				this.OnAciklamaChanging(value);
+				this.SendPropertyChanging();
+				this._Aciklama = value;
+				this.SendPropertyChanged("Aciklama");
+				this.OnAciklamaChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KullaniciID", DbType="Int")]
+	public System.Nullable<int> KullaniciID
+	{
+		get
+		{
+			return this._KullaniciID;
+		}
+		set
+		{
+			if ((this._KullaniciID != value))
+			{
+				if (this._Kullanicilar.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnKullaniciIDChanging(value);
+				this.SendPropertyChanging();
+				this._KullaniciID = value;
+				this.SendPropertyChanged("KullaniciID");
+				this.OnKullaniciIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Depolar_StokHareketleri", Storage="_Depolar", ThisKey="DepoID", OtherKey="DepoID", IsForeignKey=true)]
+	public Depolar Depolar
+	{
+		get
+		{
+			return this._Depolar.Entity;
+		}
+		set
+		{
+			Depolar previousValue = this._Depolar.Entity;
+			if (((previousValue != value) 
+						|| (this._Depolar.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Depolar.Entity = null;
+					previousValue.StokHareketleris.Remove(this);
+				}
+				this._Depolar.Entity = value;
+				if ((value != null))
+				{
+					value.StokHareketleris.Add(this);
+					this._DepoID = value.DepoID;
+				}
+				else
+				{
+					this._DepoID = default(int);
+				}
+				this.SendPropertyChanged("Depolar");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kullanicilar_StokHareketleri", Storage="_Kullanicilar", ThisKey="KullaniciID", OtherKey="KullaniciID", IsForeignKey=true)]
+	public Kullanicilar Kullanicilar
+	{
+		get
+		{
+			return this._Kullanicilar.Entity;
+		}
+		set
+		{
+			Kullanicilar previousValue = this._Kullanicilar.Entity;
+			if (((previousValue != value) 
+						|| (this._Kullanicilar.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Kullanicilar.Entity = null;
+					previousValue.StokHareketleris.Remove(this);
+				}
+				this._Kullanicilar.Entity = value;
+				if ((value != null))
+				{
+					value.StokHareketleris.Add(this);
+					this._KullaniciID = value.KullaniciID;
+				}
+				else
+				{
+					this._KullaniciID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Kullanicilar");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_StokHareketleri", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.StokHareketleris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.StokHareketleris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(int);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_StokHareketleri", Storage="_Urunler", ThisKey="UrunID", OtherKey="UrunID", IsForeignKey=true)]
+	public Urunler Urunler
+	{
+		get
+		{
+			return this._Urunler.Entity;
+		}
+		set
+		{
+			Urunler previousValue = this._Urunler.Entity;
+			if (((previousValue != value) 
+						|| (this._Urunler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Urunler.Entity = null;
+					previousValue.StokHareketleris.Remove(this);
+				}
+				this._Urunler.Entity = value;
+				if ((value != null))
+				{
+					value.StokHareketleris.Add(this);
+					this._UrunID = value.UrunID;
+				}
+				else
+				{
+					this._UrunID = default(int);
+				}
+				this.SendPropertyChanged("Urunler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tanklar")]
@@ -10556,6 +14090,8 @@ public partial class Tanklar : INotifyPropertyChanging, INotifyPropertyChanged
 	private System.Nullable<decimal> _DoluMiktar;
 	
 	private System.Nullable<bool> _Durum;
+	
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris;
 	
 	private EntitySet<Uretim> _Uretims;
 	
@@ -10583,6 +14119,7 @@ public partial class Tanklar : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Tanklar()
 	{
+		this._ZeytinyagiUretimleris = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris));
 		this._Uretims = new EntitySet<Uretim>(new Action<Uretim>(this.attach_Uretims), new Action<Uretim>(this.detach_Uretims));
 		this._Sirketler = default(EntityRef<Sirketler>);
 		OnCreated();
@@ -10732,6 +14269,19 @@ public partial class Tanklar : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tanklar_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretimleris", ThisKey="TankID", OtherKey="TankID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleris;
+		}
+		set
+		{
+			this._ZeytinyagiUretimleris.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tanklar_Uretim", Storage="_Uretims", ThisKey="TankID", OtherKey="TankID")]
 	public EntitySet<Uretim> Uretims
 	{
@@ -10797,6 +14347,18 @@ public partial class Tanklar : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+	
+	private void attach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Tanklar = this;
+	}
+	
+	private void detach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Tanklar = null;
 	}
 	
 	private void attach_Uretims(Uretim entity)
@@ -12710,6 +16272,8 @@ public partial class UrunGorselleri : INotifyPropertyChanging, INotifyPropertyCh
 	
 	private int _SirketID;
 	
+	private System.Nullable<int> _UrunVaryantID;
+	
 	private string _ResimYol;
 	
 	private System.Nullable<bool> _Kapak;
@@ -12728,6 +16292,8 @@ public partial class UrunGorselleri : INotifyPropertyChanging, INotifyPropertyCh
     partial void OnUrunIDChanged();
     partial void OnSirketIDChanging(int value);
     partial void OnSirketIDChanged();
+    partial void OnUrunVaryantIDChanging(System.Nullable<int> value);
+    partial void OnUrunVaryantIDChanged();
     partial void OnResimYolChanging(string value);
     partial void OnResimYolChanged();
     partial void OnKapakChanging(System.Nullable<bool> value);
@@ -12805,6 +16371,26 @@ public partial class UrunGorselleri : INotifyPropertyChanging, INotifyPropertyCh
 				this._SirketID = value;
 				this.SendPropertyChanged("SirketID");
 				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunVaryantID", DbType="Int")]
+	public System.Nullable<int> UrunVaryantID
+	{
+		get
+		{
+			return this._UrunVaryantID;
+		}
+		set
+		{
+			if ((this._UrunVaryantID != value))
+			{
+				this.OnUrunVaryantIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunVaryantID = value;
+				this.SendPropertyChanged("UrunVaryantID");
+				this.OnUrunVaryantIDChanged();
 			}
 		}
 	}
@@ -13219,15 +16805,37 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<System.DateTime> _OlusturmaTarihi;
 	
+	private System.Nullable<bool> _Mamul;
+	
+	private System.Nullable<bool> _YariManul;
+	
+	private System.Nullable<decimal> _PerakendeSatisFiyati;
+	
+	private System.Nullable<bool> _PerakendeSatisKdvDahilmi;
+	
+	private System.Nullable<bool> _PerakendeSatisVarmi;
+	
 	private EntitySet<AlisDetaylari> _AlisDetaylaris;
 	
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris;
+	
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris1;
+	
+	private EntitySet<DepoStok> _DepoStoks;
+	
 	private EntitySet<SatisDetaylari> _SatisDetaylaris;
+	
+	private EntitySet<StokHareketleri> _StokHareketleris;
 	
 	private EntitySet<TeklifDetaylari> _TeklifDetaylaris;
 	
 	private EntitySet<Uretim> _Uretims;
 	
 	private EntitySet<UrunGorselleri> _UrunGorselleris;
+	
+	private EntitySet<UrunPaketlemeveLojistikBilgiIeri> _UrunPaketlemeveLojistikBilgiIeris;
+	
+	private EntitySet<UrunVaryantlari> _UrunVaryantlaris;
 	
 	private EntityRef<Birimler> _Birimler;
 	
@@ -13291,15 +16899,31 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnNotlarChanged();
     partial void OnOlusturmaTarihiChanging(System.Nullable<System.DateTime> value);
     partial void OnOlusturmaTarihiChanged();
+    partial void OnMamulChanging(System.Nullable<bool> value);
+    partial void OnMamulChanged();
+    partial void OnYariManulChanging(System.Nullable<bool> value);
+    partial void OnYariManulChanged();
+    partial void OnPerakendeSatisFiyatiChanging(System.Nullable<decimal> value);
+    partial void OnPerakendeSatisFiyatiChanged();
+    partial void OnPerakendeSatisKdvDahilmiChanging(System.Nullable<bool> value);
+    partial void OnPerakendeSatisKdvDahilmiChanged();
+    partial void OnPerakendeSatisVarmiChanging(System.Nullable<bool> value);
+    partial void OnPerakendeSatisVarmiChanged();
     #endregion
 	
 	public Urunler()
 	{
 		this._AlisDetaylaris = new EntitySet<AlisDetaylari>(new Action<AlisDetaylari>(this.attach_AlisDetaylaris), new Action<AlisDetaylari>(this.detach_AlisDetaylaris));
+		this._ZeytinyagiUretimleris = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris));
+		this._ZeytinyagiUretimleris1 = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris1), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris1));
+		this._DepoStoks = new EntitySet<DepoStok>(new Action<DepoStok>(this.attach_DepoStoks), new Action<DepoStok>(this.detach_DepoStoks));
 		this._SatisDetaylaris = new EntitySet<SatisDetaylari>(new Action<SatisDetaylari>(this.attach_SatisDetaylaris), new Action<SatisDetaylari>(this.detach_SatisDetaylaris));
+		this._StokHareketleris = new EntitySet<StokHareketleri>(new Action<StokHareketleri>(this.attach_StokHareketleris), new Action<StokHareketleri>(this.detach_StokHareketleris));
 		this._TeklifDetaylaris = new EntitySet<TeklifDetaylari>(new Action<TeklifDetaylari>(this.attach_TeklifDetaylaris), new Action<TeklifDetaylari>(this.detach_TeklifDetaylaris));
 		this._Uretims = new EntitySet<Uretim>(new Action<Uretim>(this.attach_Uretims), new Action<Uretim>(this.detach_Uretims));
 		this._UrunGorselleris = new EntitySet<UrunGorselleri>(new Action<UrunGorselleri>(this.attach_UrunGorselleris), new Action<UrunGorselleri>(this.detach_UrunGorselleris));
+		this._UrunPaketlemeveLojistikBilgiIeris = new EntitySet<UrunPaketlemeveLojistikBilgiIeri>(new Action<UrunPaketlemeveLojistikBilgiIeri>(this.attach_UrunPaketlemeveLojistikBilgiIeris), new Action<UrunPaketlemeveLojistikBilgiIeri>(this.detach_UrunPaketlemeveLojistikBilgiIeris));
+		this._UrunVaryantlaris = new EntitySet<UrunVaryantlari>(new Action<UrunVaryantlari>(this.attach_UrunVaryantlaris), new Action<UrunVaryantlari>(this.detach_UrunVaryantlaris));
 		this._Birimler = default(EntityRef<Birimler>);
 		this._UrunKategorileri = default(EntityRef<UrunKategorileri>);
 		this._Markalar = default(EntityRef<Markalar>);
@@ -13808,6 +17432,106 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mamul", DbType="Bit")]
+	public System.Nullable<bool> Mamul
+	{
+		get
+		{
+			return this._Mamul;
+		}
+		set
+		{
+			if ((this._Mamul != value))
+			{
+				this.OnMamulChanging(value);
+				this.SendPropertyChanging();
+				this._Mamul = value;
+				this.SendPropertyChanged("Mamul");
+				this.OnMamulChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YariManul", DbType="Bit")]
+	public System.Nullable<bool> YariManul
+	{
+		get
+		{
+			return this._YariManul;
+		}
+		set
+		{
+			if ((this._YariManul != value))
+			{
+				this.OnYariManulChanging(value);
+				this.SendPropertyChanging();
+				this._YariManul = value;
+				this.SendPropertyChanged("YariManul");
+				this.OnYariManulChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PerakendeSatisFiyati", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> PerakendeSatisFiyati
+	{
+		get
+		{
+			return this._PerakendeSatisFiyati;
+		}
+		set
+		{
+			if ((this._PerakendeSatisFiyati != value))
+			{
+				this.OnPerakendeSatisFiyatiChanging(value);
+				this.SendPropertyChanging();
+				this._PerakendeSatisFiyati = value;
+				this.SendPropertyChanged("PerakendeSatisFiyati");
+				this.OnPerakendeSatisFiyatiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PerakendeSatisKdvDahilmi", DbType="Bit")]
+	public System.Nullable<bool> PerakendeSatisKdvDahilmi
+	{
+		get
+		{
+			return this._PerakendeSatisKdvDahilmi;
+		}
+		set
+		{
+			if ((this._PerakendeSatisKdvDahilmi != value))
+			{
+				this.OnPerakendeSatisKdvDahilmiChanging(value);
+				this.SendPropertyChanging();
+				this._PerakendeSatisKdvDahilmi = value;
+				this.SendPropertyChanged("PerakendeSatisKdvDahilmi");
+				this.OnPerakendeSatisKdvDahilmiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PerakendeSatisVarmi", DbType="Bit")]
+	public System.Nullable<bool> PerakendeSatisVarmi
+	{
+		get
+		{
+			return this._PerakendeSatisVarmi;
+		}
+		set
+		{
+			if ((this._PerakendeSatisVarmi != value))
+			{
+				this.OnPerakendeSatisVarmiChanging(value);
+				this.SendPropertyChanging();
+				this._PerakendeSatisVarmi = value;
+				this.SendPropertyChanged("PerakendeSatisVarmi");
+				this.OnPerakendeSatisVarmiChanged();
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_AlisDetaylari", Storage="_AlisDetaylaris", ThisKey="UrunID", OtherKey="UrunID")]
 	public EntitySet<AlisDetaylari> AlisDetaylaris
 	{
@@ -13821,6 +17545,45 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretimleris", ThisKey="UrunID", OtherKey="UrunID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleris;
+		}
+		set
+		{
+			this._ZeytinyagiUretimleris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_ZeytinyagiUretimleri1", Storage="_ZeytinyagiUretimleris1", ThisKey="UrunID", OtherKey="Cikan_UrunID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris1
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleris1;
+		}
+		set
+		{
+			this._ZeytinyagiUretimleris1.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_DepoStok", Storage="_DepoStoks", ThisKey="UrunID", OtherKey="UrunID")]
+	public EntitySet<DepoStok> DepoStoks
+	{
+		get
+		{
+			return this._DepoStoks;
+		}
+		set
+		{
+			this._DepoStoks.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_SatisDetaylari", Storage="_SatisDetaylaris", ThisKey="UrunID", OtherKey="UrunID")]
 	public EntitySet<SatisDetaylari> SatisDetaylaris
 	{
@@ -13831,6 +17594,19 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._SatisDetaylaris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_StokHareketleri", Storage="_StokHareketleris", ThisKey="UrunID", OtherKey="UrunID")]
+	public EntitySet<StokHareketleri> StokHareketleris
+	{
+		get
+		{
+			return this._StokHareketleris;
+		}
+		set
+		{
+			this._StokHareketleris.Assign(value);
 		}
 	}
 	
@@ -13870,6 +17646,32 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._UrunGorselleris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_UrunPaketlemeveLojistikBilgiIeri", Storage="_UrunPaketlemeveLojistikBilgiIeris", ThisKey="UrunID", OtherKey="UrunID")]
+	public EntitySet<UrunPaketlemeveLojistikBilgiIeri> UrunPaketlemeveLojistikBilgiIeris
+	{
+		get
+		{
+			return this._UrunPaketlemeveLojistikBilgiIeris;
+		}
+		set
+		{
+			this._UrunPaketlemeveLojistikBilgiIeris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_UrunVaryantlari", Storage="_UrunVaryantlaris", ThisKey="UrunID", OtherKey="UrunID")]
+	public EntitySet<UrunVaryantlari> UrunVaryantlaris
+	{
+		get
+		{
+			return this._UrunVaryantlaris;
+		}
+		set
+		{
+			this._UrunVaryantlaris.Assign(value);
 		}
 	}
 	
@@ -14075,6 +17877,42 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Urunler = null;
 	}
 	
+	private void attach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = this;
+	}
+	
+	private void detach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = null;
+	}
+	
+	private void attach_ZeytinyagiUretimleris1(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler1 = this;
+	}
+	
+	private void detach_ZeytinyagiUretimleris1(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler1 = null;
+	}
+	
+	private void attach_DepoStoks(DepoStok entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = this;
+	}
+	
+	private void detach_DepoStoks(DepoStok entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = null;
+	}
+	
 	private void attach_SatisDetaylaris(SatisDetaylari entity)
 	{
 		this.SendPropertyChanging();
@@ -14082,6 +17920,18 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_SatisDetaylaris(SatisDetaylari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = null;
+	}
+	
+	private void attach_StokHareketleris(StokHareketleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = this;
+	}
+	
+	private void detach_StokHareketleris(StokHareketleri entity)
 	{
 		this.SendPropertyChanging();
 		entity.Urunler = null;
@@ -14121,6 +17971,1465 @@ public partial class Urunler : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Urunler = null;
+	}
+	
+	private void attach_UrunPaketlemeveLojistikBilgiIeris(UrunPaketlemeveLojistikBilgiIeri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = this;
+	}
+	
+	private void detach_UrunPaketlemeveLojistikBilgiIeris(UrunPaketlemeveLojistikBilgiIeri entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = null;
+	}
+	
+	private void attach_UrunVaryantlaris(UrunVaryantlari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = this;
+	}
+	
+	private void detach_UrunVaryantlaris(UrunVaryantlari entity)
+	{
+		this.SendPropertyChanging();
+		entity.Urunler = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UrunPaketlemeveLojistikBilgiIeri")]
+public partial class UrunPaketlemeveLojistikBilgiIeri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UrunPaketlemeveLojistikBilgiID;
+	
+	private System.Nullable<int> _UrunID;
+	
+	private System.Nullable<int> _SirketID;
+	
+	private System.Nullable<byte> _UrunNetAgirlik_gr;
+	
+	private System.Nullable<byte> _UrunBurutAgirlik_gr;
+	
+	private System.Nullable<byte> _Koli_İci_Urun_Adedi;
+	
+	private System.Nullable<byte> _KoliBoyutlariEn_cm;
+	
+	private System.Nullable<byte> _KoliBoyutlariBoy_cm;
+	
+	private System.Nullable<byte> _KoliBoyutlariYukseklik_cm;
+	
+	private System.Nullable<decimal> _KoliBrutAgirligi_kg;
+	
+	private System.Nullable<decimal> _KoliNetAgirligi_kg;
+	
+	private string _KoliBarkodu;
+	
+	private System.Nullable<int> _PaletTipID;
+	
+	private System.Nullable<byte> _PalettekiKoliAdet;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<Urunler> _Urunler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUrunPaketlemeveLojistikBilgiIDChanging(int value);
+    partial void OnUrunPaketlemeveLojistikBilgiIDChanged();
+    partial void OnUrunIDChanging(System.Nullable<int> value);
+    partial void OnUrunIDChanged();
+    partial void OnSirketIDChanging(System.Nullable<int> value);
+    partial void OnSirketIDChanged();
+    partial void OnUrunNetAgirlik_grChanging(System.Nullable<byte> value);
+    partial void OnUrunNetAgirlik_grChanged();
+    partial void OnUrunBurutAgirlik_grChanging(System.Nullable<byte> value);
+    partial void OnUrunBurutAgirlik_grChanged();
+    partial void OnKoli_İci_Urun_AdediChanging(System.Nullable<byte> value);
+    partial void OnKoli_İci_Urun_AdediChanged();
+    partial void OnKoliBoyutlariEn_cmChanging(System.Nullable<byte> value);
+    partial void OnKoliBoyutlariEn_cmChanged();
+    partial void OnKoliBoyutlariBoy_cmChanging(System.Nullable<byte> value);
+    partial void OnKoliBoyutlariBoy_cmChanged();
+    partial void OnKoliBoyutlariYukseklik_cmChanging(System.Nullable<byte> value);
+    partial void OnKoliBoyutlariYukseklik_cmChanged();
+    partial void OnKoliBrutAgirligi_kgChanging(System.Nullable<decimal> value);
+    partial void OnKoliBrutAgirligi_kgChanged();
+    partial void OnKoliNetAgirligi_kgChanging(System.Nullable<decimal> value);
+    partial void OnKoliNetAgirligi_kgChanged();
+    partial void OnKoliBarkoduChanging(string value);
+    partial void OnKoliBarkoduChanged();
+    partial void OnPaletTipIDChanging(System.Nullable<int> value);
+    partial void OnPaletTipIDChanged();
+    partial void OnPalettekiKoliAdetChanging(System.Nullable<byte> value);
+    partial void OnPalettekiKoliAdetChanged();
+    #endregion
+	
+	public UrunPaketlemeveLojistikBilgiIeri()
+	{
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._Urunler = default(EntityRef<Urunler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunPaketlemeveLojistikBilgiID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UrunPaketlemeveLojistikBilgiID
+	{
+		get
+		{
+			return this._UrunPaketlemeveLojistikBilgiID;
+		}
+		set
+		{
+			if ((this._UrunPaketlemeveLojistikBilgiID != value))
+			{
+				this.OnUrunPaketlemeveLojistikBilgiIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunPaketlemeveLojistikBilgiID = value;
+				this.SendPropertyChanged("UrunPaketlemeveLojistikBilgiID");
+				this.OnUrunPaketlemeveLojistikBilgiIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunID", DbType="Int")]
+	public System.Nullable<int> UrunID
+	{
+		get
+		{
+			return this._UrunID;
+		}
+		set
+		{
+			if ((this._UrunID != value))
+			{
+				if (this._Urunler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnUrunIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunID = value;
+				this.SendPropertyChanged("UrunID");
+				this.OnUrunIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int")]
+	public System.Nullable<int> SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunNetAgirlik_gr", DbType="TinyInt")]
+	public System.Nullable<byte> UrunNetAgirlik_gr
+	{
+		get
+		{
+			return this._UrunNetAgirlik_gr;
+		}
+		set
+		{
+			if ((this._UrunNetAgirlik_gr != value))
+			{
+				this.OnUrunNetAgirlik_grChanging(value);
+				this.SendPropertyChanging();
+				this._UrunNetAgirlik_gr = value;
+				this.SendPropertyChanged("UrunNetAgirlik_gr");
+				this.OnUrunNetAgirlik_grChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunBurutAgirlik_gr", DbType="TinyInt")]
+	public System.Nullable<byte> UrunBurutAgirlik_gr
+	{
+		get
+		{
+			return this._UrunBurutAgirlik_gr;
+		}
+		set
+		{
+			if ((this._UrunBurutAgirlik_gr != value))
+			{
+				this.OnUrunBurutAgirlik_grChanging(value);
+				this.SendPropertyChanging();
+				this._UrunBurutAgirlik_gr = value;
+				this.SendPropertyChanged("UrunBurutAgirlik_gr");
+				this.OnUrunBurutAgirlik_grChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Koli_İci_Urun_Adedi", DbType="TinyInt")]
+	public System.Nullable<byte> Koli_İci_Urun_Adedi
+	{
+		get
+		{
+			return this._Koli_İci_Urun_Adedi;
+		}
+		set
+		{
+			if ((this._Koli_İci_Urun_Adedi != value))
+			{
+				this.OnKoli_İci_Urun_AdediChanging(value);
+				this.SendPropertyChanging();
+				this._Koli_İci_Urun_Adedi = value;
+				this.SendPropertyChanged("Koli_İci_Urun_Adedi");
+				this.OnKoli_İci_Urun_AdediChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KoliBoyutlariEn_cm", DbType="TinyInt")]
+	public System.Nullable<byte> KoliBoyutlariEn_cm
+	{
+		get
+		{
+			return this._KoliBoyutlariEn_cm;
+		}
+		set
+		{
+			if ((this._KoliBoyutlariEn_cm != value))
+			{
+				this.OnKoliBoyutlariEn_cmChanging(value);
+				this.SendPropertyChanging();
+				this._KoliBoyutlariEn_cm = value;
+				this.SendPropertyChanged("KoliBoyutlariEn_cm");
+				this.OnKoliBoyutlariEn_cmChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KoliBoyutlariBoy_cm", DbType="TinyInt")]
+	public System.Nullable<byte> KoliBoyutlariBoy_cm
+	{
+		get
+		{
+			return this._KoliBoyutlariBoy_cm;
+		}
+		set
+		{
+			if ((this._KoliBoyutlariBoy_cm != value))
+			{
+				this.OnKoliBoyutlariBoy_cmChanging(value);
+				this.SendPropertyChanging();
+				this._KoliBoyutlariBoy_cm = value;
+				this.SendPropertyChanged("KoliBoyutlariBoy_cm");
+				this.OnKoliBoyutlariBoy_cmChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KoliBoyutlariYukseklik_cm", DbType="TinyInt")]
+	public System.Nullable<byte> KoliBoyutlariYukseklik_cm
+	{
+		get
+		{
+			return this._KoliBoyutlariYukseklik_cm;
+		}
+		set
+		{
+			if ((this._KoliBoyutlariYukseklik_cm != value))
+			{
+				this.OnKoliBoyutlariYukseklik_cmChanging(value);
+				this.SendPropertyChanging();
+				this._KoliBoyutlariYukseklik_cm = value;
+				this.SendPropertyChanged("KoliBoyutlariYukseklik_cm");
+				this.OnKoliBoyutlariYukseklik_cmChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KoliBrutAgirligi_kg", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> KoliBrutAgirligi_kg
+	{
+		get
+		{
+			return this._KoliBrutAgirligi_kg;
+		}
+		set
+		{
+			if ((this._KoliBrutAgirligi_kg != value))
+			{
+				this.OnKoliBrutAgirligi_kgChanging(value);
+				this.SendPropertyChanging();
+				this._KoliBrutAgirligi_kg = value;
+				this.SendPropertyChanged("KoliBrutAgirligi_kg");
+				this.OnKoliBrutAgirligi_kgChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KoliNetAgirligi_kg", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> KoliNetAgirligi_kg
+	{
+		get
+		{
+			return this._KoliNetAgirligi_kg;
+		}
+		set
+		{
+			if ((this._KoliNetAgirligi_kg != value))
+			{
+				this.OnKoliNetAgirligi_kgChanging(value);
+				this.SendPropertyChanging();
+				this._KoliNetAgirligi_kg = value;
+				this.SendPropertyChanged("KoliNetAgirligi_kg");
+				this.OnKoliNetAgirligi_kgChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KoliBarkodu", DbType="NChar(10)")]
+	public string KoliBarkodu
+	{
+		get
+		{
+			return this._KoliBarkodu;
+		}
+		set
+		{
+			if ((this._KoliBarkodu != value))
+			{
+				this.OnKoliBarkoduChanging(value);
+				this.SendPropertyChanging();
+				this._KoliBarkodu = value;
+				this.SendPropertyChanged("KoliBarkodu");
+				this.OnKoliBarkoduChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaletTipID", DbType="Int")]
+	public System.Nullable<int> PaletTipID
+	{
+		get
+		{
+			return this._PaletTipID;
+		}
+		set
+		{
+			if ((this._PaletTipID != value))
+			{
+				this.OnPaletTipIDChanging(value);
+				this.SendPropertyChanging();
+				this._PaletTipID = value;
+				this.SendPropertyChanged("PaletTipID");
+				this.OnPaletTipIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PalettekiKoliAdet", DbType="TinyInt")]
+	public System.Nullable<byte> PalettekiKoliAdet
+	{
+		get
+		{
+			return this._PalettekiKoliAdet;
+		}
+		set
+		{
+			if ((this._PalettekiKoliAdet != value))
+			{
+				this.OnPalettekiKoliAdetChanging(value);
+				this.SendPropertyChanging();
+				this._PalettekiKoliAdet = value;
+				this.SendPropertyChanged("PalettekiKoliAdet");
+				this.OnPalettekiKoliAdetChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_UrunPaketlemeveLojistikBilgiIeri", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.UrunPaketlemeveLojistikBilgiIeris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.UrunPaketlemeveLojistikBilgiIeris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_UrunPaketlemeveLojistikBilgiIeri", Storage="_Urunler", ThisKey="UrunID", OtherKey="UrunID", IsForeignKey=true)]
+	public Urunler Urunler
+	{
+		get
+		{
+			return this._Urunler.Entity;
+		}
+		set
+		{
+			Urunler previousValue = this._Urunler.Entity;
+			if (((previousValue != value) 
+						|| (this._Urunler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Urunler.Entity = null;
+					previousValue.UrunPaketlemeveLojistikBilgiIeris.Remove(this);
+				}
+				this._Urunler.Entity = value;
+				if ((value != null))
+				{
+					value.UrunPaketlemeveLojistikBilgiIeris.Add(this);
+					this._UrunID = value.UrunID;
+				}
+				else
+				{
+					this._UrunID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Urunler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UrunVaryantDetay")]
+public partial class UrunVaryantDetay : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UrunVaryantDetayID;
+	
+	private System.Nullable<int> _UrunVaryantID;
+	
+	private System.Nullable<int> _VaryantDegerID;
+	
+	private EntityRef<UrunVaryantlari> _UrunVaryantlari;
+	
+	private EntityRef<VaryantDegerleri> _VaryantDegerleri;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUrunVaryantDetayIDChanging(int value);
+    partial void OnUrunVaryantDetayIDChanged();
+    partial void OnUrunVaryantIDChanging(System.Nullable<int> value);
+    partial void OnUrunVaryantIDChanged();
+    partial void OnVaryantDegerIDChanging(System.Nullable<int> value);
+    partial void OnVaryantDegerIDChanged();
+    #endregion
+	
+	public UrunVaryantDetay()
+	{
+		this._UrunVaryantlari = default(EntityRef<UrunVaryantlari>);
+		this._VaryantDegerleri = default(EntityRef<VaryantDegerleri>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunVaryantDetayID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UrunVaryantDetayID
+	{
+		get
+		{
+			return this._UrunVaryantDetayID;
+		}
+		set
+		{
+			if ((this._UrunVaryantDetayID != value))
+			{
+				this.OnUrunVaryantDetayIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunVaryantDetayID = value;
+				this.SendPropertyChanged("UrunVaryantDetayID");
+				this.OnUrunVaryantDetayIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunVaryantID", DbType="Int")]
+	public System.Nullable<int> UrunVaryantID
+	{
+		get
+		{
+			return this._UrunVaryantID;
+		}
+		set
+		{
+			if ((this._UrunVaryantID != value))
+			{
+				if (this._UrunVaryantlari.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnUrunVaryantIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunVaryantID = value;
+				this.SendPropertyChanged("UrunVaryantID");
+				this.OnUrunVaryantIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VaryantDegerID", DbType="Int")]
+	public System.Nullable<int> VaryantDegerID
+	{
+		get
+		{
+			return this._VaryantDegerID;
+		}
+		set
+		{
+			if ((this._VaryantDegerID != value))
+			{
+				if (this._VaryantDegerleri.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnVaryantDegerIDChanging(value);
+				this.SendPropertyChanging();
+				this._VaryantDegerID = value;
+				this.SendPropertyChanged("VaryantDegerID");
+				this.OnVaryantDegerIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UrunVaryantlari_UrunVaryantDetay", Storage="_UrunVaryantlari", ThisKey="UrunVaryantID", OtherKey="UrunVaryantID", IsForeignKey=true)]
+	public UrunVaryantlari UrunVaryantlari
+	{
+		get
+		{
+			return this._UrunVaryantlari.Entity;
+		}
+		set
+		{
+			UrunVaryantlari previousValue = this._UrunVaryantlari.Entity;
+			if (((previousValue != value) 
+						|| (this._UrunVaryantlari.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._UrunVaryantlari.Entity = null;
+					previousValue.UrunVaryantDetays.Remove(this);
+				}
+				this._UrunVaryantlari.Entity = value;
+				if ((value != null))
+				{
+					value.UrunVaryantDetays.Add(this);
+					this._UrunVaryantID = value.UrunVaryantID;
+				}
+				else
+				{
+					this._UrunVaryantID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("UrunVaryantlari");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="VaryantDegerleri_UrunVaryantDetay", Storage="_VaryantDegerleri", ThisKey="VaryantDegerID", OtherKey="VaryantDegerID", IsForeignKey=true)]
+	public VaryantDegerleri VaryantDegerleri
+	{
+		get
+		{
+			return this._VaryantDegerleri.Entity;
+		}
+		set
+		{
+			VaryantDegerleri previousValue = this._VaryantDegerleri.Entity;
+			if (((previousValue != value) 
+						|| (this._VaryantDegerleri.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._VaryantDegerleri.Entity = null;
+					previousValue.UrunVaryantDetays.Remove(this);
+				}
+				this._VaryantDegerleri.Entity = value;
+				if ((value != null))
+				{
+					value.UrunVaryantDetays.Add(this);
+					this._VaryantDegerID = value.VaryantDegerID;
+				}
+				else
+				{
+					this._VaryantDegerID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("VaryantDegerleri");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UrunVaryantlari")]
+public partial class UrunVaryantlari : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UrunVaryantID;
+	
+	private System.Nullable<int> _SirketID;
+	
+	private System.Nullable<int> _UrunID;
+	
+	private string _Barkod;
+	
+	private System.Nullable<decimal> _StokMiktari;
+	
+	private System.Nullable<decimal> _AlisFiyati;
+	
+	private System.Nullable<decimal> _SatisFiyati;
+	
+	private System.Nullable<decimal> _PerakendeSatisFiyati;
+	
+	private System.Nullable<bool> _Durum;
+	
+	private EntitySet<UrunVaryantDetay> _UrunVaryantDetays;
+	
+	private EntityRef<Urunler> _Urunler;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUrunVaryantIDChanging(int value);
+    partial void OnUrunVaryantIDChanged();
+    partial void OnSirketIDChanging(System.Nullable<int> value);
+    partial void OnSirketIDChanged();
+    partial void OnUrunIDChanging(System.Nullable<int> value);
+    partial void OnUrunIDChanged();
+    partial void OnBarkodChanging(string value);
+    partial void OnBarkodChanged();
+    partial void OnStokMiktariChanging(System.Nullable<decimal> value);
+    partial void OnStokMiktariChanged();
+    partial void OnAlisFiyatiChanging(System.Nullable<decimal> value);
+    partial void OnAlisFiyatiChanged();
+    partial void OnSatisFiyatiChanging(System.Nullable<decimal> value);
+    partial void OnSatisFiyatiChanged();
+    partial void OnPerakendeSatisFiyatiChanging(System.Nullable<decimal> value);
+    partial void OnPerakendeSatisFiyatiChanged();
+    partial void OnDurumChanging(System.Nullable<bool> value);
+    partial void OnDurumChanged();
+    #endregion
+	
+	public UrunVaryantlari()
+	{
+		this._UrunVaryantDetays = new EntitySet<UrunVaryantDetay>(new Action<UrunVaryantDetay>(this.attach_UrunVaryantDetays), new Action<UrunVaryantDetay>(this.detach_UrunVaryantDetays));
+		this._Urunler = default(EntityRef<Urunler>);
+		this._Sirketler = default(EntityRef<Sirketler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunVaryantID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UrunVaryantID
+	{
+		get
+		{
+			return this._UrunVaryantID;
+		}
+		set
+		{
+			if ((this._UrunVaryantID != value))
+			{
+				this.OnUrunVaryantIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunVaryantID = value;
+				this.SendPropertyChanged("UrunVaryantID");
+				this.OnUrunVaryantIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int")]
+	public System.Nullable<int> SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrunID", DbType="Int")]
+	public System.Nullable<int> UrunID
+	{
+		get
+		{
+			return this._UrunID;
+		}
+		set
+		{
+			if ((this._UrunID != value))
+			{
+				if (this._Urunler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnUrunIDChanging(value);
+				this.SendPropertyChanging();
+				this._UrunID = value;
+				this.SendPropertyChanged("UrunID");
+				this.OnUrunIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Barkod", DbType="NVarChar(20)")]
+	public string Barkod
+	{
+		get
+		{
+			return this._Barkod;
+		}
+		set
+		{
+			if ((this._Barkod != value))
+			{
+				this.OnBarkodChanging(value);
+				this.SendPropertyChanging();
+				this._Barkod = value;
+				this.SendPropertyChanged("Barkod");
+				this.OnBarkodChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StokMiktari", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> StokMiktari
+	{
+		get
+		{
+			return this._StokMiktari;
+		}
+		set
+		{
+			if ((this._StokMiktari != value))
+			{
+				this.OnStokMiktariChanging(value);
+				this.SendPropertyChanging();
+				this._StokMiktari = value;
+				this.SendPropertyChanged("StokMiktari");
+				this.OnStokMiktariChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlisFiyati", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> AlisFiyati
+	{
+		get
+		{
+			return this._AlisFiyati;
+		}
+		set
+		{
+			if ((this._AlisFiyati != value))
+			{
+				this.OnAlisFiyatiChanging(value);
+				this.SendPropertyChanging();
+				this._AlisFiyati = value;
+				this.SendPropertyChanged("AlisFiyati");
+				this.OnAlisFiyatiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SatisFiyati", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> SatisFiyati
+	{
+		get
+		{
+			return this._SatisFiyati;
+		}
+		set
+		{
+			if ((this._SatisFiyati != value))
+			{
+				this.OnSatisFiyatiChanging(value);
+				this.SendPropertyChanging();
+				this._SatisFiyati = value;
+				this.SendPropertyChanged("SatisFiyati");
+				this.OnSatisFiyatiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PerakendeSatisFiyati", DbType="Decimal(18,2)")]
+	public System.Nullable<decimal> PerakendeSatisFiyati
+	{
+		get
+		{
+			return this._PerakendeSatisFiyati;
+		}
+		set
+		{
+			if ((this._PerakendeSatisFiyati != value))
+			{
+				this.OnPerakendeSatisFiyatiChanging(value);
+				this.SendPropertyChanging();
+				this._PerakendeSatisFiyati = value;
+				this.SendPropertyChanged("PerakendeSatisFiyati");
+				this.OnPerakendeSatisFiyatiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Durum", DbType="Bit")]
+	public System.Nullable<bool> Durum
+	{
+		get
+		{
+			return this._Durum;
+		}
+		set
+		{
+			if ((this._Durum != value))
+			{
+				this.OnDurumChanging(value);
+				this.SendPropertyChanging();
+				this._Durum = value;
+				this.SendPropertyChanged("Durum");
+				this.OnDurumChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UrunVaryantlari_UrunVaryantDetay", Storage="_UrunVaryantDetays", ThisKey="UrunVaryantID", OtherKey="UrunVaryantID")]
+	public EntitySet<UrunVaryantDetay> UrunVaryantDetays
+	{
+		get
+		{
+			return this._UrunVaryantDetays;
+		}
+		set
+		{
+			this._UrunVaryantDetays.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Urunler_UrunVaryantlari", Storage="_Urunler", ThisKey="UrunID", OtherKey="UrunID", IsForeignKey=true)]
+	public Urunler Urunler
+	{
+		get
+		{
+			return this._Urunler.Entity;
+		}
+		set
+		{
+			Urunler previousValue = this._Urunler.Entity;
+			if (((previousValue != value) 
+						|| (this._Urunler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Urunler.Entity = null;
+					previousValue.UrunVaryantlaris.Remove(this);
+				}
+				this._Urunler.Entity = value;
+				if ((value != null))
+				{
+					value.UrunVaryantlaris.Add(this);
+					this._UrunID = value.UrunID;
+				}
+				else
+				{
+					this._UrunID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Urunler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_UrunVaryantlari", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.UrunVaryantlaris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.UrunVaryantlaris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_UrunVaryantDetays(UrunVaryantDetay entity)
+	{
+		this.SendPropertyChanging();
+		entity.UrunVaryantlari = this;
+	}
+	
+	private void detach_UrunVaryantDetays(UrunVaryantDetay entity)
+	{
+		this.SendPropertyChanging();
+		entity.UrunVaryantlari = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VaryantDegerleri")]
+public partial class VaryantDegerleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _VaryantDegerID;
+	
+	private System.Nullable<int> _SirketID;
+	
+	private System.Nullable<int> _VaryantTurID;
+	
+	private string _DegerAdi;
+	
+	private EntitySet<UrunVaryantDetay> _UrunVaryantDetays;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<VaryantTurleri> _VaryantTurleri;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnVaryantDegerIDChanging(int value);
+    partial void OnVaryantDegerIDChanged();
+    partial void OnSirketIDChanging(System.Nullable<int> value);
+    partial void OnSirketIDChanged();
+    partial void OnVaryantTurIDChanging(System.Nullable<int> value);
+    partial void OnVaryantTurIDChanged();
+    partial void OnDegerAdiChanging(string value);
+    partial void OnDegerAdiChanged();
+    #endregion
+	
+	public VaryantDegerleri()
+	{
+		this._UrunVaryantDetays = new EntitySet<UrunVaryantDetay>(new Action<UrunVaryantDetay>(this.attach_UrunVaryantDetays), new Action<UrunVaryantDetay>(this.detach_UrunVaryantDetays));
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._VaryantTurleri = default(EntityRef<VaryantTurleri>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VaryantDegerID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int VaryantDegerID
+	{
+		get
+		{
+			return this._VaryantDegerID;
+		}
+		set
+		{
+			if ((this._VaryantDegerID != value))
+			{
+				this.OnVaryantDegerIDChanging(value);
+				this.SendPropertyChanging();
+				this._VaryantDegerID = value;
+				this.SendPropertyChanged("VaryantDegerID");
+				this.OnVaryantDegerIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int")]
+	public System.Nullable<int> SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VaryantTurID", DbType="Int")]
+	public System.Nullable<int> VaryantTurID
+	{
+		get
+		{
+			return this._VaryantTurID;
+		}
+		set
+		{
+			if ((this._VaryantTurID != value))
+			{
+				if (this._VaryantTurleri.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnVaryantTurIDChanging(value);
+				this.SendPropertyChanging();
+				this._VaryantTurID = value;
+				this.SendPropertyChanged("VaryantTurID");
+				this.OnVaryantTurIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DegerAdi", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+	public string DegerAdi
+	{
+		get
+		{
+			return this._DegerAdi;
+		}
+		set
+		{
+			if ((this._DegerAdi != value))
+			{
+				this.OnDegerAdiChanging(value);
+				this.SendPropertyChanging();
+				this._DegerAdi = value;
+				this.SendPropertyChanged("DegerAdi");
+				this.OnDegerAdiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="VaryantDegerleri_UrunVaryantDetay", Storage="_UrunVaryantDetays", ThisKey="VaryantDegerID", OtherKey="VaryantDegerID")]
+	public EntitySet<UrunVaryantDetay> UrunVaryantDetays
+	{
+		get
+		{
+			return this._UrunVaryantDetays;
+		}
+		set
+		{
+			this._UrunVaryantDetays.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_VaryantDegerleri", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.VaryantDegerleris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.VaryantDegerleris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="VaryantTurleri_VaryantDegerleri", Storage="_VaryantTurleri", ThisKey="VaryantTurID", OtherKey="VaryantTurID", IsForeignKey=true)]
+	public VaryantTurleri VaryantTurleri
+	{
+		get
+		{
+			return this._VaryantTurleri.Entity;
+		}
+		set
+		{
+			VaryantTurleri previousValue = this._VaryantTurleri.Entity;
+			if (((previousValue != value) 
+						|| (this._VaryantTurleri.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._VaryantTurleri.Entity = null;
+					previousValue.VaryantDegerleris.Remove(this);
+				}
+				this._VaryantTurleri.Entity = value;
+				if ((value != null))
+				{
+					value.VaryantDegerleris.Add(this);
+					this._VaryantTurID = value.VaryantTurID;
+				}
+				else
+				{
+					this._VaryantTurID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("VaryantTurleri");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_UrunVaryantDetays(UrunVaryantDetay entity)
+	{
+		this.SendPropertyChanging();
+		entity.VaryantDegerleri = this;
+	}
+	
+	private void detach_UrunVaryantDetays(UrunVaryantDetay entity)
+	{
+		this.SendPropertyChanging();
+		entity.VaryantDegerleri = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VaryantTurleri")]
+public partial class VaryantTurleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _VaryantTurID;
+	
+	private System.Nullable<int> _SirketID;
+	
+	private string _TurAdi;
+	
+	private EntitySet<VaryantDegerleri> _VaryantDegerleris;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnVaryantTurIDChanging(int value);
+    partial void OnVaryantTurIDChanged();
+    partial void OnSirketIDChanging(System.Nullable<int> value);
+    partial void OnSirketIDChanged();
+    partial void OnTurAdiChanging(string value);
+    partial void OnTurAdiChanged();
+    #endregion
+	
+	public VaryantTurleri()
+	{
+		this._VaryantDegerleris = new EntitySet<VaryantDegerleri>(new Action<VaryantDegerleri>(this.attach_VaryantDegerleris), new Action<VaryantDegerleri>(this.detach_VaryantDegerleris));
+		this._Sirketler = default(EntityRef<Sirketler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VaryantTurID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int VaryantTurID
+	{
+		get
+		{
+			return this._VaryantTurID;
+		}
+		set
+		{
+			if ((this._VaryantTurID != value))
+			{
+				this.OnVaryantTurIDChanging(value);
+				this.SendPropertyChanging();
+				this._VaryantTurID = value;
+				this.SendPropertyChanged("VaryantTurID");
+				this.OnVaryantTurIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int")]
+	public System.Nullable<int> SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TurAdi", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+	public string TurAdi
+	{
+		get
+		{
+			return this._TurAdi;
+		}
+		set
+		{
+			if ((this._TurAdi != value))
+			{
+				this.OnTurAdiChanging(value);
+				this.SendPropertyChanging();
+				this._TurAdi = value;
+				this.SendPropertyChanged("TurAdi");
+				this.OnTurAdiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="VaryantTurleri_VaryantDegerleri", Storage="_VaryantDegerleris", ThisKey="VaryantTurID", OtherKey="VaryantTurID")]
+	public EntitySet<VaryantDegerleri> VaryantDegerleris
+	{
+		get
+		{
+			return this._VaryantDegerleris;
+		}
+		set
+		{
+			this._VaryantDegerleris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_VaryantTurleri", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.VaryantTurleris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.VaryantTurleris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_VaryantDegerleris(VaryantDegerleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.VaryantTurleri = this;
+	}
+	
+	private void detach_VaryantDegerleris(VaryantDegerleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.VaryantTurleri = null;
 	}
 }
 
@@ -14350,6 +19659,1180 @@ public partial class Web_iletisimFormu : INotifyPropertyChanging, INotifyPropert
 		if ((this.PropertyChanged != null))
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Yetkiler")]
+public partial class Yetkiler : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _YetkiID;
+	
+	private int _SirketID;
+	
+	private string _YetkiAdi;
+	
+	private string _Aciklama;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnYetkiIDChanging(int value);
+    partial void OnYetkiIDChanged();
+    partial void OnSirketIDChanging(int value);
+    partial void OnSirketIDChanged();
+    partial void OnYetkiAdiChanging(string value);
+    partial void OnYetkiAdiChanged();
+    partial void OnAciklamaChanging(string value);
+    partial void OnAciklamaChanged();
+    #endregion
+	
+	public Yetkiler()
+	{
+		this._Sirketler = default(EntityRef<Sirketler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YetkiID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int YetkiID
+	{
+		get
+		{
+			return this._YetkiID;
+		}
+		set
+		{
+			if ((this._YetkiID != value))
+			{
+				this.OnYetkiIDChanging(value);
+				this.SendPropertyChanging();
+				this._YetkiID = value;
+				this.SendPropertyChanged("YetkiID");
+				this.OnYetkiIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int NOT NULL")]
+	public int SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YetkiAdi", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string YetkiAdi
+	{
+		get
+		{
+			return this._YetkiAdi;
+		}
+		set
+		{
+			if ((this._YetkiAdi != value))
+			{
+				this.OnYetkiAdiChanging(value);
+				this.SendPropertyChanging();
+				this._YetkiAdi = value;
+				this.SendPropertyChanged("YetkiAdi");
+				this.OnYetkiAdiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Aciklama", DbType="NVarChar(200)")]
+	public string Aciklama
+	{
+		get
+		{
+			return this._Aciklama;
+		}
+		set
+		{
+			if ((this._Aciklama != value))
+			{
+				this.OnAciklamaChanging(value);
+				this.SendPropertyChanging();
+				this._Aciklama = value;
+				this.SendPropertyChanged("Aciklama");
+				this.OnAciklamaChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_Yetkiler", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.Yetkilers.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.Yetkilers.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(int);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZeytinBoxKasalari")]
+public partial class ZeytinBoxKasalari : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ZeytinBoxKasaID;
+	
+	private System.Nullable<int> _SirketID;
+	
+	private System.Nullable<int> _ZeytinBoxNo;
+	
+	private System.Nullable<bool> _Durumu;
+	
+	private System.Nullable<System.DateTime> _AlimTarihi;
+	
+	private System.Nullable<int> _KulananMustahsilID;
+	
+	private EntitySet<ZeytinyagiUretimi_ZeytinBoxKasa_Map> _ZeytinyagiUretimi_ZeytinBoxKasa_Maps;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnZeytinBoxKasaIDChanging(int value);
+    partial void OnZeytinBoxKasaIDChanged();
+    partial void OnSirketIDChanging(System.Nullable<int> value);
+    partial void OnSirketIDChanged();
+    partial void OnZeytinBoxNoChanging(System.Nullable<int> value);
+    partial void OnZeytinBoxNoChanged();
+    partial void OnDurumuChanging(System.Nullable<bool> value);
+    partial void OnDurumuChanged();
+    partial void OnAlimTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnAlimTarihiChanged();
+    partial void OnKulananMustahsilIDChanging(System.Nullable<int> value);
+    partial void OnKulananMustahsilIDChanged();
+    #endregion
+	
+	public ZeytinBoxKasalari()
+	{
+		this._ZeytinyagiUretimi_ZeytinBoxKasa_Maps = new EntitySet<ZeytinyagiUretimi_ZeytinBoxKasa_Map>(new Action<ZeytinyagiUretimi_ZeytinBoxKasa_Map>(this.attach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps), new Action<ZeytinyagiUretimi_ZeytinBoxKasa_Map>(this.detach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps));
+		this._Sirketler = default(EntityRef<Sirketler>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinBoxKasaID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ZeytinBoxKasaID
+	{
+		get
+		{
+			return this._ZeytinBoxKasaID;
+		}
+		set
+		{
+			if ((this._ZeytinBoxKasaID != value))
+			{
+				this.OnZeytinBoxKasaIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinBoxKasaID = value;
+				this.SendPropertyChanged("ZeytinBoxKasaID");
+				this.OnZeytinBoxKasaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int")]
+	public System.Nullable<int> SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinBoxNo", DbType="Int")]
+	public System.Nullable<int> ZeytinBoxNo
+	{
+		get
+		{
+			return this._ZeytinBoxNo;
+		}
+		set
+		{
+			if ((this._ZeytinBoxNo != value))
+			{
+				this.OnZeytinBoxNoChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinBoxNo = value;
+				this.SendPropertyChanged("ZeytinBoxNo");
+				this.OnZeytinBoxNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Durumu", DbType="Bit")]
+	public System.Nullable<bool> Durumu
+	{
+		get
+		{
+			return this._Durumu;
+		}
+		set
+		{
+			if ((this._Durumu != value))
+			{
+				this.OnDurumuChanging(value);
+				this.SendPropertyChanging();
+				this._Durumu = value;
+				this.SendPropertyChanged("Durumu");
+				this.OnDurumuChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlimTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> AlimTarihi
+	{
+		get
+		{
+			return this._AlimTarihi;
+		}
+		set
+		{
+			if ((this._AlimTarihi != value))
+			{
+				this.OnAlimTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._AlimTarihi = value;
+				this.SendPropertyChanged("AlimTarihi");
+				this.OnAlimTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KulananMustahsilID", DbType="Int")]
+	public System.Nullable<int> KulananMustahsilID
+	{
+		get
+		{
+			return this._KulananMustahsilID;
+		}
+		set
+		{
+			if ((this._KulananMustahsilID != value))
+			{
+				this.OnKulananMustahsilIDChanging(value);
+				this.SendPropertyChanging();
+				this._KulananMustahsilID = value;
+				this.SendPropertyChanged("KulananMustahsilID");
+				this.OnKulananMustahsilIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinBoxKasalari_ZeytinyagiUretimi_ZeytinBoxKasa_Map", Storage="_ZeytinyagiUretimi_ZeytinBoxKasa_Maps", ThisKey="ZeytinBoxKasaID", OtherKey="ZeytinBoxKasaID")]
+	public EntitySet<ZeytinyagiUretimi_ZeytinBoxKasa_Map> ZeytinyagiUretimi_ZeytinBoxKasa_Maps
+	{
+		get
+		{
+			return this._ZeytinyagiUretimi_ZeytinBoxKasa_Maps;
+		}
+		set
+		{
+			this._ZeytinyagiUretimi_ZeytinBoxKasa_Maps.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_ZeytinBoxKasalari", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.ZeytinBoxKasalaris.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinBoxKasalaris.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps(ZeytinyagiUretimi_ZeytinBoxKasa_Map entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinBoxKasalari = this;
+	}
+	
+	private void detach_ZeytinyagiUretimi_ZeytinBoxKasa_Maps(ZeytinyagiUretimi_ZeytinBoxKasa_Map entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinBoxKasalari = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZeytinyagiMakinaMarkalari")]
+public partial class ZeytinyagiMakinaMarkalari : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ZeytinyagiMakinaMarkaID;
+	
+	private string _Ad;
+	
+	private string _Adres;
+	
+	private string _Logo;
+	
+	private string _Telefon;
+	
+	private string _Email;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnZeytinyagiMakinaMarkaIDChanging(int value);
+    partial void OnZeytinyagiMakinaMarkaIDChanged();
+    partial void OnAdChanging(string value);
+    partial void OnAdChanged();
+    partial void OnAdresChanging(string value);
+    partial void OnAdresChanged();
+    partial void OnLogoChanging(string value);
+    partial void OnLogoChanged();
+    partial void OnTelefonChanging(string value);
+    partial void OnTelefonChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    #endregion
+	
+	public ZeytinyagiMakinaMarkalari()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiMakinaMarkaID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ZeytinyagiMakinaMarkaID
+	{
+		get
+		{
+			return this._ZeytinyagiMakinaMarkaID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiMakinaMarkaID != value))
+			{
+				this.OnZeytinyagiMakinaMarkaIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiMakinaMarkaID = value;
+				this.SendPropertyChanged("ZeytinyagiMakinaMarkaID");
+				this.OnZeytinyagiMakinaMarkaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ad", DbType="NVarChar(50)")]
+	public string Ad
+	{
+		get
+		{
+			return this._Ad;
+		}
+		set
+		{
+			if ((this._Ad != value))
+			{
+				this.OnAdChanging(value);
+				this.SendPropertyChanging();
+				this._Ad = value;
+				this.SendPropertyChanged("Ad");
+				this.OnAdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Adres", DbType="NVarChar(500)")]
+	public string Adres
+	{
+		get
+		{
+			return this._Adres;
+		}
+		set
+		{
+			if ((this._Adres != value))
+			{
+				this.OnAdresChanging(value);
+				this.SendPropertyChanging();
+				this._Adres = value;
+				this.SendPropertyChanged("Adres");
+				this.OnAdresChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Logo", DbType="NVarChar(250)")]
+	public string Logo
+	{
+		get
+		{
+			return this._Logo;
+		}
+		set
+		{
+			if ((this._Logo != value))
+			{
+				this.OnLogoChanging(value);
+				this.SendPropertyChanging();
+				this._Logo = value;
+				this.SendPropertyChanged("Logo");
+				this.OnLogoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefon", DbType="NVarChar(50)")]
+	public string Telefon
+	{
+		get
+		{
+			return this._Telefon;
+		}
+		set
+		{
+			if ((this._Telefon != value))
+			{
+				this.OnTelefonChanging(value);
+				this.SendPropertyChanging();
+				this._Telefon = value;
+				this.SendPropertyChanged("Telefon");
+				this.OnTelefonChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+	public string Email
+	{
+		get
+		{
+			return this._Email;
+		}
+		set
+		{
+			if ((this._Email != value))
+			{
+				this.OnEmailChanging(value);
+				this.SendPropertyChanging();
+				this._Email = value;
+				this.SendPropertyChanged("Email");
+				this.OnEmailChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZeytinyagiMakinaModelleri")]
+public partial class ZeytinyagiMakinaModelleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ZeytinyagiMakinaModelID;
+	
+	private System.Nullable<int> _ZeytinyagiMakinaMarkaID;
+	
+	private string _ModelAd;
+	
+	private string _MaxKapasite;
+	
+	private string _EnerjiTuketimi;
+	
+	private string _Gorsel;
+	
+	private EntitySet<SirketZeytinyagiMakinalari> _SirketZeytinyagiMakinalaris;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnZeytinyagiMakinaModelIDChanging(int value);
+    partial void OnZeytinyagiMakinaModelIDChanged();
+    partial void OnZeytinyagiMakinaMarkaIDChanging(System.Nullable<int> value);
+    partial void OnZeytinyagiMakinaMarkaIDChanged();
+    partial void OnModelAdChanging(string value);
+    partial void OnModelAdChanged();
+    partial void OnMaxKapasiteChanging(string value);
+    partial void OnMaxKapasiteChanged();
+    partial void OnEnerjiTuketimiChanging(string value);
+    partial void OnEnerjiTuketimiChanged();
+    partial void OnGorselChanging(string value);
+    partial void OnGorselChanged();
+    #endregion
+	
+	public ZeytinyagiMakinaModelleri()
+	{
+		this._SirketZeytinyagiMakinalaris = new EntitySet<SirketZeytinyagiMakinalari>(new Action<SirketZeytinyagiMakinalari>(this.attach_SirketZeytinyagiMakinalaris), new Action<SirketZeytinyagiMakinalari>(this.detach_SirketZeytinyagiMakinalaris));
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiMakinaModelID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ZeytinyagiMakinaModelID
+	{
+		get
+		{
+			return this._ZeytinyagiMakinaModelID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiMakinaModelID != value))
+			{
+				this.OnZeytinyagiMakinaModelIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiMakinaModelID = value;
+				this.SendPropertyChanged("ZeytinyagiMakinaModelID");
+				this.OnZeytinyagiMakinaModelIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiMakinaMarkaID", DbType="Int")]
+	public System.Nullable<int> ZeytinyagiMakinaMarkaID
+	{
+		get
+		{
+			return this._ZeytinyagiMakinaMarkaID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiMakinaMarkaID != value))
+			{
+				this.OnZeytinyagiMakinaMarkaIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiMakinaMarkaID = value;
+				this.SendPropertyChanged("ZeytinyagiMakinaMarkaID");
+				this.OnZeytinyagiMakinaMarkaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModelAd", DbType="NVarChar(50)")]
+	public string ModelAd
+	{
+		get
+		{
+			return this._ModelAd;
+		}
+		set
+		{
+			if ((this._ModelAd != value))
+			{
+				this.OnModelAdChanging(value);
+				this.SendPropertyChanging();
+				this._ModelAd = value;
+				this.SendPropertyChanged("ModelAd");
+				this.OnModelAdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaxKapasite", DbType="NVarChar(50)")]
+	public string MaxKapasite
+	{
+		get
+		{
+			return this._MaxKapasite;
+		}
+		set
+		{
+			if ((this._MaxKapasite != value))
+			{
+				this.OnMaxKapasiteChanging(value);
+				this.SendPropertyChanging();
+				this._MaxKapasite = value;
+				this.SendPropertyChanged("MaxKapasite");
+				this.OnMaxKapasiteChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnerjiTuketimi", DbType="NVarChar(50)")]
+	public string EnerjiTuketimi
+	{
+		get
+		{
+			return this._EnerjiTuketimi;
+		}
+		set
+		{
+			if ((this._EnerjiTuketimi != value))
+			{
+				this.OnEnerjiTuketimiChanging(value);
+				this.SendPropertyChanging();
+				this._EnerjiTuketimi = value;
+				this.SendPropertyChanged("EnerjiTuketimi");
+				this.OnEnerjiTuketimiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gorsel", DbType="NVarChar(150)")]
+	public string Gorsel
+	{
+		get
+		{
+			return this._Gorsel;
+		}
+		set
+		{
+			if ((this._Gorsel != value))
+			{
+				this.OnGorselChanging(value);
+				this.SendPropertyChanging();
+				this._Gorsel = value;
+				this.SendPropertyChanged("Gorsel");
+				this.OnGorselChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinyagiMakinaModelleri_SirketZeytinyagiMakinalari", Storage="_SirketZeytinyagiMakinalaris", ThisKey="ZeytinyagiMakinaModelID", OtherKey="ZeytinyagiMakinaModelID")]
+	public EntitySet<SirketZeytinyagiMakinalari> SirketZeytinyagiMakinalaris
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinalaris;
+		}
+		set
+		{
+			this._SirketZeytinyagiMakinalaris.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_SirketZeytinyagiMakinalaris(SirketZeytinyagiMakinalari entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinyagiMakinaModelleri = this;
+	}
+	
+	private void detach_SirketZeytinyagiMakinalaris(SirketZeytinyagiMakinalari entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinyagiMakinaModelleri = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZeytinyagiUretim_islemleri")]
+public partial class ZeytinyagiUretim_islemleri : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ZeytinyagiUretim_islemID;
+	
+	private string _islem_Ad;
+	
+	private EntitySet<ZeytinyagiUretimleri> _ZeytinyagiUretimleris;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnZeytinyagiUretim_islemIDChanging(int value);
+    partial void OnZeytinyagiUretim_islemIDChanged();
+    partial void Onislem_AdChanging(string value);
+    partial void Onislem_AdChanged();
+    #endregion
+	
+	public ZeytinyagiUretim_islemleri()
+	{
+		this._ZeytinyagiUretimleris = new EntitySet<ZeytinyagiUretimleri>(new Action<ZeytinyagiUretimleri>(this.attach_ZeytinyagiUretimleris), new Action<ZeytinyagiUretimleri>(this.detach_ZeytinyagiUretimleris));
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiUretim_islemID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ZeytinyagiUretim_islemID
+	{
+		get
+		{
+			return this._ZeytinyagiUretim_islemID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiUretim_islemID != value))
+			{
+				this.OnZeytinyagiUretim_islemIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiUretim_islemID = value;
+				this.SendPropertyChanged("ZeytinyagiUretim_islemID");
+				this.OnZeytinyagiUretim_islemIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_islem_Ad", DbType="NVarChar(50)")]
+	public string islem_Ad
+	{
+		get
+		{
+			return this._islem_Ad;
+		}
+		set
+		{
+			if ((this._islem_Ad != value))
+			{
+				this.Onislem_AdChanging(value);
+				this.SendPropertyChanging();
+				this._islem_Ad = value;
+				this.SendPropertyChanged("islem_Ad");
+				this.Onislem_AdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinyagiUretim_islemleri_ZeytinyagiUretimleri", Storage="_ZeytinyagiUretimleris", ThisKey="ZeytinyagiUretim_islemID", OtherKey="ZeytinyagiUretim_islemID")]
+	public EntitySet<ZeytinyagiUretimleri> ZeytinyagiUretimleris
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleris;
+		}
+		set
+		{
+			this._ZeytinyagiUretimleris.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinyagiUretim_islemleri = this;
+	}
+	
+	private void detach_ZeytinyagiUretimleris(ZeytinyagiUretimleri entity)
+	{
+		this.SendPropertyChanging();
+		entity.ZeytinyagiUretim_islemleri = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZeytinyagiUretimi_ZeytinBoxKasa_Map")]
+public partial class ZeytinyagiUretimi_ZeytinBoxKasa_Map : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _MapID;
+	
+	private int _ZeytinyagiUretimID;
+	
+	private int _ZeytinBoxKasaID;
+	
+	private System.Nullable<System.DateTime> _EklenmeTarihi;
+	
+	private EntityRef<ZeytinBoxKasalari> _ZeytinBoxKasalari;
+	
+	private EntityRef<ZeytinyagiUretimleri> _ZeytinyagiUretimleri;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMapIDChanging(int value);
+    partial void OnMapIDChanged();
+    partial void OnZeytinyagiUretimIDChanging(int value);
+    partial void OnZeytinyagiUretimIDChanged();
+    partial void OnZeytinBoxKasaIDChanging(int value);
+    partial void OnZeytinBoxKasaIDChanged();
+    partial void OnEklenmeTarihiChanging(System.Nullable<System.DateTime> value);
+    partial void OnEklenmeTarihiChanged();
+    #endregion
+	
+	public ZeytinyagiUretimi_ZeytinBoxKasa_Map()
+	{
+		this._ZeytinBoxKasalari = default(EntityRef<ZeytinBoxKasalari>);
+		this._ZeytinyagiUretimleri = default(EntityRef<ZeytinyagiUretimleri>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MapID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int MapID
+	{
+		get
+		{
+			return this._MapID;
+		}
+		set
+		{
+			if ((this._MapID != value))
+			{
+				this.OnMapIDChanging(value);
+				this.SendPropertyChanging();
+				this._MapID = value;
+				this.SendPropertyChanged("MapID");
+				this.OnMapIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinyagiUretimID", DbType="Int NOT NULL")]
+	public int ZeytinyagiUretimID
+	{
+		get
+		{
+			return this._ZeytinyagiUretimID;
+		}
+		set
+		{
+			if ((this._ZeytinyagiUretimID != value))
+			{
+				if (this._ZeytinyagiUretimleri.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnZeytinyagiUretimIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinyagiUretimID = value;
+				this.SendPropertyChanged("ZeytinyagiUretimID");
+				this.OnZeytinyagiUretimIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZeytinBoxKasaID", DbType="Int NOT NULL")]
+	public int ZeytinBoxKasaID
+	{
+		get
+		{
+			return this._ZeytinBoxKasaID;
+		}
+		set
+		{
+			if ((this._ZeytinBoxKasaID != value))
+			{
+				if (this._ZeytinBoxKasalari.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnZeytinBoxKasaIDChanging(value);
+				this.SendPropertyChanging();
+				this._ZeytinBoxKasaID = value;
+				this.SendPropertyChanged("ZeytinBoxKasaID");
+				this.OnZeytinBoxKasaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EklenmeTarihi", DbType="DateTime")]
+	public System.Nullable<System.DateTime> EklenmeTarihi
+	{
+		get
+		{
+			return this._EklenmeTarihi;
+		}
+		set
+		{
+			if ((this._EklenmeTarihi != value))
+			{
+				this.OnEklenmeTarihiChanging(value);
+				this.SendPropertyChanging();
+				this._EklenmeTarihi = value;
+				this.SendPropertyChanged("EklenmeTarihi");
+				this.OnEklenmeTarihiChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinBoxKasalari_ZeytinyagiUretimi_ZeytinBoxKasa_Map", Storage="_ZeytinBoxKasalari", ThisKey="ZeytinBoxKasaID", OtherKey="ZeytinBoxKasaID", IsForeignKey=true)]
+	public ZeytinBoxKasalari ZeytinBoxKasalari
+	{
+		get
+		{
+			return this._ZeytinBoxKasalari.Entity;
+		}
+		set
+		{
+			ZeytinBoxKasalari previousValue = this._ZeytinBoxKasalari.Entity;
+			if (((previousValue != value) 
+						|| (this._ZeytinBoxKasalari.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._ZeytinBoxKasalari.Entity = null;
+					previousValue.ZeytinyagiUretimi_ZeytinBoxKasa_Maps.Remove(this);
+				}
+				this._ZeytinBoxKasalari.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimi_ZeytinBoxKasa_Maps.Add(this);
+					this._ZeytinBoxKasaID = value.ZeytinBoxKasaID;
+				}
+				else
+				{
+					this._ZeytinBoxKasaID = default(int);
+				}
+				this.SendPropertyChanged("ZeytinBoxKasalari");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZeytinyagiUretimleri_ZeytinyagiUretimi_ZeytinBoxKasa_Map", Storage="_ZeytinyagiUretimleri", ThisKey="ZeytinyagiUretimID", OtherKey="ZeytinyagiUretimID", IsForeignKey=true)]
+	public ZeytinyagiUretimleri ZeytinyagiUretimleri
+	{
+		get
+		{
+			return this._ZeytinyagiUretimleri.Entity;
+		}
+		set
+		{
+			ZeytinyagiUretimleri previousValue = this._ZeytinyagiUretimleri.Entity;
+			if (((previousValue != value) 
+						|| (this._ZeytinyagiUretimleri.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._ZeytinyagiUretimleri.Entity = null;
+					previousValue.ZeytinyagiUretimi_ZeytinBoxKasa_Maps.Remove(this);
+				}
+				this._ZeytinyagiUretimleri.Entity = value;
+				if ((value != null))
+				{
+					value.ZeytinyagiUretimi_ZeytinBoxKasa_Maps.Add(this);
+					this._ZeytinyagiUretimID = value.ZeytinyagiUretimID;
+				}
+				else
+				{
+					this._ZeytinyagiUretimID = default(int);
+				}
+				this.SendPropertyChanged("ZeytinyagiUretimleri");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+public partial class SP_StokHareketResult
+{
+	
+	private System.Nullable<decimal> _YeniStokMiktari;
+	
+	public SP_StokHareketResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YeniStokMiktari", DbType="Decimal(10,2)")]
+	public System.Nullable<decimal> YeniStokMiktari
+	{
+		get
+		{
+			return this._YeniStokMiktari;
+		}
+		set
+		{
+			if ((this._YeniStokMiktari != value))
+			{
+				this._YeniStokMiktari = value;
+			}
 		}
 	}
 }

@@ -57,8 +57,7 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             catch (Exception ex)
             {
                 // Hata mesajını göster
-                pnlHata.Visible = true;
-                lblHata.Text = "Sayfa yüklenirken bir hata oluştu: " + ex.Message;
+                MessageHelper.ShowErrorMessage(this, "Hata", "Sayfa yüklenirken bir hata oluştu: " + ex.Message);
             }
         }
     }
@@ -68,14 +67,12 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
         try
         {
             // Hata ve başarı panellerini temizle
-            pnlHata.Visible = false;
-            pnlBasari.Visible = false;
+            // MessageHelper.HideMessage(this); satırını kaldır.
             
             // Dosya kontrolü
             if (!fuExcel.HasFile)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Lütfen bir Excel dosyası seçin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Lütfen bir Excel dosyası seçin.");
                 return;
             }
 
@@ -83,8 +80,7 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             string fileExtension = Path.GetExtension(fuExcel.FileName).ToLower();
             if (fileExtension != ".xlsx")
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Lütfen sadece .xlsx formatında dosya yükleyin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Lütfen sadece .xlsx formatında dosya yükleyin.");
                 return;
             }
 
@@ -111,8 +107,7 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             catch (Exception ex)
             {
                 // Hata mesajını göster
-                pnlHata.Visible = true;
-                lblHata.Text = "Excel dosyası okunurken bir hata oluştu: " + ex.Message;
+                MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası okunurken bir hata oluştu: " + ex.Message);
                 
                 // Dosyayı sil (geçici dosya)
                 if (File.Exists(filePath))
@@ -132,15 +127,14 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             // Excel verilerini kontrol et
             if (dt == null)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Excel dosyası okunamadı. Lütfen dosyanın formatını kontrol edin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası okunamadı. Lütfen dosyanın formatını kontrol edin.");
                 return;
             }
             
             if (dt.Rows.Count == 0)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Excel dosyası boş. Lütfen verileri kontrol edin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası boş. Lütfen verileri kontrol edin.");
+               
                 return;
             }
 
@@ -155,9 +149,8 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             {
                 if (!dt.Columns.Contains(kolon))
                 {
-                    pnlHata.Visible = true;
-                    lblHata.Text = "Excel dosyasında '" + kolon + "' kolonu bulunamadı. Lütfen şablonu kontrol edin.";
-                    return;
+                    MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyasında '" + kolon + "' kolonu bulunamadı. Lütfen şablonu kontrol edin.");
+                     return;
                 }
             }
 
@@ -206,14 +199,12 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             gvOnizleme.Visible = true;
 
             // Başarı mesajı
-            pnlBasari.Visible = true;
-            lblBasari.Text = "Excel dosyası başarıyla yüklendi. Aşağıdaki verileri kontrol edip 'Onayla Kaydet' butonuna tıklayarak kaydedebilirsiniz.";
+            MessageHelper.ShowSuccessMessage(this, "Başarılı", "Excel dosyası başarıyla yüklendi. Aşağıdaki verileri kontrol edip 'Onayla Kaydet' butonuna tıklayarak kaydedebilirsiniz.");
         }
         catch (Exception ex)
         {
-            // Hata mesajını göster
-            pnlHata.Visible = true;
-            lblHata.Text = "Excel dosyası işlenirken bir hata oluştu: " + ex.Message;
+            // Hata mesajını göster 
+            MessageHelper.ShowErrorMessage(this,"Musteri Yuke Excel", "Excel dosyası işlenirken bir hata oluştu: " + ex.Message);
         }
     }
 
@@ -232,9 +223,9 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
                 }
                 else
                 {
-                    pnlHata.Visible = true;
-                    lblHata.Text = "Lütfen önce bir Excel dosyası seçin ve önizleyin.";
-                    return;
+
+                    MessageHelper.ShowErrorMessage(this, "Musteri Yuke Excel", "Lütfen önce bir Excel dosyası seçin ve önizleyin.");
+                   return;
                 }
             }
 
@@ -363,14 +354,9 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             }
 
             // Sonuç mesajı
-            pnlBasari.Visible = true;
-            lblBasari.Text = basariliKayit + " müşteri başarıyla kaydedildi. " + hataliKayit + " müşteri kaydedilemedi.";
+            MessageHelper.ShowSuccessMessage(this, "Başarılı", basariliKayit + " müşteri başarıyla kaydedildi. " + hataliKayit + " müşteri kaydedilemedi.");
 
-            if (!string.IsNullOrEmpty(hataMesaji))
-            {
-                pnlHata.Visible = true;
-                lblHata.Text = hataMesaji;
-            }
+        
 
             // Excel verilerini temizle
             ExcelData = null;
@@ -381,10 +367,8 @@ public partial class fabrika_Musteriler_musteri_yukle_excel : System.Web.UI.Page
             ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
         }
         catch (Exception ex)
-        {
-            // Genel hata mesajı
-            pnlHata.Visible = true;
-            lblHata.Text = "İşlem sırasında bir hata oluştu: " + ex.Message;
+        { 
+            MessageHelper.ShowErrorMessage(this,"Musteri Excel Kayit", "İşlem sırasında bir hata oluştu: " + ex.Message);
         }
     }
 }

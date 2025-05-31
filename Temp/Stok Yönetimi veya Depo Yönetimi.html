@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depo Yönetim Paneli - Zeytin İşletmesi</title>
+    <!-- Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (Önceki tasarıma uygun) -->
+    <style>
+        :root {
+            --brand-primary-green: #1E4620; --brand-light-green: #4A7856; --brand-gold: #D4AF37;
+            --brand-text-light: #FFFFFF; --brand-text-dark: #212529; --brand-text-muted: #6c757d;
+            --brand-bg-light: #f9fbf8; --brand-border-color: #dee2e6;
+            --depo-zeytin-bg: rgba(143, 188, 143, 0.1); /* Koyu Deniz Yeşili hafif arka plan */
+            --depo-urun-bg: rgba(218, 165, 32, 0.1);   /* Altın Başak hafif arka plan */
+            --depo-ambalaj-bg: rgba(176, 196, 222, 0.1); /* Açık Çelik Mavisi hafif arka plan */
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-bg-light); color: var(--brand-text-dark); font-size: 0.95rem; }
+        .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; padding: 56px 0 0; background-color: var(--brand-primary-green); box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.1); }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 56px); padding-top: 1rem; overflow-x: hidden; overflow-y: auto; }
+        .sidebar .nav-link { color: rgba(255, 255, 255, 0.75); font-weight: 400; padding: 0.75rem 1rem; border-left: 3px solid transparent; transition: all .15s ease; }
+        .sidebar .nav-link .bi { color: var(--brand-gold); opacity: 0.9; margin-right: 12px; font-size: 1rem; vertical-align: middle; margin-top: -3px; width: 20px; text-align: center; }
+        .sidebar .nav-link:hover { background-color: var(--brand-light-green); color: var(--brand-text-light); border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active { background-color: var(--brand-light-green); color: var(--brand-text-light); font-weight: 600; border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active .bi { color: var(--brand-text-light); opacity: 1; }
+        .sidebar-heading { color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.5rem 1rem; }
+        .navbar.sticky-top { background-color: var(--brand-text-light); box-shadow: 0 .125rem .25rem rgba(0,0,0,.05) !important; padding-top: 0.3rem; padding-bottom: 0.3rem; z-index: 1020; }
+        .navbar-brand { background-color: transparent; box-shadow: none; color: var(--brand-primary-green) !important; font-weight: 700; font-size: 1.3rem; padding-left: 1.5rem !important; }
+        .navbar-brand .bi { color: var(--brand-gold); margin-right: 5px; font-size: 1.4rem; vertical-align: middle; }
+        main { padding: 1.5rem; }
+        .card { border: none; border-radius: 0.6rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); margin-bottom: 1.5rem; }
+        .card-header { background-color: transparent; border-bottom: 1px solid #eee; color: var(--brand-light-green); font-weight: 600; padding: 1rem 1.5rem; }
+        .card-header i { color: var(--brand-gold); margin-right: 10px; font-size: 1.2rem; }
+        .card-body { padding: 1.5rem; }
+        .table thead th { background-color: var(--brand-bg-light); color: var(--brand-primary-green); border-bottom: 2px solid var(--brand-light-green); font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.5px; vertical-align: middle; padding: 0.8rem 0.75rem; }
+        .table tbody td { vertical-align: middle; padding: 0.8rem 0.75rem; border-bottom-color: #f0f0f0; color: var(--brand-text-dark); }
+        .table-hover > tbody > tr:hover > * { background-color: rgba(212, 175, 55, 0.08); color: var(--brand-text-dark); }
+        .progress { height: 1.2rem; font-size: 0.75rem; border-radius: 0.25rem; }
+        .depo-card { border-left: 5px solid; transition: transform 0.2s ease; }
+        .depo-card:hover { transform: translateY(-3px); }
+        .depo-zeytin { border-left-color: var(--brand-light-green); }
+        .depo-urun { border-left-color: var(--brand-gold); }
+        .depo-ambalaj { border-left-color: #6c757d; } /* Gri */
+        .depo-card .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .depo-card .card-text small { display: block; margin-bottom: 0.2rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-diagram-3-fill"></i> Zeytin & Yağ A.Ş.
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+         <div class="w-100 px-3 d-flex justify-content-end align-items-center">
+             <!-- Sağ navbar içeriği -->
+         </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-pie-chart-fill"></i> Ana Panel</a></li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-uppercase">İş Akışı</h6>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-box-arrow-in-down"></i> Zeytin Kabul</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-arrow-repeat"></i> Üretim Takibi</a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-inboxes-fill"></i> Stok Yönetimi</a></li> <!-- Aktif -->
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-clipboard-check-fill"></i> Kalite Kontrol</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-box-seam-fill"></i> Paketleme & Dolum</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-truck"></i> Sevkiyat Yönetimi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-graph-up-arrow"></i> Raporlar</a></li>
+                    </ul>
+                    <!-- Diğer menü grupları -->
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Sayfa Başlığı ve Butonlar -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"><i class="bi bi-buildings-fill text-primary"></i> Depo Yönetim Paneli</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#stokGirisModal">
+                            <i class="bi bi-box-arrow-in-down-left me-1"></i> Stok Girişi Yap
+                        </button>
+                        <button type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#stokCikisModal">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Stok Çıkışı Yap
+                        </button>
+                         <button type="button" class="btn btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#yeniDepoModal">
+                            <i class="bi bi-house-add-fill me-1"></i> Yeni Depo Tanımla
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Depo Kartları ile Genel Bakış -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card depo-card depo-zeytin h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title"><i class="bi bi-archive-fill me-2"></i>Ham Zeytin Deposu A</h5>
+                                        <p class="card-text text-muted mb-1">Kapasite: 100 Ton</p>
+                                        <h4 class="mb-0 fw-bold">72.5 <small class="fw-normal">Ton</small></h4>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill fs-6">72.5%</span>
+                                </div>
+                                <div class="progress mt-3">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 72.5%;" aria-valuenow="72.5" aria-valuemin="0" aria-valuemax="100">72.5%</div>
+                                </div>
+                                <small class="text-muted mt-2 d-block">Son Güncelleme: 10 dk önce</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                         <div class="card depo-card depo-urun h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title"><i class="bi bi-droplet-fill me-2"></i>Mamul Yağ Deposu (Tanklar)</h5>
+                                        <p class="card-text text-muted mb-1">Toplam Kapasite: 50,000 Lt</p>
+                                        <h4 class="mb-0 fw-bold">38,750 <small class="fw-normal">Lt</small></h4>
+                                    </div>
+                                    <span class="badge bg-warning text-dark rounded-pill fs-6">77.5%</span>
+                                </div>
+                                <div class="progress mt-3">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 77.5%;" aria-valuenow="77.5" aria-valuemin="0" aria-valuemax="100">77.5%</div>
+                                </div>
+                                <small class="text-muted mt-2 d-block">Aktif Tank Sayısı: 6/8</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                         <div class="card depo-card depo-ambalaj h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title"><i class="bi bi-boxes me-2"></i>Ambalaj Deposu</h5>
+                                        <p class="card-text text-muted mb-1">Raf Kapasitesi: 5000 Koli</p>
+                                        <h4 class="mb-0 fw-bold">3,120 <small class="fw-normal">Koli</small></h4>
+                                    </div>
+                                    <span class="badge bg-info rounded-pill fs-6">62.4%</span>
+                                </div>
+                                <div class="progress mt-3">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 62.4%;" aria-valuenow="62.4" aria-valuemin="0" aria-valuemax="100">62.4%</div>
+                                </div>
+                                <small class="text-muted mt-2 d-block">Kritik Stok: 2 Ürün</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Diğer depolar için benzer kartlar eklenebilir -->
+                </div>
+
+                <!-- Stok Durumu Tablosu -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-list-ul"></i> Detaylı Stok Durumu ve Hareketleri
+                    </div>
+                    <div class="card-body">
+                        <!-- Filtreleme Seçenekleri -->
+                        <div class="row mb-3 g-2">
+                            <div class="col-md-3">
+                                <select class="form-select form-select-sm" id="depoFilter">
+                                    <option selected value="">Tüm Depolar</option>
+                                    <option value="depo_zeytin_a">Ham Zeytin Deposu A</option>
+                                    <option value="depo_yag_tank">Mamul Yağ Deposu (Tanklar)</option>
+                                    <option value="depo_ambalaj">Ambalaj Deposu</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                 <select class="form-select form-select-sm" id="urunKategoriFilter">
+                                    <option selected value="">Tüm Kategoriler</option>
+                                    <option value="ham_zeytin">Ham Zeytin</option>
+                                    <option value="dokme_yag">Dökme Zeytinyağı</option>
+                                    <option value="ambalaj_sise">Şişe Ambalaj</option>
+                                     <option value="ambalaj_teneke">Teneke Ambalaj</option>
+                                     <option value="ambalaj_kutu">Kutu/Koli</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="search" class="form-control form-control-sm" placeholder="Ürün Kodu veya Adı Ara..." id="stokArama">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-sm btn-outline-secondary w-100">Filtrele</button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Depo</th>
+                                        <th>Ürün Kodu</th>
+                                        <th>Ürün Adı</th>
+                                        <th>Kategori</th>
+                                        <th>Mevcut Miktar</th>
+                                        <th>Birim</th>
+                                        <th>Min. Stok</th>
+                                        <th>Durum</th>
+                                        <th>Son Hareket Tarihi</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Örnek Stok Kayıtları -->
+                                    <tr>
+                                        <td>Ham Zeytin Deposu A</td>
+                                        <td>ZTN-GEM-001</td>
+                                        <td>Gemlik Zeytini (A Kalite)</td>
+                                        <td>Ham Zeytin</td>
+                                        <td>25,000</td>
+                                        <td>Kg</td>
+                                        <td>5,000 Kg</td>
+                                        <td><span class="badge bg-success">Yeterli</span></td>
+                                        <td>28.10.2023</td>
+                                        <td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Hareket Detayı"><i class="bi bi-card-list"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mamul Yağ Deposu</td>
+                                        <td>TNK-01-NSH</td>
+                                        <td>Natürel Sızma - Erken Hasat (Tank 01)</td>
+                                        <td>Dökme Yağ</td>
+                                        <td>4,150</td>
+                                        <td>Lt</td>
+                                        <td>500 Lt</td>
+                                        <td><span class="badge bg-success">Yeterli</span></td>
+                                        <td>27.10.2023</td>
+                                         <td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Hareket Detayı"><i class="bi bi-card-list"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ambalaj Deposu</td>
+                                        <td>AMB-SIS-05C</td>
+                                        <td>0.5 Lt Koyu Cam Şişe</td>
+                                        <td>Şişe Ambalaj</td>
+                                        <td>850</td>
+                                        <td>Adet</td>
+                                        <td>1,000 Adet</td>
+                                        <td><span class="badge bg-warning text-dark">Düşük Stok</span></td>
+                                        <td>26.10.2023</td>
+                                        <td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Hareket Detayı"><i class="bi bi-card-list"></i></button></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Ambalaj Deposu</td>
+                                        <td>AMB-TNK-5LT</td>
+                                        <td>5 Lt Teneke Kutu</td>
+                                        <td>Teneke Ambalaj</td>
+                                        <td>1,200</td>
+                                        <td>Adet</td>
+                                        <td>500 Adet</td>
+                                        <td><span class="badge bg-success">Yeterli</span></td>
+                                        <td>25.10.2023</td>
+                                        <td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Hareket Detayı"><i class="bi bi-card-list"></i></button></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Ham Zeytin Deposu A</td>
+                                        <td>ZTN-AYV-002</td>
+                                        <td>Ayvalık Zeytini (B Kalite)</td>
+                                        <td>Ham Zeytin</td>
+                                        <td>1,800</td>
+                                        <td>Kg</td>
+                                        <td>2,000 Kg</td>
+                                        <td><span class="badge bg-danger">Kritik Stok</span></td>
+                                        <td>24.10.2023</td>
+                                        <td><button class="btn btn-outline-info btn-sm py-0 px-1" title="Hareket Detayı"><i class="bi bi-card-list"></i></button></td>
+                                    </tr>
+                                    <!-- Diğer Stoklar -->
+                                </tbody>
+                            </table>
+                            <!-- Sayfalama eklenebilir -->
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Stok Giriş/Çıkış Modalları ve Yeni Depo Modalı (Benzer yapıda, daha önceki modal örneklerinden uyarlanabilir) -->
+    <!-- Stok Giriş Modalı -->
+    <div class="modal fade" id="stokGirisModal" tabindex="-1" aria-labelledby="stokGirisModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="stokGirisModalLabel"><i class="bi bi-box-arrow-in-down-left me-2"></i> Stok Girişi Yap</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="stokGirisForm" class="needs-validation" novalidate>
+              <div class="modal-body">
+                  <div class="row g-3">
+                      <div class="col-md-6">
+                          <label for="girisDepo" class="form-label">Hedef Depo</label>
+                          <select class="form-select" id="girisDepo" required>
+                              <option selected disabled value="">Depo Seçiniz...</option>
+                              <option value="depo_zeytin_a">Ham Zeytin Deposu A</option>
+                              <option value="depo_yag_tank">Mamul Yağ Deposu (Tanklar)</option>
+                              <option value="depo_ambalaj">Ambalaj Deposu</option>
+                          </select>
+                          <div class="invalid-feedback">Lütfen depo seçin.</div>
+                      </div>
+                      <div class="col-md-6">
+                          <label for="girisUrunKodu" class="form-label">Ürün Kodu / Tanımı</label>
+                          <input type="text" class="form-control" id="girisUrunKodu" placeholder="Stok Kartından Seç veya Yeni Tanımla" required>
+                          <div class="invalid-feedback">Lütfen ürün belirtin.</div>
+                      </div>
+                      <div class="col-md-4">
+                          <label for="girisMiktar" class="form-label">Giriş Miktarı</label>
+                          <input type="number" class="form-control" id="girisMiktar" required min="1">
+                          <div class="invalid-feedback">Lütfen miktar girin.</div>
+                      </div>
+                      <div class="col-md-4">
+                          <label for="girisBirim" class="form-label">Birim</label>
+                          <select class="form-select" id="girisBirim" required>
+                              <option value="Kg">Kg</option>
+                              <option value="Lt">Lt</option>
+                              <option value="Adet">Adet</option>
+                              <option value="Koli">Koli</option>
+                          </select>
+                          <div class="invalid-feedback">Lütfen birim seçin.</div>
+                      </div>
+                      <div class="col-md-4">
+                          <label for="girisTarih" class="form-label">Giriş Tarihi</label>
+                          <input type="date" class="form-control" id="girisTarih" required>
+                          <div class="invalid-feedback">Lütfen tarih seçin.</div>
+                      </div>
+                      <div class="col-12">
+                          <label for="girisAciklama" class="form-label">Açıklama (İrsaliye No, Kaynak vb.)</label>
+                          <textarea class="form-control" id="girisAciklama" rows="2"></textarea>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i> Girişi Kaydet</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Diğer Modallar (Stok Çıkışı, Yeni Depo) benzer şekilde eklenebilir -->
+
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Bootstrap Form Doğrulama JS
+        (() => {
+          'use strict'; const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+
+        // Stok Giriş Formu Simülasyonu
+        const stokGirisForm = document.getElementById('stokGirisForm');
+        if(stokGirisForm) {
+            stokGirisForm.addEventListener('submit', function(event) {
+                if (this.checkValidity()) {
+                    event.preventDefault();
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => data[key] = value);
+                    console.log("Stok Giriş Verisi:", data);
+                    alert("Stok girişi başarıyla kaydedildi! (Simülasyon)");
+                    bootstrap.Modal.getInstance(document.getElementById('stokGirisModal')).hide();
+                    this.reset();
+                    this.classList.remove('was-validated');
+                    // Tabloyu yenileme fonksiyonu çağrılabilir.
+                }
+            });
+        }
+         // Sayfa yüklendiğinde varsayılan tarihleri ayarla
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const girisTarihiInput = document.getElementById('girisTarih');
+            if (girisTarihiInput) {
+                girisTarihiInput.value = new Date().toISOString().split('T')[0];
+            }
+            // Benzer şekilde stok çıkış tarihi için de yapılabilir.
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

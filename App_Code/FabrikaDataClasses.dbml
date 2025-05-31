@@ -16,13 +16,34 @@
       <Association Name="Urunler_AlisDetaylari" Member="Urunler" ThisKey="UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Yetkiler" Member="Yetkilers">
-    <Type Name="Yetkiler">
-      <Column Name="YetkiID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+  <Table Name="dbo.ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris">
+    <Type Name="ZeytinyagiUretimleri">
+      <Column Name="ZeytinyagiUretimID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="YetkiAdi" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Aciklama" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Association Name="Sirketler_Yetkiler" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Column Name="MustahsilID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PartiNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PlakaNo" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="GelisTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GelisKg" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UretimeAlinanKg" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UrunID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ZeytinyagiUretim_islemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Operator_KullaniciID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UretimBaslamaZamani" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UretimBitisZamani" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Cikan_UrunID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TankID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Asidite" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="TahsiliyeKgUcreti" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="TahsiliyeToplamUcreti" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Association Name="ZeytinyagiUretimleri_ZeytinyagiUretimi_ZeytinBoxKasa_Map" Member="ZeytinyagiUretimi_ZeytinBoxKasa_Maps" ThisKey="ZeytinyagiUretimID" OtherKey="ZeytinyagiUretimID" Type="ZeytinyagiUretimi_ZeytinBoxKasa_Map" />
+      <Association Name="Kullanicilar_ZeytinyagiUretimleri" Member="Kullanicilar" ThisKey="Operator_KullaniciID" OtherKey="KullaniciID" Type="Kullanicilar" IsForeignKey="true" />
+      <Association Name="Mustahsiller_ZeytinyagiUretimleri" Member="Mustahsiller" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="Mustahsiller" IsForeignKey="true" />
+      <Association Name="Sirketler_ZeytinyagiUretimleri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="Tanklar_ZeytinyagiUretimleri" Member="Tanklar" ThisKey="TankID" OtherKey="TankID" Type="Tanklar" IsForeignKey="true" />
+      <Association Name="Urunler_ZeytinyagiUretimleri" Member="Urunler" ThisKey="UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
+      <Association Name="Urunler_ZeytinyagiUretimleri1" Member="Urunler1" ThisKey="Cikan_UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
+      <Association Name="ZeytinyagiUretim_islemleri_ZeytinyagiUretimleri" Member="ZeytinyagiUretim_islemleri" ThisKey="ZeytinyagiUretim_islemID" OtherKey="ZeytinyagiUretim_islemID" Type="ZeytinyagiUretim_islemleri" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Alislar" Member="Alislars">
@@ -31,11 +52,11 @@
       <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="AlisNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="AlisTarihi" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="TedarikciID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TedarikciID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MustahsilID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ToplamTutar" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
-      <Column Name="KDVToplam" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
-      <Column Name="GenelToplam" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ToplamTutar" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="KDVToplam" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="GenelToplam" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="OdemeDurumu" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="Notlar" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="OlusturmaTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -123,8 +144,24 @@
       <Column Name="Kapasite" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="DoluMiktar" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="Durum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Depolar_DepoStok" Member="DepoStoks" ThisKey="DepoID" OtherKey="DepoID" Type="DepoStok" />
+      <Association Name="Depolar_StokHareketleri" Member="StokHareketleris" ThisKey="DepoID" OtherKey="DepoID" Type="StokHareketleri" />
       <Association Name="Depolar_Uretim" Member="Uretims" ThisKey="DepoID" OtherKey="DepoID" Type="Uretim" />
       <Association Name="Sirketler_Depolar" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DepoStok" Member="DepoStoks">
+    <Type Name="DepoStok">
+      <Column Name="DepoStokID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DepoID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UrunID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Miktar" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="MinimumMiktar" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="SonGuncellemeTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Depolar_DepoStok" Member="Depolar" ThisKey="DepoID" OtherKey="DepoID" Type="Depolar" IsForeignKey="true" />
+      <Association Name="Sirketler_DepoStok" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="Urunler_DepoStok" Member="Urunler" ThisKey="UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Faturalar" Member="Faturalars">
@@ -174,7 +211,9 @@
       <Column Name="Aktif" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="OlusturmaTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="SonGirisTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Kullanicilar_ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris" ThisKey="KullaniciID" OtherKey="Operator_KullaniciID" Type="ZeytinyagiUretimleri" />
       <Association Name="Kullanicilar_BlogYazilari" Member="BlogYazilaris" ThisKey="KullaniciID" OtherKey="YazarID" Type="BlogYazilari" />
+      <Association Name="Kullanicilar_StokHareketleri" Member="StokHareketleris" ThisKey="KullaniciID" OtherKey="KullaniciID" Type="StokHareketleri" />
     </Type>
   </Table>
   <Table Name="dbo.KullaniciYetki" Member="KullaniciYetkis">
@@ -221,6 +260,17 @@
       <Association Name="Menu_Menu" Member="Menu1" ThisKey="UstMenuID" OtherKey="MenuID" Type="Menu" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MustahsilCKSBelgeleri" Member="MustahsilCKSBelgeleris">
+    <Type Name="MustahsilCKSBelgeleri">
+      <Column Name="BelgeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MustahsilID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DosyaYolu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UretimYili" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GecerlilikBitis" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="EklenmeTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Mustahsiller_MustahsilCKSBelgeleri" Member="Mustahsiller" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="Mustahsiller" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Mustahsiller" Member="Mustahsillers">
     <Type Name="Mustahsiller">
       <Column Name="MustahsilID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -236,8 +286,28 @@
       <Column Name="Notlar" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="OlusturmaTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="BankaBilgileri" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="Mustahsiller_ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="ZeytinyagiUretimleri" />
       <Association Name="Mustahsiller_Alislar" Member="Alislars" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="Alislar" />
+      <Association Name="Mustahsiller_MustahsilCKSBelgeleri" Member="MustahsilCKSBelgeleris" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="MustahsilCKSBelgeleri" />
+      <Association Name="Mustahsiller_MustahsilTarlalar" Member="MustahsilTarlalars" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="MustahsilTarlalar" />
       <Association Name="Sirketler_Mustahsiller" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MustahsilTarlalar" Member="MustahsilTarlalars">
+    <Type Name="MustahsilTarlalar">
+      <Column Name="TarlaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MustahsilID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdaParsel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TapuAlan" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KullanilanAlan" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Urun" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Sulama" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MulkTipi" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Il" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Ilce" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mahalle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Durumu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Mustahsiller_MustahsilTarlalar" Member="Mustahsiller" ThisKey="MustahsilID" OtherKey="MustahsilID" Type="Mustahsiller" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.MusteriKategorileri" Member="MusteriKategorileris">
@@ -307,6 +377,17 @@
       <Association Name="Sirketler_NakitIslemler" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.PaletTipleri" Member="PaletTipleris">
+    <Type Name="PaletTipleri">
+      <Column Name="PaletTipID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PaletAd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="En_cm" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Boy_cm" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Yukseklik_cm" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Agirlik_kg" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PaletGorsel" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.ParaBirimileri" Member="ParaBirimileris">
     <Type Name="ParaBirimileri">
       <Column Name="ParaBirimiID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -371,15 +452,16 @@
       <Column Name="SatisID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ProjeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SatisTipi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="SatisBelgeNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="SatisTarihi" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="VadeTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="IrsaliyeNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IrsaliyeNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="SevkTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="MusteriID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PazarlamaciID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ToplamTutar" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
-      <Column Name="indirimOrani" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="indirimOrani" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="indirimTutari" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="KDVToplam" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
       <Column Name="GenelToplam" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
@@ -418,7 +500,7 @@
       <Column Name="Aktif" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="OlusturmaTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="Sirketler_AlisDetaylari" Member="AlisDetaylaris" ThisKey="SirketID" OtherKey="SirketID" Type="AlisDetaylari" />
-      <Association Name="Sirketler_Yetkiler" Member="Yetkilers" ThisKey="SirketID" OtherKey="SirketID" Type="Yetkiler" />
+      <Association Name="Sirketler_ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris" ThisKey="SirketID" OtherKey="SirketID" Type="ZeytinyagiUretimleri" />
       <Association Name="Sirketler_Alislar" Member="Alislars" ThisKey="SirketID" OtherKey="SirketID" Type="Alislar" />
       <Association Name="Sirketler_BankaHesaplari" Member="BankaHesaplaris" ThisKey="SirketID" OtherKey="SirketID" Type="BankaHesaplari" />
       <Association Name="Sirketler_Birimler" Member="Birimlers" ThisKey="SirketID" OtherKey="SirketID" Type="Birimler" />
@@ -426,6 +508,7 @@
       <Association Name="Sirketler_BlogYazilari" Member="BlogYazilaris" ThisKey="SirketID" OtherKey="SirketID" Type="BlogYazilari" />
       <Association Name="Sirketler_CekSenetler" Member="CekSenetlers" ThisKey="SirketID" OtherKey="SirketID" Type="CekSenetler" />
       <Association Name="Sirketler_Depolar" Member="Depolars" ThisKey="SirketID" OtherKey="SirketID" Type="Depolar" />
+      <Association Name="Sirketler_DepoStok" Member="DepoStoks" ThisKey="SirketID" OtherKey="SirketID" Type="DepoStok" />
       <Association Name="Sirketler_Faturalar" Member="Faturalars" ThisKey="SirketID" OtherKey="SirketID" Type="Faturalar" />
       <Association Name="Sirketler_Finan" Member="Finans" ThisKey="SirketID" OtherKey="SirketID" Type="Finan" />
       <Association Name="Sirketler_MailListeleri" Member="MailListeleris" ThisKey="SirketID" OtherKey="SirketID" Type="MailListeleri" />
@@ -440,6 +523,9 @@
       <Association Name="Sirketler_SatisDetaylari" Member="SatisDetaylaris" ThisKey="SirketID" OtherKey="SirketID" Type="SatisDetaylari" />
       <Association Name="Sirketler_Satislar" Member="Satislars" ThisKey="SirketID" OtherKey="SirketID" Type="Satislar" />
       <Association Name="Sirketler_SirketAyarlari" Member="SirketAyarlaris" ThisKey="SirketID" OtherKey="SirketID" Type="SirketAyarlari" />
+      <Association Name="Sirketler_SirketZeytinyagiMakinaBakimDefteri" Member="SirketZeytinyagiMakinaBakimDefteris" ThisKey="SirketID" OtherKey="SirketID" Type="SirketZeytinyagiMakinaBakimDefteri" />
+      <Association Name="Sirketler_SirketZeytinyagiMakinalari" Member="SirketZeytinyagiMakinalaris" ThisKey="SirketID" OtherKey="SirketID" Type="SirketZeytinyagiMakinalari" />
+      <Association Name="Sirketler_StokHareketleri" Member="StokHareketleris" ThisKey="SirketID" OtherKey="SirketID" Type="StokHareketleri" />
       <Association Name="Sirketler_Tanklar" Member="Tanklars" ThisKey="SirketID" OtherKey="SirketID" Type="Tanklar" />
       <Association Name="Sirketler_Tedarikciler" Member="Tedarikcilers" ThisKey="SirketID" OtherKey="SirketID" Type="Tedarikciler" />
       <Association Name="Sirketler_TeklifDetaylari" Member="TeklifDetaylaris" ThisKey="SirketID" OtherKey="SirketID" Type="TeklifDetaylari" />
@@ -448,6 +534,59 @@
       <Association Name="Sirketler_UrunGorselleri" Member="UrunGorselleris" ThisKey="SirketID" OtherKey="SirketID" Type="UrunGorselleri" />
       <Association Name="Sirketler_UrunKategorileri" Member="UrunKategorileris" ThisKey="SirketID" OtherKey="SirketID" Type="UrunKategorileri" />
       <Association Name="Sirketler_Urunler" Member="Urunlers" ThisKey="SirketID" OtherKey="SirketID" Type="Urunler" />
+      <Association Name="Sirketler_UrunPaketlemeveLojistikBilgiIeri" Member="UrunPaketlemeveLojistikBilgiIeris" ThisKey="SirketID" OtherKey="SirketID" Type="UrunPaketlemeveLojistikBilgiIeri" />
+      <Association Name="Sirketler_UrunVaryantlari" Member="UrunVaryantlaris" ThisKey="SirketID" OtherKey="SirketID" Type="UrunVaryantlari" />
+      <Association Name="Sirketler_VaryantDegerleri" Member="VaryantDegerleris" ThisKey="SirketID" OtherKey="SirketID" Type="VaryantDegerleri" />
+      <Association Name="Sirketler_VaryantTurleri" Member="VaryantTurleris" ThisKey="SirketID" OtherKey="SirketID" Type="VaryantTurleri" />
+      <Association Name="Sirketler_Yetkiler" Member="Yetkilers" ThisKey="SirketID" OtherKey="SirketID" Type="Yetkiler" />
+      <Association Name="Sirketler_ZeytinBoxKasalari" Member="ZeytinBoxKasalaris" ThisKey="SirketID" OtherKey="SirketID" Type="ZeytinBoxKasalari" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SirketZeytinyagiMakinaBakimDefteri" Member="SirketZeytinyagiMakinaBakimDefteris">
+    <Type Name="SirketZeytinyagiMakinaBakimDefteri">
+      <Column Name="SirketZeytinyagiMakinaBakimDefterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SirketZeytinyagiMakinaID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BakimTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BakimNotlari" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Sirketler_SirketZeytinyagiMakinaBakimDefteri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaBakimDefteri" Member="SirketZeytinyagiMakinalari" ThisKey="SirketZeytinyagiMakinaID" OtherKey="SirketZeytinyagiMakinaID" Type="SirketZeytinyagiMakinalari" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SirketZeytinyagiMakinalari" Member="SirketZeytinyagiMakinalaris">
+    <Type Name="SirketZeytinyagiMakinalari">
+      <Column Name="SirketZeytinyagiMakinaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ZeytinyagiMakinaModelID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AlimTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="YikamaYaprakAyiklama_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Kirma_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Malaksasyon_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Dekantasyon_Santrifüj_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Durumu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaBakimDefteri" Member="SirketZeytinyagiMakinaBakimDefteris" ThisKey="SirketZeytinyagiMakinaID" OtherKey="SirketZeytinyagiMakinaID" Type="SirketZeytinyagiMakinaBakimDefteri" />
+      <Association Name="Sirketler_SirketZeytinyagiMakinalari" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="ZeytinyagiMakinaModelleri_SirketZeytinyagiMakinalari" Member="ZeytinyagiMakinaModelleri" ThisKey="ZeytinyagiMakinaModelID" OtherKey="ZeytinyagiMakinaModelID" Type="ZeytinyagiMakinaModelleri" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StokHareketleri" Member="StokHareketleris">
+    <Type Name="StokHareketleri">
+      <Column Name="HareketID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IslemTarihi" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="HareketTipi" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DepoID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UrunID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Miktar" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferansNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReferansID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReferansTipi" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Aciklama" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="KullaniciID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Depolar_StokHareketleri" Member="Depolar" ThisKey="DepoID" OtherKey="DepoID" Type="Depolar" IsForeignKey="true" />
+      <Association Name="Kullanicilar_StokHareketleri" Member="Kullanicilar" ThisKey="KullaniciID" OtherKey="KullaniciID" Type="Kullanicilar" IsForeignKey="true" />
+      <Association Name="Sirketler_StokHareketleri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="Urunler_StokHareketleri" Member="Urunler" ThisKey="UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tanklar" Member="Tanklars">
@@ -459,6 +598,7 @@
       <Column Name="Kapasite" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="DoluMiktar" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="Durum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Tanklar_ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris" ThisKey="TankID" OtherKey="TankID" Type="ZeytinyagiUretimleri" />
       <Association Name="Tanklar_Uretim" Member="Uretims" ThisKey="TankID" OtherKey="TankID" Type="Uretim" />
       <Association Name="Sirketler_Tanklar" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
     </Type>
@@ -552,6 +692,7 @@
       <Column Name="UrunGorselID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="UrunID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UrunVaryantID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ResimYol" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="Kapak" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Sirketler_UrunGorselleri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
@@ -595,16 +736,92 @@
       <Column Name="Durum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="Notlar" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="OlusturmaTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Mamul" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="YariManul" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PerakendeSatisFiyati" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="PerakendeSatisKdvDahilmi" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PerakendeSatisVarmi" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Urunler_AlisDetaylari" Member="AlisDetaylaris" ThisKey="UrunID" OtherKey="UrunID" Type="AlisDetaylari" />
+      <Association Name="Urunler_ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris" ThisKey="UrunID" OtherKey="UrunID" Type="ZeytinyagiUretimleri" />
+      <Association Name="Urunler_ZeytinyagiUretimleri1" Member="ZeytinyagiUretimleris1" ThisKey="UrunID" OtherKey="Cikan_UrunID" Type="ZeytinyagiUretimleri" />
+      <Association Name="Urunler_DepoStok" Member="DepoStoks" ThisKey="UrunID" OtherKey="UrunID" Type="DepoStok" />
       <Association Name="Urunler_SatisDetaylari" Member="SatisDetaylaris" ThisKey="UrunID" OtherKey="UrunID" Type="SatisDetaylari" />
+      <Association Name="Urunler_StokHareketleri" Member="StokHareketleris" ThisKey="UrunID" OtherKey="UrunID" Type="StokHareketleri" />
       <Association Name="Urunler_TeklifDetaylari" Member="TeklifDetaylaris" ThisKey="UrunID" OtherKey="UrunID" Type="TeklifDetaylari" />
       <Association Name="Urunler_Uretim" Member="Uretims" ThisKey="UrunID" OtherKey="UrunID" Type="Uretim" />
       <Association Name="Urunler_UrunGorselleri" Member="UrunGorselleris" ThisKey="UrunID" OtherKey="UrunID" Type="UrunGorselleri" />
+      <Association Name="Urunler_UrunPaketlemeveLojistikBilgiIeri" Member="UrunPaketlemeveLojistikBilgiIeris" ThisKey="UrunID" OtherKey="UrunID" Type="UrunPaketlemeveLojistikBilgiIeri" />
+      <Association Name="Urunler_UrunVaryantlari" Member="UrunVaryantlaris" ThisKey="UrunID" OtherKey="UrunID" Type="UrunVaryantlari" />
       <Association Name="Birimler_Urunler" Member="Birimler" ThisKey="BirimID" OtherKey="BirimID" Type="Birimler" IsForeignKey="true" />
       <Association Name="UrunKategorileri_Urunler" Member="UrunKategorileri" ThisKey="KategoriID" OtherKey="KategoriID" Type="UrunKategorileri" IsForeignKey="true" />
       <Association Name="Markalar_Urunler" Member="Markalar" ThisKey="MarkaID" OtherKey="MarkaID" Type="Markalar" IsForeignKey="true" />
       <Association Name="ParaBirimileri_Urunler" Member="ParaBirimileri" ThisKey="ParaBirimiID" OtherKey="ParaBirimiID" Type="ParaBirimileri" IsForeignKey="true" />
       <Association Name="Sirketler_Urunler" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UrunPaketlemeveLojistikBilgiIeri" Member="UrunPaketlemeveLojistikBilgiIeris">
+    <Type Name="UrunPaketlemeveLojistikBilgiIeri">
+      <Column Name="UrunPaketlemeveLojistikBilgiID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UrunID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UrunNetAgirlik_gr" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="UrunBurutAgirlik_gr" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Koli_İci_Urun_Adedi" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="KoliBoyutlariEn_cm" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="KoliBoyutlariBoy_cm" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="KoliBoyutlariYukseklik_cm" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="KoliBrutAgirligi_kg" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="KoliNetAgirligi_kg" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="KoliBarkodu" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="PaletTipID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PalettekiKoliAdet" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="Sirketler_UrunPaketlemeveLojistikBilgiIeri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="Urunler_UrunPaketlemeveLojistikBilgiIeri" Member="Urunler" ThisKey="UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UrunVaryantDetay" Member="UrunVaryantDetays">
+    <Type Name="UrunVaryantDetay">
+      <Column Name="UrunVaryantDetayID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UrunVaryantID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VaryantDegerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="UrunVaryantlari_UrunVaryantDetay" Member="UrunVaryantlari" ThisKey="UrunVaryantID" OtherKey="UrunVaryantID" Type="UrunVaryantlari" IsForeignKey="true" />
+      <Association Name="VaryantDegerleri_UrunVaryantDetay" Member="VaryantDegerleri" ThisKey="VaryantDegerID" OtherKey="VaryantDegerID" Type="VaryantDegerleri" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UrunVaryantlari" Member="UrunVaryantlaris">
+    <Type Name="UrunVaryantlari">
+      <Column Name="UrunVaryantID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UrunID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Barkod" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StokMiktari" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="AlisFiyati" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="SatisFiyati" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="PerakendeSatisFiyati" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Durum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="UrunVaryantlari_UrunVaryantDetay" Member="UrunVaryantDetays" ThisKey="UrunVaryantID" OtherKey="UrunVaryantID" Type="UrunVaryantDetay" />
+      <Association Name="Urunler_UrunVaryantlari" Member="Urunler" ThisKey="UrunID" OtherKey="UrunID" Type="Urunler" IsForeignKey="true" />
+      <Association Name="Sirketler_UrunVaryantlari" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VaryantDegerleri" Member="VaryantDegerleris">
+    <Type Name="VaryantDegerleri">
+      <Column Name="VaryantDegerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VaryantTurID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DegerAdi" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="VaryantDegerleri_UrunVaryantDetay" Member="UrunVaryantDetays" ThisKey="VaryantDegerID" OtherKey="VaryantDegerID" Type="UrunVaryantDetay" />
+      <Association Name="Sirketler_VaryantDegerleri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="VaryantTurleri_VaryantDegerleri" Member="VaryantTurleri" ThisKey="VaryantTurID" OtherKey="VaryantTurID" Type="VaryantTurleri" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VaryantTurleri" Member="VaryantTurleris">
+    <Type Name="VaryantTurleri">
+      <Column Name="VaryantTurID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TurAdi" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="VaryantTurleri_VaryantDegerleri" Member="VaryantDegerleris" ThisKey="VaryantTurID" OtherKey="VaryantTurID" Type="VaryantDegerleri" />
+      <Association Name="Sirketler_VaryantTurleri" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Web_iletisimFormu" Member="Web_iletisimFormus">
@@ -619,4 +836,78 @@
       <Column Name="OkunmaTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Yetkiler" Member="Yetkilers">
+    <Type Name="Yetkiler">
+      <Column Name="YetkiID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="YetkiAdi" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Aciklama" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Sirketler_Yetkiler" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZeytinBoxKasalari" Member="ZeytinBoxKasalaris">
+    <Type Name="ZeytinBoxKasalari">
+      <Column Name="ZeytinBoxKasaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ZeytinBoxNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Durumu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AlimTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="KulananMustahsilID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ZeytinBoxKasalari_ZeytinyagiUretimi_ZeytinBoxKasa_Map" Member="ZeytinyagiUretimi_ZeytinBoxKasa_Maps" ThisKey="ZeytinBoxKasaID" OtherKey="ZeytinBoxKasaID" Type="ZeytinyagiUretimi_ZeytinBoxKasa_Map" />
+      <Association Name="Sirketler_ZeytinBoxKasalari" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZeytinyagiMakinaMarkalari" Member="ZeytinyagiMakinaMarkalaris">
+    <Type Name="ZeytinyagiMakinaMarkalari">
+      <Column Name="ZeytinyagiMakinaMarkaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Adres" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Telefon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZeytinyagiMakinaModelleri" Member="ZeytinyagiMakinaModelleris">
+    <Type Name="ZeytinyagiMakinaModelleri">
+      <Column Name="ZeytinyagiMakinaModelID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ZeytinyagiMakinaMarkaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModelAd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MaxKapasite" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EnerjiTuketimi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Gorsel" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="ZeytinyagiMakinaModelleri_SirketZeytinyagiMakinalari" Member="SirketZeytinyagiMakinalaris" ThisKey="ZeytinyagiMakinaModelID" OtherKey="ZeytinyagiMakinaModelID" Type="SirketZeytinyagiMakinalari" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZeytinyagiUretim_islemleri" Member="ZeytinyagiUretim_islemleris">
+    <Type Name="ZeytinyagiUretim_islemleri">
+      <Column Name="ZeytinyagiUretim_islemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="islem_Ad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="ZeytinyagiUretim_islemleri_ZeytinyagiUretimleri" Member="ZeytinyagiUretimleris" ThisKey="ZeytinyagiUretim_islemID" OtherKey="ZeytinyagiUretim_islemID" Type="ZeytinyagiUretimleri" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZeytinyagiUretimi_ZeytinBoxKasa_Map" Member="ZeytinyagiUretimi_ZeytinBoxKasa_Maps">
+    <Type Name="ZeytinyagiUretimi_ZeytinBoxKasa_Map">
+      <Column Name="MapID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ZeytinyagiUretimID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ZeytinBoxKasaID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EklenmeTarihi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ZeytinBoxKasalari_ZeytinyagiUretimi_ZeytinBoxKasa_Map" Member="ZeytinBoxKasalari" ThisKey="ZeytinBoxKasaID" OtherKey="ZeytinBoxKasaID" Type="ZeytinBoxKasalari" IsForeignKey="true" />
+      <Association Name="ZeytinyagiUretimleri_ZeytinyagiUretimi_ZeytinBoxKasa_Map" Member="ZeytinyagiUretimleri" ThisKey="ZeytinyagiUretimID" OtherKey="ZeytinyagiUretimID" Type="ZeytinyagiUretimleri" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.SP_StokHareket" Method="SP_StokHareket">
+    <Parameter Name="SirketID" Parameter="sirketID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="HareketTipi" Parameter="hareketTipi" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="DepoID" Parameter="depoID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UrunID" Parameter="urunID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Miktar" Parameter="miktar" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="ReferansNo" Parameter="referansNo" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ReferansID" Parameter="referansID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ReferansTipi" Parameter="referansTipi" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Aciklama" Parameter="aciklama" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="KullaniciID" Parameter="kullaniciID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_StokHareketResult">
+      <Column Name="YeniStokMiktari" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

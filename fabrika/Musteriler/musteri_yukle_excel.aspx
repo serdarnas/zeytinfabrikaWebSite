@@ -8,16 +8,6 @@
                     <asp:Button ID="btnKaydet" runat="server" CssClass="btn btn-success" Text="Kaydet" OnClick="btnKaydet_Click" />
                     <a href="Default.aspx" class="btn btn-primary ms-2">Geri Dön</a>
                 </div>
-
-                <!-- Hata mesajı için panel -->
-                <asp:Panel ID="pnlHata" runat="server" CssClass="alert alert-danger mb-3" Visible="false">
-                    <asp:Label ID="lblHata" runat="server" Text=""></asp:Label>
-                </asp:Panel>
-
-                <!-- Başarı mesajı için panel -->
-                <asp:Panel ID="pnlBasari" runat="server" CssClass="alert alert-success mb-3" Visible="false">
-                    <asp:Label ID="lblBasari" runat="server" Text=""></asp:Label>
-                </asp:Panel>
             </section>
         </div>
     </div>

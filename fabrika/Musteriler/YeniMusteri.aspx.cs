@@ -305,14 +305,13 @@ public partial class fabrika_Musteriler_YeniMusteri : System.Web.UI.Page
 
     private void ShowError(string message)
     {
-        pnlHata.Visible = true;
-        lblHata.Text = message;
+        
+        MessageHelper.ShowErrorMessage(this,"Yeni Müşteri",message);
     }
 
     private void ShowSuccess(string message)
     {
-        pnlBasari.Visible = true;
-        lblBasari.Text = message;
+        MessageHelper.ShowErrorMessage(this, "Yeni Müşteri", message);
     }
 
     private void RedirectToDefault()

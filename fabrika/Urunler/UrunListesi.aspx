@@ -93,7 +93,7 @@
                                         <tr>
                                             <td>
                                                 <div style="background: #197; color: white; border-radius: 6px; padding: 8px 12px; margin-bottom: 4px;">
-                                                    <a href='UrunDetay.aspx?id=<%# Eval("UrunID") %>' style="color: white; text-decoration: none; font-weight: bold;">
+                                                    <a href='UrunDetay.aspx?UrunID=<%# Eval("UrunID") %>' style="color: white; text-decoration: none; font-weight: bold;">
                                                         <%# Eval("UrunAdi") %>
                                                     </a>
                                                     <%-- <span style="background: #66bb6a; color: white; border-radius: 4px; padding: 2px 8px; margin-left: 10px; font-weight: bold;">

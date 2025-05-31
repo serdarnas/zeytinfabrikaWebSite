@@ -58,8 +58,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             catch (Exception ex)
             {
                 // Hata mesajını göster
-                pnlHata.Visible = true;
-                lblHata.Text = "Sayfa yüklenirken bir hata oluştu: " + ex.Message;
+                MessageHelper.ShowErrorMessage(this, "Hata", "Sayfa yüklenirken bir hata oluştu: " + ex.Message);
             }
         }
     }
@@ -69,14 +68,12 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
         try
         {
             // Hata ve başarı panellerini temizle
-            pnlHata.Visible = false;
-            pnlBasari.Visible = false;
+            // MessageHelper.HideMessage(this);
 
             // Dosya kontrolü
             if (!fuExcel.HasFile)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Lütfen bir Excel dosyası seçin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Lütfen bir Excel dosyası seçin.");
                 return;
             }
 
@@ -84,8 +81,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             string fileExtension = Path.GetExtension(fuExcel.FileName).ToLower();
             if (fileExtension != ".xlsx")
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Lütfen sadece .xlsx formatında dosya yükleyin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Lütfen sadece .xlsx formatında dosya yükleyin.");
                 return;
             }
 
@@ -112,8 +108,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             catch (Exception ex)
             {
                 // Hata mesajını göster
-                pnlHata.Visible = true;
-                lblHata.Text = "Excel dosyası okunurken bir hata oluştu: " + ex.Message;
+                MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası okunurken bir hata oluştu: " + ex.Message);
 
                 // Dosyayı sil (geçici dosya)
                 if (File.Exists(filePath))
@@ -133,15 +128,13 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             // Excel verilerini kontrol et
             if (dt == null)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Excel dosyası okunamadı. Lütfen dosyanın formatını kontrol edin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası okunamadı. Lütfen dosyanın formatını kontrol edin.");
                 return;
             }
 
             if (dt.Rows.Count == 0)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Excel dosyası boş. Lütfen verileri kontrol edin.";
+                MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası boş. Lütfen verileri kontrol edin.");
                 return;
             }
 
@@ -154,8 +147,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             {
                 if (!dt.Columns.Contains(kolon))
                 {
-                    pnlHata.Visible = true;
-                    lblHata.Text = "Excel dosyasında '" + kolon + "' kolonu bulunamadı. Lütfen şablonu kontrol edin.";
+                    MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyasında '" + kolon + "' kolonu bulunamadı. Lütfen şablonu kontrol edin.");
                     return;
                 }
             }
@@ -199,14 +191,12 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             gvOnizleme.Visible = true;
 
             // Başarı mesajı
-            pnlBasari.Visible = true;
-            lblBasari.Text = "Excel dosyası başarıyla yüklendi. Aşağıdaki verileri kontrol edip 'Onayla Kaydet' butonuna tıklayarak kaydedebilirsiniz.";
+            MessageHelper.ShowSuccessMessage(this, "Başarılı", "Excel dosyası başarıyla yüklendi. Aşağıdaki verileri kontrol edip 'Onayla Kaydet' butonuna tıklayarak kaydedebilirsiniz.");
         }
         catch (Exception ex)
         {
             // Hata mesajını göster
-            pnlHata.Visible = true;
-            lblHata.Text = "Excel dosyası işlenirken bir hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Hata", "Excel dosyası işlenirken bir hata oluştu: " + ex.Message);
         }
     }
 
@@ -225,8 +215,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
                 }
                 else
                 {
-                    pnlHata.Visible = true;
-                    lblHata.Text = "Lütfen önce bir Excel dosyası seçin ve önizleyin.";
+                    MessageHelper.ShowErrorMessage(this, "Hata", "Lütfen önce bir Excel dosyası seçin ve önizleyin.");
                     return;
                 }
             }
@@ -242,8 +231,6 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
             // Kategori listesini al
             int sirketID = SessionHelper.GetSirketID();
 
-
-
             // Excel verilerini işle
             foreach (DataRow row in ExcelData.Rows)
             {
@@ -254,8 +241,6 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
                         continue;
 
                     // Mustahsil bilgilerini al
-
-
                     string Ad = row["Ad"].ToString();
                     string Soyad = row["Soyad"].ToString();
                     string Telefon = row["Telefon"].ToString();
@@ -266,9 +251,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
                     string BankaBilgileri = row["Banka Bilgileri"].ToString();
                     // Kategori ID'sini bul
 
-
                     // Para birimi ID'sini bul
-
 
                     // Bakiye değerini parse et
                     decimal _bakiye = 0;
@@ -305,21 +288,18 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
 
                     basariliKayit++;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex){
                     hataliKayit++;
                     hataMesaji += "Satır hatası: " + ex.Message + "<br/>";
                 }
             }
 
             // Sonuç mesajı
-            pnlBasari.Visible = true;
-            lblBasari.Text = basariliKayit + " Mustahsil başarıyla kaydedildi. " + hataliKayit + " Mustahsil kaydedilemedi.";
+            MessageHelper.ShowSuccessMessage(this, "Başarılı", basariliKayit + " Mustahsil başarıyla kaydedildi. " + hataliKayit + " Mustahsil kaydedilemedi.");
 
             if (!string.IsNullOrEmpty(hataMesaji))
             {
-                pnlHata.Visible = true;
-                lblHata.Text = hataMesaji;
+                MessageHelper.ShowErrorMessage(this, "Hata", hataMesaji);
             }
 
             // Excel verilerini temizle
@@ -333,9 +313,7 @@ public partial class fabrika_Mustahsil_Mustahsil_yukle_excel : System.Web.UI.Pag
         catch (Exception ex)
         {
             // Genel hata mesajı
-            pnlHata.Visible = true;
-            lblHata.Text = "İşlem sırasında bir hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Hata", "İşlem sırasında bir hata oluştu: " + ex.Message);
         }
     }
-
 }

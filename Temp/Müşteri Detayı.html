@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müşteri Detay: [Müşteri Adı] - Yönetim Paneli</title>
+    <!-- Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (Mini Sidebar ve genel tasarım) -->
+    <style>
+        :root {
+            /* ... (Önceki renk ve sidebar değişkenleri) ... */
+            --brand-primary-green: #1E4620; --brand-light-green: #4A7856; --brand-gold: #D4AF37;
+            --brand-text-light: #FFFFFF; --brand-text-dark: #212529; --brand-text-muted: #6c757d;
+            --brand-bg-light: #f9fbf8; --brand-border-color: #dee2e6;
+            --facility-olive-color: #8FBC8F; --facility-oil-color: #DAA520;
+            --sidebar-width-mini: 75px; --sidebar-width-full: 240px; --sidebar-transition-speed: 0.3s;
+            --status-paid: #28a745; --status-unpaid: #dc3545; --status-partial: #ffc107; --status-returned: #6c757d;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-bg-light); color: var(--brand-text-dark); font-size: 0.95rem; }
+        /* Sidebar, Navbar, Kart, Tablo, Sekme Stilleri (Önceki koddan aynen alınır) */
+         .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; padding: 56px 0 0; background-color: var(--brand-primary-green); box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.1); width: var(--sidebar-width-full); transition: width var(--sidebar-transition-speed) ease-in-out; overflow-x: hidden; }
+        .sidebar.sidebar-mini { width: var(--sidebar-width-mini); }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 56px); padding-top: 1rem; overflow-x: hidden; overflow-y: auto; }
+        .sidebar .nav-link { color: rgba(255, 255, 255, 0.75); font-weight: 400; padding: 0.75rem 1rem; border-left: 3px solid transparent; transition: all .15s ease; }
+        .sidebar .nav-link .bi { color: var(--brand-gold); opacity: 0.9; margin-right: 12px; font-size: 1rem; vertical-align: middle; margin-top: -3px; width: 20px; text-align: center; }
+        .sidebar .nav-link:hover { background-color: var(--brand-light-green); color: var(--brand-text-light); border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active { background-color: var(--brand-light-green); color: var(--brand-text-light); font-weight: 600; border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active .bi { color: var(--brand-text-light); opacity: 1; }
+        .sidebar .nav-link .sidebar-text, .sidebar .sidebar-heading .sidebar-text { opacity: 1; visibility: visible; transition: opacity calc(var(--sidebar-transition-speed) * 0.5) ease-in-out calc(var(--sidebar-transition-speed) * 0.5), visibility 0s linear calc(var(--sidebar-transition-speed) * 0.5); white-space: nowrap; display: inline-block; vertical-align: middle; margin-left: 5px; }
+        .sidebar.sidebar-mini .nav-link .sidebar-text, .sidebar.sidebar-mini .sidebar-heading .sidebar-text { opacity: 0; visibility: hidden; transition: opacity calc(var(--sidebar-transition-speed) * 0.5) ease-in-out, visibility 0s linear calc(var(--sidebar-transition-speed) * 0.5); pointer-events: none; }
+        .sidebar.sidebar-mini:hover { width: var(--sidebar-width-full); box-shadow: 0 0 20px rgba(0,0,0,0.1); z-index: 1031; }
+        .sidebar.sidebar-mini:hover .nav-link .sidebar-text, .sidebar.sidebar-mini:hover .sidebar-heading .sidebar-text { opacity: 1; visibility: visible; transition-delay: calc(var(--sidebar-transition-speed) * 0.3); pointer-events: auto; }
+        .navbar.sticky-top { background-color: var(--brand-text-light); box-shadow: 0 .125rem .25rem rgba(0,0,0,.05) !important; padding-top: 0.3rem; padding-bottom: 0.3rem; z-index: 1020; }
+        .navbar-brand { background-color: transparent; box-shadow: none; color: var(--brand-primary-green) !important; font-weight: 700; font-size: 1.3rem; padding-left: 1.5rem !important; }
+        .navbar-brand .bi { color: var(--brand-gold); margin-right: 5px; font-size: 1.4rem; vertical-align: middle; }
+        main { margin-left: var(--sidebar-width-full); transition: margin-left var(--sidebar-transition-speed) ease-in-out; padding: 1.5rem; }
+        body.sidebar-is-mini main { margin-left: var(--sidebar-width-mini); }
+         @media (max-width: 767.98px) { /* Mobil stiller ... */ }
+         .card { border: none; border-radius: 0.6rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); margin-bottom: 1.5rem; }
+        .card-header { background-color: transparent; border-bottom: 1px solid #eee; color: var(--brand-light-green); font-weight: 600; padding: 0.8rem 1.2rem; }
+        .card-header i { color: var(--brand-gold); margin-right: 8px; }
+        .card-body { padding: 1.5rem; }
+        .table thead th { background-color: var(--brand-bg-light); color: var(--brand-primary-green); border-bottom: 2px solid var(--brand-light-green); font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.5px; vertical-align: middle; padding: 0.8rem 0.75rem; }
+        .table tbody td { vertical-align: middle; padding: 0.8rem 0.75rem; border-bottom-color: #f0f0f0; color: var(--brand-text-dark); }
+        .table-hover > tbody > tr:hover > * { background-color: rgba(212, 175, 55, 0.08); color: var(--brand-text-dark); }
+        .nav-tabs { border-bottom: 2px solid var(--brand-light-green); }
+        .nav-tabs .nav-link { margin-bottom: -2px; border: none; border-bottom: 2px solid transparent; padding: 0.8rem 1.2rem; color: var(--brand-text-muted); font-weight: 600; background-color: transparent; transition: all .2s ease; }
+        .nav-tabs .nav-link:hover { border-bottom-color: var(--brand-gold); color: var(--brand-primary-green); }
+        .nav-tabs .nav-link.active { color: var(--brand-primary-green); background-color: var(--brand-bg-light); border-bottom-color: var(--brand-light-green); }
+        .nav-tabs .nav-link .bi { margin-right: 5px; color: var(--brand-gold); }
+        .nav-tabs .nav-link.active .bi { color: var(--brand-light-green); }
+        .tab-content { padding-top: 1.5rem; }
+        .tab-pane { background-color: #fff; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+         /* Ödeme Durum Renkleri */
+        .status-paid { color: var(--status-paid); font-weight: 600; }
+        .status-unpaid { color: var(--status-unpaid); font-weight: 600; }
+        .status-partial { color: var(--status-partial); font-weight: 600; }
+        .status-returned { color: var(--status-returned); font-style: italic; }
+        .badge-paid { background-color: var(--status-paid); }
+        .badge-unpaid { background-color: var(--status-unpaid); }
+        .badge-partial { background-color: var(--status-partial); color: var(--brand-text-dark) !important; }
+        .badge-returned { background-color: var(--status-returned); }
+        .action-buttons button {
+            margin-left: 4px;
+        }
+        .summary-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="sidebar-is-mini">
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">
+        <!-- Navbar içeriği -->
+         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-diagram-3-fill"></i> Zeytin & Yağ A.Ş.
+        </a>
+         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+         <div class="w-100 px-3 d-flex justify-content-end align-items-center">
+             <!-- Sağ navbar içeriği (Profil vb.) -->
+         </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü (Müşteri yönetimi varsa orası aktif olabilir) -->
+            <nav id="sidebarMenu" class="d-md-block sidebar collapse sidebar-mini">
+                <!-- Sidebar içeriği -->
+                 <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <!-- ... Diğer menü linkleri ... -->
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-people-fill"></i><span class="sidebar-text">Müşteriler</span></a></li> <!-- Belki burası aktif -->
+                         <!-- ... Diğer menü linkleri ... -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="px-md-4">
+                <!-- Sayfa Başlığı ve Müşteri Adı -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb small bg-transparent p-0 m-0">
+                            <li class="breadcrumb-item"><a href="#">Müşteriler</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Müşteri Detayı</li>
+                          </ol>
+                        </nav>
+                        <h1 class="h2"><i class="bi bi-person-badge-fill text-primary"></i> Müşteri: Bereket Gıda Ltd. Şti.</h1>
+                    </div>
+                     <div class="btn-toolbar mb-2 mb-md-0">
+                         <button type="button" class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i> Müşteri Bilgilerini Düzenle</button>
+                        <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash3"></i> Müşteriyi Sil</button> <!-- Dikkatli kullanılmalı -->
+                    </div>
+                </div>
+
+                <!-- Müşteri Bilgileri ve Finansal Özet -->
+                 <div class="row mb-4">
+                     <div class="col-lg-7">
+                         <div class="card h-100">
+                             <div class="card-header"><i class="bi bi-info-circle-fill"></i> Müşteri Bilgileri</div>
+                             <div class="card-body">
+                                 <div class="row">
+                                     <div class="col-md-6 mb-2"><strong>Yetkili Kişi:</strong> Ayşe Kaya</div>
+                                     <div class="col-md-6 mb-2"><strong>Telefon:</strong> 05XX XXX XX XX</div>
+                                     <div class="col-md-6 mb-2"><strong>E-posta:</strong> ayse.kaya@bereketgida.com</div>
+                                     <div class="col-md-6 mb-2"><strong>Vergi No:</strong> 1234567890</div>
+                                     <div class="col-12 mb-2"><strong>Adres:</strong> Sanayi Mah. Örnek Cad. No:15/A, Merkez/Bursa</div>
+                                     <div class="col-12 mb-2"><strong>Müşteri Grubu:</strong> Toptancı</div>
+                                     <div class="col-12"><strong>Notlar:</strong> Özel fiyat anlaşması mevcut. Zamanında ödeme yapar.</div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                      <div class="col-lg-5">
+                          <div class="card h-100 bg-light">
+                               <div class="card-header"><i class="bi bi-currency-dollar"></i> Finansal Özet</div>
+                               <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <small class="text-muted text-uppercase">TOPLAM SATIŞ TUTARI</small>
+                                        <div class="summary-value text-success">₺125,800.00</div>
+                                    </div>
+                                     <div class="mb-3">
+                                        <small class="text-muted text-uppercase">TOPLAM ÖDEME</small>
+                                        <div class="summary-value text-primary">₺110,500.00</div>
+                                    </div>
+                                     <div class="mb-3">
+                                        <small class="text-muted text-uppercase">TOPLAM İADE</small>
+                                        <div class="summary-value text-secondary">₺2,300.00</div>
+                                    </div>
+                                    <hr>
+                                     <div>
+                                        <small class="text-muted text-uppercase">GÜNCEL BAKİYE</small>
+                                        <div class="summary-value text-danger">₺13,000.00</div>
+                                        <small>(Ödenmemiş)</small>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+                 </div>
+
+
+                <!-- İşlem Sekmeleri (Alış/Satış, İadeler, Ödemeler) -->
+                <ul class="nav nav-tabs mb-3" id="musteriDetayTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="satislar-tab" data-bs-toggle="tab" data-bs-target="#satislar-pane" type="button" role="tab" aria-controls="satislar-pane" aria-selected="true"><i class="bi bi-cart-check-fill"></i> Satışlar/Siparişler</button>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="odemeler-tab" data-bs-toggle="tab" data-bs-target="#odemeler-pane" type="button" role="tab" aria-controls="odemeler-pane" aria-selected="false"><i class="bi bi-wallet-fill"></i> Ödemeler</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="iadeler-tab" data-bs-toggle="tab" data-bs-target="#iadeler-pane" type="button" role="tab" aria-controls="iadeler-pane" aria-selected="false"><i class="bi bi-arrow-counterclockwise"></i> İadeler</button>
+                    </li>
+                </ul>
+
+                <!-- Sekme İçerikleri -->
+                <div class="tab-content" id="musteriDetayTabContent">
+                    <!-- 1. Satışlar/Siparişler Sekmesi -->
+                    <div class="tab-pane fade show active" id="satislar-pane" role="tabpanel" aria-labelledby="satislar-tab" tabindex="0">
+                         <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Müşteriye Yapılan Satışlar</h5>
+                              <!-- <button class="btn btn-sm btn-success"><i class="bi bi-plus-lg"></i> Yeni Satış/Sipariş Ekle</button> --> <!-- Opsiyonel -->
+                         </div>
+                         <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>Sipariş No</th><th>Tarih</th><th>Toplam Tutar</th><th>Ödenen Tutar</th><th>Kalan Tutar</th><th>Durum</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>SP-2023-158</td><td>25.10.2023</td><td>₺45,000.00</td><td>₺32,000.00</td><td class="text-danger">₺13,000.00</td><td><span class="badge badge-partial">Kısmi Ödendi</span></td><td><a href="#" class="btn btn-outline-info btn-sm py-0 px-1" title="Sipariş Detayı"><i class="bi bi-search"></i></a></td></tr>
+                                    <tr><td>SP-2023-142</td><td>10.09.2023</td><td>₺38,500.00</td><td>₺38,500.00</td><td>₺0.00</td><td><span class="badge badge-paid">Ödendi</span></td><td><a href="#" class="btn btn-outline-info btn-sm py-0 px-1" title="Sipariş Detayı"><i class="bi bi-search"></i></a></td></tr>
+                                    <tr><td>SP-2023-120</td><td>15.07.2023</td><td>₺42,300.00</td><td>₺40,000.00</td><td><del>₺2,300.00</del> <span class="badge badge-returned ms-1">İade</span></td><td><span class="badge badge-paid">Ödendi (İade Sonrası)</span></td><td><a href="#" class="btn btn-outline-info btn-sm py-0 px-1" title="Sipariş Detayı"><i class="bi bi-search"></i></a></td></tr>
+                                    <!-- Diğer Satışlar -->
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+
+                    <!-- 2. Ödemeler Sekmesi -->
+                    <div class="tab-pane fade" id="odemeler-pane" role="tabpanel" aria-labelledby="odemeler-tab" tabindex="0">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Alınan Ödemeler</h5>
+                              <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="add"><i class="bi bi-plus-lg"></i> Yeni Ödeme Ekle</button>
+                         </div>
+                         <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>Ödeme ID</th><th>Tarih</th><th>Tutar</th><th>Yöntem</th><th>Açıklama/Ref</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Örnek Ödeme - Backend'den gelecek -->
+                                    <tr>
+                                        <td>OD-1052</td><td>26.10.2023</td><td>₺32,000.00</td><td>Banka Havalesi</td><td>SP-2023-158 için</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="edit" data-id="1052" data-amount="32000" data-date="2023-10-26T10:00" data-method="Havale" data-ref="SP-2023-158"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Ödeme', 1052)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td>OD-1030</td><td>11.09.2023</td><td>₺38,500.00</td><td>Nakit</td><td>SP-2023-142 tamamı</td>
+                                         <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="edit" data-id="1030"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Ödeme', 1030)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td>OD-1015</td><td>16.07.2023</td><td>₺40,000.00</td><td>Banka Havalesi</td><td>SP-2023-120 kısmi</td>
+                                         <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="edit" data-id="1015"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Ödeme', 1015)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                    <!-- Diğer Ödemeler -->
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+
+                    <!-- 3. İadeler Sekmesi -->
+                    <div class="tab-pane fade" id="iadeler-pane" role="tabpanel" aria-labelledby="iadeler-tab" tabindex="0">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Yapılan İadeler</h5>
+                               <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#iadeModal" data-mode="add"><i class="bi bi-plus-lg"></i> Yeni İade Ekle</button>
+                         </div>
+                          <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>İade ID</th><th>Tarih</th><th>İlgili Sipariş</th><th>Tutar</th><th>Neden</th><th>Durum</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Örnek İade - Backend'den gelecek -->
+                                    <tr>
+                                        <td>IA-501</td><td>20.07.2023</td><td>SP-2023-120</td><td>₺2,300.00</td><td>Ürün Hasarı</td><td><span class="badge badge-returned">İşlendi</span></td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#iadeModal" data-mode="edit" data-id="501"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('İade', 501)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                     <!-- Diğer İadeler -->
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Ödeme Ekle/Düzenle Modalı -->
+    <div class="modal fade" id="odemeModal" tabindex="-1" aria-labelledby="odemeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="odemeModalLabel"><i class="bi bi-wallet2"></i> Ödeme Kaydı</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="odemeForm" class="needs-validation" novalidate>
+              <div class="modal-body">
+                  <input type="hidden" id="odemeId"> <!-- Düzenleme için -->
+                  <input type="hidden" id="odemeMode" value="add"> <!-- add/edit modu -->
+                  <div class="mb-3">
+                      <label for="odemeTarih" class="form-label">Ödeme Tarihi</label>
+                      <input type="datetime-local" class="form-control" id="odemeTarih" required>
+                      <div class="invalid-feedback">Lütfen geçerli bir tarih seçin.</div>
+                  </div>
+                   <div class="mb-3">
+                      <label for="odemeTutar" class="form-label">Tutar (₺)</label>
+                      <input type="number" step="0.01" class="form-control" id="odemeTutar" required min="0.01">
+                       <div class="invalid-feedback">Lütfen geçerli bir tutar girin.</div>
+                  </div>
+                   <div class="mb-3">
+                      <label for="odemeYontem" class="form-label">Ödeme Yöntemi</label>
+                      <select class="form-select" id="odemeYontem" required>
+                          <option selected disabled value="">Seçiniz...</option>
+                          <option value="Havale">Banka Havalesi/EFT</option>
+                          <option value="Nakit">Nakit</option>
+                          <option value="Kart">Kredi Kartı</option>
+                          <option value="Cek">Çek</option>
+                          <option value="Diger">Diğer</option>
+                      </select>
+                       <div class="invalid-feedback">Lütfen ödeme yöntemini seçin.</div>
+                  </div>
+                   <div class="mb-3">
+                      <label for="odemeRef" class="form-label">Referans/Açıklama</label>
+                      <input type="text" class="form-control" id="odemeRef" placeholder="Sipariş No, Fatura No vb.">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-save-fill me-1"></i> Kaydet</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- İade Ekle/Düzenle Modalı (Benzer yapıda oluşturulabilir) -->
+     <div class="modal fade" id="iadeModal" tabindex="-1" aria-labelledby="iadeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+            <h5 class="modal-title" id="iadeModalLabel"><i class="bi bi-arrow-counterclockwise"></i> İade Kaydı</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+           <form id="iadeForm" class="needs-validation" novalidate>
+             <div class="modal-body">
+                  <input type="hidden" id="iadeId">
+                  <input type="hidden" id="iadeMode" value="add">
+                  <!-- İade Tarihi, İlgili Sipariş (opsiyonel), Tutar, Neden, Durum alanları -->
+                  <p class="text-muted text-center">İade formu alanları buraya eklenecek.</p>
+             </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="submit" class="btn btn-warning text-dark"><i class="bi bi-save-fill me-1"></i> İadeyi Kaydet</button>
+             </div>
+           </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Mini Sidebar JS (Önceki koddan)
+        // ... (sidebar mouseenter/mouseleave ve resize listener'ları) ...
+
+        // Bootstrap Form Doğrulama JS (Önceki koddan)
+        // ... (needs-validation listener'ı) ...
+
+        // Ödeme Modalı Yönetimi (Düzenleme için veri doldurma)
+        const odemeModal = document.getElementById('odemeModal');
+        const odemeForm = document.getElementById('odemeForm');
+        if (odemeModal) {
+            odemeModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget; // Modalı tetikleyen buton
+                const mode = button.getAttribute('data-mode');
+                const modalTitle = odemeModal.querySelector('.modal-title');
+                const odemeIdInput = odemeModal.querySelector('#odemeId');
+                const odemeModeInput = odemeModal.querySelector('#odemeMode');
+                const odemeTarihInput = odemeModal.querySelector('#odemeTarih');
+                const odemeTutarInput = odemeModal.querySelector('#odemeTutar');
+                const odemeYontemInput = odemeModal.querySelector('#odemeYontem');
+                const odemeRefInput = odemeModal.querySelector('#odemeRef');
+
+                 odemeModeInput.value = mode; // Modu ayarla
+
+                if (mode === 'edit') {
+                    modalTitle.textContent = 'Ödeme Düzenle';
+                    const odemeId = button.getAttribute('data-id');
+                    const amount = button.getAttribute('data-amount');
+                    const date = button.getAttribute('data-date'); // Format: YYYY-MM-DDTHH:mm
+                    const method = button.getAttribute('data-method');
+                    const ref = button.getAttribute('data-ref');
+
+                    odemeIdInput.value = odemeId;
+                    odemeTarihInput.value = date ? date : ''; // Tarih varsa ata
+                    odemeTutarInput.value = amount ? amount : '';
+                    odemeYontemInput.value = method ? method : '';
+                    odemeRefInput.value = ref ? ref : '';
+                } else {
+                    modalTitle.textContent = 'Yeni Ödeme Ekle';
+                    odemeForm.reset(); // Formu temizle
+                     odemeIdInput.value = ''; // ID'yi temizle
+                     // Yeni eklerken varsayılan tarih bugünün tarihi olabilir
+                     const now = new Date();
+                     now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Local time
+                     odemeTarihInput.value = now.toISOString().slice(0,16);
+                }
+                // Doğrulama stillerini temizle (varsa)
+                odemeForm.classList.remove('was-validated');
+            });
+
+             odemeForm.addEventListener('submit', event => {
+                 event.preventDefault(); // Normal submit'i engelle
+                 event.stopPropagation();
+
+                 if (!odemeForm.checkValidity()) {
+                    odemeForm.classList.add('was-validated');
+                    return; // Geçerli değilse dur
+                 }
+
+                 // Form geçerliyse verileri al
+                 const mode = odemeForm.querySelector('#odemeMode').value;
+                 const paymentData = {
+                     id: odemeForm.querySelector('#odemeId').value || null, // ID varsa düzenleme, yoksa yeni
+                     date: odemeForm.querySelector('#odemeTarih').value,
+                     amount: odemeForm.querySelector('#odemeTutar').value,
+                     method: odemeForm.querySelector('#odemeYontem').value,
+                     reference: odemeForm.querySelector('#odemeRef').value
+                 };
+
+                 console.log("Gönderilecek Ödeme Verisi:", paymentData);
+                 console.log("Mod:", mode);
+
+                 // !!!!! BURADA BACKEND'E GÖNDERME İŞLEMİ YAPILACAK !!!!!
+                 // Örneğin: fetch('/api/payments', { method: mode === 'edit' ? 'PUT' : 'POST', body: JSON.stringify(paymentData), ... })
+                 // Başarılı olursa:
+                 alert(`Ödeme başarıyla ${mode === 'edit' ? 'güncellendi' : 'eklendi'}! (Simülasyon)`);
+                 bootstrap.Modal.getInstance(odemeModal).hide(); // Modalı kapat
+                 // Tabloyu yenilemek için fonksiyon çağrılabilir: reloadPaymentTable();
+
+                 // Başarısız olursa hata mesajı gösterilebilir.
+             });
+        }
+        // İade Modalı için benzer bir show.bs.modal listener eklenebilir.
+
+        // Silme Onayı Fonksiyonu (Basit)
+        function confirmDelete(itemType, itemId) {
+            if (confirm(`${itemType} ID: ${itemId}\nBu kaydı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`)) {
+                console.log(`${itemType} ${itemId} siliniyor...`);
+                // !!!!! BURADA BACKEND'E SİLME İSTEĞİ GÖNDERİLECEK !!!!!
+                // Örneğin: fetch(`/api/${itemType.toLowerCase()}s/${itemId}`, { method: 'DELETE', ... })
+                // Başarılı olursa ilgili satır tablodan kaldırılabilir veya tablo yenilenebilir.
+                alert(`${itemType} başarıyla silindi! (Simülasyon)`);
+            }
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

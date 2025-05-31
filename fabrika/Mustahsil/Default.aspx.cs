@@ -14,18 +14,55 @@ public partial class fabrika_Mustahsil_Default : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-
             var master = this.Master as fabrika_FabrikaMasterPage;
             if (master != null)
             {
                 master.KlasorAdi = "Müstahsiller";
                 master.SayfaAdi = "Müstahsil Listesi";
             }
+            
+            // İlk yüklemede tüm müstahsilleri getir
+            BindMustahsilList();
         }
     }
-
-    protected void btnYeniEkle_Click(object sender, EventArgs e)
+    
+    private void BindMustahsilList(string aramaMetni = "")
     {
-        ASPxGridViewMustahsil.AddNewRow();
+        try
+        {
+            using (var db = new FabrikaDataClassesDataContext())
+            {
+                int sirketID = SessionHelper.GetSirketID();
+                
+                var query = db.Mustahsillers.Where(m => m.SirketID == sirketID);
+                
+                // Arama kriteri varsa filtrele
+                if (!string.IsNullOrEmpty(aramaMetni) && aramaMetni.Length >= 3)
+                {
+                    query = query.Where(m => 
+                        m.Ad.Contains(aramaMetni) || 
+                        m.Soyad.Contains(aramaMetni) || 
+                        (m.TCKimlikNo != null && m.TCKimlikNo.Contains(aramaMetni)));
+                }
+                
+                // Sıralama
+                var mustahsiller = query.OrderBy(m => m.Ad).ThenBy(m => m.Soyad).ToList();
+                
+                rptMustahsiller.DataSource = mustahsiller;
+                rptMustahsiller.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Hata durumunda kullanıcıya bilgi ver
+            ScriptManager.RegisterStartupScript(this, GetType(), "ShowErrorMessage", 
+                string.Format("alert('Müstahsil listesi yüklenirken hata oluştu: {0}');", ex.Message.Replace("'", "\\'")), true);
+        }
+    }
+    
+    protected void btnAra_Click(object sender, EventArgs e)
+    {
+        string aramaMetni = txtArama.Text.Trim();
+        BindMustahsilList(aramaMetni);
     }
 }

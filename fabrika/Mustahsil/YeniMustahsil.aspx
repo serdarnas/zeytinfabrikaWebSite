@@ -3,10 +3,10 @@
 <%@ Register Assembly="System.Web.Extensions" Namespace="System.Web.UI" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <!-- jQuery - sayfa başında yüklenmesi gerekiyor -->
+    <script src="/App_Themes/serdarnas_admin_flat/js/jquery.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    
     <!-- Modern CSS -->
     <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -25,12 +25,7 @@
                 </header>
                 <div class="panel-body">
                     <!-- Hata ve Başarı Mesajları -->
-                    <asp:Panel ID="pnlHata" runat="server" CssClass="alert alert-danger" Visible="false">
-                        <asp:Label ID="lblHata" runat="server" Text=""></asp:Label>
-                    </asp:Panel>
-                    <asp:Panel ID="pnlBasari" runat="server" CssClass="alert alert-success" Visible="false">
-                        <asp:Label ID="lblBasari" runat="server" Text=""></asp:Label>
-                    </asp:Panel>
+                
 
                     <!-- Tablar -->
                     <div class="tab-content">
@@ -60,8 +55,9 @@
                                     <div class="col-sm-4">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
-                                            <asp:TextBox ID="txtTCKimlikNo" runat="server" CssClass="form-control" placeholder="TC Kimlik No" MaxLength="11" />
+                                            <asp:TextBox ID="txtTCKimlikNo" runat="server" CssClass="form-control" placeholder="TC Kimlik No (11 haneli)" MaxLength="11" AutoPostBack="True" OnTextChanged="txtTCKimlikNo_TextChanged" />
                                         </div>
+                                        <small class="text-muted">TC Kimlik No benzersiz olmalıdır. Daha önce kaydedilmiş kişi otomatik olarak bulunacaktır.</small>
                                     </div>
                                     <label class="col-sm-2 control-label"><i class="fa fa-check-square-o"></i> Aktif</label>
                                     <div class="col-sm-4">
@@ -140,7 +136,7 @@
                     <div class="form-group mt-4">
                         <div class="col-sm-12 text-right">
                             <a href="Default.aspx" class="btn btn-outline-secondary"><i class="fa fa-times"></i> İptal</a>
-                            <asp:Button ID="btnKaydet" runat="server" CssClass="btn btn-success" Text="Müstahsili Kaydet" />
+                            <asp:Button ID="btnKaydet" runat="server" CssClass="btn btn-success" Text="Müstahsili Kaydet" OnClick="btnKaydet_Click" />
                         </div>
                     </div>
                 </div>
@@ -149,8 +145,16 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="/App_Themes/serdarnas_admin_flat/js/jquery.js"></script>
     <script src="/App_Themes/serdarnas_admin_flat/js/bootstrap.min.js"></script>
     <script src="/App_Themes/serdarnas_admin_flat/js/form-component.js"></script>
+    
+    <script type="text/javascript">
+        // TC Kimlik No için sadece rakam girişine izin ver
+        $(document).ready(function() {
+            $('#<%= txtTCKimlikNo.ClientID %>').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+    </script>
 </asp:Content>
 

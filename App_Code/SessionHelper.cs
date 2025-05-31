@@ -52,6 +52,15 @@ public static class SessionHelper
     }
 
     /// <summary>
+    /// Mevcut kullanıcının şirket ID'sini ayarlar.
+    /// </summary>
+    /// <param name="sirketID">Şirket ID değeri</param>
+    public static void SetSirketID(int sirketID)
+    {
+        HttpContext.Current.Session["SirketID"] = sirketID;
+    }
+
+    /// <summary>
     /// Mevcut kullanıcının şirket adını döndürür.
     /// Önce Session'dan kontrol eder, yoksa Forms Authentication çerezinden alır.
     /// </summary>

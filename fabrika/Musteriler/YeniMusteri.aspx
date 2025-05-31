@@ -3,8 +3,6 @@
 <%@ Register Assembly="System.Web.Extensions" Namespace="System.Web.UI" TagPrefix="asp" %>
 
 <asp:content id="Content1" contentplaceholderid="ContentPlaceHolder1" runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    
     <!-- Modern CSS -->
     <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -26,12 +24,7 @@
                 </header>
                 <div class="panel-body">
                     <!-- Hata ve Başarı Mesajları -->
-                    <asp:Panel ID="pnlHata" runat="server" CssClass="alert alert-danger" Visible="false">
-                        <asp:Label ID="lblHata" runat="server" Text=""></asp:Label>
-                    </asp:Panel>
-                    <asp:Panel ID="pnlBasari" runat="server" CssClass="alert alert-success" Visible="false">
-                        <asp:Label ID="lblBasari" runat="server" Text=""></asp:Label>
-                    </asp:Panel>
+                    
 
                     <!-- Tablar -->
                     <div class="tab-content">

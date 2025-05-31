@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Paketleme & Lojistik Bilgileri: [Ürün Adı] - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: sans-serif;
+        }
+        .sidebar {
+            position: fixed; top: 0; bottom: 0; left: 0; z-index: 100;
+            padding: 48px 0 0; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #343a40;
+        }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: auto; }
+        .nav-link { color: #adb5bd; transition: color .15s ease-in-out, background-color .15s ease-in-out; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { color: #fff; background-color: #495057; }
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text-bottom; }
+        .navbar-brand { padding-top: .75rem; padding-bottom: .75rem; font-size: 1.2rem; background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25); color: #fff; }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }
+
+        .page-header {
+            background-color: #6f42c1; /* Mor tonu - lojistik/paketleme için farklı */
+            color: white;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+        }
+        .page-header h1 { margin-bottom: 0.25rem; font-size: 1.75rem; }
+        .page-header .text-muted { color: rgba(255,255,255,0.8) !important; }
+
+        .card { border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border:none; }
+        .card-header { background-color: #e9ecef; font-weight: 600; padding: 1rem 1.25rem; }
+        .card-header i { margin-right: 8px; color: #6f42c1; }
+        .card-body { padding: 1.5rem; }
+        .form-label { font-weight: 500; }
+        .input-group-text { background-color: #e9ecef; font-weight: 500; }
+        .calculated-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0d6efd; /* Mavi */
+            padding-top: 0.5rem; /* input ile aynı hizada görünmesi için */
+        }
+        .form-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #343a40;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 2px solid #6f42c1;
+            padding-bottom: 0.25rem;
+        }
+        .form-section-title i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav"> <div class="nav-item text-nowrap"> <a class="nav-link px-3" href="#"><i class="bi bi-box-arrow-right"></i> Çıkış Yap</a></div></div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-tags-fill"></i> Ürünler</a></li> <!-- Ürünler aktif -->
+                        <!-- Diğer menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Sayfa Başlığı ve Ürün Adı -->
+                <div class="page-header">
+                    <nav aria-label="breadcrumb" class="mb-1">
+                      <ol class="breadcrumb breadcrumb-transparent small p-0 m-0">
+                        <li class="breadcrumb-item"><a href="#" class="text-white-50">Ürünler</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white-50">Natürel Sızma Zeytinyağı - Erken Hasat</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Paketleme & Lojistik</li>
+                      </ol>
+                    </nav>
+                    <h1>Ürün Paketleme ve Lojistik Bilgileri</h1>
+                    <p class="text-muted mb-0">Ürün: <strong>Natürel Sızma Zeytinyağı - Erken Hasat / Varyant: 500ml Cam Şişe</strong></p>
+                </div>
+
+                <form id="paketlemeForm" class="needs-validation" novalidate>
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-box-seam"></i> Koli Bilgileri
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="koliIciAdet" class="form-label">Koli İçi Ürün Adedi</label>
+                                    <input type="number" class="form-control" id="koliIciAdet" required min="1">
+                                    <div class="invalid-feedback">Lütfen koli içi adedi girin.</div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label">Koli Boyutları (cm)</label>
+                                    <div class="input-group">
+                                        <input type="number" step="0.1" class="form-control" id="koliUzunluk" placeholder="Uzunluk (U)" required>
+                                        <span class="input-group-text">x</span>
+                                        <input type="number" step="0.1" class="form-control" id="koliGenislik" placeholder="Genişlik (G)" required>
+                                        <span class="input-group-text">x</span>
+                                        <input type="number" step="0.1" class="form-control" id="koliYukseklik" placeholder="Yükseklik (Y)" required>
+                                        <span class="input-group-text">cm</span>
+                                    </div>
+                                     <div class="invalid-feedback">Lütfen tüm koli boyutlarını girin.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="koliBrutAgirlik" class="form-label">Koli Brüt Ağırlığı (Kg)</label>
+                                    <div class="input-group">
+                                        <input type="number" step="0.01" class="form-control" id="koliBrutAgirlik" required>
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                    <div class="invalid-feedback">Lütfen koli brüt ağırlığını girin.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="koliNetAgirlik" class="form-label">Koli Net Ağırlığı (Kg)</label>
+                                    <div class="input-group">
+                                        <input type="number" step="0.01" class="form-control" id="koliNetAgirlik" readonly>
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                    <div class="form-text">Ürün ağırlığı ve adedine göre otomatik hesaplanabilir.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="koliHacmi" class="form-label">Koli Hacmi (m³)</label>
+                                    <div class="calculated-value" id="koliHacmiHesaplanan">-</div>
+                                    <div class="form-text">Boyutlara göre otomatik hesaplanır.</div>
+                                </div>
+                                 <div class="col-md-6">
+                                    <label for="koliMalzemesi" class="form-label">Koli Malzemesi</label>
+                                    <input type="text" class="form-control" id="koliMalzemesi" placeholder="Örn: Oluklu Mukavva B Dalga">
+                                </div>
+                                 <div class="col-md-6">
+                                    <label for="koliBarkodu" class="form-label">Koli Barkodu (GTIN-14 / ITF-14)</label>
+                                    <input type="text" class="form-control" id="koliBarkodu">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <i class="bi bi-stack"></i> Palet Bilgileri
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="paletTipi" class="form-label">Palet Tipi</label>
+                                    <select class="form-select" id="paletTipi">
+                                        <option value="euro_80x120" selected>Euro Palet (80cm x 120cm)</option>
+                                        <option value="standart_100x120">Standart Palet (100cm x 120cm)</option>
+                                        <option value="custom">Özel Boyut (Aşağıya Girin)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-8" id="customPaletBoyutlari" style="display:none;">
+                                     <label class="form-label">Özel Palet Boyutları (cm)</label>
+                                     <div class="input-group">
+                                        <input type="number" class="form-control" id="paletUzunlukCustom" placeholder="Uzunluk">
+                                        <span class="input-group-text">x</span>
+                                        <input type="number" class="form-control" id="paletGenislikCustom" placeholder="Genişlik">
+                                        <span class="input-group-text">cm</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="palettekiKoliSayisi" class="form-label">Paletteki Koli Sayısı</label>
+                                    <input type="number" class="form-control" id="palettekiKoliSayisi" required min="1">
+                                    <div class="invalid-feedback">Lütfen paletteki koli sayısını girin.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="palettekiUrunAdedi" class="form-label">Paletteki Toplam Ürün Adedi</label>
+                                    <div class="calculated-value" id="palettekiUrunAdediHesaplanan">-</div>
+                                    <div class="form-text">Koli içi adet ve koli sayısına göre otomatik hesaplanır.</div>
+                                </div>
+                                 <div class="col-md-4">
+                                    <label for="paletYuksekligi" class="form-label">Yüklü Palet Yüksekliği (cm)</label>
+                                     <div class="input-group">
+                                        <input type="number" step="0.1" class="form-control" id="paletYuksekligi" required>
+                                        <span class="input-group-text">cm</span>
+                                    </div>
+                                     <div class="invalid-feedback">Lütfen yüklü palet yüksekliğini girin.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="paletBrutAgirlik" class="form-label">Yüklü Palet Brüt Ağırlığı (Kg)</label>
+                                    <div class="input-group">
+                                        <input type="number" step="0.1" class="form-control" id="paletBrutAgirlik" readonly>
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                    <div class="form-text">Koli ağırlığı ve sayısına göre otomatik hesaplanır (palet dara ağırlığı eklenebilir).</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="paletDaraAgirligi" class="form-label">Boş Palet Dara Ağırlığı (Kg) (Opsiyonel)</label>
+                                    <div class="input-group">
+                                        <input type="number" step="0.1" class="form-control" id="paletDaraAgirligi" value="25"> <!-- Ortalama Euro palet -->
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
+                                 <div class="col-12">
+                                    <label for="paletlemeNotlari" class="form-label">Paletleme Şekli / Notları</label>
+                                    <textarea class="form-control" id="paletlemeNotlari" rows="2" placeholder="Örn: Streç film ile sarılı, Köşe bentli, Maks. 5 kat istif vb."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4 mb-5">
+                         <a href="#" class="btn btn-outline-secondary me-2"><i class="bi bi-x-lg"></i> İptal Et / Geri Dön</a>
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-save2-fill me-2"></i> Paketleme Bilgilerini Kaydet</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        // Bootstrap Form Doğrulama
+        (() => {
+          'use strict'; const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) { event.preventDefault(); event.stopPropagation(); }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+
+        // Otomatik Hesaplamalar
+        const koliIciAdetInput = document.getElementById('koliIciAdet');
+        const koliUzunlukInput = document.getElementById('koliUzunluk');
+        const koliGenislikInput = document.getElementById('koliGenislik');
+        const koliYukseklikInput = document.getElementById('koliYukseklik');
+        const koliHacmiHesaplanan = document.getElementById('koliHacmiHesaplanan');
+        const palettekiKoliSayisiInput = document.getElementById('palettekiKoliSayisi');
+        const palettekiUrunAdediHesaplanan = document.getElementById('palettekiUrunAdediHesaplanan');
+        const koliBrutAgirlikInput = document.getElementById('koliBrutAgirlik');
+        const paletDaraAgirligiInput = document.getElementById('paletDaraAgirligi');
+        const paletBrutAgirlikHesaplanan = document.getElementById('paletBrutAgirlik');
+        // Varsayılan ürün net ağırlığı (bu dinamik olarak üründen/varyanttan gelmeli)
+        const urunNetAgirligiKg = 0.46; // 500ml yağ yaklaşık 0.46 kg + şişe/kapak vs.
+
+        function calculateKoliHacmi() {
+            const u = parseFloat(koliUzunlukInput.value) / 100; // cm to m
+            const g = parseFloat(koliGenislikInput.value) / 100; // cm to m
+            const y = parseFloat(koliYukseklikInput.value) / 100; // cm to m
+            if (!isNaN(u) && !isNaN(g) && !isNaN(y)) {
+                koliHacmiHesaplanan.textContent = (u * g * y).toFixed(4) + " m³";
+            } else {
+                koliHacmiHesaplanan.textContent = "-";
+            }
+        }
+
+        function calculatePalettekiUrunAdedi() {
+            const koliAdet = parseInt(koliIciAdetInput.value);
+            const paletKoli = parseInt(palettekiKoliSayisiInput.value);
+            if (!isNaN(koliAdet) && !isNaN(paletKoli)) {
+                palettekiUrunAdediHesaplanan.textContent = (koliAdet * paletKoli) + " Adet";
+            } else {
+                palettekiUrunAdediHesaplanan.textContent = "-";
+            }
+        }
+        function calculatePaletBrutAgirlik() {
+            const koliAgirlik = parseFloat(koliBrutAgirlikInput.value);
+            const paletKoli = parseInt(palettekiKoliSayisiInput.value);
+            const paletDara = parseFloat(paletDaraAgirligiInput.value) || 0; // Dara yoksa 0
+            if (!isNaN(koliAgirlik) && !isNaN(paletKoli)) {
+                 paletBrutAgirlikHesaplanan.value = ((koliAgirlik * paletKoli) + paletDara).toFixed(2);
+            } else {
+                 paletBrutAgirlikHesaplanan.value = "";
+            }
+        }
+         // Koli Net Ağırlığı (Opsiyonel - Eğer ürün başına ağırlık biliniyorsa)
+        // const koliNetAgirlikInput = document.getElementById('koliNetAgirlik');
+        // function calculateKoliNetAgirlik() {
+        //     const koliAdet = parseInt(koliIciAdetInput.value);
+        //     if (!isNaN(koliAdet) && urunNetAgirligiKg) {
+        //         koliNetAgirlikInput.value = (koliAdet * urunNetAgirligiKg).toFixed(2);
+        //     }
+        // }
+
+
+        [koliUzunlukInput, koliGenislikInput, koliYukseklikInput].forEach(input => {
+            if(input) input.addEventListener('input', calculateKoliHacmi);
+        });
+        [koliIciAdetInput, palettekiKoliSayisiInput].forEach(input => {
+            if(input) input.addEventListener('input', calculatePalettekiUrunAdedi);
+        });
+        [koliBrutAgirlikInput, palettekiKoliSayisiInput, paletDaraAgirligiInput].forEach(input => {
+             if(input) input.addEventListener('input', calculatePaletBrutAgirlik);
+        });
+        // if(koliIciAdetInput && koliNetAgirlikInput) koliIciAdetInput.addEventListener('input', calculateKoliNetAgirlik);
+
+
+        // Palet Tipi Değişikliği
+        const paletTipiSelect = document.getElementById('paletTipi');
+        const customPaletBoyutlariDiv = document.getElementById('customPaletBoyutlari');
+        if (paletTipiSelect && customPaletBoyutlariDiv) {
+            paletTipiSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customPaletBoyutlariDiv.style.display = 'block';
+                } else {
+                    customPaletBoyutlariDiv.style.display = 'none';
+                }
+            });
+        }
+
+        // Form Gönderimi (Simülasyon)
+        const paketlemeForm = document.getElementById('paketlemeForm');
+        if (paketlemeForm) {
+            paketlemeForm.addEventListener('submit', function(event) {
+                 if (this.checkValidity()) {
+                    event.preventDefault();
+                    const formData = new FormData(this);
+                    const data = {
+                        // Otomatik hesaplananları da ekleyelim
+                        koliHacmi: koliHacmiHesaplanan.textContent,
+                        palettekiToplamUrun: palettekiUrunAdediHesaplanan.textContent,
+                        paletToplamBrutAgirlik: paletBrutAgirlikHesaplanan.value
+                    };
+                    formData.forEach((value, key) => data[key] = value);
+
+                    console.log("Gönderilecek Paketleme Verisi:", data);
+                    alert("Paketleme bilgileri başarıyla kaydedildi! (Simülasyon)");
+                    // this.reset();
+                    // this.classList.remove('was-validated');
+                 }
+            });
+        }
+
+    </script>
+</body>
+</html>

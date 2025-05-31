@@ -3,30 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-key"></i> Kullanıcı Yetki Yönetimi</h3>
         </div>
     </div>
-    
-    <!-- Hata ve Başarı Mesajları -->
-    <asp:Panel ID="pnlHata" runat="server" CssClass="alert alert-block alert-danger fade in" Visible="false">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="fa fa-times"></i>
-        </button>
-        <h4><i class="fa fa-times-circle"></i> Hata!</h4>
-        <asp:Label ID="lblHata" runat="server" Text=""></asp:Label>
-    </asp:Panel>
-    
-    <asp:Panel ID="pnlBasari" runat="server" CssClass="alert alert-block alert-success fade in" Visible="false">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="fa fa-times"></i>
-        </button>
-        <h4><i class="fa fa-check-circle"></i> Başarılı!</h4>
-        <asp:Label ID="lblBasari" runat="server" Text=""></asp:Label>
-    </asp:Panel>
     
     <div class="row">
         <div class="col-md-12">

@@ -58,8 +58,9 @@ public partial class yonetim_Ayarlar : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "Ayarlar yüklenirken hata oluştu: " + ex.Message;
+            //pnlHata.Visible = true;
+            //lblHata.Text = "Ayarlar yüklenirken hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Ayarla", "Ayarlar yüklenirken hata oluştu:" + ex.Message);
         }
     }
     
@@ -108,8 +109,9 @@ public partial class yonetim_Ayarlar : System.Web.UI.Page
                     }
                     else
                     {
-                        pnlHata.Visible = true;
-                        lblHata.Text = "Sadece JPG, JPEG, PNG ve GIF formatında resim yükleyebilirsiniz.";
+                        //pnlHata.Visible = true;
+                        //lblHata.Text = "Sadece JPG, JPEG, PNG ve GIF formatında resim yükleyebilirsiniz.";
+                        MessageHelper.ShowErrorMessage(this, "Ayarla", "Sadece JPG, JPEG, PNG ve GIF formatında resim yükleyebilirsiniz.");
                         return;
                     }
                 }
@@ -120,14 +122,16 @@ public partial class yonetim_Ayarlar : System.Web.UI.Page
                 // Session'daki şirket adını güncelle
                 Session["SirketAdi"] = sirket.SirketAdi;
                 
-                pnlBasari.Visible = true;
-                lblBasari.Text = "Ayarlar başarıyla güncellendi.";
+                //pnlBasari.Visible = true;
+                //lblBasari.Text = "Ayarlar başarıyla güncellendi.";
+                MessageHelper.ShowSuccessMessage(this, "Ayarla", "Ayarlar başarıyla güncellendi.");
             }
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "Ayarlar kaydedilirken hata oluştu: " + ex.Message;
+            //pnlHata.Visible = true;
+            //lblHata.Text = "Ayarlar kaydedilirken hata oluştu: " + ex.Message;
+            MessageHelper.ShowSuccessMessage(this, "Ayarla", "Ayarlar kaydedilirken hata oluştu: " + ex.Message);
         }
     }
     
@@ -144,8 +148,9 @@ public partial class yonetim_Ayarlar : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "E-posta ayarları kaydedilirken hata oluştu: " + ex.Message;
+            //pnlHata.Visible = true;
+            //lblHata.Text = "E-posta ayarları kaydedilirken hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Ayarla", "E-posta ayarları kaydedilirken hata oluştu: " + ex.Message);
         }
     }
     
@@ -183,13 +188,15 @@ public partial class yonetim_Ayarlar : System.Web.UI.Page
                 }
             }
             
-            pnlBasari.Visible = true;
-            lblBasari.Text = "Test e-postası başarıyla gönderildi.";
+            //pnlBasari.Visible = true;
+            //lblBasari.Text = "Test e-postası başarıyla gönderildi.";
+            MessageHelper.ShowSuccessMessage(this, "Ayarla", "Test e-postası başarıyla gönderildi. ");
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "E-posta gönderilirken hata oluştu: " + ex.Message;
+            //pnlHata.Visible = true;
+            //lblHata.Text = "E-posta gönderilirken hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Ayarla", "E-posta gönderilirken hata oluştu:  " + ex.Message);
         }
     }
 } 

@@ -5,14 +5,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    
-    <!-- Modern CSS -->
-    <link href="/App_Themes/serdarnas_admin_flat/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="/App_Themes/serdarnas_admin_flat/css/style.css" rel="stylesheet" />
-    <link href="/App_Themes/serdarnas_admin_flat/css/style-responsive.css" rel="stylesheet" />
-
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <section class="panel">
@@ -214,7 +206,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Butonlar -->
                     <div class="form-group mt-4">
                         <div class="col-sm-12 text-right">
@@ -226,6 +217,9 @@
             </section>
         </div>
     </div>
+
+</asp:Content>
+<asp:Content runat="server"  ID="scripts" ContentPlaceHolderID="scripts">
 
     <!-- JavaScript -->
     <script src="/App_Themes/serdarnas_admin_flat/js/jquery.js"></script>

@@ -12,19 +12,9 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <div class="alert alert-info">
-                                <asp:Panel ID="pnlHata" runat="server" CssClass="alert alert-danger mb-3" Visible="false">
-                                    <asp:Label ID="lblHata" runat="server" Text=""></asp:Label>
-                                </asp:Panel>
-
-                                <!-- Başarı mesajı için panel -->
-                                <asp:Panel ID="pnlBasari" runat="server" CssClass="alert alert-success mb-3" Visible="false">
-                                    <asp:Label ID="lblBasari" runat="server" Text=""></asp:Label>
-                                </asp:Panel>
                                 <p>
                                     <strong>Bilgi:</strong> Excel dosyası ile toplu Mustahsil yüklemesi yapabilirsiniz.
                                     Lütfen aşağıdaki şablonu kullanarak Mustahsil bilgilerini hazırlayınız.
-                               
-                               
                                 </p>
                                 <p>
                                     <strong>Gerekli Kolonlar:</strong> Ad ,Soyad ,Telefon ,E-Posta ,Adres ,TC Kimlik No ,Bakiyesi ,Banka Bilgileri</p>

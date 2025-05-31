@@ -47,8 +47,9 @@ public partial class yonetim_KullaniciYetki : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "Kullanıcılar yüklenirken hata oluştu: " + ex.Message;
+            //pnlHata.Visible = true;
+            //lblHata.Text = "Kullanıcılar yüklenirken hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Kullanici Yetkileri", "Kullanıcılar yüklenirken hata oluştu: " + ex.Message);
         }
     }
     
@@ -91,8 +92,9 @@ public partial class yonetim_KullaniciYetki : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            pnlHata.Visible = true;
-            lblHata.Text = "Yetkiler yüklenirken hata oluştu: " + ex.Message;
+            //pnlHata.Visible = true;
+            //lblHata.Text = "Yetkiler yüklenirken hata oluştu: " + ex.Message;
+            MessageHelper.ShowErrorMessage(this, "Kullanici Yetkileri", "Yetkiler yüklenirken hata oluştu:" + ex.Message);
         }
     }
     
@@ -134,13 +136,15 @@ public partial class yonetim_KullaniciYetki : System.Web.UI.Page
                 // Yetkiler yeniden yüklenir
                 YetkileriYukle(kullaniciID);
                 
-                pnlBasari.Visible = true;
-                lblBasari.Text = "Kullanıcı yetkileri güncellendi.";
+                //pnlBasari.Visible = true;
+                //lblBasari.Text = "Kullanıcı yetkileri güncellendi.";
+                MessageHelper.ShowSuccessMessage(this, "Kullanici Yetkileri", "Kullanıcı yetkileri güncellendi.");
             }
             catch (Exception ex)
             {
-                pnlHata.Visible = true;
-                lblHata.Text = "Yetki güncellenirken hata oluştu: " + ex.Message;
+                //pnlHata.Visible = true;
+                //lblHata.Text = "Yetki güncellenirken hata oluştu: " + ex.Message;
+                MessageHelper.ShowErrorMessage(this, "Kullanici Yetkileri", "Yetki güncellenirken hata oluştu: " + ex.Message);
             }
         }
     }

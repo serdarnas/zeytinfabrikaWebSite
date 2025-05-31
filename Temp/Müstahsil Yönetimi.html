@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Müstahsil Kaydı - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (İlk tasarıma uygun) -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* Açık gri arka plan */
+            font-family: sans-serif;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0; /* Navbar yüksekliği kadar boşluk */
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #343a40; /* Koyu sidebar */
+        }
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .nav-link {
+            color: #adb5bd;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out;
+            font-weight: 500;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            background-color: #495057;
+        }
+        .nav-link .bi {
+            margin-right: 8px;
+            font-size: 1.1rem;
+            vertical-align: text-bottom;
+        }
+        .navbar-brand {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: 1.2rem;
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+            color: #fff;
+        }
+        .navbar .navbar-toggler {
+            top: .25rem;
+            right: 1rem;
+        }
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #e9ecef;
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+        }
+        .card-header i {
+            margin-right: 8px;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+         .btn-success { /* Başarı butonu için özel renk (opsiyonel) */
+            background-color: #198754;
+            border-color: #198754;
+        }
+        .btn-success:hover {
+            background-color: #157347;
+            border-color: #146c43;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#"> <i class="bi bi-box-arrow-right"></i> Çıkış Yap</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-basket3-fill"></i> Zeytin Kabul</a></li>
+                        <!-- Diğer menü öğeleri -->
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-person-plus-fill"></i> Müstahsil Yönetimi</a></li> <!-- Aktif -->
+                        <!-- Diğer menü öğeleri -->
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase"><span>Sistem</span><a class="link-secondary" href="#" aria-label="Ayarlar"><i class="bi bi-gear-fill"></i></a></h6>
+                    <ul class="nav flex-column mb-2">
+                        <!-- Sistem menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Sayfa Başlığı ve Breadcrumb -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb bg-transparent p-0 m-0">
+                            <li class="breadcrumb-item"><a href="#">Müstahsil Yönetimi</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Yeni Müstahsil Kaydı</li>
+                          </ol>
+                        </nav>
+                        <h1 class="h2"><i class="bi bi-person-vcard-fill text-success"></i> Yeni Müstahsil Kaydı Oluştur</h1>
+                    </div>
+                </div>
+
+                <!-- Yeni Müstahsil Kayıt Formu -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-pencil-square"></i> Müstahsil Bilgileri
+                    </div>
+                    <div class="card-body">
+                        <form id="yeniMustahsilForm" class="row g-3 needs-validation" novalidate>
+                            <div class="col-md-6">
+                                <label for="adSoyad" class="form-label">Adı Soyadı</label>
+                                <input type="text" class="form-control" id="adSoyad" placeholder="Müstahsilin tam adı" required>
+                                <div class="invalid-feedback">Lütfen müstahsilin adını ve soyadını girin.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tcKimlikNo" class="form-label">T.C. Kimlik Numarası</label>
+                                <input type="text" class="form-control" id="tcKimlikNo" placeholder="11 haneli T.C. Kimlik No" pattern="\d{11}" maxlength="11" required>
+                                <div class="invalid-feedback">Lütfen geçerli 11 haneli T.C. Kimlik Numarası girin.</div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="telefon" class="form-label">Telefon Numarası</label>
+                                <input type="tel" class="form-control" id="telefon" placeholder="05XX XXX XX XX" pattern="[0-9\s]{10,14}" required>
+                                <div class="invalid-feedback">Lütfen geçerli bir telefon numarası girin.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="eposta" class="form-label">E-posta Adresi (Opsiyonel)</label>
+                                <input type="email" class="form-control" id="eposta" placeholder="ornek@mail.com">
+                                <div class="invalid-feedback">Lütfen geçerli bir e-posta adresi girin.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="vergiNo" class="form-label">Vergi Numarası (Şirket ise)</label>
+                                <input type="text" class="form-control" id="vergiNo" placeholder="Şirketler için vergi no">
+                            </div>
+
+                            <div class="col-12">
+                                <label for="adres" class="form-label">Adres</label>
+                                <textarea class="form-control" id="adres" rows="2" placeholder="Açık adres bilgisi" required></textarea>
+                                <div class="invalid-feedback">Lütfen adres bilgisini girin.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="il" class="form-label">İl</label>
+                                <input type="text" class="form-control" id="il" required>
+                                <div class="invalid-feedback">Lütfen il bilgisini girin.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ilce" class="form-label">İlçe</label>
+                                <input type="text" class="form-control" id="ilce" required>
+                                <div class="invalid-feedback">Lütfen ilçe bilgisini girin.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="koyMahalle" class="form-label">Köy / Mahalle</label>
+                                <input type="text" class="form-control" id="koyMahalle">
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <h5 class="text-muted">Tarımsal Bilgiler</h5>
+                                <hr class="my-2">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cksNo" class="form-label">ÇKS (Çiftçi Kayıt Sistemi) No (Opsiyonel)</label>
+                                <input type="text" class="form-control" id="cksNo" placeholder="TR ile başlayan numara">
+                            </div>
+                             <div class="col-md-6">
+                                <label for="tarlaBilgileri" class="form-label">Tarla/Bahçe Bilgileri (Opsiyonel)</label>
+                                <input type="text" class="form-control" id="tarlaBilgileri" placeholder="Ada, Parsel, Mevkii vb.">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="urettigiUrunler" class="form-label">Başlıca Ürettiği Zeytin Türleri (Opsiyonel)</label>
+                                <input type="text" class="form-control" id="urettigiUrunler" placeholder="Gemlik, Ayvalık, Memecik vb.">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="organikSertifika" class="form-label">Organik Sertifika No (Varsa)</label>
+                                <input type="text" class="form-control" id="organikSertifika">
+                            </div>
+
+                             <div class="col-12 mt-4">
+                                <h5 class="text-muted">Banka Bilgileri (Ödeme için)</h5>
+                                <hr class="my-2">
+                            </div>
+                             <div class="col-md-6">
+                                <label for="bankaAdi" class="form-label">Banka Adı</label>
+                                <input type="text" class="form-control" id="bankaAdi" placeholder="Ödeme yapılacak banka">
+                            </div>
+                             <div class="col-md-6">
+                                <label for="ibanNo" class="form-label">IBAN Numarası</label>
+                                <input type="text" class="form-control" id="ibanNo" placeholder="TRXX XXXX XXXX XXXX XXXX XX" pattern="TR\d{24}"> <!-- Basit IBAN formatı -->
+                                <div class="invalid-feedback">Lütfen geçerli bir IBAN girin (Örn: TR123456...).</div>
+                            </div>
+
+                             <div class="col-12">
+                                <label for="mustahsilNotlari" class="form-label">Müstahsil Hakkında Notlar (Opsiyonel)</label>
+                                <textarea class="form-control" id="mustahsilNotlari" rows="3" placeholder="Özel anlaşmalar, geçmiş kayıtlar vb."></textarea>
+                            </div>
+
+                            <div class="col-12 text-end mt-4">
+                                <a href="#" class="btn btn-outline-secondary me-2">İptal Et / Listeye Dön</a>
+                                <button class="btn btn-success btn-lg" type="submit"><i class="bi bi-person-check-fill me-2"></i> Müstahsili Kaydet</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Bootstrap Form Doğrulama JS
+        (() => {
+          'use strict'; const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+
+        // Form Gönderimi (Simülasyon)
+        const yeniMustahsilForm = document.getElementById('yeniMustahsilForm');
+        if (yeniMustahsilForm) {
+            yeniMustahsilForm.addEventListener('submit', function(event) {
+                if (this.checkValidity()) {
+                    event.preventDefault(); // Simülasyon için normal submit'i durdur
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => data[key] = value);
+
+                    console.log("Gönderilecek Müstahsil Verisi:", data);
+                    alert("Yeni müstahsil başarıyla kaydedildi! (Simülasyon)\nVeriler konsola yazdırıldı.");
+
+                    // Başarılı kayıt sonrası formu temizle veya başka bir sayfaya yönlendir
+                    // this.reset();
+                    // this.classList.remove('was-validated');
+                    // window.location.href = 'mustahsil-listesi.html'; // Örneğin
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

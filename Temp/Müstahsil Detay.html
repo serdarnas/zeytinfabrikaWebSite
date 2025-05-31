@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müstahsil Detay: [Müstahsil Adı] - Yönetim Paneli</title>
+    <!-- Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (İlk tasarıma geri dönüldü) -->
+    <style>
+        :root {
+            --brand-primary-green: #1E4620; --brand-light-green: #4A7856; --brand-gold: #D4AF37;
+            --brand-text-light: #FFFFFF; --brand-text-dark: #212529; --brand-text-muted: #6c757d;
+            --brand-bg-light: #f9fbf8; --brand-border-color: #dee2e6;
+            --facility-olive-color: #8FBC8F; --facility-oil-color: #DAA520;
+            --status-paid: #28a745; --status-unpaid: #dc3545; --status-partial: #ffc107; --status-returned: #6c757d;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-bg-light); color: var(--brand-text-dark); font-size: 0.95rem; }
+
+        /* Sidebar (Tam Genişlik - İlk Tasarım) */
+        .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; padding: 56px 0 0; background-color: var(--brand-primary-green); box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.1); }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 56px); padding-top: 1rem; overflow-x: hidden; overflow-y: auto; }
+        .sidebar .nav-link { color: rgba(255, 255, 255, 0.75); font-weight: 400; padding: 0.75rem 1rem; border-left: 3px solid transparent; transition: all .15s ease; }
+        .sidebar .nav-link .bi { color: var(--brand-gold); opacity: 0.9; margin-right: 12px; font-size: 1rem; vertical-align: middle; margin-top: -3px; width: 20px; text-align: center; }
+        .sidebar .nav-link:hover { background-color: var(--brand-light-green); color: var(--brand-text-light); border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active { background-color: var(--brand-light-green); color: var(--brand-text-light); font-weight: 600; border-left-color: var(--brand-gold); }
+        .sidebar .nav-link.active .bi { color: var(--brand-text-light); opacity: 1; }
+        .sidebar-heading { color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.5rem 1rem; }
+
+        /* Navbar */
+        .navbar.sticky-top { background-color: var(--brand-text-light); box-shadow: 0 .125rem .25rem rgba(0,0,0,.05) !important; padding-top: 0.3rem; padding-bottom: 0.3rem; z-index: 1020; /* Sidebar'dan yüksek */ }
+        .navbar-brand { background-color: transparent; box-shadow: none; color: var(--brand-primary-green) !important; font-weight: 700; font-size: 1.3rem; padding-left: 1.5rem !important; }
+        .navbar-brand .bi { color: var(--brand-gold); margin-right: 5px; font-size: 1.4rem; vertical-align: middle; }
+        .navbar-toggler { border: none; }
+        .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(30, 70, 32, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+
+        /* Main Content */
+        main { padding: 1.5rem; } /* Bootstrap kolonları ile hizalanacak */
+
+        /* Diğer Stiller (Kart, Tablo, Sekme, Badge vb. önceki koddan) */
+         .card { border: none; border-radius: 0.6rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); margin-bottom: 1.5rem; }
+        .card-header { background-color: transparent; border-bottom: 1px solid #eee; color: var(--brand-light-green); font-weight: 600; padding: 0.8rem 1.2rem; }
+        .card-header i { color: var(--brand-gold); margin-right: 8px; }
+        .card-body { padding: 1.5rem; }
+        .table thead th { background-color: var(--brand-bg-light); color: var(--brand-primary-green); border-bottom: 2px solid var(--brand-light-green); font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.5px; vertical-align: middle; padding: 0.8rem 0.75rem; }
+        .table tbody td { vertical-align: middle; padding: 0.8rem 0.75rem; border-bottom-color: #f0f0f0; color: var(--brand-text-dark); }
+        .table-hover > tbody > tr:hover > * { background-color: rgba(212, 175, 55, 0.08); color: var(--brand-text-dark); }
+        .nav-tabs { border-bottom: 2px solid var(--brand-light-green); }
+        .nav-tabs .nav-link { margin-bottom: -2px; border: none; border-bottom: 2px solid transparent; padding: 0.8rem 1.2rem; color: var(--brand-text-muted); font-weight: 600; background-color: transparent; transition: all .2s ease; }
+        .nav-tabs .nav-link:hover { border-bottom-color: var(--brand-gold); color: var(--brand-primary-green); }
+        .nav-tabs .nav-link.active { color: var(--brand-primary-green); background-color: var(--brand-bg-light); border-bottom-color: var(--brand-light-green); }
+        .nav-tabs .nav-link .bi { margin-right: 5px; color: var(--brand-gold); }
+        .nav-tabs .nav-link.active .bi { color: var(--brand-light-green); }
+        .tab-content { padding-top: 1.5rem; }
+        .tab-pane { background-color: #fff; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .status-paid { color: var(--status-paid); font-weight: 600; }
+        .status-unpaid { color: var(--status-unpaid); font-weight: 600; }
+        .status-partial { color: var(--status-partial); font-weight: 600; }
+        .status-returned { color: var(--status-returned); font-style: italic; }
+        .badge-paid { background-color: var(--status-paid); }
+        .badge-unpaid { background-color: var(--status-unpaid); }
+        .badge-partial { background-color: var(--status-partial); color: var(--brand-text-dark) !important; }
+        .badge-returned { background-color: var(--status-returned); }
+        .action-buttons button { margin-left: 4px; }
+        .summary-value { font-size: 1.4rem; font-weight: 700; }
+    </style>
+</head>
+<body> <!-- Mini sidebar sınıfı kaldırıldı -->
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-diagram-3-fill"></i> Zeytin & Yağ A.Ş.
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+         <div class="w-100 px-3 d-flex justify-content-end align-items-center">
+             <!-- Sağ navbar içeriği (Profil vb.) -->
+         </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü (Tam Genişlik) -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse"> <!-- Bootstrap kolonları geri geldi -->
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-pie-chart-fill"></i> Ana Panel</a></li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-uppercase">İş Akışı</h6>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-box-arrow-in-down"></i> Zeytin Kabul</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-arrow-repeat"></i> Üretim Takibi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-inboxes-fill"></i> Stok Yönetimi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-clipboard-check-fill"></i> Kalite Kontrol</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-box-seam-fill"></i> Paketleme & Dolum</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-truck"></i> Sevkiyat Yönetimi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-graph-up-arrow"></i> Raporlar</a></li>
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-uppercase">Yönetim</h6>
+                    <ul class="nav flex-column mb-2">
+                         <!-- Müstahsiller linki ekleyip aktif yapabiliriz -->
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-person-bounding-box"></i> Müstahsiller</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-people-fill"></i> Müşteriler</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-buildings-fill"></i> Tesis Yönetimi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-tools"></i> Bakım Takvimi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-sliders"></i> Sistem Ayarları</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı (Bootstrap kolonları ile) -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Sayfa Başlığı ve Müstahsil Adı -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb small bg-transparent p-0 m-0">
+                            <li class="breadcrumb-item"><a href="#">Müstahsiller</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Müstahsil Detayı</li>
+                          </ol>
+                        </nav>
+                        <h1 class="h2"><i class="bi bi-person-vcard-fill text-success"></i> Müstahsil: Mehmet Çiftçi</h1>
+                    </div>
+                     <div class="btn-toolbar mb-2 mb-md-0">
+                         <button type="button" class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i> Müstahsil Bilgilerini Düzenle</button>
+                        <!-- <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash3"></i> Müstahsili Sil</button> --> <!-- Opsiyonel -->
+                    </div>
+                </div>
+
+                <!-- Müstahsil Bilgileri ve Finansal Özet -->
+                 <div class="row mb-4">
+                     <div class="col-lg-7">
+                         <div class="card h-100">
+                             <div class="card-header"><i class="bi bi-info-circle-fill"></i> Müstahsil Bilgileri</div>
+                             <div class="card-body">
+                                 <div class="row">
+                                     <div class="col-md-6 mb-2"><strong>TC Kimlik/Vergi No:</strong> 11122233344</div>
+                                     <div class="col-md-6 mb-2"><strong>Telefon:</strong> 05YY YYY YY YY</div>
+                                     <div class="col-md-6 mb-2"><strong>E-posta:</strong> mehmet.ciftci@email.com</div>
+                                     <div class="col-md-6 mb-2"><strong>ÇKS No:</strong> TR16000111</div>
+                                     <div class="col-12 mb-2"><strong>Banka IBAN:</strong> TRXX XXXX XXXX XXXX XXXX XX</div>
+                                     <div class="col-12 mb-2"><strong>Adres/Tarla Konumu:</strong> Dağköyü Mevkii, Parsel 105, İznik/Bursa</div>
+                                     <div class="col-12"><strong>Notlar:</strong> Gemlik türü ağırlıklı. Erken hasat getirir.</div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                      <div class="col-lg-5">
+                          <div class="card h-100 bg-light">
+                               <div class="card-header"><i class="bi bi-wallet2"></i> Finansal Durum</div>
+                               <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <small class="text-muted text-uppercase">TOPLAM ALIM TUTARI</small>
+                                        <div class="summary-value text-primary">₺78,500.00</div>
+                                    </div>
+                                     <div class="mb-3">
+                                        <small class="text-muted text-uppercase">YAPILAN TOPLAM ÖDEME</small>
+                                        <div class="summary-value text-success">₺65,000.00</div>
+                                    </div>
+                                     <div class="mb-3">
+                                        <small class="text-muted text-uppercase">İADE/DÜZELTME TUTARI</small>
+                                        <div class="summary-value text-secondary">₺500.00</div>
+                                    </div>
+                                    <hr>
+                                     <div>
+                                        <small class="text-muted text-uppercase">ÖDENECEK BAKİYE</small>
+                                        <div class="summary-value text-danger">₺13,000.00</div>
+                                        <small>(Fabrika Borcu)</small>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+                 </div>
+
+                <!-- İşlem Sekmeleri -->
+                <ul class="nav nav-tabs mb-3" id="mustahsilDetayTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="alimlar-tab" data-bs-toggle="tab" data-bs-target="#alimlar-pane" type="button" role="tab" aria-controls="alimlar-pane" aria-selected="true"><i class="bi bi-basket3-fill"></i> Alımlar / Zeytin Kabul</button>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="yapilan-odemeler-tab" data-bs-toggle="tab" data-bs-target="#yapilan-odemeler-pane" type="button" role="tab" aria-controls="yapilan-odemeler-pane" aria-selected="false"><i class="bi bi-cash-coin"></i> Yapılan Ödemeler</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="iadeler-duzeltmeler-tab" data-bs-toggle="tab" data-bs-target="#iadeler-duzeltmeler-pane" type="button" role="tab" aria-controls="iadeler-duzeltmeler-pane" aria-selected="false"><i class="bi bi-arrow-repeat"></i> İadeler / Düzeltmeler</button>
+                    </li>
+                </ul>
+
+                <!-- Sekme İçerikleri -->
+                <div class="tab-content" id="mustahsilDetayTabContent">
+                    <!-- 1. Alımlar / Zeytin Kabul Sekmesi -->
+                    <div class="tab-pane fade show active" id="alimlar-pane" role="tabpanel" aria-labelledby="alimlar-tab" tabindex="0">
+                         <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Müstahsilden Yapılan Alımlar</h5>
+                         </div>
+                         <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>Kabul No</th><th>Tarih</th><th>Zeytin Türü</th><th>Miktar (Kg)</th><th>Fiyat/Kg</th><th>Toplam Tutar</th><th>Ödeme Durumu</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Örnek Alım Kayıtları -->
+                                    <tr><td>ZK108</td><td>28.10.2023</td><td>Gemlik</td><td>2500</td><td>₺18.00</td><td>₺45,000.00</td><td><span class="badge badge-unpaid">Ödenmedi</span></td><td><a href="#" class="btn btn-outline-info btn-sm py-0 px-1" title="Kabul Detayı"><i class="bi bi-search"></i></a></td></tr>
+                                    <tr><td>ZK095</td><td>15.10.2023</td><td>Gemlik</td><td>1800</td><td>₺17.50</td><td>₺31,500.00</td><td><span class="badge badge-paid">Ödendi</span></td><td><a href="#" class="btn btn-outline-info btn-sm py-0 px-1" title="Kabul Detayı"><i class="bi bi-search"></i></a></td></tr>
+                                    <tr><td>ZK080</td><td>01.10.2023</td><td>Ayvalık</td><td>1200</td><td>₺15.00</td><td><del>₺18,000.00</del> ₺17,500.00</td><td><span class="badge badge-paid">Ödendi (Düzeltme Sonrası)</span></td><td><a href="#" class="btn btn-outline-info btn-sm py-0 px-1" title="Kabul Detayı"><i class="bi bi-search"></i></a></td></tr>
+                                    <!-- Diğer Alımlar -->
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+
+                    <!-- 2. Yapılan Ödemeler Sekmesi -->
+                    <div class="tab-pane fade" id="yapilan-odemeler-pane" role="tabpanel" aria-labelledby="yapilan-odemeler-tab" tabindex="0">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Müstahsil'e Yapılan Ödemeler</h5>
+                              <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="add"><i class="bi bi-plus-lg"></i> Yeni Ödeme Yap</button>
+                         </div>
+                         <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>Ödeme ID</th><th>Tarih</th><th>Tutar</th><th>Yöntem</th><th>Açıklama/Ref</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Örnek Ödeme Kayıtları -->
+                                    <tr>
+                                        <td>MÖD-512</td><td>16.10.2023</td><td>₺31,500.00</td><td>Banka Havalesi</td><td>ZK095 için</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="edit" data-id="512"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Müstahsil Ödemesi', 512)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td>MÖD-505</td><td>03.10.2023</td><td>₺10,000.00</td><td>Nakit</td><td>ZK080 Avans</td>
+                                         <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="edit" data-id="505"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Müstahsil Ödemesi', 505)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td>MÖD-508</td><td>10.10.2023</td><td>₺7,500.00</td><td>Banka Havalesi</td><td>ZK080 Kalan (Düzeltme Sonrası)</td>
+                                         <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#odemeModal" data-mode="edit" data-id="508"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Müstahsil Ödemesi', 508)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                    <!-- Diğer Ödemeler -->
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+
+                    <!-- 3. İadeler / Düzeltmeler Sekmesi -->
+                    <div class="tab-pane fade" id="iadeler-duzeltmeler-pane" role="tabpanel" aria-labelledby="iadeler-duzeltmeler-tab" tabindex="0">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5>Müstahsile Yapılan İadeler / Alım Düzeltmeleri</h5>
+                               <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#iadeModal" data-mode="add"><i class="bi bi-plus-lg"></i> Yeni Kayıt Ekle</button>
+                         </div>
+                          <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover">
+                                <thead>
+                                    <tr><th>Kayıt ID</th><th>Tarih</th><th>İlgili Kabul No</th><th>Tutar Farkı</th><th>Tür</th><th>Neden</th><th>İşlem</th></tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Örnek İade/Düzeltme -->
+                                    <tr>
+                                        <td>MDZ-101</td><td>05.10.2023</td><td>ZK080</td><td class="text-danger">-₺500.00</td><td>Düzeltme</td><td>Tartım Farkı</td>
+                                        <td class="action-buttons">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="Düzenle" data-bs-toggle="modal" data-bs-target="#iadeModal" data-mode="edit" data-id="101"><i class="bi bi-pencil-fill"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1" title="Sil" onclick="confirmDelete('Müstahsil Düzeltme', 101)"><i class="bi bi-trash-fill"></i></button>
+                                        </td>
+                                    </tr>
+                                     <!-- Diğer Kayıtlar -->
+                                </tbody>
+                            </table>
+                         </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Ödeme Yapma Modalı (Müstahsil için) -->
+    <div class="modal fade" id="odemeModal" tabindex="-1" aria-labelledby="odemeModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="odemeModalLabel"><i class="bi bi-send-check-fill"></i> Müstahsil Ödeme Kaydı</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="odemeForm" class="needs-validation" novalidate>
+              <div class="modal-body">
+                  <input type="hidden" id="odemeId">
+                  <input type="hidden" id="odemeMode" value="add">
+                  <div class="mb-3">
+                      <label for="odemeTarih" class="form-label">Ödeme Tarihi</label>
+                      <input type="datetime-local" class="form-control" id="odemeTarih" required>
+                      <div class="invalid-feedback">Lütfen geçerli bir tarih seçin.</div>
+                  </div>
+                   <div class="mb-3">
+                      <label for="odemeTutar" class="form-label">Tutar (₺)</label>
+                      <input type="number" step="0.01" class="form-control" id="odemeTutar" required min="0.01">
+                       <div class="invalid-feedback">Lütfen geçerli bir tutar girin.</div>
+                  </div>
+                   <div class="mb-3">
+                      <label for="odemeYontem" class="form-label">Ödeme Yöntemi</label>
+                      <select class="form-select" id="odemeYontem" required>
+                          <option selected disabled value="">Seçiniz...</option>
+                          <option value="Havale">Banka Havalesi/EFT</option>
+                          <option value="Nakit">Nakit</option>
+                          <option value="Cek">Çek</option>
+                          <option value="Mahsup">Mahsup</option>
+                          <option value="Diger">Diğer</option>
+                      </select>
+                       <div class="invalid-feedback">Lütfen ödeme yöntemini seçin.</div>
+                  </div>
+                   <div class="mb-3">
+                      <label for="odemeRef" class="form-label">Referans/Açıklama</label>
+                      <input type="text" class="form-control" id="odemeRef" placeholder="Kabul No, Avans, Kalan Ödeme vb.">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-save-fill me-1"></i> Ödemeyi Kaydet</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- İade / Düzeltme Modalı (Müstahsil için) -->
+     <div class="modal fade" id="iadeModal" tabindex="-1" aria-labelledby="iadeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                <h5 class="modal-title" id="iadeModalLabel"><i class="bi bi-arrow-repeat"></i> İade / Düzeltme Kaydı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+               <form id="iadeForm" class="needs-validation" novalidate>
+                 <div class="modal-body">
+                      <input type="hidden" id="iadeId">
+                      <input type="hidden" id="iadeMode" value="add">
+                      <div class="mb-3">
+                           <label for="iadeTarih" class="form-label">Kayıt Tarihi</label>
+                           <input type="date" class="form-control" id="iadeTarih" required>
+                           <div class="invalid-feedback">Lütfen tarih seçin.</div>
+                      </div>
+                       <div class="mb-3">
+                           <label for="iadeKabulNo" class="form-label">İlgili Kabul No (Opsiyonel)</label>
+                           <input type="text" class="form-control" id="iadeKabulNo" placeholder="Örn: ZK080">
+                      </div>
+                       <div class="mb-3">
+                           <label for="iadeTutar" class="form-label">Tutar Farkı (₺)</label>
+                           <input type="number" step="0.01" class="form-control" id="iadeTutar" placeholder="İade ise pozitif (+), Düzeltme/Kesinti ise negatif (-)" required>
+                           <div class="invalid-feedback">Lütfen geçerli bir tutar girin.</div>
+                      </div>
+                       <div class="mb-3">
+                          <label for="iadeTip" class="form-label">Kayıt Tipi</label>
+                          <select class="form-select" id="iadeTip" required>
+                              <option selected disabled value="">Seçiniz...</option>
+                              <option value="Iade">İade (Ürün Geri Verildi)</option>
+                              <option value="Duzeltme">Düzeltme (Fiyat/Miktar Farkı)</option>
+                              <option value="Kesinti">Kesinti (Analiz vb.)</option>
+                          </select>
+                           <div class="invalid-feedback">Lütfen tipi seçin.</div>
+                      </div>
+                      <div class="mb-3">
+                           <label for="iadeNeden" class="form-label">Neden/Açıklama</label>
+                           <textarea class="form-control" id="iadeNeden" rows="2" required></textarea>
+                           <div class="invalid-feedback">Lütfen nedeni açıklayın.</div>
+                      </div>
+                 </div>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-warning text-dark"><i class="bi bi-save-fill me-1"></i> Kaydı Kaydet</button>
+                 </div>
+               </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Gerekli Scriptler -->
+    <script>
+        // Bootstrap Form Doğrulama JS
+        (() => {
+          'use strict'; const forms = document.querySelectorAll('.needs-validation');
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) { event.preventDefault(); event.stopPropagation(); }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+
+        // Ödeme Modalı Yönetimi
+        const odemeModal = document.getElementById('odemeModal');
+        const odemeForm = document.getElementById('odemeForm');
+        if (odemeModal) {
+            odemeModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget; const mode = button.getAttribute('data-mode');
+                const modalTitle = odemeModal.querySelector('.modal-title');
+                const odemeIdInput = odemeModal.querySelector('#odemeId');
+                const odemeModeInput = odemeModal.querySelector('#odemeMode');
+                odemeModeInput.value = mode;
+                if (mode === 'edit') {
+                    modalTitle.textContent = 'Müstahsil Ödeme Düzenle';
+                    const odemeId = button.getAttribute('data-id');
+                    // Burada backend'den ilgili ödeme verileri çekilip form doldurulmalı (şimdilik sadece ID alıyoruz)
+                    odemeIdInput.value = odemeId;
+                    // Örnek: odemeTutarInput.value = fetchedData.amount;
+                } else {
+                    modalTitle.textContent = 'Yeni Müstahsil Ödeme Yap';
+                    odemeForm.reset(); odemeIdInput.value = '';
+                    const now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                    odemeModal.querySelector('#odemeTarih').value = now.toISOString().slice(0,16);
+                }
+                odemeForm.classList.remove('was-validated');
+            });
+            odemeForm.addEventListener('submit', event => {
+                 event.preventDefault(); event.stopPropagation();
+                 if (!odemeForm.checkValidity()) { odemeForm.classList.add('was-validated'); return; }
+                 const mode = odemeForm.querySelector('#odemeMode').value;
+                 const paymentData = { id: odemeForm.querySelector('#odemeId').value || null, /* diğer form verileri */ };
+                 console.log(`Müstahsil Ödeme (${mode}):`, paymentData);
+                 alert(`Müstahsil Ödemesi başarıyla ${mode === 'edit' ? 'güncellendi' : 'kaydedildi'}! (Simülasyon)`);
+                 bootstrap.Modal.getInstance(odemeModal).hide();
+                 // Tablo yenileme fonksiyonu çağrılabilir.
+             });
+        }
+
+        // İade Modalı Yönetimi (Benzer şekilde)
+         const iadeModal = document.getElementById('iadeModal');
+         const iadeForm = document.getElementById('iadeForm');
+         if(iadeModal) {
+             iadeModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget; const mode = button.getAttribute('data-mode');
+                const modalTitle = iadeModal.querySelector('.modal-title');
+                const iadeIdInput = iadeModal.querySelector('#iadeId');
+                const iadeModeInput = iadeModal.querySelector('#iadeMode');
+                iadeModeInput.value = mode;
+                 if (mode === 'edit') {
+                     modalTitle.textContent = 'İade / Düzeltme Düzenle';
+                     const iadeId = button.getAttribute('data-id');
+                     iadeIdInput.value = iadeId;
+                     // Backend'den veri çekip formu doldur
+                 } else {
+                     modalTitle.textContent = 'Yeni İade / Düzeltme Ekle';
+                     iadeForm.reset(); iadeIdInput.value = '';
+                      const today = new Date().toISOString().split('T')[0];
+                      iadeModal.querySelector('#iadeTarih').value = today;
+                 }
+                  iadeForm.classList.remove('was-validated');
+             });
+             iadeForm.addEventListener('submit', event => {
+                 event.preventDefault(); event.stopPropagation();
+                 if (!iadeForm.checkValidity()) { iadeForm.classList.add('was-validated'); return; }
+                 const mode = iadeForm.querySelector('#iadeMode').value;
+                 const returnData = { id: iadeForm.querySelector('#iadeId').value || null, /* diğer form verileri */ };
+                 console.log(`İade/Düzeltme (${mode}):`, returnData);
+                 alert(`İade/Düzeltme başarıyla ${mode === 'edit' ? 'güncellendi' : 'kaydedildi'}! (Simülasyon)`);
+                 bootstrap.Modal.getInstance(iadeModal).hide();
+                  // Tablo yenileme fonksiyonu çağrılabilir.
+             });
+         }
+
+        // Silme Onayı Fonksiyonu
+        function confirmDelete(itemType, itemId) {
+            if (confirm(`${itemType} ID: ${itemId}\nBu kaydı silmek istediğinizden emin misiniz? Bu işlem finansal kayıtları etkileyebilir ve geri alınamaz!`)) {
+                console.log(`${itemType} ${itemId} siliniyor...`);
+                alert(`${itemType} başarıyla silindi! (Simülasyon)`);
+                // Backend'e silme isteği gönder ve tabloyu yenile.
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

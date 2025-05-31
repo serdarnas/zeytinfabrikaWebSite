@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeytinyağı Fabrikası İşletme Paneli</title>
+    <!-- Google Fonts (Opsiyonel - Daha şık bir görünüm için) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (Paneli daha şık hale getirmek için) -->
+    <style>
+        :root {
+            --bs-primary-rgb: 74, 120, 86; /* Koyu Yeşil Tonu */
+            --bs-secondary-rgb: 212, 175, 55; /* Altın Sarısı Tonu */
+            --sidebar-bg: #2c3e50; /* Koyu Mavi/Gri Sidebar */
+            --sidebar-link-color: rgba(255, 255, 255, 0.8);
+            --sidebar-link-hover-color: #ffffff;
+            --sidebar-link-active-bg: #1abc9c; /* Turkuaz Aktif Link */
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif; /* Daha modern bir font */
+            background-color: #f4f7f6; /* Çok açık yeşilimsi gri arka plan */
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 56px 0 0; /* Navbar yüksekliği kadar boşluk */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: var(--sidebar-bg);
+        }
+        @media (max-width: 767.98px) {
+            .sidebar { padding-top: 0; } /* Mobilde navbar sabit değilse */
+        }
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 56px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto; /* Scrollability */
+        }
+        .nav-link {
+            font-weight: 600;
+            color: var(--sidebar-link-color);
+            padding: 0.8rem 1rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .nav-link:hover {
+            color: var(--sidebar-link-hover-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left-color: var(--bs-secondary);
+        }
+        .nav-link.active {
+            color: var(--sidebar-link-hover-color);
+            background-color: var(--sidebar-link-active-bg);
+            border-left-color: var(--bs-secondary); /* Aktifken altın rengi çizgi */
+        }
+        .nav-link .bi {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            vertical-align: middle;
+            width: 20px; /* İkon hizalaması için */
+            display: inline-block;
+            text-align: center;
+        }
+        .navbar-brand {
+            padding: .8rem 1rem;
+            background-color: rgba(0, 0, 0, .2);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .navbar-brand .bi {
+            color: var(--bs-secondary); /* Altın rengi ikon */
+        }
+        .navbar {
+             /* box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important; */
+        }
+
+        .card {
+            border: none;
+            border-radius: 0.5rem; /* Daha yumuşak köşeler */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+        }
+        .card-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            color: var(--bs-primary);
+            padding: 1rem 1.25rem;
+        }
+        .card-header .bi {
+            color: var(--bs-secondary); /* Altın rengi ikon */
+            margin-right: 8px;
+        }
+        .card-icon {
+            font-size: 3rem;
+            opacity: 0.15;
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--bs-primary);
+        }
+        .stat-card .card-body {
+            padding: 1.5rem;
+        }
+        .stat-card .stat-label {
+             font-size: 0.85rem;
+             font-weight: 600;
+             color: #6c757d;
+             margin-bottom: 0.3rem;
+             text-transform: uppercase;
+        }
+         .stat-card .stat-value {
+             font-size: 2rem;
+             font-weight: 700;
+             color: var(--bs-primary);
+         }
+         .stat-card .stat-meta {
+             font-size: 0.8rem;
+             color: #6c757d;
+             margin-top: 0.5rem;
+         }
+         .progress {
+             height: 8px;
+             border-radius: 5px;
+         }
+         /* Chart placeholder */
+         .chart-placeholder {
+             min-height: 300px;
+             background-color: #e9ecef;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             color: #6c757d;
+             border-radius: .25rem;
+             font-style: italic;
+         }
+         /* Tablo Stilleri */
+         .table thead th {
+             background-color: #e9ecef; /* Açık gri başlık */
+             border-bottom: 2px solid #dee2e6;
+             font-weight: 700;
+             color: #495057;
+             text-transform: uppercase;
+             font-size: 0.8rem;
+             letter-spacing: 0.5px;
+         }
+         .table tbody td {
+             vertical-align: middle;
+         }
+         .table-hover > tbody > tr:hover {
+              background-color: rgba(var(--bs-primary-rgb), 0.05); /* Hafif yeşil hover */
+         }
+         .badge {
+             font-size: 0.75rem;
+             font-weight: 600;
+             padding: 0.4em 0.7em;
+         }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow-sm">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı A.Ş.
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Arama ve Sağ İkonlar -->
+        <div class="w-100 px-3 d-none d-md-flex justify-content-end align-items-center">
+             <!-- <input class="form-control form-control-sm w-50 bg-light border-0" type="text" placeholder="Ara..." aria-label="Ara"> -->
+             <ul class="navbar-nav flex-row ms-auto align-items-center">
+                 <li class="nav-item me-3">
+                    <a class="nav-link text-white position-relative" href="#">
+                        <i class="bi bi-bell-fill fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3 <span class="visually-hidden">okunmamış bildirim</span>
+                        </span>
+                    </a>
+                 </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://via.placeholder.com/32/D4AF37/FFFFFF?text=AY" alt="Profil" width="32" height="32" class="rounded-circle me-2">
+                        Ahmet Yılmaz
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person-fill me-2"></i>Profil</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear-fill me-2"></i>Ayarlar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap</a></li>
+                    </ul>
+                 </li>
+             </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <i class="bi bi-speedometer2"></i>
+                                Ana Panel
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-basket3-fill"></i>
+                                Zeytin Kabul
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-gear-wide-connected"></i>
+                                Üretim Takibi
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-droplet-half"></i>
+                                Yağ Stokları
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-clipboard2-check-fill"></i>
+                                Kalite Kontrol
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-bar-chart-line-fill"></i>
+                                Raporlar
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-truck"></i>
+                                Sevkiyat ve Satış
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-uppercase" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                        <span>Yönetim</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-people-fill"></i>
+                                Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-tools"></i>
+                                Makine Bakımı
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-sliders"></i>
+                                Sistem Ayarları
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Ana Panel</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Paylaş</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Dışa Aktar</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            Bu Hafta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Özet İstatistik Kartları -->
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card bg-primary text-white">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="bi bi-basket2-fill fs-1 opacity-75"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="stat-label text-white-50">BUGÜNKÜ GİRİŞ</div>
+                                        <div class="stat-value">12.5 Ton</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card bg-success text-white">
+                             <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="bi bi-arrow-repeat fs-1 opacity-75"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="stat-label text-white-50">AKTİF ÜRETİM</div>
+                                        <div class="stat-value">#P087 <span class="fs-6 fw-normal">(%75)</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                         <div class="card stat-card bg-warning text-dark">
+                              <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                         <i class="bi bi-droplet-fill fs-1 opacity-75"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="stat-label text-black-50">N. SIZMA STOK</div>
+                                        <div class="stat-value">8.250 Lt</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card bg-danger text-white">
+                              <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="bi bi-exclamation-triangle-fill fs-1 opacity-75"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="stat-label text-white-50">KRİTİK UYARILAR</div>
+                                        <div class="stat-value">2 Adet</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grafik ve Tablo Alanı -->
+                <div class="row mt-2">
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div class="card-header">
+                               <i class="bi bi-graph-up"></i> Haftalık Üretim Grafiği (Lt)
+                            </div>
+                            <div class="card-body">
+                                <!-- Buraya bir grafik kütüphanesi (Chart.js, ApexCharts vb.) ile gerçek grafik entegre edilebilir -->
+                                <div class="chart-placeholder">
+                                    Grafik Alanı
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                         <div class="card h-100"> <!-- h-100 ile yüksekliği eşitledik -->
+                             <div class="card-header">
+                                <i class="bi bi-list-ul"></i> Son Tank Hareketleri
+                             </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-sm mb-0"> <!-- table-sm daha sıkışık -->
+                                        <thead>
+                                            <tr>
+                                                <th>Tank</th>
+                                                <th>Miktar (Lt)</th>
+                                                <th>İşlem</th>
+                                                <th>Tarih</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                             <td>TNK-01</td>
+                                             <td><span class="text-success">+ 500</span></td>
+                                             <td><span class="badge bg-primary">Üretimden Giriş</span></td>
+                                             <td><small>10:30</small></td>
+                                          </tr>
+                                          <tr>
+                                             <td>TNK-03</td>
+                                              <td><span class="text-danger">- 1200</span></td>
+                                             <td><span class="badge bg-info">Doluma Transfer</span></td>
+                                              <td><small>09:15</small></td>
+                                          </tr>
+                                          <tr>
+                                              <td>TNK-02</td>
+                                             <td><span class="text-success">+ 850</span></td>
+                                             <td><span class="badge bg-primary">Üretimden Giriş</span></td>
+                                              <td><small>Dün 18:00</small></td>
+                                          </tr>
+                                           <tr>
+                                             <td>TNK-04</td>
+                                             <td><span class="text-danger">- 2000</span></td>
+                                             <td><span class="badge bg-secondary">Sevkiyat</span></td>
+                                              <td><small>Dün 15:20</small></td>
+                                          </tr>
+                                          <tr>
+                                             <td>TNK-01</td>
+                                              <td><span class="text-warning">Kontrol</span></td>
+                                             <td><span class="badge bg-warning text-dark">Numune Alındı</span></td>
+                                              <td><small>Dün 11:00</small></td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                             <div class="card-footer text-center bg-light border-top-0">
+                                 <a href="#" class="text-muted fw-bold"><small>Tüm Hareketleri Gör <i class="bi bi-arrow-right-short"></i></small></a>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Örnek Ek Bölüm: Bekleyen Görevler -->
+                 <div class="row mt-2">
+                     <div class="col-12">
+                         <div class="card">
+                             <div class="card-header">
+                                 <i class="bi bi-check2-square"></i> Bekleyen Görevler ve Onaylar
+                             </div>
+                             <div class="card-body">
+                                 <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Zeytin Partisi #ZK108 Kalite Onayı Bekliyor
+                                        <div>
+                                             <span class="badge bg-warning text-dark me-2">Kalite</span>
+                                             <button class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i> Onayla</button>
+                                             <button class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i> Reddet</button>
+                                        </div>
+                                    </li>
+                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Tank TNK-03 Temizlik Kaydı Girilecek
+                                         <div>
+                                             <span class="badge bg-info me-2">Bakım</span>
+                                             <button class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Kayıt Gir</button>
+                                        </div>
+                                    </li>
+                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Sevkiyat #S1053 için Çıkış Belgesi Hazırlanacak
+                                         <div>
+                                             <span class="badge bg-secondary me-2">Lojistik</span>
+                                             <button class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-text"></i> Belge Oluştur</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Opsiyonel: Chart.js gibi kütüphaneler buraya eklenebilir -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <!-- <script>
+        // Grafik oluşturma kodları buraya gelebilir
+        // Örnek: const ctx = document.getElementById('myChart'); new Chart(ctx, {...});
+    </script> -->
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeytinyağı Fabrikası İşletme Paneli - Toggle Sidebar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* Açık gri arka plan */
+            font-family: sans-serif;
+            /* JS ile eklenecek sınıf için geçiş */
+            /* transition: padding-left var(--sidebar-transition-speed) ease-in-out; */ /* Bu artık main'e margin ile yapılıyor */
+        }
+
+        :root {
+            --sidebar-width-mini: 70px;
+            --sidebar-width-full: 240px; /* Tam açık sidebar genişliği */
+            --sidebar-bg-color: #343a40;
+            --sidebar-link-color: #adb5bd;
+            --sidebar-link-hover-color: #fff;
+            --sidebar-link-active-bg: #495057;
+            --sidebar-transition-speed: 0.3s;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100; /* Mobilde navbar-toggler'ın üzerinde olması için 100 */
+            padding: 48px 0 0; /* Navbar yüksekliği */
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: var(--sidebar-bg-color);
+            width: var(--sidebar-width-mini); /* Başlangıçta dar */
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: width var(--sidebar-transition-speed) ease-in-out;
+        }
+        /* Bootstrap'in mobil menü açma/kapama (`.collapse.show`) için ayar */
+        @media (max-width: 767.98px) {
+            .sidebar {
+                /* width: var(--sidebar-width-full); Bu satır kaldırıldı, çünkü genişlik .sidebar-expanded ile yönetilecek */
+                margin-left: calc(var(--sidebar-width-full) * -1); /* Başlangıçta tamamen gizli */
+                transition: margin-left var(--sidebar-transition-speed) ease-in-out, width var(--sidebar-transition-speed) ease-in-out;
+                z-index: 1030; /* Navbar'ın üzerinde */
+            }
+            .sidebar.collapse.show {
+                margin-left: 0;
+                width: var(--sidebar-width-full); /* Açılınca tam genişlik */
+            }
+             /* Mobil menü açıkken metinler her zaman görünür olmalı */
+            .sidebar.collapse.show .sidebar-link-text {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                transition-delay: 0s !important; /* Gecikmeyi kaldır */
+            }
+            .sidebar.collapse.show .nav-link {
+                padding-left: 1.25rem !important; /* Tam açık padding */
+            }
+             /* Mobil menü açıkken toggle butonuyla daraltma/genişletme olmasın */
+            .sidebar.sidebar-expanded {
+                /* width: var(--sidebar-width-full) !important; Bu zaten default olacak */
+            }
+             body.sidebar-expanded main {
+                margin-left: 0 !important; /* Mobilde main her zaman tam ekran */
+            }
+        }
+
+
+        .sidebar.sidebar-expanded {
+            width: var(--sidebar-width-full); /* Genişletilmiş sidebar */
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+        }
+
+        .sidebar .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            color: var(--sidebar-link-color);
+            transition: background-color var(--sidebar-transition-speed) ease-in-out, color var(--sidebar-transition-speed) ease-in-out, padding-left var(--sidebar-transition-speed) ease-in-out;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            justify-content: flex-start;
+            padding-left: calc((var(--sidebar-width-mini) - (1.3rem * 1)) / 2); /* İkonu ortalamak için (ikon genişliği 1.3rem varsayıldı) */
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link .bi {
+            font-size: 1.3rem;
+            text-align: center;
+            margin-right: 12px;
+            transition: color var(--sidebar-transition-speed) ease-in-out;
+            flex-shrink: 0;
+            width: 30px; /* İkon hizalaması için */
+        }
+
+        .sidebar-link-text {
+            display: inline-block;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity calc(var(--sidebar-transition-speed) * 0.7) ease-in-out, visibility 0s linear calc(var(--sidebar-transition-speed) * 0.7);
+            pointer-events: none;
+            color: var(--sidebar-link-color);
+            margin-left: 5px;
+        }
+
+        .sidebar.sidebar-expanded .nav-link {
+            padding-left: 1.25rem; /* Tam açıkken normal padding */
+        }
+
+        .sidebar.sidebar-expanded .sidebar-link-text {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition-delay: calc(var(--sidebar-transition-speed) * 0.1); /* Metnin görünmesi için hafif gecikme */
+        }
+
+        .sidebar .nav-link:not(.active):hover {
+            background-color: rgba(255,255,255,0.05);
+            color: var(--sidebar-link-hover-color);
+        }
+        .sidebar .nav-link:not(.active):hover .bi,
+        .sidebar.sidebar-expanded .nav-link:not(.active):hover .sidebar-link-text { /* Metin sadece genişken hover'da renk değiştirsin */
+            color: var(--sidebar-link-hover-color);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--sidebar-link-active-bg);
+        }
+        .sidebar .nav-link.active .bi,
+        .sidebar.sidebar-expanded .nav-link.active .sidebar-link-text {
+            color: var(--sidebar-link-hover-color);
+        }
+
+        .sidebar .sidebar-heading {
+            padding: 0.75rem calc((var(--sidebar-width-mini) - (1.1rem * 1)) / 2);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            white-space: nowrap;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: padding-left var(--sidebar-transition-speed) ease-in-out;
+        }
+        .sidebar.sidebar-expanded .sidebar-heading {
+            padding-left: 1.25rem;
+        }
+        .sidebar .sidebar-heading .bi {
+             font-size: 1.1rem;
+             margin-right: 12px;
+             flex-shrink: 0;
+             width: 30px;
+        }
+        .sidebar .sidebar-heading .sidebar-link-text {
+            padding-left: 0;
+            margin-left: 5px;
+        }
+
+        main {
+            margin-left: var(--sidebar-width-mini);
+            padding: 1.5rem;
+            transition: margin-left var(--sidebar-transition-speed) ease-in-out;
+            /* Mobilde sidebar açıldığında main'in kaymaması için padding-top */
+            padding-top: calc(48px + 1.5rem); /* Navbar yüksekliği + normal padding */
+        }
+        @media (min-width: 768px) {
+             main {
+                padding-top: 1.5rem; /* Masaüstünde normal padding */
+             }
+        }
+
+
+        body.sidebar-expanded main {
+            margin-left: var(--sidebar-width-full);
+        }
+
+        #sidebarToggleDesktop {
+            padding: 0.375rem 0.75rem;
+            margin-left: 10px;
+            border: none; /* Buton kenarlığını kaldır */
+        }
+         #sidebarToggleDesktop:focus {
+             box-shadow: none; /* Odaklanınca gölge olmasın */
+         }
+        #sidebarToggleDesktop:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        /* Navbar Stilleri */
+        .navbar-brand {
+            padding-top: .75rem; padding-bottom: .75rem; font-size: 1.2rem;
+            background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+            color: #fff;
+        }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }
+        .navbar.sticky-top { z-index: 1020; }
+        /* Ana Panel İçerik Stilleri */
+        .card { border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: none; }
+        .card-header { background-color: #fff; border-bottom: 1px solid #eee; font-weight: 600; color: #343a40; padding: 1rem 1.25rem; }
+        .card-header i { margin-right: 8px; color: #0d6efd; }
+        .card-body { padding: 1.5rem; }
+        .card-icon { font-size: 3rem; opacity: 0.15; position: absolute; right: 25px; top: 50%; transform: translateY(-50%); }
+        .card-title-sm { font-size: 0.85rem; font-weight: 600; color: #6c757d; margin-bottom: 0.3rem; text-transform: uppercase; }
+        .card-value-lg { font-size: 2rem; font-weight: 700; color: #212529; }
+        .chart-placeholder { min-height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; color: #6c757d; font-style: italic; border-radius: .25rem; }
+        .table thead th { background-color: #e9ecef; border-bottom: 2px solid #dee2e6; font-weight: 600; color: #495057; }
+        .table-hover > tbody > tr:hover { background-color: rgba(0,0,0,0.03); }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-auto me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <!-- Sidebar Toggle Butonu (Sadece masaüstünde görünür) -->
+        <button class="btn btn-link text-white d-none d-md-inline-block" type="button" id="sidebarToggleDesktop" title="Menüyü Aç/Kapa">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <!-- Mobil için olan toggler -->
+        <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100 mx-md-3" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#"> <i class="bi bi-box-arrow-right"></i> <span class="d-none d-sm-inline">Çıkış Yap</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="d-md-block sidebar collapse">
+                <div class="position-sticky sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" title="Ana Panel">
+                                <i class="bi bi-house-door-fill"></i>
+                                <span class="sidebar-link-text">Ana Panel</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" title="Zeytin Kabul">
+                                <i class="bi bi-basket3-fill"></i>
+                                <span class="sidebar-link-text">Zeytin Kabul</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" title="Üretim Takibi">
+                                <i class="bi bi-gear-wide-connected"></i>
+                                <span class="sidebar-link-text">Üretim Takibi</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#" title="Yağ Stokları">
+                                <i class="bi bi-droplet-half"></i>
+                                <span class="sidebar-link-text">Yağ Stokları</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" title="Kalite Kontrol">
+                                <i class="bi bi-clipboard2-check-fill"></i>
+                                <span class="sidebar-link-text">Kalite Kontrol</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#" title="Raporlar">
+                                <i class="bi bi-bar-chart-line-fill"></i>
+                                <span class="sidebar-link-text">Raporlar</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#" title="Sevkiyat ve Satış">
+                                <i class="bi bi-truck"></i>
+                                <span class="sidebar-link-text">Sevkiyat ve Satış</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading mt-3 mb-1 px-0">
+                        <i class="bi bi-gear-fill"></i>
+                        <span class="sidebar-link-text">Sistem</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" title="Kullanıcı Yönetimi">
+                                <i class="bi bi-people-fill"></i>
+                                <span class="sidebar-link-text">Kullanıcı Yönetimi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" title="Makine Bakım Takvimi">
+                                <i class="bi bi-tools"></i>
+                                <span class="sidebar-link-text">Makine Bakım Takvimi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" title="Bildirimler">
+                                <i class="bi bi-bell-fill"></i>
+                                <span class="sidebar-link-text">Bildirimler</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Ana Panel</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Paylaş</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Dışa Aktar</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            Bu Hafta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Özet Kartları -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body position-relative">
+                                <h6 class="card-title-sm text-success">Bugünkü Zeytin Girişi</h6>
+                                <span class="card-value-lg">12.5 <small class="fs-6">Ton</small></span>
+                                <i class="bi bi-basket2-fill card-icon text-success"></i>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0 pt-0">
+                                <small class="text-muted"> <i class="bi bi-arrow-up-short text-success"></i> Düne göre %5 artış </small>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body position-relative">
+                                <h6 class="card-title-sm text-primary">Aktif Üretim Partisi</h6>
+                                <span class="card-value-lg">#P087</span>
+                                <div class="progress mt-2" style="height: 6px;">
+                                  <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small class="text-muted mt-1 d-block">Tamamlanma: %75</small>
+                                <i class="bi bi-arrow-repeat card-icon text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body position-relative">
+                                <h6 class="card-title-sm text-warning">N. Sızma Stoğu</h6>
+                                <span class="card-value-lg">8.250 <small class="fs-6">Lt</small></span>
+                                <i class="bi bi-droplet-fill card-icon text-warning"></i>
+                            </div>
+                             <div class="card-footer bg-transparent border-top-0 pt-0">
+                                <small class="text-muted">Tank Doluluk Ort: %65</small>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body position-relative">
+                                <h6 class="card-title-sm text-danger">Kritik Kalite Uyarısı</h6>
+                                <span class="card-value-lg">2</span>
+                                <i class="bi bi-exclamation-triangle-fill card-icon text-danger"></i>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0 pt-0">
+                                <a href="#" class="text-danger stretched-link fw-bold"><small>Detayları Gör <i class="bi bi-arrow-right-short"></i></small></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grafik ve Tablo Alanı -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div class="card-header">
+                               <i class="bi bi-graph-up"></i> Haftalık Üretim Miktarı (Lt)
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    Grafik Alanı (Chart.js entegrasyonu gerekir)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                         <div class="card h-100">
+                             <div class="card-header">
+                                <i class="bi bi-list-task"></i> Son Aktiviteler
+                             </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                  <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                     <div><i class="bi bi-check-circle-fill text-success me-2"></i> Parti #P086 tamamlandı.</div>
+                                     <small class="text-muted">1s önce</small>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                     <div><i class="bi bi-box-seam-fill text-info me-2"></i> Yeni ambalaj stoğu geldi.</div>
+                                      <small class="text-muted">3s önce</small>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                     <div><i class="bi bi-funnel-fill text-warning me-2"></i> Filtreleme mak. bakıma alındı.</div>
+                                     <small class="text-muted">Dün</small>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                      <div><i class="bi bi-truck text-primary me-2"></i> Sipariş #S1052 sevk edildi.</div>
+                                      <small class="text-muted">Dün</small>
+                                  </li>
+                                </ul>
+                            </div>
+                             <div class="card-footer text-center bg-light">
+                                 <a href="#" class="text-muted fw-bold"><small>Tüm Aktiviteleri Gör <i class="bi bi-arrow-right-short"></i></small></a>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detaylı Tablo Örneği -->
+                 <div class="card">
+                     <div class="card-header">
+                         <i class="bi bi-table"></i> Aktif Tanklar ve Doluluk Oranları
+                     </div>
+                     <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-sm align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tank ID</th><th scope="col">Yağ Tipi</th><th scope="col">Kapasite (Lt)</th><th scope="col">Mevcut (Lt)</th>
+                                        <th scope="col" style="min-width: 150px;">Doluluk</th><th scope="col">Son Kontrol</th><th scope="col">Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TNK-01</td><td>N.S. Erken Hasat</td><td>5000</td><td>4150</td>
+                                        <td><div class="progress" title="83%"><div class="progress-bar bg-success" style="width: 83%;">83%</div></div></td>
+                                        <td>25.10.23</td><td><span class="badge bg-success">Aktif</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TNK-02</td><td>N.S. Olgun Hasat</td><td>5000</td><td>3100</td>
+                                        <td><div class="progress" title="62%"><div class="progress-bar bg-primary" style="width: 62%;">62%</div></div></td>
+                                        <td>25.10.23</td><td><span class="badge bg-success">Aktif</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TNK-03</td><td>Natürel Birinci</td><td>10000</td><td>1500</td>
+                                        <td><div class="progress" title="15%"><div class="progress-bar bg-danger" style="width: 15%;">15%</div></div></td>
+                                        <td>24.10.23</td><td><span class="badge bg-warning text-dark">Düşük</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>
+                 </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        const sidebar = document.getElementById('sidebarMenu');
+        const sidebarToggleDesktop = document.getElementById('sidebarToggleDesktop');
+        const body = document.body;
+
+        if (sidebarToggleDesktop && sidebar) {
+            sidebarToggleDesktop.addEventListener('click', () => {
+                sidebar.classList.toggle('sidebar-expanded');
+                body.classList.toggle('sidebar-expanded');
+
+                if (sidebar.classList.contains('sidebar-expanded')) {
+                    localStorage.setItem('sidebarState', 'expanded');
+                } else {
+                    localStorage.setItem('sidebarState', 'mini');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedState = localStorage.getItem('sidebarState');
+            if (window.innerWidth >= 768) { // Sadece masaüstünde durumu yükle
+                if (savedState === 'expanded' && sidebar && body) {
+                    sidebar.classList.add('sidebar-expanded');
+                    body.classList.add('sidebar-expanded');
+                } else if (sidebar && body) {
+                     sidebar.classList.remove('sidebar-expanded');
+                     body.classList.remove('sidebar-expanded');
+                }
+            } else if (sidebar && body) { // Mobilde her zaman dar başlasın (Bootstrap yönetir)
+                 sidebar.classList.remove('sidebar-expanded');
+                 body.classList.remove('sidebar-expanded');
+            }
+        });
+
+        // Mobil menü açıldığında body'e bir class ekleyip main'in kaymasını engellemek (opsiyonel)
+        if (sidebar) {
+            sidebar.addEventListener('show.bs.collapse', function () {
+                if (window.innerWidth < 768) { // Sadece mobilde
+                    body.style.overflow = 'hidden'; // Ana içerik kaymasın
+                }
+            });
+            sidebar.addEventListener('hidden.bs.collapse', function () {
+                 if (window.innerWidth < 768) {
+                    body.style.overflow = 'auto';
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

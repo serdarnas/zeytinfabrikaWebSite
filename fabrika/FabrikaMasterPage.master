@@ -21,6 +21,8 @@
     <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/font-awesome/css/font-awesome.css") %>" rel="stylesheet" />
     <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css") %>" rel="stylesheet" type="text/css" media="screen" />
     <link rel="stylesheet" href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/owl.carousel.css") %>" type="text/css">
+    <!-- Gritter CSS -->
+    <link rel="stylesheet" type="text/css" href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/gritter/css/jquery.gritter.css") %>" />
     <!-- Custom styles for this template -->
     <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/style.css") %>" rel="stylesheet">
     <link href="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/css/style-responsive.css") %>" rel="stylesheet" />
@@ -361,10 +363,11 @@
     <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/easy-pie-chart.js") %>"></script>
     <script src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/js/count.js") %>"></script>
 
+    <!-- Gritter -->
+    <script type="text/javascript" src="<%= ResolveUrl("~/App_Themes/serdarnas_admin_flat/assets/gritter/js/jquery.gritter.js") %>"></script>
+
     <script>
-
         //owl carousel
-
         $(document).ready(function () {
             $("#owl-demo").owlCarousel({
                 navigation: true,
@@ -372,17 +375,118 @@
                 paginationSpeed: 400,
                 singleItem: true,
                 autoPlay: true
-
             });
         });
 
         //custom select box
-
         $(function () {
             $('select.styled').customSelect();
         });
 
+        // Bildirim fonksiyonları
+        function showSuccessMessage(title, message, sticky) {
+            $.gritter.add({
+                title: '<i class="icon-ok-sign"></i> ' + title,
+                text: message,
+                sticky: sticky || false,
+                time: 6000,
+                class_name: 'gritter-success'
+            });
+        }
+
+        function showErrorMessage(title, message, sticky) {
+            $.gritter.add({
+                title: '<i class="icon-warning-sign"></i> ' + title,
+                text: message,
+                sticky: sticky || false,
+                time: 8000,
+                class_name: 'gritter-error'
+            });
+        }
+
+        function showInfoMessage(title, message, sticky) {
+            $.gritter.add({
+                title: '<i class="icon-info-sign"></i> ' + title,
+                text: message,
+                sticky: sticky || false,
+                time: 5000,
+                class_name: 'gritter-info'
+            });
+        }
+
+        function showWarningMessage(title, message, sticky) {
+            $.gritter.add({
+                title: '<i class="icon-exclamation-sign"></i> ' + title,
+                text: message,
+                sticky: sticky || false,
+                time: 7000,
+                class_name: 'gritter-warning'
+            });
+        }
     </script>
+
+    <!-- Ek stil tanımları -->
+    <style>
+        /* Tüm Gritter bildirimleri için temel stil */
+        .gritter-item-wrapper {
+            background: rgba(50, 50, 50, 0.92) !important;
+            border-radius: 4px !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        .gritter-title {
+            font-family: 'Arial', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
+            margin-bottom: 5px !important;
+        }
+        
+        .gritter-item {
+            font-family: 'Arial', sans-serif !important;
+            font-size: 13px !important;
+            box-shadow: none !important;
+            border-radius: 3px !important;
+            padding: 15px 15px 15px 13px !important;
+        }
+        
+        .gritter-close {
+            background: transparent !important;
+            width: 18px !important;
+            height: 18px !important;
+            font-size: 20px !important;
+            line-height: 17px !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .gritter-close:hover {
+            color: #ffffff !important;
+        }
+        
+        /* Başarı bildirimi - Yeşil */
+        .gritter-success .gritter-item {
+            background-color: #5CB85C !important;
+            border-left: 4px solid #3d8b3d !important;
+        }
+        
+        /* Hata bildirimi - Kırmızı */
+        .gritter-error .gritter-item {
+            background-color: #FF6B6B !important;
+            border-left: 4px solid #d43f3a !important;
+        }
+        
+        /* Uyarı bildirimi - Sarı */
+        .gritter-warning .gritter-item {
+            background-color: #F0AD4E !important;
+            border-left: 4px solid #df8a13 !important;
+        }
+        
+        /* Bilgi bildirimi - Mavi */
+        .gritter-info .gritter-item {
+            background-color: #5BC0DE !important;
+            border-left: 4px solid #28a1c5 !important;
+        }
+    </style>
 
 </body>
 </html>

@@ -140,6 +140,7 @@
 
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="/App_Themes/serdarnas_admin_flat/js/jquery.js"></script>
+        <script src="/App_Themes/serdarnas_admin_flat/assets/nestable/jquery.nestable.js"></script>
         <script src="/App_Themes/serdarnas_admin_flat/js/bootstrap.min.js"></script>
         <script class="include" type="text/javascript" src="/App_Themes/serdarnas_admin_flat/js/jquery.dcjqaccordion.2.7.js"></script>
         <script src="/App_Themes/serdarnas_admin_flat/js/jquery.scrollTo.min.js"></script>
@@ -163,6 +164,7 @@
                 });
             });
         </script>
+        <asp:ContentPlaceHolder id="scripts" runat="server" />
     </form>
 </body>
 </html>

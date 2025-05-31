@@ -50,7 +50,7 @@ public partial class fabrika_Musteriler_MusteriDetay : System.Web.UI.Page
         lblmail.Text = gelenMusteriler.Email;
         lblVergiDairesi.Text = gelenMusteriler.VergiDairesi;
         lblVergiNo.Text = gelenMusteriler.VergiNo;
-        lblNot.Text = gelenMusteriler.Notlar;
+        
         hplinkMusteriGuncelle.NavigateUrl = "YeniMusteri.aspx?id=" + gelenMusteriler.MusteriID;
         hplinkSatisYap.NavigateUrl = "MusteriSatis.aspx?id=" + gelenMusteriler.MusteriID;
     }
