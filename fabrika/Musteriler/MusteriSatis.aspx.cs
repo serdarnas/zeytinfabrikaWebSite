@@ -499,8 +499,7 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                 // Oluşturma tarihi
                 yeniSatis.OlusturmaTarihi = DateTime.Now;
                 
-                // Ödeme durumu - varsayılan olarak "Ödenmedi"
-                yeniSatis.OdemeDurumu = "Ödenmedi";
+              
                 
                 // Toplamları hesapla
                 decimal toplamTutar = 0;

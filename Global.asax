@@ -16,62 +16,40 @@
 
     void Application_Error(object sender, EventArgs e)
     {
+        // Skip if we're already on the error page
+        if (Request.Url.AbsolutePath.ToLower().Contains("fabrika_customerrors.aspx"))
+            return;
+
         try
         {
-            // Son hatayı al
             Exception ex = Server.GetLastError();
-            if (ex != null)
+            if (ex == null) return;
+
+            string errorId = Guid.NewGuid().ToString();
+            HttpContext.Current.Session["Error_" + errorId] = ex.ToString();
+            HttpContext.Current.Server.ClearError();
+
+            HttpException httpEx = ex as HttpException;
+            if (httpEx != null)
             {
-                // Hatayı logla
-                MessageHelper.LogError(ex);
-
-                // Hata tipine göre yönlendirme yap
-                if (ex is HttpException)
-                {
-                    HttpException httpEx = (HttpException)ex;
-                    Server.ClearError();
-                    Response.Clear();
-
-                    // Orijinal URL'i al
-                    string originalUrl = Request.Url.AbsolutePath;
-
-                    //switch (httpEx.GetHttpCode())
-                    //{
-                    //    case 404:
-                    //        Response.StatusCode = 404;
-                    //        Response.Redirect(string.Format("~/fabrika/Fabrika_customErrors.aspx?aspxerrorpath={0}", Server.UrlEncode(originalUrl)));
-                    //        break;
-
-                    //    default:
-                    //        Response.StatusCode = 500;
-                    //        Response.Redirect(string.Format("~/fabrika/Fabrika_customErrors.aspx?aspxerrorpath={0}", Server.UrlEncode(originalUrl)));
-                    //        break;
-                    //}
-                }
-                else
-                {
-                    // Sistem hataları için
-                    Server.ClearError();
-                    Response.Clear();
-                    Response.StatusCode = 500;
-                    Response.Redirect("~/fabrika/Fabrika_customErrors.aspx");
-                }
-            }
-        }
-        catch (Exception finalEx)
-        {
-            // Son çare: Eğer hata yönetimi sırasında hata oluşursa
-            try
-            {
-                Server.ClearError();
                 Response.Clear();
-                Response.Write("<html><body><h1>Sistem Hatası</h1><p>Beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize başvurun.</p></body></html>");
-                Response.End();
+                Response.StatusCode = httpEx.GetHttpCode();
             }
-            catch
+            else
             {
-                // Yapılacak bir şey kalmadı
+                Response.Clear();
+                Response.StatusCode = 500;
             }
+            
+            string redirectUrl = string.Format(
+                "~/fabrika/Fabrika_customErrors.aspx?errorId={0}", 
+                errorId
+            );
+            Response.Redirect(redirectUrl, false);
+        }
+        catch
+        {
+            // Avoid recursive errors
         }
     }
 

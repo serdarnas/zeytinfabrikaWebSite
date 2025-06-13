@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Müşteri Detay" Language="C#" MasterPageFile="~/fabrika/FabrikaMasterPage.master" AutoEventWireup="true" CodeFile="MusteriDetay.aspx.cs" Inherits="fabrika_Musteriler_MusteriDetay" %>
+<%@ Page Title="Müşteri Detay" Language="C#" MasterPageFile="~/fabrika/FabrikaMasterPage.master" AutoEventWireup="true" CodeFile="MusteriDetay.aspx.cs" Inherits="fabrika_Musteriler_MusteriDetay" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -17,9 +17,17 @@
                             <div class="mb-1"><i class="bi bi-person"></i> <asp:Label ID="lblYetkili" runat="server" /></div>
                             <div class="mb-1"><i class="bi bi-telephone"></i> <asp:Label ID="lblTelefon" runat="server" /></div>
                             <div class="mb-1"><i class="bi bi-phone"></i> <asp:Label ID="lblCepTelefonu" runat="server" /></div>
+            <div class="mb-1"><i class="bi bi-building"></i> <asp:Label ID="lblVergiDairesi" runat="server"></asp:Label></div>
+            <div class="mb-1"><i class="bi bi-upc"></i> <asp:Label ID="lblVergiNo" runat="server" /></div>
+            <div class="mt-3">
+                <asp:HyperLink ID="hplinkMusteriGuncelleTop" runat="server" CssClass="btn btn-primary btn-sm me-2">
+                    <i class="bi bi-pencil"></i> Müşteriyi Güncelle
+                </asp:HyperLink>
+                <asp:HyperLink ID="hplinkSatisYapTop" runat="server" CssClass="btn btn-success btn-sm">
+                    <i class="bi bi-cart-plus"></i> Yeni Satış
+                </asp:HyperLink>
+            </div>
                             <div class="mb-1"><i class="bi bi-envelope"></i> <asp:Label ID="lblmail" runat="server" /></div>
-                            <div class="mb-1"><i class="bi bi-building"></i> <asp:Label ID="lblVergiDairesi" runat="server" /></div>
-                            <div class="mb-1"><i class="bi bi-hash"></i> <asp:Label ID="lblVergiNo" runat="server" /></div>
                         </div>
                     </div>
                 </div>
@@ -177,4 +185,3 @@
         </div>
     </div>
 </asp:Content>
-
