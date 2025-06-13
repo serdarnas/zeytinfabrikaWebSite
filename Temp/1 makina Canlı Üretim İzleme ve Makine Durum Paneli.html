@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makine Üretim İzleme Paneli - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller (Öncekiyle aynı, sadece tek makine odaklı olacak) -->
+    <style>
+        body { background-color: #f8f9fa; font-family: sans-serif; }
+        .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; padding: 48px 0 0; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1); background-color: #343a40; }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100vh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: auto; }
+        .nav-link { color: #adb5bd; transition: color .15s ease-in-out, background-color .15s ease-in-out; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { color: #fff; background-color: #495057; }
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text-bottom; }
+        .navbar-brand { padding-top: .75rem; padding-bottom: .75rem; font-size: 1.2rem; background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25); color: #fff; }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }
+
+        .machine-card { border-left: 5px solid; margin-bottom: 1.5rem; }
+        .machine-card .card-header { font-weight: 600; }
+        .machine-status-available { border-left-color: #198754; }
+        .machine-status-busy { border-left-color: #ffc107; }
+        .machine-status-error { border-left-color: #dc3545; }
+
+        .malaksor-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; /* Tek makine için ortalayabiliriz */ }
+        .malaksor-unit {
+            border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 0.75rem;
+            text-align: center; min-width: 130px; /* Biraz daha geniş */ max-width: 150px;
+            position: relative; background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .malaksor-unit .malaksor-no { font-weight: bold; display: block; font-size: 0.9rem; }
+        .malaksor-unit .malaksor-status-icon { font-size: 2rem; margin: 8px 0; } /* İkon biraz daha büyük */
+        .malaksor-unit .malaksor-parti { font-size: 0.75rem; color: #6c757d; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 1.2em; /* Boşken bile yer tutsun */}
+        .malaksor-unit .malaksor-sure { font-size: 0.75rem; color: #20c997; display: block; font-weight: 500; min-height: 1.2em;}
+        .malaksor-unit .progress { height: 8px; margin-top: 8px; }
+
+        .status-empty .malaksor-status-icon { color: #6c757d; }
+        .status-filling .malaksor-status-icon { color: #0dcaf0; }
+        .status-processing .malaksor-status-icon { color: #ffc107; }
+        .status-emptying .malaksor-status-icon { color: #fd7e14; }
+
+        .table th { font-size: 0.85rem; }
+        .table td { font-size: 0.9rem; vertical-align: middle; }
+        .page-header {
+            background-color: #007bff; /* Örnek bir başlık rengi */
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+        }
+        .page-header h1 { margin-bottom: 0.25rem; font-size: 1.75rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Ara">
+        <div class="navbar-nav"> <div class="nav-item text-nowrap"> <a class="nav-link px-3" href="#"><i class="bi bi-box-arrow-right"></i> Çıkış Yap</a></div></div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-gear-wide-connected"></i> Üretim Takibi</a></li> <!-- Aktif -->
+                        <!-- Diğer menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="page-header">
+                     <h1 class="h2"><i class="bi bi-motherboard-fill"></i> MAKİNE 1 - Üretim İzleme Paneli</h1>
+                     <p class="text-white-50 mb-0">Model: Alfa Laval X2 - Anlık Durum ve Malaksör Takibi</p>
+                </div>
+
+                <!-- Makine ve Malaksör Durumları -->
+                <div class="row">
+                    <div class="col-12"> <!-- Tek makine olduğu için tam genişlik -->
+                        <div class="card machine-card machine-status-busy" id="anaMakineKarti"> <!-- ID eklendi -->
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span id="makineAdiVeModeli"><i class="bi bi-motherboard-fill"></i> MAKİNE 1 (Alfa Laval X2)</span>
+                                <span class="badge bg-warning text-dark" id="makineDurumBadge">MEŞGUL</span>
+                                 <button class="btn btn-sm btn-outline-light ms-auto" id="refreshMachineDataButton" title="Makine Verilerini Yenile">
+                                    <i class="bi bi-arrow-clockwise"></i> Yenile
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-7">
+                                        <p class="mb-1"><strong>İşlenen Parti:</strong> <span id="islenenPartiNo">#P2023-108</span> (Müstahsil: <span id="islenenPartiMustahsil">Ali Veli</span>)</p>
+                                        <p class="mb-1"><strong>Giriş / İşlenen:</strong> <span id="partiGirisKg">3000</span> Kg / <span id="partiIslenenKg">2850</span> Kg</p>
+                                        <p class="mb-0"><strong>Üretim Başlama:</strong> <span id="uretimBaslamaZamani">29.10.23 09:15</span></p>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <p class="mb-1"><strong>Tahmini Bitiş:</strong> <span id="tahminiBitisZamani">29.10.23 15:30</span></p>
+                                        <p class="mb-1"><strong>Geçen Süre:</strong> <span id="gecenUretimSuresi">1 saat 15 dk</span></p>
+                                        <!-- Anlık Verim buraya eklenebilir -->
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5 class="mb-3 text-center">Malaksör Durumları</h5>
+                                <div class="malaksor-grid" id="makineMalaksorleri">
+                                    <!-- Malaksör 1 (JS ile doldurulacak örnek) -->
+                                    <div class="malaksor-unit status-processing" data-malaksor-id="M1-MLX1">
+                                        <span class="malaksor-no">Malaksör #1</span>
+                                        <i class="bi bi-arrow-repeat malaksor-status-icon"></i>
+                                        <span class="malaksor-parti" title="Parti #P2023-108 / 450 Kg">#P108 / 450Kg</span>
+                                        <span class="malaksor-sure">Süre: 25 dk</span>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 55%;" aria-valuenow="55"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Malaksör 2 -->
+                                    <div class="malaksor-unit status-filling" data-malaksor-id="M1-MLX2">
+                                        <span class="malaksor-no">Malaksör #2</span>
+                                        <i class="bi bi-arrow-down-circle malaksor-status-icon"></i>
+                                        <span class="malaksor-parti" title="Parti #P2023-108 / 300 Kg">#P108 / 300Kg</span>
+                                        <span class="malaksor-sure">Dolum: 5 dk</span>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="30"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Malaksör 3 -->
+                                    <div class="malaksor-unit status-empty" data-malaksor-id="M1-MLX3">
+                                        <span class="malaksor-no">Malaksör #3</span>
+                                        <i class="bi bi-circle malaksor-status-icon"></i>
+                                        <span class="malaksor-parti">Boş</span>
+                                        <span class="malaksor-sure">-</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"></div>
+                                        </div>
+                                    </div>
+                                     <!-- Malaksör 4 -->
+                                    <div class="malaksor-unit status-empty" data-malaksor-id="M1-MLX4">
+                                        <span class="malaksor-no">Malaksör #4</span>
+                                        <i class="bi bi-circle malaksor-status-icon"></i>
+                                        <span class="malaksor-parti">Boş</span>
+                                        <span class="malaksor-sure">-</span>
+                                         <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bu Makineye Ait Son Üretimler Tablosu -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <i class="bi bi-list-columns-reverse"></i> MAKİNE 1 - Son Üretim Kayıtları
+                         <input type="search" class="form-control form-control-sm float-end mt-n1" style="width: 200px;" placeholder="Parti No veya Tarih Ara..." id="makineUretimArama">
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Üretim ID</th><th>Parti No</th><th>Müstahsil</th><th>Başlama</th><th>Bitiş</th><th>Çıkan Yağ (Lt)</th><th>Asidite</th><th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="makineUretimTableBody">
+                                    <!-- Örnek Üretim Kayıtları (Backend'den gelecek) -->
+                                    <tr class="table-warning"> <!-- Devam eden -->
+                                        <td>U2023-055</td><td>P2023-108</td><td>Ali Veli</td><td>29.10.23 09:15</td><td>-</td><td>-</td><td>-</td>
+                                        <td><button class="btn btn-sm btn-info text-white py-0 px-1" title="Canlı İzle"><i class="bi bi-broadcast"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>U2023-053</td><td>TED050</td><td>XYZ Tedarik</td><td>28.10.23 08:00</td><td>28.10.23 16:00</td><td>980 Lt</td><td>0.55%</td>
+                                        <td><button class="btn btn-sm btn-outline-primary py-0 px-1" title="Detayları Gör"><i class="bi bi-eye-fill"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>U2023-051</td><td>P2023-105</td><td>Hasan Yılmaz</td><td>27.10.23 10:00</td><td>27.10.23 17:30</td><td>450 Lt</td><td>0.42%</td>
+                                        <td><button class="btn btn-sm btn-outline-primary py-0 px-1" title="Detayları Gör"><i class="bi bi-eye-fill"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                 <div style="height: 50px;"></div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        const refreshMachineDataButton = document.getElementById('refreshMachineDataButton');
+        const makineAdiVeModeliEl = document.getElementById('makineAdiVeModeli');
+        const makineDurumBadgeEl = document.getElementById('makineDurumBadge');
+        const islenenPartiNoEl = document.getElementById('islenenPartiNo');
+        const islenenPartiMustahsilEl = document.getElementById('islenenPartiMustahsil');
+        const partiGirisKgEl = document.getElementById('partiGirisKg');
+        const partiIslenenKgEl = document.getElementById('partiIslenenKg');
+        const uretimBaslamaZamaniEl = document.getElementById('uretimBaslamaZamani');
+        const tahminiBitisZamaniEl = document.getElementById('tahminiBitisZamani');
+        const gecenUretimSuresiEl = document.getElementById('gecenUretimSuresi');
+        const makineMalaksorleriDiv = document.getElementById('makineMalaksorleri');
+        const anaMakineKartiEl = document.getElementById('anaMakineKarti');
+
+        // Örnek Veri (Normalde backend'den gelir)
+        let currentMachineData = {
+            sirketZeytinyagiMakinaID: "MAK001",
+            modelAdi: "Alfa Laval X2",
+            alimTarihi: "2022-05-10",
+            durumu: "Meşgul", // Müsait, Meşgul, Bakımda, Hata
+            aktifUretim: {
+                uretimID: "U2023-055",
+                partiNo: "P2023-108",
+                mustahsilAdi: "Ali Veli",
+                gelisKg: 3000,
+                uretimeAlinanKg: 2850, // Anlık işlenen
+                uretimBaslamaZamani: "2023-10-29T09:15:00",
+                tahminiBitisSuresiDakika: 375 // 6 saat 15 dk
+            },
+            malaksorler: [
+                { sirketZeytinyagiMakinaMalaksorID: "M1-MLX1", siraNo: 1, kapasiteKg: 500, durum: "İşliyor", mevcutKg: 450, partiNo: "P2023-108", islemBaslamaZamani: "2023-10-29T10:00:00", standartSureDk: 45 },
+                { sirketZeytinyagiMakinaMalaksorID: "M1-MLX2", siraNo: 2, kapasiteKg: 500, durum: "Doluyor", mevcutKg: 300, partiNo: "P2023-108", islemBaslamaZamani: "2023-10-29T10:20:00", standartSureDk: 10 },
+                { sirketZeytinyagiMakinaMalaksorID: "M1-MLX3", siraNo: 3, kapasiteKg: 500, durum: "Boş", mevcutKg: 0, partiNo: null, islemBaslamaZamani: null, standartSureDk: null },
+                { sirketZeytinyagiMakinaMalaksorID: "M1-MLX4", siraNo: 4, kapasiteKg: 500, durum: "Boş", mevcutKg: 0, partiNo: null, islemBaslamaZamani: null, standartSureDk: null }
+            ]
+        };
+
+        function formatTarihSaat(isoString) {
+            if (!isoString) return "-";
+            const date = new Date(isoString);
+            return `${date.toLocaleDateString('tr-TR')} ${date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}`;
+        }
+
+        function calculateGecenSure(baslamaZamaniISO) {
+            if (!baslamaZamaniISO) return "-";
+            const baslama = new Date(baslamaZamaniISO);
+            const simdi = new Date();
+            let farkMs = simdi - baslama;
+            if (farkMs < 0) farkMs = 0;
+
+            const saat = Math.floor(farkMs / (1000 * 60 * 60));
+            farkMs -= saat * (1000 * 60 * 60);
+            const dakika = Math.floor(farkMs / (1000 * 60));
+            return `${saat > 0 ? saat + " sa " : ""}${dakika} dk`;
+        }
+        function calculateTahminiBitis(baslamaZamaniISO, sureDk) {
+            if (!baslamaZamaniISO || !sureDk) return "-";
+            const baslama = new Date(baslamaZamaniISO);
+            const bitis = new Date(baslama.getTime() + sureDk * 60000);
+            return formatTarihSaat(bitis.toISOString());
+        }
+
+
+        function renderMachineData(data) {
+            makineAdiVeModeliEl.innerHTML = `<i class="bi bi-motherboard-fill"></i> MAKİNE ${data.sirketZeytinyagiMakinaID.slice(-1)} (${data.modelAdi})`; // Basit ID'den numara alma
+            makineDurumBadgeEl.textContent = data.durumu.toUpperCase();
+            // Badge ve Kart Kenar Rengi
+            anaMakineKartiEl.classList.remove('machine-status-available', 'machine-status-busy', 'machine-status-error');
+            makineDurumBadgeEl.classList.remove('bg-success', 'bg-warning', 'bg-danger', 'text-dark');
+            if (data.durumu === "Müsait") {
+                anaMakineKartiEl.classList.add('machine-status-available');
+                makineDurumBadgeEl.classList.add('bg-success');
+            } else if (data.durumu === "Meşgul") {
+                anaMakineKartiEl.classList.add('machine-status-busy');
+                makineDurumBadgeEl.classList.add('bg-warning', 'text-dark');
+            } else { // Hata, Bakımda vb.
+                anaMakineKartiEl.classList.add('machine-status-error');
+                makineDurumBadgeEl.classList.add('bg-danger');
+            }
+
+            if (data.aktifUretim && data.durumu === "Meşgul") {
+                islenenPartiNoEl.textContent = data.aktifUretim.partiNo;
+                islenenPartiMustahsilEl.textContent = data.aktifUretim.mustahsilAdi;
+                partiGirisKgEl.textContent = data.aktifUretim.gelisKg;
+                partiIslenenKgEl.textContent = data.aktifUretim.uretimeAlinanKg;
+                uretimBaslamaZamaniEl.textContent = formatTarihSaat(data.aktifUretim.uretimBaslamaZamani);
+                tahminiBitisZamaniEl.textContent = calculateTahminiBitis(data.aktifUretim.uretimBaslamaZamani, data.aktifUretim.tahminiBitisSuresiDakika);
+                gecenUretimSuresiEl.textContent = calculateGecenSure(data.aktifUretim.uretimBaslamaZamani);
+            } else {
+                islenenPartiNoEl.textContent = "-";
+                islenenPartiMustahsilEl.textContent = "-";
+                partiGirisKgEl.textContent = "-";
+                partiIslenenKgEl.textContent = "-";
+                uretimBaslamaZamaniEl.textContent = "-";
+                tahminiBitisZamaniEl.textContent = "-";
+                gecenUretimSuresiEl.textContent = "-";
+            }
+
+            // Malaksörleri Render Et
+            makineMalaksorleriDiv.innerHTML = ''; // Eskileri temizle
+            data.malaksorler.forEach(mlx => {
+                let iconClass = 'bi-circle';
+                let statusClass = 'status-empty';
+                let progressWidth = 0;
+                let sureText = '-';
+                let progressBarBg = 'bg-secondary';
+
+                if (mlx.durum === "Doluyor") {
+                    iconClass = 'bi-arrow-down-circle'; statusClass = 'status-filling'; progressBarBg = 'bg-info';
+                    progressWidth = (mlx.mevcutKg / mlx.kapasiteKg) * 100;
+                    sureText = `Dolum: ${calculateGecenSure(mlx.islemBaslamaZamani)}`;
+                } else if (mlx.durum === "İşliyor") {
+                    iconClass = 'bi-arrow-repeat'; statusClass = 'status-processing'; progressBarBg = 'bg-warning';
+                    const gecenDk = Math.floor((new Date() - new Date(mlx.islemBaslamaZamani)) / 60000);
+                    progressWidth = mlx.standartSureDk ? (gecenDk / mlx.standartSureDk) * 100 : 0;
+                    if (progressWidth > 100) progressWidth = 100;
+                    sureText = `Süre: ${gecenDk} dk`;
+                } else if (mlx.durum === "Boşaltılıyor") {
+                    iconClass = 'bi-arrow-up-circle'; statusClass = 'status-emptying'; progressBarBg = 'bg-primary';
+                    // Boşaltma için ilerleme farklı hesaplanabilir
+                    progressWidth = 80; // Örnek
+                    sureText = `Boşaltılıyor`;
+                }
+
+
+                const malaksorHtml = `
+                    <div class="malaksor-unit ${statusClass}" data-malaksor-id="${mlx.sirketZeytinyagiMakinaMalaksorID}">
+                        <span class="malaksor-no">Malaksör #${mlx.siraNo}</span>
+                        <i class="bi ${iconClass} malaksor-status-icon"></i>
+                        <span class="malaksor-parti" title="Parti ${mlx.partiNo || '-'} / ${mlx.mevcutKg} Kg">${mlx.partiNo ? `#${mlx.partiNo.slice(-3)} / ${mlx.mevcutKg}Kg` : 'Boş'}</span>
+                        <span class="malaksor-sure">${sureText}</span>
+                        <div class="progress">
+                            <div class="progress-bar ${progressBarBg}" role="progressbar" style="width: ${progressWidth.toFixed(0)}%;" aria-valuenow="${progressWidth.toFixed(0)}"></div>
+                        </div>
+                    </div>
+                `;
+                makineMalaksorleriDiv.innerHTML += malaksorHtml;
+            });
+        }
+
+        if (refreshMachineDataButton) {
+            refreshMachineDataButton.addEventListener('click', () => {
+                console.log("Makine verileri yenileniyor...");
+                // Burada normalde backend'den fetch ile currentMachineData güncellenir.
+                // Simülasyon için küçük bir değişiklik yapalım:
+                currentMachineData.aktifUretim.uretimeAlinanKg += 50;
+                if(currentMachineData.malaksorler[0].durum === "İşliyor"){
+                    // Süreyi güncellemek için islemBaslamaZamani'nı biraz geri alabiliriz
+                    // veya direkt bir "gecenSure" alanı backend'den gelebilir.
+                }
+                renderMachineData(currentMachineData); // Sonra render et
+                alert("Makine verileri yenilendi! (Simülasyon)");
+            });
+        }
+
+        // Sayfa yüklendiğinde ilk veriyi render et
+        document.addEventListener('DOMContentLoaded', () => renderMachineData(currentMachineData));
+
+        // Periyodik güncelleme (canlı hissi için)
+        setInterval(() => {
+            if (document.hidden) return; // Sekme aktif değilse güncelleme yapma
+            console.log("Otomatik veri yenileme (simülasyon)...");
+            // currentMachineData'yı backend'den çekip renderMachineData(newData) çağır
+            // Şimdilik sadece süreleri güncelleyelim
+            if(currentMachineData.aktifUretim && currentMachineData.durumu === "Meşgul"){
+                 gecenUretimSuresiEl.textContent = calculateGecenSure(currentMachineData.aktifUretim.uretimBaslamaZamani);
+            }
+            currentMachineData.malaksorler.forEach(mlx => {
+                const mlxUnit = document.querySelector(`.malaksor-unit[data-malaksor-id="${mlx.sirketZeytinyagiMakinaMalaksorID}"]`);
+                if(mlxUnit){
+                    const sureEl = mlxUnit.querySelector('.malaksor-sure');
+                    const progressEl = mlxUnit.querySelector('.progress-bar');
+                    if(mlx.durum === "İşliyor" && mlx.islemBaslamaZamani){
+                        const gecenDk = Math.floor((new Date() - new Date(mlx.islemBaslamaZamani)) / 60000);
+                        sureEl.textContent = `Süre: ${gecenDk} dk`;
+                        let progressWidth = mlx.standartSureDk ? (gecenDk / mlx.standartSureDk) * 100 : 0;
+                        if (progressWidth > 100) progressWidth = 100;
+                        progressEl.style.width = `${progressWidth.toFixed(0)}%`;
+                        progressEl.setAttribute('aria-valuenow', progressWidth.toFixed(0));
+                    } else if (mlx.durum === "Doluyor" && mlx.islemBaslamaZamani){
+                         sureEl.textContent = `Dolum: ${calculateGecenSure(mlx.islemBaslamaZamani)}`;
+                    }
+                }
+            });
+
+        }, 5000); // Her 5 saniyede bir
+
+
+        // Makineye ait üretim tablosu arama
+        const makineUretimAramaInput = document.getElementById('makineUretimArama');
+        const makineUretimTableBody = document.getElementById('makineUretimTableBody');
+        if(makineUretimAramaInput && makineUretimTableBody){
+            makineUretimAramaInput.addEventListener('keyup', function(){
+                const filter = this.value.toLowerCase();
+                const rows = makineUretimTableBody.getElementsByTagName('tr');
+                Array.from(rows).forEach(row => {
+                    row.style.display = row.textContent.toLowerCase().includes(filter) ? "" : "none";
+                });
+            });
+        }
+
+    </script>
+</body>
+</html>

@@ -9,8 +9,11 @@ public partial class Kayit : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-
+        // Eğer kullanıcı giriş yapmışsa kayıt sayfasına erişimi engelle
+        if (Session["KullaniciID"] != null)
+        {
+            Response.Redirect("Default.aspx");
+        }
     }
 
     protected void btnKayit_Click(object sender, EventArgs e)

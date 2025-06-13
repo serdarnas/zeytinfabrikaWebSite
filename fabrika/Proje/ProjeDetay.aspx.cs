@@ -9,10 +9,8 @@ public partial class fabrika_ProjeDetay : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["SirketID"] == null)
-        {
-            Response.Redirect("~/fabrika/Default.aspx");
-        }
+     
+        
         if (!IsPostBack)
         {
             LoadProjeDetay();
@@ -21,7 +19,8 @@ public partial class fabrika_ProjeDetay : System.Web.UI.Page
 
     private void LoadProjeDetay()
     {
-        int _sirketID = int.Parse(Session["SirketID"].ToString());
+
+        int _sirketID = SessionHelper.GetSirketID(); 
         FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext();
         Projeler GelenProjeler = db.Projelers.FirstOrDefault(x => x.SirketID == _sirketID);
         lblProjeAdi.Text = GelenProjeler.Ad;

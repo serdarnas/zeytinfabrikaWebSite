@@ -525,6 +525,7 @@
       <Association Name="Sirketler_SirketAyarlari" Member="SirketAyarlaris" ThisKey="SirketID" OtherKey="SirketID" Type="SirketAyarlari" />
       <Association Name="Sirketler_SirketZeytinyagiMakinaBakimDefteri" Member="SirketZeytinyagiMakinaBakimDefteris" ThisKey="SirketID" OtherKey="SirketID" Type="SirketZeytinyagiMakinaBakimDefteri" />
       <Association Name="Sirketler_SirketZeytinyagiMakinalari" Member="SirketZeytinyagiMakinalaris" ThisKey="SirketID" OtherKey="SirketID" Type="SirketZeytinyagiMakinalari" />
+      <Association Name="Sirketler_SirketZeytinyagiMakinaMalaksorler" Member="SirketZeytinyagiMakinaMalaksorlers" ThisKey="SirketID" OtherKey="SirketID" Type="SirketZeytinyagiMakinaMalaksorler" />
       <Association Name="Sirketler_StokHareketleri" Member="StokHareketleris" ThisKey="SirketID" OtherKey="SirketID" Type="StokHareketleri" />
       <Association Name="Sirketler_Tanklar" Member="Tanklars" ThisKey="SirketID" OtherKey="SirketID" Type="Tanklar" />
       <Association Name="Sirketler_Tedarikciler" Member="Tedarikcilers" ThisKey="SirketID" OtherKey="SirketID" Type="Tedarikciler" />
@@ -562,11 +563,24 @@
       <Column Name="YikamaYaprakAyiklama_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="Kirma_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="Malaksasyon_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="Dekantasyon_Santrifüj_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Dekantasyon_Santrifuj_kg_dk" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="Durumu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaBakimDefteri" Member="SirketZeytinyagiMakinaBakimDefteris" ThisKey="SirketZeytinyagiMakinaID" OtherKey="SirketZeytinyagiMakinaID" Type="SirketZeytinyagiMakinaBakimDefteri" />
+      <Association Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaMalaksorler" Member="SirketZeytinyagiMakinaMalaksorlers" ThisKey="SirketZeytinyagiMakinaID" OtherKey="SirketZeytinyagiMakinaID" Type="SirketZeytinyagiMakinaMalaksorler" />
       <Association Name="Sirketler_SirketZeytinyagiMakinalari" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
       <Association Name="ZeytinyagiMakinaModelleri_SirketZeytinyagiMakinalari" Member="ZeytinyagiMakinaModelleri" ThisKey="ZeytinyagiMakinaModelID" OtherKey="ZeytinyagiMakinaModelID" Type="ZeytinyagiMakinaModelleri" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SirketZeytinyagiMakinaMalaksorler" Member="SirketZeytinyagiMakinaMalaksorlers">
+    <Type Name="SirketZeytinyagiMakinaMalaksorler">
+      <Column Name="SirketZeytinyagiMakinaMalaksorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SirketZeytinyagiMakinaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SirketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MalaksorSiraNo" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="MalaksorKaparistesi_kg" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Durum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Sirketler_SirketZeytinyagiMakinaMalaksorler" Member="Sirketler" ThisKey="SirketID" OtherKey="SirketID" Type="Sirketler" IsForeignKey="true" />
+      <Association Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaMalaksorler" Member="SirketZeytinyagiMakinalari" ThisKey="SirketZeytinyagiMakinaID" OtherKey="SirketZeytinyagiMakinaID" Type="SirketZeytinyagiMakinalari" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.StokHareketleri" Member="StokHareketleris">

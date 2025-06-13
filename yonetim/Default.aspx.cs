@@ -66,7 +66,7 @@ public partial class yonetim_Default : System.Web.UI.Page
             FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext();
             
             // Kullanıcı sayısı
-            int sirketID = Convert.ToInt32(Session["SirketID"]);
+            int sirketID =  SessionHelper.GetSirketID();
             int kullaniciSayisiDeger = db.Kullanicilars.Count(k => k.SirketID == sirketID);
             kullaniciSayisi.InnerText = kullaniciSayisiDeger.ToString();
             

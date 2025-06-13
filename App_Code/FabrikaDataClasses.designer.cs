@@ -131,6 +131,9 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
   partial void InsertSirketZeytinyagiMakinalari(SirketZeytinyagiMakinalari instance);
   partial void UpdateSirketZeytinyagiMakinalari(SirketZeytinyagiMakinalari instance);
   partial void DeleteSirketZeytinyagiMakinalari(SirketZeytinyagiMakinalari instance);
+  partial void InsertSirketZeytinyagiMakinaMalaksorler(SirketZeytinyagiMakinaMalaksorler instance);
+  partial void UpdateSirketZeytinyagiMakinaMalaksorler(SirketZeytinyagiMakinaMalaksorler instance);
+  partial void DeleteSirketZeytinyagiMakinaMalaksorler(SirketZeytinyagiMakinaMalaksorler instance);
   partial void InsertStokHareketleri(StokHareketleri instance);
   partial void UpdateStokHareketleri(StokHareketleri instance);
   partial void DeleteStokHareketleri(StokHareketleri instance);
@@ -495,6 +498,14 @@ public partial class FabrikaDataClassesDataContext : System.Data.Linq.DataContex
 		get
 		{
 			return this.GetTable<SirketZeytinyagiMakinalari>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SirketZeytinyagiMakinaMalaksorler> SirketZeytinyagiMakinaMalaksorlers
+	{
+		get
+		{
+			return this.GetTable<SirketZeytinyagiMakinaMalaksorler>();
 		}
 	}
 	
@@ -11629,6 +11640,8 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<SirketZeytinyagiMakinalari> _SirketZeytinyagiMakinalaris;
 	
+	private EntitySet<SirketZeytinyagiMakinaMalaksorler> _SirketZeytinyagiMakinaMalaksorlers;
+	
 	private EntitySet<StokHareketleri> _StokHareketleris;
 	
 	private EntitySet<Tanklar> _Tanklars;
@@ -11713,6 +11726,7 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		this._SirketAyarlaris = new EntitySet<SirketAyarlari>(new Action<SirketAyarlari>(this.attach_SirketAyarlaris), new Action<SirketAyarlari>(this.detach_SirketAyarlaris));
 		this._SirketZeytinyagiMakinaBakimDefteris = new EntitySet<SirketZeytinyagiMakinaBakimDefteri>(new Action<SirketZeytinyagiMakinaBakimDefteri>(this.attach_SirketZeytinyagiMakinaBakimDefteris), new Action<SirketZeytinyagiMakinaBakimDefteri>(this.detach_SirketZeytinyagiMakinaBakimDefteris));
 		this._SirketZeytinyagiMakinalaris = new EntitySet<SirketZeytinyagiMakinalari>(new Action<SirketZeytinyagiMakinalari>(this.attach_SirketZeytinyagiMakinalaris), new Action<SirketZeytinyagiMakinalari>(this.detach_SirketZeytinyagiMakinalaris));
+		this._SirketZeytinyagiMakinaMalaksorlers = new EntitySet<SirketZeytinyagiMakinaMalaksorler>(new Action<SirketZeytinyagiMakinaMalaksorler>(this.attach_SirketZeytinyagiMakinaMalaksorlers), new Action<SirketZeytinyagiMakinaMalaksorler>(this.detach_SirketZeytinyagiMakinaMalaksorlers));
 		this._StokHareketleris = new EntitySet<StokHareketleri>(new Action<StokHareketleri>(this.attach_StokHareketleris), new Action<StokHareketleri>(this.detach_StokHareketleris));
 		this._Tanklars = new EntitySet<Tanklar>(new Action<Tanklar>(this.attach_Tanklars), new Action<Tanklar>(this.detach_Tanklars));
 		this._Tedarikcilers = new EntitySet<Tedarikciler>(new Action<Tedarikciler>(this.attach_Tedarikcilers), new Action<Tedarikciler>(this.detach_Tedarikcilers));
@@ -12269,6 +12283,19 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_SirketZeytinyagiMakinaMalaksorler", Storage="_SirketZeytinyagiMakinaMalaksorlers", ThisKey="SirketID", OtherKey="SirketID")]
+	public EntitySet<SirketZeytinyagiMakinaMalaksorler> SirketZeytinyagiMakinaMalaksorlers
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaMalaksorlers;
+		}
+		set
+		{
+			this._SirketZeytinyagiMakinaMalaksorlers.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_StokHareketleri", Storage="_StokHareketleris", ThisKey="SirketID", OtherKey="SirketID")]
 	public EntitySet<StokHareketleri> StokHareketleris
 	{
@@ -12796,6 +12823,18 @@ public partial class Sirketler : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Sirketler = null;
 	}
 	
+	private void attach_SirketZeytinyagiMakinaMalaksorlers(SirketZeytinyagiMakinaMalaksorler entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = this;
+	}
+	
+	private void detach_SirketZeytinyagiMakinaMalaksorlers(SirketZeytinyagiMakinaMalaksorler entity)
+	{
+		this.SendPropertyChanging();
+		entity.Sirketler = null;
+	}
+	
 	private void attach_StokHareketleris(StokHareketleri entity)
 	{
 		this.SendPropertyChanging();
@@ -13237,11 +13276,13 @@ public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INoti
 	
 	private System.Nullable<byte> _Malaksasyon_kg_dk;
 	
-	private System.Nullable<byte> _Dekantasyon_Santrifüj_kg_dk;
+	private System.Nullable<byte> _Dekantasyon_Santrifuj_kg_dk;
 	
 	private System.Nullable<bool> _Durumu;
 	
 	private EntitySet<SirketZeytinyagiMakinaBakimDefteri> _SirketZeytinyagiMakinaBakimDefteris;
+	
+	private EntitySet<SirketZeytinyagiMakinaMalaksorler> _SirketZeytinyagiMakinaMalaksorlers;
 	
 	private EntityRef<Sirketler> _Sirketler;
 	
@@ -13265,8 +13306,8 @@ public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INoti
     partial void OnKirma_kg_dkChanged();
     partial void OnMalaksasyon_kg_dkChanging(System.Nullable<byte> value);
     partial void OnMalaksasyon_kg_dkChanged();
-    partial void OnDekantasyon_Santrifüj_kg_dkChanging(System.Nullable<byte> value);
-    partial void OnDekantasyon_Santrifüj_kg_dkChanged();
+    partial void OnDekantasyon_Santrifuj_kg_dkChanging(System.Nullable<byte> value);
+    partial void OnDekantasyon_Santrifuj_kg_dkChanged();
     partial void OnDurumuChanging(System.Nullable<bool> value);
     partial void OnDurumuChanged();
     #endregion
@@ -13274,6 +13315,7 @@ public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INoti
 	public SirketZeytinyagiMakinalari()
 	{
 		this._SirketZeytinyagiMakinaBakimDefteris = new EntitySet<SirketZeytinyagiMakinaBakimDefteri>(new Action<SirketZeytinyagiMakinaBakimDefteri>(this.attach_SirketZeytinyagiMakinaBakimDefteris), new Action<SirketZeytinyagiMakinaBakimDefteri>(this.detach_SirketZeytinyagiMakinaBakimDefteris));
+		this._SirketZeytinyagiMakinaMalaksorlers = new EntitySet<SirketZeytinyagiMakinaMalaksorler>(new Action<SirketZeytinyagiMakinaMalaksorler>(this.attach_SirketZeytinyagiMakinaMalaksorlers), new Action<SirketZeytinyagiMakinaMalaksorler>(this.detach_SirketZeytinyagiMakinaMalaksorlers));
 		this._Sirketler = default(EntityRef<Sirketler>);
 		this._ZeytinyagiMakinaModelleri = default(EntityRef<ZeytinyagiMakinaModelleri>);
 		OnCreated();
@@ -13427,22 +13469,22 @@ public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INoti
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dekantasyon_Santrifüj_kg_dk", DbType="TinyInt")]
-	public System.Nullable<byte> Dekantasyon_Santrifüj_kg_dk
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dekantasyon_Santrifuj_kg_dk", DbType="TinyInt")]
+	public System.Nullable<byte> Dekantasyon_Santrifuj_kg_dk
 	{
 		get
 		{
-			return this._Dekantasyon_Santrifüj_kg_dk;
+			return this._Dekantasyon_Santrifuj_kg_dk;
 		}
 		set
 		{
-			if ((this._Dekantasyon_Santrifüj_kg_dk != value))
+			if ((this._Dekantasyon_Santrifuj_kg_dk != value))
 			{
-				this.OnDekantasyon_Santrifüj_kg_dkChanging(value);
+				this.OnDekantasyon_Santrifuj_kg_dkChanging(value);
 				this.SendPropertyChanging();
-				this._Dekantasyon_Santrifüj_kg_dk = value;
-				this.SendPropertyChanged("Dekantasyon_Santrifüj_kg_dk");
-				this.OnDekantasyon_Santrifüj_kg_dkChanged();
+				this._Dekantasyon_Santrifuj_kg_dk = value;
+				this.SendPropertyChanged("Dekantasyon_Santrifuj_kg_dk");
+				this.OnDekantasyon_Santrifuj_kg_dkChanged();
 			}
 		}
 	}
@@ -13477,6 +13519,19 @@ public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INoti
 		set
 		{
 			this._SirketZeytinyagiMakinaBakimDefteris.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaMalaksorler", Storage="_SirketZeytinyagiMakinaMalaksorlers", ThisKey="SirketZeytinyagiMakinaID", OtherKey="SirketZeytinyagiMakinaID")]
+	public EntitySet<SirketZeytinyagiMakinaMalaksorler> SirketZeytinyagiMakinaMalaksorlers
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaMalaksorlers;
+		}
+		set
+		{
+			this._SirketZeytinyagiMakinaMalaksorlers.Assign(value);
 		}
 	}
 	
@@ -13578,6 +13633,282 @@ public partial class SirketZeytinyagiMakinalari : INotifyPropertyChanging, INoti
 	{
 		this.SendPropertyChanging();
 		entity.SirketZeytinyagiMakinalari = null;
+	}
+	
+	private void attach_SirketZeytinyagiMakinaMalaksorlers(SirketZeytinyagiMakinaMalaksorler entity)
+	{
+		this.SendPropertyChanging();
+		entity.SirketZeytinyagiMakinalari = this;
+	}
+	
+	private void detach_SirketZeytinyagiMakinaMalaksorlers(SirketZeytinyagiMakinaMalaksorler entity)
+	{
+		this.SendPropertyChanging();
+		entity.SirketZeytinyagiMakinalari = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SirketZeytinyagiMakinaMalaksorler")]
+public partial class SirketZeytinyagiMakinaMalaksorler : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _SirketZeytinyagiMakinaMalaksorID;
+	
+	private System.Nullable<int> _SirketZeytinyagiMakinaID;
+	
+	private System.Nullable<int> _SirketID;
+	
+	private System.Nullable<byte> _MalaksorSiraNo;
+	
+	private System.Nullable<int> _MalaksorKaparistesi_kg;
+	
+	private System.Nullable<bool> _Durum;
+	
+	private EntityRef<Sirketler> _Sirketler;
+	
+	private EntityRef<SirketZeytinyagiMakinalari> _SirketZeytinyagiMakinalari;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSirketZeytinyagiMakinaMalaksorIDChanging(int value);
+    partial void OnSirketZeytinyagiMakinaMalaksorIDChanged();
+    partial void OnSirketZeytinyagiMakinaIDChanging(System.Nullable<int> value);
+    partial void OnSirketZeytinyagiMakinaIDChanged();
+    partial void OnSirketIDChanging(System.Nullable<int> value);
+    partial void OnSirketIDChanged();
+    partial void OnMalaksorSiraNoChanging(System.Nullable<byte> value);
+    partial void OnMalaksorSiraNoChanged();
+    partial void OnMalaksorKaparistesi_kgChanging(System.Nullable<int> value);
+    partial void OnMalaksorKaparistesi_kgChanged();
+    partial void OnDurumChanging(System.Nullable<bool> value);
+    partial void OnDurumChanged();
+    #endregion
+	
+	public SirketZeytinyagiMakinaMalaksorler()
+	{
+		this._Sirketler = default(EntityRef<Sirketler>);
+		this._SirketZeytinyagiMakinalari = default(EntityRef<SirketZeytinyagiMakinalari>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketZeytinyagiMakinaMalaksorID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int SirketZeytinyagiMakinaMalaksorID
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaMalaksorID;
+		}
+		set
+		{
+			if ((this._SirketZeytinyagiMakinaMalaksorID != value))
+			{
+				this.OnSirketZeytinyagiMakinaMalaksorIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketZeytinyagiMakinaMalaksorID = value;
+				this.SendPropertyChanged("SirketZeytinyagiMakinaMalaksorID");
+				this.OnSirketZeytinyagiMakinaMalaksorIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketZeytinyagiMakinaID", DbType="Int")]
+	public System.Nullable<int> SirketZeytinyagiMakinaID
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinaID;
+		}
+		set
+		{
+			if ((this._SirketZeytinyagiMakinaID != value))
+			{
+				if (this._SirketZeytinyagiMakinalari.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketZeytinyagiMakinaIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketZeytinyagiMakinaID = value;
+				this.SendPropertyChanged("SirketZeytinyagiMakinaID");
+				this.OnSirketZeytinyagiMakinaIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SirketID", DbType="Int")]
+	public System.Nullable<int> SirketID
+	{
+		get
+		{
+			return this._SirketID;
+		}
+		set
+		{
+			if ((this._SirketID != value))
+			{
+				if (this._Sirketler.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSirketIDChanging(value);
+				this.SendPropertyChanging();
+				this._SirketID = value;
+				this.SendPropertyChanged("SirketID");
+				this.OnSirketIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MalaksorSiraNo", DbType="TinyInt")]
+	public System.Nullable<byte> MalaksorSiraNo
+	{
+		get
+		{
+			return this._MalaksorSiraNo;
+		}
+		set
+		{
+			if ((this._MalaksorSiraNo != value))
+			{
+				this.OnMalaksorSiraNoChanging(value);
+				this.SendPropertyChanging();
+				this._MalaksorSiraNo = value;
+				this.SendPropertyChanged("MalaksorSiraNo");
+				this.OnMalaksorSiraNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MalaksorKaparistesi_kg", DbType="Int")]
+	public System.Nullable<int> MalaksorKaparistesi_kg
+	{
+		get
+		{
+			return this._MalaksorKaparistesi_kg;
+		}
+		set
+		{
+			if ((this._MalaksorKaparistesi_kg != value))
+			{
+				this.OnMalaksorKaparistesi_kgChanging(value);
+				this.SendPropertyChanging();
+				this._MalaksorKaparistesi_kg = value;
+				this.SendPropertyChanged("MalaksorKaparistesi_kg");
+				this.OnMalaksorKaparistesi_kgChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Durum", DbType="Bit")]
+	public System.Nullable<bool> Durum
+	{
+		get
+		{
+			return this._Durum;
+		}
+		set
+		{
+			if ((this._Durum != value))
+			{
+				this.OnDurumChanging(value);
+				this.SendPropertyChanging();
+				this._Durum = value;
+				this.SendPropertyChanged("Durum");
+				this.OnDurumChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sirketler_SirketZeytinyagiMakinaMalaksorler", Storage="_Sirketler", ThisKey="SirketID", OtherKey="SirketID", IsForeignKey=true)]
+	public Sirketler Sirketler
+	{
+		get
+		{
+			return this._Sirketler.Entity;
+		}
+		set
+		{
+			Sirketler previousValue = this._Sirketler.Entity;
+			if (((previousValue != value) 
+						|| (this._Sirketler.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Sirketler.Entity = null;
+					previousValue.SirketZeytinyagiMakinaMalaksorlers.Remove(this);
+				}
+				this._Sirketler.Entity = value;
+				if ((value != null))
+				{
+					value.SirketZeytinyagiMakinaMalaksorlers.Add(this);
+					this._SirketID = value.SirketID;
+				}
+				else
+				{
+					this._SirketID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Sirketler");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SirketZeytinyagiMakinalari_SirketZeytinyagiMakinaMalaksorler", Storage="_SirketZeytinyagiMakinalari", ThisKey="SirketZeytinyagiMakinaID", OtherKey="SirketZeytinyagiMakinaID", IsForeignKey=true)]
+	public SirketZeytinyagiMakinalari SirketZeytinyagiMakinalari
+	{
+		get
+		{
+			return this._SirketZeytinyagiMakinalari.Entity;
+		}
+		set
+		{
+			SirketZeytinyagiMakinalari previousValue = this._SirketZeytinyagiMakinalari.Entity;
+			if (((previousValue != value) 
+						|| (this._SirketZeytinyagiMakinalari.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._SirketZeytinyagiMakinalari.Entity = null;
+					previousValue.SirketZeytinyagiMakinaMalaksorlers.Remove(this);
+				}
+				this._SirketZeytinyagiMakinalari.Entity = value;
+				if ((value != null))
+				{
+					value.SirketZeytinyagiMakinaMalaksorlers.Add(this);
+					this._SirketZeytinyagiMakinaID = value.SirketZeytinyagiMakinaID;
+				}
+				else
+				{
+					this._SirketZeytinyagiMakinaID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("SirketZeytinyagiMakinalari");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 

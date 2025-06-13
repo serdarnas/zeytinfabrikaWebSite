@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Zeytin Kabul Formu" Language="C#" MasterPageFile="~/fabrika/FabrikaMasterPage.master" AutoEventWireup="true" CodeFile="ZeytinKabulYeni.aspx.cs" Inherits="fabrika_Zeytinyagi_ZeytinKabulYeni" %>
+<%@ Page Title="Zeytin Kabul Formu" Language="C#" MasterPageFile="~/fabrika/FabrikaMasterPage.master" AutoEventWireup="true" CodeFile="ZeytinKabulYeni.aspx.cs" Inherits="fabrika_Zeytinyagi_ZeytinKabulYeni" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!-- Form specific styles -->
@@ -69,6 +69,8 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">

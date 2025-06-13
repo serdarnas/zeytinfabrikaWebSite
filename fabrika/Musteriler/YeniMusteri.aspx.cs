@@ -344,7 +344,7 @@ public partial class fabrika_Musteriler_YeniMusteri : System.Web.UI.Page
 
                 db.MusteriKategorileris.InsertOnSubmit(yeniKategori);
                 db.SubmitChanges();
-
+                //LoadKategoriler()
                 // Yeni eklenen kategoriyi seç
                 ddlKategori.SelectedValue = yeniKategori.KategoriID.ToString();
             }

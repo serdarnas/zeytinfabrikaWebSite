@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+< birimine tıklandığında veya bir makine detay sayfasından erişilebilir.
+
+Önceki tam genişlikli sidebar vehtml lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name genel tasarım dilimizi (ilk Bootstrap şablonu) kullanarak devam edelim.
+
+**Temel Hedefler:**
+
+="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.  **Malaksör Kimliği:** Hangi makineye ait, hangi sıra numaralı malaksör olduğuMalaksör Detayı: [Makine Adı] - Malaksör #[SıraNo] - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net bilgisi.
+2.  **Anlık Durum:** Boş, doluyor, işliyor (yo/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7ğuruyor), boşaltılıyor bilgisi, sıcaklığı, işlem süresi.
+3.  **MevRxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPKcut Parti Bilgisi:** Eğer doluysa, hangi zeytin partisini işlediği, ne kadar zeytin8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href hamuru içerdiği.
+4.  **Kapasite Bilgisi:** Malaksörün toplam kapasitesi ve an="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller -->
+    <style>
+        body { background-colorlık doluluk oranı.
+5.  **İşlem Geçmişi:** Bu malaksörde daha önce işlenmiş: #f8f9fa; font-family: sans-serif; }
+        .sidebar { position: partilerin listesi.
+6.  **Bakım ve Notlar:** Malaksöre ait özel notlar veya fixed; top: 0; bottom: 0; left: 0; z-index: 10 son bakım tarihi.
+
+İşte taslak HTML kodu:
+
+```html
+<!DOCTYPE html>
+<html lang="tr">0; padding: 48px 0 0; box-shadow: inset -1px 0 0 rgba
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="(0, 0, 0, .1); background-color: #343a40; }
+        .sidebar-sticky { position: relative; top: 0; height: calc(100width=device-width, initial-scale=1.0">
+    <title>Malaksör Detayıvh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: MAK001-MLX1 - Yönetim Paneli</title>
+    <!-- Bootstrap CSS -->
+    <: auto; }
+        .nav-link { color: #adb5bd; transition: color .15link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/csss ease-in-out, background-color .15s ease-in-out; font-weight:/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAs 500; }
+        .nav-link:hover, .nav-link.active { color:XEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons #fff; background-color: #495057; }
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons-bottom; }
+        .navbar-brand { padding-top: .75rem; padding-bottom:@1.11.1/font/bootstrap-icons.css">
+    <!-- Özel Stiller -->
+    <style .75rem; font-size: 1.2rem; background-color: rgba(0, 0, 0, .25); box-shadow: inset -1px 0 0 rgba(0>
+        body { background-color: #f8f9fa; font-family: sans-serif; }
+        .sidebar { position: fixed; top: 0; bottom: 0; left: 0, 0, 0, .25); color: #fff; }
+        .navbar .navbar-; z-index: 100; padding: 48px 0 0; box-shadow: insettoggler { top: .25rem; right: 1rem; }
+
+        .page-header {
+ -1px 0 0 rgba(0, 0, 0, .1); background-color: #343a40; }
+        .sidebar-sticky { position: relative; top: 0            background-color: #6610f2; /* Morun farklı bir tonu */
+            color: white;
+            padding: 1.25rem 1.5rem;
+            margin-bottom; height: calc(100vh - 48px); padding-top: .5rem; overflow-x: hidden; overflow-y: auto; }
+        .nav-link { color: #adb5: 1.5rem;
+            border-radius: 0.375rem;
+        }bd; transition: color .15s ease-in-out, background-color .15s ease-
+        .page-header h1 { margin-bottom: 0.25rem; font-size:in-out; font-weight: 500; }
+        .nav-link:hover, . 1.75rem; }
+        .page-header .text-muted { color: rgba(255,255,255,0.8) !important; }
+
+        .card {nav-link.active { color: #fff; background-color: #495057; } border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0,0
+        .nav-link .bi { margin-right: 8px; font-size: 1.1rem; vertical-align: text-bottom; }
+        .navbar-brand { padding-top: .,0,0.08); border:none; }
+        .card-header { background-color: #75rem; padding-bottom: .75rem; font-size: 1.2rem; backgrounde9ecef; font-weight: 600; padding: 1rem 1.25-color: rgba(0, 0, 0, .25); box-shadow: inset -1rem; }
+        .card-header i { margin-right: 8px; color: #66px 0 0 rgba(0, 0, 0, .25); color: #fff;10f2; }
+        .card-body { padding: 1.5rem; }
+
+        .status- }
+        .navbar .navbar-toggler { top: .25rem; right: 1rem; }indicator {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            
+
+        .page-header {
+            background-color: #6610f2; /* Mor tonu - farklıborder-radius: 0.25rem;
+            font-weight: 600;
+            font bir detay için */
+            color: white;
+            padding: 1.25rem 1.5rem;
+-size: 1.1rem;
+        }
+        .status-indicator.bg-success { color            margin-bottom: 1.5rem;
+            border-radius: 0.375rem: white; }
+        .status-indicator.bg-warning { color: #212529; }
+        .status-indicator.bg-info { color: white; }
+        .status-indicator.bg;
+        }
+        .page-header h1 { margin-bottom: 0.25rem;-secondary { color: white; }
+        .status-indicator.bg-danger { color: white; } font-size: 1.75rem; }
+        .page-header .text-muted { color: rgba(255,255,255,0.8) !important; }
+
+
+
+
+        .detail-list dt { font-weight: 600; color: #49505        .card { border-radius: 0.5rem; box-shadow: 0 2px 5px rgba7; }
+        .detail-list dd { color: #212529; }
+
+        .table(0,0,0,0.08); border:none; }
+        .card-header { background-color: #e9ecef; font-weight: 600; padding: 1rem th { font-size: 0.85rem; text-transform: uppercase; }
+        .table td 1.25rem; }
+        .card-header i { margin-right: 8px; { font-size: 0.9rem; vertical-align: middle; }
+        .progress { height: 1 color: #6610f2; }
+        .card-body { padding: 1.5.5rem; font-size: 0.8rem; } /* Biraz daha kalın progress bar */
+
+        /* Anlıkrem; }
+        .detail-item { margin-bottom: 0.8rem; }
+        .detail-label Veri Kartları */
+        .realtime-data-card {
+            background-color: #fff;
+            border { font-weight: 600; color: #495057; display: block; font: 1px solid #e0e0e0;
+            padding: 1rem;
+            border-size: 0.9rem;}
+        .detail-value { font-size: 1rem; color-radius: 0.375rem;
+            text-align: center;
+            margin-bottom: 1: #212529; }
+        .detail-value .badge { font-size: 0.9rem; }
+
+        .status-icon-lg { font-size: 4rem; }rem;
+        }
+        .realtime-data-card .data-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: block;
+
+        .status-text-lg { font-size: 1.5rem; font-weight:             margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+        .600; }
+
+        .table th { font-size: 0.85rem; }
+        .realtime-data-card .data-value {
+            font-size: 1.75rem;table td { font-size: 0.9rem; vertical-align: middle; }
+        .action-buttons .btn { margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+            font-weight: 700;
+            color: #20c997; /* Yeşil
+
+    <!-- Üst Navbar -->
+    <nav class="navbar navbar-dark sticky-top bg-dark fleximsi bir renk */
+        }
+         .realtime-data-card .data-value .unit {
+-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3             font-size: 0.9rem;
+             font-weight: 500;
+             margin-left col-lg-2 me-0 px-3" href="#">
+             <i class="bi bi-tree: 2px;
+         }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Navbar -->
+-fill me-2"></i> Zeytin Dalı Fabrikası
+        </a>
+        <button class="navbar    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria- px-3" href="#">
+             <i class="bi bi-tree-fill me-2"></i> Zeylabel="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+tin Dalı Fabrikası
+        </a>
+        <button class="navbar-toggler position-absolute d-md        <input class="form-control form-control-dark w-100" type="text" placeholder-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu="Ara..." aria-label="Ara">
+        <div class="navbar-nav"> <div class="nav" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <-item text-nowrap"> <a class="nav-link px-3" href="#"><i class="bispan class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control bi-box-arrow-right"></i> Çıkış Yap</a></div></div>
+    </nav>
+
+    < form-control-dark w-100" type="text" placeholder="Ara..." aria-label="Aradiv class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block">
+        <div class="navbar-nav"> <div class="nav-item text-nowrap"> < sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul classa class="nav-link px-3" href="#"><i class="bi bi-box-arrow-right">="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link"</i> Çıkış Yap</a></div></div>
+    </nav>
+
+    <div class="container-fluid">
+ href="#"><i class="bi bi-house-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav        <div class="row">
+            <!-- Sidebar Menü -->
+            <nav id="sidebarMenu" class-item"> <a class="nav-link active" aria-current="page" href="#"><i class="bi="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class bi-gear-wide-connected"></i> Üretim Takibi</a></li> <!-- Aktif -->
+                        <!-- Diğer="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"> <a class="nav-link" href="#"><i class="bi bi- menü öğeleri -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanhouse-door-fill"></i> Ana Panel</a></li>
+                        <li class="nav-item"> <a classı -->
+            <main class="col-md-9 ms-sm-auto col-lg-10="nav-link active" aria-current="page" href="#"><i class="bi bi-gear-wide- px-md-4">
+                <!-- Sayfa Başlığı ve Breadcrumb -->
+                <div class="pageconnected"></i> Üretim Takibi</a></li> <!-- Aktif -->
+                        <!-- Diğer menü öğeleri -->
+                    </ul>-header">
+                    <nav aria-label="breadcrumb" class="mb-1">
+                      <ol class
+                </div>
+            </nav>
+
+            <!-- Ana İçerik Alanı -->
+            <main class="="breadcrumb breadcrumb-transparent small p-0 m-0">
+                        <li class="breadcrumb-item"><a href="#"col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                 class="text-white-50">Üretim Takibi</a></li>
+                        <li class="breadcrumb-<div class="page-header">
+                    <nav aria-label="breadcrumb" class="mb-1">
+                      item"><a href="#" class="text-white-50">Makine 1 İzleme</a></li>
+                        <li class<ol class="breadcrumb breadcrumb-transparent small p-0 m-0">
+                        <li class="breadcrumb="breadcrumb-item active text-white" aria-current="page">Malaksör Detayı</li>
+                      </ol>-item"><a href="#" class="text-white-50">Üretim Takibi</a></li>
+                        
+                    </nav>
+                    <h1>Malaksör Detayı: #1 (Makine: MAK001<li class="breadcrumb-item"><a href="#" class="text-white-50" id="breadcrumbMakineAdi">MAKİNE 1</a></li>
+                        <li class="breadcrumb-item active text-white" aria-)</h1>
+                    <p class="text-muted mb-0" id="malaksorGenelBilgi">Modelcurrent="page">Malaksör Detayı</li>
+                      </ol>
+                    </nav>
+                    <h1 id: Alfa Laval X2 / Malaksör Kapasitesi: 500 Kg</p>
+                </div>="malaksorDetayBaslik"><i class="bi bi-water"></i> Malaksör #1 Det
+
+                <div class="row g-4">
+                    <!-- Sol Sütun: Anlık Durum ve Temel Bilgiler -->
+                    <div class="col-lg-5">
+                        <div class="cardayları</h1>
+                    <p class="text-muted mb-0" id="malaksorMakineModel mb-4">
+                            <div class="card-header"><i class="bi bi-info-circle-fill"></i> Temel Bilgiler</div>
+                            <div class="card-body">
+                                <div class="detail-itemi">Makine: Alfa Laval X2 / Kapasite: 500 Kg</p>
+                </div>
+
+                <!-- Anlık Durum ve Veriler -->
+                <div class="row g-3 mb-4">
+                    <div">
+                                    <span class="detail-label">Malaksör ID:</span>
+                                    <span class="detail- class="col-lg-3 col-md-6">
+                        <div class="card realtime-data-cardvalue" id="detMalaksorID">M1-MLX1</span>
+                                </div>
+                                <div">
+                            <div class="data-label">Anlık Durum</div>
+                            <div class="status- class="detail-item">
+                                    <span class="detail-label">Bağlı Olduğu Makine:indicator bg-warning" id="anlikDurumText">İŞLİYOR</div> <!-- Dinamik olacak -->
+</span>
+                                    <span class="detail-value" id="detBagliMakine">MAK001 (Alfa Laval X2)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span                        </div>
+                    </div>
+                     <div class="col-lg-3 col-md-6">
+                        <div class class="detail-label">Sıra Numarası:</span>
+                                    <span class="detail-value" id="card realtime-data-card">
+                            <div class="data-label">İşlenen Parti</div>
+                            <="detSiraNo">1</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Kapasite:</span>
+                                    <span class="detail-value"div class="data-value" id="anlikPartiNo" style="font-size: 1.5 id="detKapasite">500 Kg</span>
+                                </div>
+                                <div class="detail-item">rem; color: #0d6efd;">#P2023-108</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class
+                                    <span class="detail-label">Son Bakım Tarihi:</span>
+                                    <span class="card realtime-data-card">
+                            <div class="data-label">Mevcut Yük</div>="detail-value" id="detSonBakim">15.09.2023</span>
+                                </div>
+                            <div class="data-value" id="anlikMevcutKg">450 <span class="unit
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"><i class">Kg</span></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md="bi bi-activity"></i> Anlık Durum</div>
+                            <div class="card-body text-center-6">
+                        <div class="card realtime-data-card">
+                            <div class="data-">
+                                <div id="anlikDurumIkon" class="status-icon-lg text-warning mblabel">Geçen Süre / Hedef</div>
+                            <div class="data-value" id="anlikSure-2"><i class="bi bi-arrow-repeat"></i></div>
+                                <div id="anlikDurumMet" style="color: #ff7f50;">28 dk <small class="text-muted">/ 45in" class="status-text-lg text-warning mb-3">İŞLİYOR</div>
+                                <div class=" dk</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3"progress" style="height: 20px;">
+                                    <div id="anlikDolulukProgress" class="progress id="anlikProgressContainer" style="display: none;"> <!-- Sadece işliyorsa görünür -->
+                     <label-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax=" class="form-label" id="anlikProgressLabel">Yoğurma İlerlemesi (%55)</label100">90% Dolu</div>
+                                </div>
+                                <hr class="my-3">
+                                <>
+                     <div class="progress">
+                        <div class="progress-bar progress-bar-striped progressdiv class="detail-item text-start">
+                                    <span class="detail-label">İşlenen Parti-bar-animated bg-warning" id="anlikProgressBar" role="progressbar" style="width: 5 No:</span>
+                                    <span class="detail-value" id="anlikPartiNo">P20235%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+
+                <!-- Malaksör Temel Bilgileri ve-108</span>
+                                </div>
+                                <div class="detail-item text-start">
+                                Ayarları -->
+                <div class="card mb-4">
+                    <div class="card-header"><i class="bi bi-info-circle-fill"></i> Malaksör Özellikleri ve Ayarları</div>
+     <span class="detail-label">Mevcut Hamur Miktarı:</span>
+                                    <span class="detail-value" id="anlikMevcutKg">450 Kg</span>
+                                </div>
+                                                   <div class="card-body">
+                        <dl class="row detail-list">
+                            <dt class="col-sm-3">Malaksör ID:</dt>
+                            <dd class="col-sm- <div class="detail-item text-start">
+                                    <span class="detail-label">Anlık Sıcaklık:</span>
+                                    <span class="detail-value" id="anlikSicaklik">26.5 °C</span>
+                                </div>
+                                <div class="detail-item text-start">
+                                    <span class="detail-label">Yoğurma Süresi:</span>
+                                    <span class="detail9" id="infoMalaksorID">M1-MLX1</dd>
+
+                            <dt class="col-sm-3">Sıra No:</dt>
+                            <dd class="col-sm-9" id="infoSiraNo">1</dd>
+
+                            <dt class="col-sm-3-value" id="anlikIslemSuresi">28 dakika / 45 dakika</span>
+                                ">Kapasite:</dt>
+                            <dd class="col-sm-9" id="infoKapasite">5</div>
+                                <div class="mt-3 action-buttons">
+                                    <button class="btn btn-sm btn-00 Kg</dd>
+
+                            <dt class="col-sm-3">Standart Yoğurmaoutline-danger"><i class="bi bi-stop-circle-fill me-1"></i> İşlemi Durdur</ Süresi:</dt>
+                            <dd class="col-sm-9"><input type="number" class="formbutton>
+                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-control form-control-sm d-inline-block" style="width: 80px;" value="45"-right-circle-fill me-1"></i> Boşaltmayı Başlat</button>
+                                </div>
+                            </div> id="ayarStandartSure"> dakika</dd>
+
+                            <dt class="col-sm-3">Hed
+                        </div>
+                    </div>
+
+                    <!-- Sağ Sütun: İşlem Geçmişi ve Notlar -->
+                    <ef Sıcaklık:</dt>
+                            <dd class="col-sm-9"><input type="number"div class="col-lg-7">
+                        <div class="card">
+                            <div class="card- class="form-control form-control-sm d-inline-block" style="width: 80px;" value="header">
+                                <i class="bi bi-list-ol"></i> Malaksör İşlem Geçmişi
+27" id="ayarHedefSicaklik"> °C</dd>
+
+                            <dt class="col-sm-3">Son Temizlik Tarihi:</dt>
+                            <dd class="col-sm-9" id="                                <button class="btn btn-sm btn-outline-secondary float-end mt-n1" id="refreshHistoryButton" title="Geçmişi Yenile"><i class="bi bi-arrow-clockwise"></i></button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive"infoSonTemizlik">28.10.2023</dd>
+                        </dl>
+                        <button class="btn btn-sm btn-outline-primary"><i class="bi bi-save"></i> Ayarları Kay style="max-height: 300px; overflow-y: auto;">
+                                    <table class="table table-striped table-hover table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                               det</button>
+                    </div>
+                </div>
+
+                <!-- Malaksör İşlem Geçmişi -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-                 <th>Tarih</th>
+                                                <th>Parti No</th>
+                                                <th>Giriş Kg</th>
+                                                clock-history"></i> Son İşlem Geçmişi
+                        <input type="date" class="form-control form-control<th>Çıkış Kg</th>
+                                                <th>Süre (dk)</th>
+                                                <th>Max. Sıcaklık</th>-sm float-end mt-n1" style="width: 180px;" id="gecm
+                                            </tr>
+                                        </thead>
+                                        <tbody id="islemGecmisiTableBody">
+                                            isTarihFilter">
+                    </div>
+                    <div class="card-body p-0">
+                        <div<!-- Örnek Geçmiş Kayıtları -->
+                                            <tr><td>28.10.23 1 class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>5:30</td><td>P2023-107</td><td>480</td><td>47
+                                    <tr>
+                                        <th>İşlem ID</th>
+                                        <th>Parti No</th>
+                                        <th>G5</td><td>46</td><td>27.1 °C</td></tr>
+                                            <tr><td>28.10.iren Miktar (Kg)</th>
+                                        <th>Başlama Zamanı</th>
+                                        <th>Bitiş Zamanı23 10:15</td><td>P2023-106</td><td>500</td><td></th>
+                                        <th>Toplam Süre</th>
+                                        <th>Ort. Sıcaklık</th>
+                                        <th>Dur492</td><td>45</td><td>26.8 °C</td></tr>
+                                            <tr><td>27.um</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="islemGecmisiTableBody">10.23 18:45</td><td>P2023-105</td><td>49
+                                    <!-- Örnek İşlem Kayıtları (Backend'den gelecek) -->
+                                    <tr>
+                                        0</td><td>485</td><td>47</td><td>27.0 °C</td></tr>
+                                            <!-- Daha fazla kayıt -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class<td>MLXİŞ-0255</td><td>P2023-107</td><td>480</td><td>28.10.23 14:10</td><td>28.10.23 ="card mt-4">
+                            <div class="card-header"><i class="bi bi-journal-14:58</td><td>48 dk</td><td>26.5 °C</td><td><span class="text"></i> Malaksör Notları ve Bakım Kayıtları</div>
+                            <div class="card-bodybadge bg-success">Tamamlandı</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MLXİŞ">
+                                <textarea class="form-control mb-2" id="malaksorNotlari" rows="3" placeholder="Bu malaksöre özel notlar..."></textarea>
+                                <button class="btn btn-sm btn-info-0250</td><td>P2023-106</td><td>500</td><td>28.1 text-white"><i class="bi bi-plus-lg"></i> Yeni Not Ekle</button>
+                               0.23 10:15</td><td>28.10.23 11:0 <hr>
+                                <ul class="list-unstyled">
+                                    <li><small class="text-muted2</td><td>47 dk</td><td>27.1 °C</td><td><span class="badge bg-success">Tamamlandı</span></td>
+                                    </tr>
+                                     <tr>
+                                        <td>MLXİŞ-024">15.09.2023 - Periyodik bakım yapıldı. Contalar değişti.</small></li>8</td><td>P2023-105</td><td>490</td><td>27.10
+                                    <li><small class="text-muted">02.08.2023 - Sıcaklık.23 18:30</td><td>27.10.23 19:1 sensörü kalibre edildi.</small></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                5</td><td>45 dk</td><td>26.8 °C</td><td><span class="badge bg-danger</div>
+                <div style="height: 50px;"></div>
+            </main>
+        </div>
+    </div>">İptal Edildi</span></td>
+                                    </tr>
+                                    <!-- Diğer geçmiş işlemler -->
+                                
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kW</tbody>
+                            </table>
+                        </div>
+                    </div>
+                     <div class="card-footer text-center">
+                        <a href="#" class="btn btn-sm btn-outline-secondary">Tüm İşlem Geçmişini GörDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN</a>
+                    </div>
+                </div>
+                <div style="height: 50px;"></div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    @5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj<script>
+        // Örnek Veri (Normalde URL parametresi veya backend'den gelir)
+        const malaksorDetayVerisi = {
+            sirketZeytinyagiMakinaMalaksorID:1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin "M1-MLX1",
+            sirketZeytinyagiMakinaID: "MAK001",
+            makineModeli: "Alfa Laval X2",
+            malaksorSiraNo: 1="anonymous"></script>
+    <script>
+        // Örnek Veri (Bu veriler URL parametrelerinden veya backend'den gelmeli)
+        const urlParams = new URLSearchParams(window.location.search);,
+            malaksorKaparistesi_kg: 500,
+            sonBakimTarihi
+        const makineId = urlParams.get('makineId') || "MAK001"; // Vars: "2023-09-15",
+            anlikDurum: "İşliyorayılan
+        const malaksorSiraNo = urlParams.get('malaksorSiraNo') || "", // Boş, Doluyor, İşliyor, Boşaltılıyor
+            anlikPartiNo: "1"; // Varsayılan
+
+        let malaksorDetayVerisi = {
+            sirketZeytinyagiP2023-108",
+            anlikMevcutKg: 450,MakinaID: makineId,
+            makineModeli: "Alfa Laval X2", // Bu da backend'den
+            anlikSicaklikCelsius: 26.5,
+            anlikIslemBaslamaZamani: "2023-10-29T10:00:00", // ISO gelmeli
+            sirketZeytinyagiMakinaMalaksorID: `${makineId}-MLX${mal formatında
+            standartYogurmaSuresiDakika: 45,
+            islemGaksorSiraNo}`,
+            malaksorSiraNo: parseInt(malaksorSiraNo),ecmisi: [
+                { tarih: "2023-10-28T15:30
+            malaksorKapasitesi_kg: 500,
+            anlikDurum: "İ:00", partiNo: "P2023-107", girisKg: 480, cikisKg: 475, sureDk: 46, maxSicaklik: 27.şliyor", // Boş, Doluyor, İşliyor, Boşaltılıyor
+            anlikPartiNo: "P2023-108",
+            anlikMevcutKg: 1 },
+                { tarih: "2023-10-28T10:15:00", partiNo: "P2023-106", girisKg: 5450,
+            anlikIslemBaslamaZamani: "2023-10-29T10:00:00", // ISO formatında
+            standartSureDk: 45,
+00, cikisKg: 492, sureDk: 45, maxSicaklik            hedefSicaklik: 27,
+            sonTemizlikTarihi: "2023: 26.8 },
+            ],
+            notlar: [
+                { tarih: "2023--10-28",
+            islemGecmisi: [
+                { islemID: "09-15", not: "Periyodik bakım yapıldı. Contalar değişti." },
+                { tarih:MLXİŞ-0255", partiNo: "P2023-107", g "2023-08-02", not: "Sıcaklık sensörü kalibre edildiirenKg: 480, baslama: "2023-10-28T1." }
+            ]
+        };
+
+        function formatTarihSaatKisa(isoString) {
+4:10:00", bitis: "2023-10-28T1            if (!isoString) return "-";
+            const date = new Date(isoString);
+            return `${4:58:00", ortSicaklik: 26.5, durum: "Tamamdate.toLocaleDateString('tr-TR', {day:'2-digit', month:'2-digit', year:'landı" },
+                { islemID: "MLXİŞ-0250", partiNo: "P2023-106", girenKg: 500, baslama: "22-digit'})} ${date.toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'})}`;
+        }
+
+        function renderMalaksorDetay(data) {
+            document.title023-10-28T10:15:00", bitis: "2023-10-28T11:02:00", ortSicaklik: 27 = `Malaksör Detayı: ${data.sirketZeytinyagiMakinaMalaksorID}.1, durum: "Tamamlandı" },
+                { islemID: "MLXİŞ-0 - Yönetim Paneli`;
+            document.querySelector('.page-header h1').textContent = `Malaksör248", partiNo: "P2023-105", girenKg: 490, baslama: "2023-10-27T18:30: Detayı: #${data.malaksorSiraNo} (Makine: ${data.sirketZeytinyagiMakinaID})`;
+            document.getElementById('malaksorGenelBilgi').innerHTML = `Model: ${data.mak00", bitis: "2023-10-27T19:15:00",ineModeli} / Malaksör Kapasitesi: ${data.malaksorKaparistesi_kg} Kg`;
+
+            document.getElementById('detMalaksorID').textContent = data.sirketZeytinyagi ortSicaklik: 26.8, durum: "İptal Edildi" },
+            ]
+MakinaMalaksorID;
+            document.getElementById('detBagliMakine').textContent = `${data.sirket        };
+
+        // Elementler
+        const breadcrumbMakineAdi = document.getElementById('breadcrumbMakineAdiZeytinyagiMakinaID} (${data.makineModeli})`;
+            document.getElementById('detS');
+        const malaksorDetayBaslik = document.getElementById('malaksorDetayBaslik');iraNo').textContent = data.malaksorSiraNo;
+            document.getElementById('detKapasite
+        const malaksorMakineModeli = document.getElementById('malaksorMakineModeli');
+        const an').textContent = `${data.malaksorKaparistesi_kg} Kg`;
+            document.getElementById('detSonBaklikDurumText = document.getElementById('anlikDurumText');
+        const anlikPartiNo = document.getElementById('anlikPartiNo');
+        const anlikMevcutKg = document.getElementById('im').textContent = data.sonBakimTarihi ? new Date(data.sonBakimTarihi).toLocaleanlikMevcutKg');
+        const anlikSure = document.getElementById('anlikSure');
+        constDateString('tr-TR') : "-";
+
+            // Anlık Durum
+            const durumIkonEl = document.getElementById('anlikDurumIkon');
+            const durumMetinEl = document.getElementById(' anlikProgressContainer = document.getElementById('anlikProgressContainer');
+        const anlikProgressLabel = document.getElementById('anlikProgressLabel');
+        const anlikProgressBar = document.getElementById('anlikProgressBar');
+
+        anlikDurumMetin');
+            const dolulukProgressEl = document.getElementById('anlikDolulukProgressconst infoMalaksorID = document.getElementById('infoMalaksorID');
+        const infoSiraNo = document');
+            let ikonClass = 'bi-circle'; let durumRenkClass = 'text-secondary'; let progressBg.getElementById('infoSiraNo');
+        const infoKapasite = document.getElementById('infoKapasite');
+        const ayarStandartSure = document.getElementById('ayarStandartSure');
+        const ayarHedefSicaklik = document.getElementById('ayarHedefSicaklik');
+        const infoSonTemizlik = = 'bg-secondary';
+
+            durumIkonEl.className = 'status-icon-lg mb-2 document.getElementById('infoSonTemizlik');
+        const islemGecmisiTableBody = document.getElementById('is'; // Temel sınıflar
+            durumMetinEl.className = 'status-text-lg mb-3lemGecmisiTableBody');
+
+        function formatTarihSaat(isoString) {
+            if (!isoString) return "-";
+            const date = new Date(isoString);
+            return `${date.toLocaleDateString';
+            dolulukProgressEl.className = 'progress-bar progress-bar-striped progress-bar-animated';
+
+
+            if (data.anlikDurum === "İşliyor") {
+                ikonClass = 'bi('tr-TR')} ${date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute:-arrow-repeat'; durumRenkClass = 'text-warning'; progressBg = 'bg-warning';
+            } else if (data.anlikDurum === "Doluyor") {
+                ikonClass = 'bi- '2-digit' })}`;
+        }
+         function calculateGecenSure(baslamaZamaniISOarrow-down-circle'; durumRenkClass = 'text-info'; progressBg = 'bg-info';
+            } else, bitisZamaniISO = null) {
+            if (!baslamaZamaniISO) return "-";
+            const bas if (data.anlikDurum === "Boşaltılıyor") {
+                ikonClass = 'bi-arrow-uplama = new Date(baslamaZamaniISO);
+            const bitis = bitisZamaniISO ? new-circle'; durumRenkClass = 'text-primary'; progressBg = 'bg-primary';
+            } else { Date(bitisZamaniISO) : new Date(); // Bitiş yoksa şu an
+            let farkMs = bit // Boş
+                ikonClass = 'bi-circle'; durumRenkClass = 'text-muted'; progressBg = 'bgis - baslama;
+            if (farkMs < 0) farkMs = 0;
+            const saat =-light text-dark';
+            }
+            durumIkonEl.classList.add(durumRenkClass Math.floor(farkMs / (1000 * 60 * 60));
+            );
+            durumIkonEl.innerHTML = `<i class="bi ${ikonClass}"></i>`;
+            durumMetfarkMs -= saat * (1000 * 60 * 60);
+            const dakikainEl.classList.add(durumRenkClass);
+            durumMetinEl.textContent = data.anlikDur = Math.floor(farkMs / (1000 * 60));
+            return `${saat >um.toUpperCase();
+
+            const dolulukOrani = data.anlikMevcutKg > 0 ? ( 0 ? saat + " sa " : ""}${dakika} dk`;
+        }
+
+
+        function renderMaldata.anlikMevcutKg / data.malaksorKaparistesi_kg) * 1aksorDetay(data) {
+            if(breadcrumbMakineAdi) breadcrumbMakineAdi.textContent = `00 : 0;
+            dolulukProgressEl.style.width = `${dolulukOrani.toFixed(0)}%`;
+            dolulukProgressEl.setAttribute('aria-valuenow', dolulukOrani.toFixed(0));
+            dolulukProgressEl.classList.add(progressBg);
+            dolulukProgressMAKİNE ${data.sirketZeytinyagiMakinaID.slice(-1)}`;
+            if(malaksorDetayBaslik) malaksorDetayBaslik.innerHTML = `<i class="bi bi-water"></i> Malaksör #${data.malaksorSiraNo} Detayları`;
+            if(malaksorMakineModeli) malaksorMakineModeli.textContent = `Makine: ${data.makineModelEl.textContent = `${dolulukOrani.toFixed(0)}% Dolu`;
+
+
+            document.getElementById('anlikPartiNo').textContent = data.anlikPartiNo || "-";
+            document.getElementById('anlikMevcutKg').textContent = `${data.anlikMevcutKg || 0} Kg`;
+            document.getElementById('anliki} / Kapasite: ${data.malaksorKapasitesi_kg} Kg`;
+
+            //Sicaklik').textContent = data.anlikSicaklikCelsius ? `${data.anlikSicaklikCelsius} °C` : "-";
+
+            let islemSuresiMetni = "-";
+            if (data.anlikDur Anlık Durum
+            if(anlikDurumText) {
+                anlikDurumText.textContent = data.anlikDurum.toUpperCase();
+                anlikDurumText.className = 'status-indicator'; // Reset classes
+                if(data.anlikDurum === "İşliyor") anlikDurumText.classListum === "İşliyor" && data.anlikIslemBaslamaZamani) {
+                const baslama = new Date(data.anlikIslemBaslamaZamani);
+                const simdi = new Date();
+                const gecenDk = Math.floor((simdi - baslama) / 60000.add('bg-warning');
+                else if(data.anlikDurum === "Doluyor") anlikDurumText.classList.add('bg-info');
+                else if(data.anlikDurum === "Boşaltılıyor") anlikDurumText.classList.add('bg-primary', 'text-white'); //);
+                islemSuresiMetni = `${gecenDk} dakika / ${data.standartY Örnek
+                else if(data.anlikDurum === "Boş") anlikDurumText.ogurmaSuresiDakika || '?'} dakika`;
+            } else if (data.anlikDurumclassList.add('bg-secondary');
+                else anlikDurumText.classList.add('bg-light === "Doluyor" && data.anlikIslemBaslamaZamani) {
+                 islemSures', 'text-dark');
+            }
+            if(anlikPartiNo) anlikPartiNo.iMetni = `Dolum süresi: ${Math.floor((new Date() - new Date(data.textContent = data.anlikPartiNo || "-";
+            if(anlikMevcutKg) ananlikIslemBaslamaZamani)) / 60000)} dk`;
+            }
+            likMevcutKg.innerHTML = `${data.anlikMevcutKg || 0} <span class="unit">document.getElementById('anlikIslemSuresi').textContent = islemSuresiMetni;
+
+            // İşlem Geçmişi
+            const tbody = document.getElementById('islemGecmisiTableBody');
+            tbody.innerHTML = ''; // Temizle
+            data.islemGecmisi.forEach(item => {
+                Kg</span>`;
+
+            let gecenSureStr = "-";
+            let progressPercent = 0;
+            if(data.anlikDurum === "İşliyor" && data.anlikIslemBaslamaZamaniconst row = tbody.insertRow();
+                row.insertCell().textContent = formatTarihSaatKisa() {
+                gecenSureStr = calculateGecenSure(data.anlikIslemBaslamaZamani);
+                const gecenDk = Math.floor((new Date() - new Date(data.anlikIsitem.tarih);
+                row.insertCell().textContent = item.partiNo;
+                row.insertCell().textContent = item.girisKg;
+                row.insertCell().textContent = item.cikisKg;
+lemBaslamaZamani)) / 60000);
+                progressPercent = data.standartSureDk ? (gecenDk / data.standartSureDk) * 100 : 0;                row.insertCell().textContent = item.sureDk;
+                row.insertCell().textContent = item.maxSicaklik ? `${item.maxSicaklik} °C` : "-";
+            });
+
+             // Notlar (
+                if (progressPercent > 100) progressPercent = 100;
+                anlikProgressContainer.style.display = 'block';
+                anlikProgressLabel.textContent = `YoğurmaBasit gösterim)
+            const notlarListesi = document.querySelector('.card-body ul');
+            if( İlerlemesi (${progressPercent.toFixed(0)}%)`;
+                anlikProgressBar.style.width = `${progressPercent.toFixed(0)}%`;
+                anlikProgressBar.setAttribute('aria-valuenow', progressPercent.toFixed(notlarListesi) {
+                notlarListesi.innerHTML = '';
+                data.notlar.forEach0));
+            } else {
+                anlikProgressContainer.style.display = 'none';
+            }(n => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<small class="text
+            if(anlikSure) anlikSure.innerHTML = `${gecenSureStr} <small class="-muted">${new Date(n.tarih).toLocaleDateString('tr-TR')} - ${n.nottext-muted">/ ${data.standartSureDk || '-'} dk</small>`;
+
+
+            // Malaks}</small>`;
+                    notlarListesi.appendChild(li);
+                });
+            }
+        }
+
+
+ör Bilgileri
+            if(infoMalaksorID) infoMalaksorID.textContent = data.sirk        document.addEventListener('DOMContentLoaded', () => {
+            renderMalaksorDetay(malaksorDetayetZeytinyagiMakinaMalaksorID;
+            if(infoSiraNo) infoSiraVerisi);
+
+            // Yenileme butonu (gerçekte backend'den veri çeker)
+            No.textContent = data.malaksorSiraNo;
+            if(infoKapasite) infoKapasite.const refreshButton = document.getElementById('refreshHistoryButton'); // Veya genel bir yenileme
+            if(textContent = `${data.malaksorKapasitesi_kg} Kg`;
+            if(ayarStandartSurerefreshButton){
+                refreshButton.addEventListener('click', () => {
+                    console.log("Veriler yenileniyor) ayarStandartSure.value = data.standartSureDk;
+            if(ayarHedefSicak (simülasyon)...");
+                    // malaksorDetayVerisi'ni backend'den güncelleyip tekrar render edin
+                     malaksorDetayVerisi.anlikSicaklikCelsius = (Math.random() * 2lik) ayarHedefSicaklik.value = data.hedefSicaklik;
+            if(infoSonTemizlik) infoSonTemizlik.textContent = data.sonTemizlikTarihi ? new Date(data. + 25).toFixed(1); // Rastgele sıcaklık
+                    renderMalaksorDetay(malaksorDetsonTemizlikTarihi).toLocaleDateString('tr-TR') : "-";
+
+            // İşlem Geçmişi
+            if(islemGecmisiTableBody){
+                islemGecmisiTableBody.innerHTMLayVerisi);
+                    alert("Malaksör detayları yenilendi!");
+                });
+            }
+         = ''; // Temizle
+                data.islemGecmisi.forEach(islem => {
+});
+
+         // Anlık süreleri vs. güncellemek için periyodik bir fonksiyon
+        setInterval(() => {
+                    let durumBadgeClass = 'bg-secondary';
+                    if(islem.durum === "Tamamlandı")            if (document.hidden) return;
+            // Sadece "İşliyor" veya "Doluyor durumBadgeClass = 'bg-success';
+                    else if (islem.durum === "İptal Edildi" durumundaki süreleri güncelle
+            if (malaksorDetayVerisi.anlikIslemBaslamaZ") durumBadgeClass = 'bg-danger';
+
+                    const row = `
+                        <tr>
+                            <td>${islemamani && (malaksorDetayVerisi.anlikDurum === "İşliyor" || mal.islemID}</td>
+                            <td>${islem.partiNo}</td>
+                            <td>${islemaksorDetayVerisi.anlikDurum === "Doluyor")) {
+                let islemSuresi.girenKg}</td>
+                            <td>${formatTarihSaat(islem.baslama)}</td>
+                            <td>${formatTarihSaat(islem.bitis)}</td>
+                            <td>${calculateGecenMetni = "-";
+                if (malaksorDetayVerisi.anlikDurum === "İSure(islem.baslama, islem.bitis)}</td>
+                            <td>${islem.ortSicşliyor") {
+                    const baslama = new Date(malaksorDetayVerisi.anlikaklik || '-'} °C</td>
+                            <td><span class="badge ${durumBadgeClass}">${islem.durIslemBaslamaZamani);
+                    const simdi = new Date();
+                    const gecenDk = Math.floor((simdi - baslama) / 60000);
+                    islemSuresum}</span></td>
+                        </tr>
+                    `;
+                    islemGecmisiTableBody.innerHTML += row;
+                });
+            }
+        }
+
+        // Sayfa yüklendiğinde ve periyodik olarak veriMetni = `${gecenDk} dakika / ${malaksorDetayVerisi.standartYogurmaSuresiDakika || '?'} dakika`;
+                } else if (malaksorDetayVerisiiyi render et
+        document.addEventListener('DOMContentLoaded', () => renderMalaksorDetay(malaksorDetayVerisi));
+
+        setInterval(() => {
+            if (document.hidden) return;
+            // Backend'den gün.anlikDurum === "Doluyor"){
+                    islemSuresiMetni = `Dolum süresi: ${Math.floor((new Date() - new Date(malaksorDetayVerisi.anlikIslemBaslamaZamani)) / 60000)} dk`;
+                }
+                 document.getElementById('anlikIslemSuresi').textContent = islemSuresiMetni;
+            }
+        },cel malaksorDetayVerisi'ni çekip renderMalaksorDetay(newData) çağır.
+            // Simülasyon için anlık durumu ve süreyi güncelleyelim:
+            if (malaksorDetayVerisi.anlikDurum === "İşliyor") {
+                // Gerçek zamanlı süre 10000); // Her 10 saniyede bir
+
+
+    </script>
+</body>
+</html>

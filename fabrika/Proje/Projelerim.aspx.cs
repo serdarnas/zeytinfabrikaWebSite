@@ -9,22 +9,20 @@ public partial class fabrika_Projelerim : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["SirketID"] == null)
-        {
-            Response.Redirect("~/fabrika/Default.aspx");
-        }
+
+
         if (!IsPostBack)
         {
-            LoadProjeler(); 
+            LoadProjeler();
         }
     }
 
     private void LoadProjeler()
     {
-        int _sirketID = int.Parse(Session["SirketID"].ToString());
+        int _sirketID = SessionHelper.GetSirketID();
         FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext();
         var tumProjeler = db.Projelers.Where(x => x.SirketID == _sirketID).ToList();
-        
+
         rptProjeler.DataSource = tumProjeler;
         rptProjeler.DataBind();
     }

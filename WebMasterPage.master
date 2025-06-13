@@ -279,8 +279,12 @@
                        
                     </ul>
                     <div class="nav-buttons">
-                        <a href="giris.aspx" class="nav-btn nav-btn-login">Giriş Yap</a>
-                        <a href="Kayit.aspx" class="nav-btn nav-btn-register">Ücretsiz Kayıt Ol</a>
+                        <asp:HyperLink ID="hplinkGiris" CssClass="nav-btn nav-btn-login" NavigateUrl="~/giris.aspx" runat="server">Giriş Yap</asp:HyperLink>
+                        <asp:HyperLink ID="hplinkKayit" CssClass="nav-btn nav-btn-register" NavigateUrl="~/Kayit.aspx" runat="server">Ücretsiz Kayıt Ol</asp:HyperLink>
+
+                        <asp:HyperLink ID="hplinkKullanici" CssClass="nav-btn nav-btn-login" NavigateUrl="~/fabrika/Default.aspx" runat="server">kullanici</asp:HyperLink>
+                       <%-- <a href="giris.aspx" class="nav-btn nav-btn-login">Giriş Yap</a>
+                        <a href="Kayit.aspx" class="nav-btn nav-btn-register">Ücretsiz Kayıt Ol</a>--%>
                     </div>
                 </div>
             </div>

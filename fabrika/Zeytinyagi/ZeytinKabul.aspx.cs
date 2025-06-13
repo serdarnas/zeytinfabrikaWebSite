@@ -92,9 +92,17 @@ public partial class fabrika_Zeytinyagi_ZeytinKabul : System.Web.UI.Page
             {
                 // Arama filtresini kontrol et
                 string filter = string.Empty;
+                string searchTerm = string.Empty;
                 if (!string.IsNullOrEmpty(txtArama.Text))
                 {
-                    filter = " WHERE z.PartiNo LIKE @Search OR (m.Ad + ' ' + m.Soyad) LIKE @Search OR z.PlakaNo LIKE @Search OR u.UrunAdi LIKE @Search OR BoxNos LIKE @Search";
+                    searchTerm = "%" + txtArama.Text.Trim() + "%";
+                    filter = @" WHERE z.PartiNo LIKE @Search 
+                             OR (m.Ad + ' ' + m.Soyad) LIKE @Search 
+                             OR z.PlakaNo LIKE @Search 
+                             OR EXISTS (SELECT 1 FROM ZeytinBoxKasalari zb 
+                                      JOIN ZeytinyagiUretimi_ZeytinBoxKasa_Map map ON zb.ZeytinBoxKasaID = map.ZeytinBoxKasaID 
+                                      WHERE map.ZeytinyagiUretimID = z.ZeytinyagiUretimID 
+                                      AND CONVERT(VARCHAR, zb.ZeytinBoxNo) LIKE @Search)";
                 }
 
                 // SQL Server 2017+ için STRING_AGG fonksiyonu
@@ -140,7 +148,7 @@ public partial class fabrika_Zeytinyagi_ZeytinKabul : System.Web.UI.Page
                 {
                     if (!string.IsNullOrEmpty(filter))
                     {
-                        cmd.Parameters.AddWithValue("@Search", "%" + txtArama.Text + "%");
+                        cmd.Parameters.AddWithValue("@Search", searchTerm);
                     }
 
                     try
@@ -204,39 +212,8 @@ public partial class fabrika_Zeytinyagi_ZeytinKabul : System.Web.UI.Page
     {
         try
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["baglanti"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query = @"UPDATE ZeytinyagiUretimleri 
-                               SET UretimBaslamaZamani = @StartTime
-                               WHERE ZeytinyagiUretimID = @ID AND UretimBaslamaZamani IS NULL";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@StartTime", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@ID", zeytinyagiUretimID);
-
-                    int affectedRows = cmd.ExecuteNonQuery();
-
-                    if (affectedRows > 0)
-                    {
-                        // Bildirim ile başarı mesajı gösterme
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "SuccessNotification", 
-                            string.Format("showSuccessMessage('Başarılı', 'Üretim başlatıldı.');"), true);
-                    }
-                    else
-                    {
-                        // Bildirim ile hata mesajı gösterme
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ErrorNotification", 
-                            string.Format("showErrorMessage('Hata', 'Üretim zaten başlatılmış veya kayıt bulunamadı.');"), true);
-                    }
-                }
-            }
-
-            // Listeyi yenile
-            LoadZeytinRecords();
+            // PartiMakineSecimi.aspx sayfasına yönlendir
+            Response.Redirect(string.Format("PartiMakineSecimi.aspx?id={0}", zeytinyagiUretimID));
         }
         catch (Exception ex)
         {
