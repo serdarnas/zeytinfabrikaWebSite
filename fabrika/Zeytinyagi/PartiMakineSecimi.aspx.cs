@@ -61,16 +61,6 @@ public partial class fabrika_Zeytinyagi_PartiMakineSecimi : System.Web.UI.Page
                 // RadioButtonList'e ekle
                 rblPartiListesi.Items.Add(item);
             }
-            
-            // Eğer liste boş ise bilgi mesajı göster
-            if (rblPartiListesi.Items.Count == 0)
-            {
-                // Bilgi mesajı ekle
-                string html = @"<div class='alert alert-info m-3'>İşlenecek bekleyen zeytin box kasası bulunamadı.</div>";
-                LiteralControl literal = new LiteralControl(html);
-                rblPartiListesi.Controls.Add(literal);
-            }
-        }
         catch (Exception ex)
         {
             // Hata durumunda örnek verilerle devam et
@@ -100,9 +90,6 @@ public partial class fabrika_Zeytinyagi_PartiMakineSecimi : System.Web.UI.Page
                 ListItem item = new ListItem(html, boxID);
                 rblPartiListesi.Items.Add(item);
             }
-            
-            // Hata logla
-            System.Diagnostics.Debug.WriteLine("Box kasaları listesi yüklenirken hata: " + ex.Message);
         }
     }
 
