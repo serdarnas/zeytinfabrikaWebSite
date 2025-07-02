@@ -84,11 +84,8 @@
                             </a>
                             <ul class="sub">
                                 <li><a href="/yonetim/MenuYonetimi.aspx"><i class="fa fa-list"></i> Menü Yönetimi</a></li>
-                                <li><a href="/yonetim/MenuSiralama.aspx"><i class="fa fa-list"></i> Menü Siralama Yönetimi</a></li>
                                 <li><a href="/yonetim/KullaniciYetki.aspx"><i class="fa fa-key"></i> Kullanıcı Yetki</a></li>
                                 <li><a href="/yonetim/Ayarlar.aspx"><i class="fa fa-gear"></i> Sistem Ayarları</a></li>
-                                <li><a href="/yonetim/ErrorLog.aspx"><i class="fa fa-gear"></i> Sistem Error Logs</a></li>
-                                ErrorLogs
                             </ul>
                         </li>
                         

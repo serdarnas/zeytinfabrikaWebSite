@@ -1,65 +1,82 @@
 using System;
 using System.Web;
-using System.IO;
-using System.Text;
 
 public partial class fabrika_Fabrika_customErrors : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
+    protected int RemainingSeconds
     {
-        try
+        get
         {
-            // Only attempt to get error from session
-            string errorId = Request.QueryString["errorId"];
-            if (!string.IsNullOrEmpty(errorId))
-            {
-                string sessionKey = "Error_" + errorId;
-                if (Session[sessionKey] != null)
-                {
-                    Response.Write(Session[sessionKey].ToString());
-                    Session.Remove(sessionKey);
-                    return;
-                }
-            }
-            
-            // Fallback message
-            Response.Write("An error occurred, but no details are available.");
-        }
-        catch
-        {
-            Response.Write("An error occurred while displaying error details.");
+            // 3 gün geri sayım için
+            return 3 * 24 * 60 * 60;
         }
     }
 
-    private void LogError(Exception ex)
+    protected void Page_Load(object sender, EventArgs e)
     {
+ 
         try
         {
-            string logPath = Server.MapPath("~/App_Data/Logs");
-            Directory.CreateDirectory(logPath);
+            if (!IsPostBack)
+            {
+                // Master Page'e başlık bilgisini ayarla
+                if (Master is fabrika_FabrikaMasterPage)
+                {
+                    fabrika_FabrikaMasterPage master = (fabrika_FabrikaMasterPage)Master;
+                    master.KlasorAdi = "Hata";
+                    master.SayfaAdi = "Hata Sayfası";
+                }
 
-            string logFile = Path.Combine(logPath, 
-                String.Format("{0:yyyy-MM-dd}_error.log", DateTime.Now));
-
-            string message = String.Format(
-                "[{0:yyyy-MM-dd HH:mm:ss}]\nURL: {1}\nHata: {2}\nDetay: {3}\n{4}\n",
-                DateTime.Now, Request.RawUrl, ex.Message, ex.StackTrace,
-                new string('-', 50));
-
-            File.AppendAllText(logFile, message);
+                // URL'den hata yolunu al
+                string errorPath = Request.QueryString["aspxerrorpath"];
+                if (!string.IsNullOrEmpty(errorPath))
+                {
+                    lblErrorCode.Text = "404";
+                    lblErrorMessage.Text = "Sayfa Bulunamadı";
+                    lblErrorDetails.Text = string.Format("Aradığınız sayfa ({0}) bulunamadı veya taşınmış olabilir.", errorPath);
+                }
+                else
+                {
+                    lblErrorCode.Text = "500";
+                    lblErrorMessage.Text = "Üzgünüz, bir hata oluştu!";
+                    lblErrorDetails.Text = "İşleminiz sırasında beklenmeyen bir hata oluştu. Lütfen tekrar deneyin veya sistem yöneticinize başvurun.";
+                }
+            }
         }
-        catch { } // Loglama hatasını yutuyoruz
+        catch (Exception ex)
+        {
+            // Hata sayfasında hata oluşursa sadece loglama yap, kullanıcıya basit mesaj göster
+            try
+            {
+                MessageHelper.LogError(ex);
+            }
+            catch
+            {
+                // MessageHelper bile çalışmazsa hiçbir şey yapma
+            }
+            
+            lblErrorCode.Text = "500";
+            lblErrorMessage.Text = "Sistem Hatası";
+            lblErrorDetails.Text = "Beklenmeyen bir hata oluştu. Lütfen sistem yöneticinize başvurun.";
+        }
     }
 
     protected void btnRetry_Click(object sender, EventArgs e)
     {
-        string returnUrl = Request.QueryString["ReturnUrl"];
-        Response.Redirect(!string.IsNullOrEmpty(returnUrl) ? 
-            returnUrl : "~/fabrika/default.aspx");
+        // Önceki sayfaya geri dön
+        if (Request.UrlReferrer != null)
+        {
+            Response.Redirect(Request.UrlReferrer.ToString());
+        }
+        else
+        {
+            Response.Redirect("~/fabrika/Default.aspx");
+        }
     }
 
     protected void btnHome_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/fabrika/default.aspx");
+        // Ana sayfaya yönlendir
+        Response.Redirect("~/fabrika/Default.aspx");
     }
 }

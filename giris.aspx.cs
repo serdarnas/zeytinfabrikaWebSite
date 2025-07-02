@@ -8,13 +8,7 @@ public partial class giris : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Eğer kullanıcı zaten giriş yaptıysa, fabrika/Default.aspx'e yönlendir
-        if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
-        {
-            Response.Redirect("~/fabrika/Default.aspx");
-        }
-        
-        // Çıkış parametresi kontrol
+        // Çıkış parametresi önce kontrol edilmeli
         if (Request.QueryString["cikis"] != null)
         {
             FormsAuthentication.SignOut();
@@ -27,6 +21,62 @@ public partial class giris : System.Web.UI.Page
             Response.Cookies.Add(authCookie);
             
             Response.Redirect("~/giris.aspx");
+            return;
+        }
+        
+        // Eğer kullanıcı zaten geçerli bir oturum ile giriş yaptıysa, fabrika/Default.aspx'e yönlendir
+        if (IsUserAuthenticated())
+        {
+            Response.Redirect("~/fabrika/Default.aspx");
+        }
+    }
+    
+    /// <summary>
+    /// Kullanıcının gerçekten geçerli bir oturumunun olup olmadığını kontrol eder
+    /// </summary>
+    private bool IsUserAuthenticated()
+    {
+        try
+        {
+            // Önce Forms Authentication kontrolü
+            if (HttpContext.Current.User == null || !HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+            
+            // Session kontrolü
+            if (Session["KullaniciID"] != null && Session["SirketID"] != null)
+            {
+                return true;
+            }
+            
+            // Session'da yoksa cookie'den kontrol et
+            HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                if (ticket != null && !ticket.Expired && !string.IsNullOrEmpty(ticket.UserData))
+                {
+                    var parts = ticket.UserData.Split('|');
+                    if (parts.Length >= 4)
+                    {
+                        // Geçerli cookie varsa Session'ı yeniden oluştur
+                        Session["SirketID"] = Convert.ToInt32(parts[0]);
+                        Session["SirketAdi"] = parts[1];
+                        Session["KullaniciID"] = Convert.ToInt32(parts[2]);
+                        Session["KullaniciAdSoyad"] = parts[3];
+                        return true;
+                    }
+                }
+            }
+            
+            // Hiçbir geçerli oturum bulunamadı
+            return false;
+        }
+        catch (Exception ex)
+        {
+            MessageHelper.LogError(ex);
+            return false;
         }
     }
 
@@ -104,7 +154,7 @@ public partial class giris : System.Web.UI.Page
         catch (Exception ex)
         {
             // Hata durumunda log tutabilirsiniz
-            System.Diagnostics.Debug.WriteLine("Giriş hatası: " + ex.Message);
+            MessageHelper.LogError(ex);
             e.Authenticated = false;
         }
     }

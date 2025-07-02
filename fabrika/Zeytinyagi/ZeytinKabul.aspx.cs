@@ -212,8 +212,39 @@ public partial class fabrika_Zeytinyagi_ZeytinKabul : System.Web.UI.Page
     {
         try
         {
-            // PartiMakineSecimi.aspx sayfasına yönlendir
-            Response.Redirect(string.Format("PartiMakineSecimi.aspx?id={0}", zeytinyagiUretimID));
+            string connectionString = ConfigurationManager.ConnectionStrings["baglanti"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"UPDATE ZeytinyagiUretimleri 
+                               SET UretimBaslamaZamani = @StartTime
+                               WHERE ZeytinyagiUretimID = @ID AND UretimBaslamaZamani IS NULL";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StartTime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ID", zeytinyagiUretimID);
+
+                    int affectedRows = cmd.ExecuteNonQuery();
+
+                    if (affectedRows > 0)
+                    {
+                        // Bildirim ile başarı mesajı gösterme
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "SuccessNotification", 
+                            string.Format("showSuccessMessage('Başarılı', 'Üretim başlatıldı.');"), true);
+                    }
+                    else
+                    {
+                        // Bildirim ile hata mesajı gösterme
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ErrorNotification", 
+                            string.Format("showErrorMessage('Hata', 'Üretim zaten başlatılmış veya kayıt bulunamadı.');"), true);
+                    }
+                }
+            }
+
+            // Listeyi yenile
+            LoadZeytinRecords();
         }
         catch (Exception ex)
         {

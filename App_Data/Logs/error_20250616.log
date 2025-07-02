@@ -1,0 +1,6 @@
+
+[2025-06-16 16:10:17] Hata: Nesne başvurusu bir nesnenin örneğine ayarlanmadı.
+Stack Trace:    konum: fabrika_Musteriler_MusteriDetay.Page_Load(Object sender, EventArgs e) c:\Users\serda\OneDrive\Masaüstü\hilmi yazgan\webform_proje_v2\Zeytin_Fabrika_webform_v2\WebSite\fabrika\Musteriler\MusteriDetay.aspx.cs içinde: satır 91
+QueryString: id=1
+Kullanıcı: admin@ornekzeytinyagi.com
+-------------------

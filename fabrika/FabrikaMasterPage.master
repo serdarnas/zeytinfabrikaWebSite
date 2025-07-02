@@ -318,9 +318,9 @@
                             <ul class="breadcrumb">
                                 <li><a href="<%= ResolveUrl("~/fabrika/Default.aspx") %>"><i class="icon-home"></i> Anasayfa</a></li>
                                 <li><a href="#">
-                                    <asp:Label ID="lblKlasörAdi" runat="server" Text="Label"></asp:Label></a></li>
+                                    <asp:Label ID="lblKlasörAdi" runat="server" Text=""></asp:Label></a></li>
                                 <li class="active">
-                                    <asp:Label ID="lblSayfaAdi" runat="server" Text="Label"></asp:Label></li>
+                                    <asp:Label ID="lblSayfaAdi" runat="server" Text=""></asp:Label></li>
                             </ul>
                             <!--breadcrumbs end -->
                         </div>

@@ -4,74 +4,87 @@ using System.Web.UI;
 using System.Data.SqlClient;
 using System.Configuration;
 
+/// <summary>
+/// Tüm proje genelinde kullanılacak standart mesajlaşma sistemi
+/// Gritter tabanlı kullanıcı mesajları ve hata loglama
+/// </summary>
 public static class MessageHelper
 {
-    public static void ShowSuccessMessage(Page page, string title, string message)
+    /// <summary>
+    /// Başarılı işlem mesajı gösterir (yeşil)
+    /// </summary>
+    public static void ShowSuccessMessage(Page page, string title, string message, bool sticky = false)
     {
         string script = string.Format(
-            "showSuccessMessage('{0}', '{1}');",
-            title.Replace("'", "\\'"),
-            message.Replace("'", "\\'")
+            "showSuccessMessage('{0}', '{1}', {2});",
+            EscapeJavaScript(title),
+            EscapeJavaScript(message),
+            sticky.ToString().ToLower()
         );
-        ScriptManager.RegisterStartupScript(page, page.GetType(), "successMessage", script, true);
+        ScriptManager.RegisterStartupScript(page, page.GetType(), "successMessage_" + DateTime.Now.Ticks, script, true);
     }
 
-    public static void ShowErrorMessage(Page page, string title, string message)
-    {
-
-        string script = string.Format(
-            "showErrorMessage('{0}', '{1}');",
-            title.Replace("'", "\\'"),
-            message.Replace("'", "\\'")
-        );
-        ScriptManager.RegisterStartupScript(page, page.GetType(), "errorMessage", script, true);
-    }
-    public static void ShowErrorMessage(Page page, Exception ex, string message)
-    {
-
-        LogError(ex, page);
-        string script = string.Format(
-            "showErrorMessage('{0}', '{1}');",
-           page.Request.Url.ToString().Replace("'", "\\'"),
-            message.Replace("'", "\\'")
-        );
-        ScriptManager.RegisterStartupScript(page, page.GetType(), "errorMessage", script, true);
-    }
-
-    public static void ShowWarningMessage(Page page, string title, string message)
+    /// <summary>
+    /// Hata mesajı gösterir (kırmızı)
+    /// </summary>
+    public static void ShowErrorMessage(Page page, string title, string message, bool sticky = false)
     {
         string script = string.Format(
-            "showWarningMessage('{0}', '{1}');",
-            title.Replace("'", "\\'"),
-            message.Replace("'", "\\'")
+            "showErrorMessage('{0}', '{1}', {2});",
+            EscapeJavaScript(title),
+            EscapeJavaScript(message),
+            sticky.ToString().ToLower()
         );
-        ScriptManager.RegisterStartupScript(page, page.GetType(), "warningMessage", script, true);
+        ScriptManager.RegisterStartupScript(page, page.GetType(), "errorMessage_" + DateTime.Now.Ticks, script, true);
     }
 
-    public static void ShowInfoMessage(Page page, string title, string message)
+    /// <summary>
+    /// Uyarı mesajı gösterir (sarı)
+    /// </summary>
+    public static void ShowWarningMessage(Page page, string title, string message, bool sticky = false)
     {
         string script = string.Format(
-            "showInfoMessage('{0}', '{1}');",
-            title.Replace("'", "\\'"),
-            message.Replace("'", "\\'")
+            "showWarningMessage('{0}', '{1}', {2});",
+            EscapeJavaScript(title),
+            EscapeJavaScript(message),
+            sticky.ToString().ToLower()
         );
-        ScriptManager.RegisterStartupScript(page, page.GetType(), "infoMessage", script, true);
+        ScriptManager.RegisterStartupScript(page, page.GetType(), "warningMessage_" + DateTime.Now.Ticks, script, true);
     }
 
+    /// <summary>
+    /// Bilgi mesajı gösterir (mavi)
+    /// </summary>
+    public static void ShowInfoMessage(Page page, string title, string message, bool sticky = false)
+    {
+        string script = string.Format(
+            "showInfoMessage('{0}', '{1}', {2});",
+            EscapeJavaScript(title),
+            EscapeJavaScript(message),
+            sticky.ToString().ToLower()
+        );
+        ScriptManager.RegisterStartupScript(page, page.GetType(), "infoMessage_" + DateTime.Now.Ticks, script, true);
+    }
+
+    /// <summary>
+    /// Exception'ı veritabanına loglar
+    /// </summary>
     public static void LogError(Exception ex, Page page = null)
     {
         try
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["baglanti"].ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO ErrorLogs (ErrorDate, UserName, ErrorMessage, StackTrace, PageUrl, UserAgent) VALUES (@ErrorDate, @UserName, @ErrorMessage, @StackTrace, @PageUrl, @UserAgent)", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+                    INSERT INTO ErrorLogs (ErrorDate, UserName, ErrorMessage, StackTrace, PageUrl, UserAgent) 
+                    VALUES (@ErrorDate, @UserName, @ErrorMessage, @StackTrace, @PageUrl, @UserAgent)", conn))
                 {
                     cmd.Parameters.AddWithValue("@ErrorDate", DateTime.Now);
                     cmd.Parameters.AddWithValue("@UserName", HttpContext.Current.User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Anonim");
-                    cmd.Parameters.AddWithValue("@ErrorMessage", ex.Message);
-                    cmd.Parameters.AddWithValue("@StackTrace", ex.StackTrace);
+                    cmd.Parameters.AddWithValue("@ErrorMessage", ex.Message ?? string.Empty);
+                    cmd.Parameters.AddWithValue("@StackTrace", ex.StackTrace ?? string.Empty);
                     cmd.Parameters.AddWithValue("@PageUrl", page != null ? page.Request.Url.ToString() : HttpContext.Current.Request.Url.ToString());
-                    cmd.Parameters.AddWithValue("@UserAgent", HttpContext.Current.Request.UserAgent);
+                    cmd.Parameters.AddWithValue("@UserAgent", HttpContext.Current.Request.UserAgent ?? string.Empty);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -80,12 +93,25 @@ public static class MessageHelper
         }
         catch (Exception logEx)
         {
-            // Loglama sırasında hata oluşursa en azından debug çıktısına yazalım
-            System.Diagnostics.Debug.WriteLine("Hata loglanırken hata oluştu: "+logEx.Message);
-            System.Diagnostics.Debug.WriteLine("Orijinal hata: "+logEx.Message);
+            // Loglama sırasında hata oluşursa sadece gerçekten kritik durumlarda Event Log'a yazalım
+            try
+            {
+                System.Diagnostics.EventLog.WriteEntry("ZeytinFabrika", 
+                    string.Format("Hata loglanırken hata oluştu: {0}. Orijinal hata: {1}", 
+                    logEx.Message, ex.Message), 
+                    System.Diagnostics.EventLogEntryType.Error);
+            }
+            catch 
+            {
+                // Event Log'a da yazamazsak hiçbir şey yapma (sonsuz döngü önlemi)
+            }
         }
     }
 
+    /// <summary>
+    /// Exception'ı loglar ve kullanıcıya hata mesajı gösterir
+    /// En çok kullanılan metod - hem loglama hem kullanıcı bildirimi
+    /// </summary>
     public static void ShowAndLogError(Page page, Exception ex, string userMessage = null)
     {
         // Hatayı logla
@@ -96,7 +122,23 @@ public static class MessageHelper
             ? "İşlem sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin."
             : userMessage;
 
-        // Kullanıcıya hata mesajını göster
-        ShowErrorMessage(page, "Hata", message);
+        // Kullanıcıya hata mesajını göster (hata mesajları yapışkan olsun)
+        ShowErrorMessage(page, "Hata", message, true);
+    }
+
+    /// <summary>
+    /// JavaScript string'lerini güvenli hale getirir
+    /// </summary>
+    private static string EscapeJavaScript(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return string.Empty;
+            
+        return text.Replace("\\", "\\\\")
+                   .Replace("'", "\\'")
+                   .Replace("\"", "\\\"")
+                   .Replace("\r", "\\r")
+                   .Replace("\n", "\\n")
+                   .Replace("\t", "\\t");
     }
 }

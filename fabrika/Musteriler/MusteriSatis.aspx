@@ -9,9 +9,55 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- SweetAlert2 for beautiful alerts -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script>
         // jQuery noConflict modunu kullanarak çakışmaları önle
         var jq = jQuery.noConflict();
+        
+        // SweetAlert2 ile özelleştirilmiş mesaj fonksiyonları
+        function showSuccessMessage(title, message) {
+            Swal.fire({
+                icon: 'success',
+                title: title,
+                text: message,
+                confirmButtonText: 'Tamam',
+                confirmButtonColor: '#3085d6'
+            });
+        }
+
+        function showErrorMessage(title, message) {
+            Swal.fire({
+                icon: 'error',
+                title: title,
+                text: message,
+                confirmButtonText: 'Tamam',
+                confirmButtonColor: '#d33'
+            });
+        }
+
+        function showWarningMessage(title, message) {
+            Swal.fire({
+                icon: 'warning',
+                title: title,
+                text: message,
+                confirmButtonText: 'Tamam',
+                confirmButtonColor: '#f0ad4e'
+            });
+        }
+
+        function showInfoMessage(title, message) {
+            Swal.fire({
+                icon: 'info',
+                title: title,
+                text: message,
+                confirmButtonText: 'Tamam',
+                confirmButtonColor: '#17a2b8'
+            });
+        }
     </script>
     
     <style type="text/css">
@@ -394,7 +440,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
-                    <button type="button" class="btn btn-success" id="btnUrunEkle"><i class="icon-plus"></i> Ekle</button>
+                    <button type="button" class="btn btn-success" id="btnUrunEkle" onclick="urunEkle()"><i class="icon-plus"></i> Ekle</button>
                 </div>
             </div>
         </div>
@@ -408,6 +454,51 @@
                 alert("jQuery sürümü: " + version + " başarıyla yüklendi!");
             } catch (e) {
                 alert("jQuery ÇALIŞMIYOR! Hata: " + e.message);
+            }
+        }
+        
+        // Depoları yükle
+        function loadDepolar() {
+            try {
+                console.log("loadDepolar fonksiyonu çağrıldı");
+                console.log("window.depoListesi:", window.depoListesi);
+                console.log("window.depolarYuklendi:", window.depolarYuklendi);
+                
+                if (typeof window.depoListesi !== 'undefined' && window.depoListesi && window.depoListesi.length > 0) {
+                    console.log("Depolar yükleniyor:", window.depoListesi);
+                    
+                    // Modal depo dropdown'ını temizle
+                    jq("#ddlModalDepo").empty();
+                    
+                    // Depoları dropdown'a ekle
+                    jq.each(window.depoListesi, function(index, depo) {
+                        var stokBilgisi = "";
+                        if (depo.Kapasite && depo.Kapasite > 0) {
+                            var dolulukOrani = depo.DoluMiktar ? ((depo.DoluMiktar / depo.Kapasite) * 100).toFixed(1) : 0;
+                            stokBilgisi = " - %" + dolulukOrani + " dolu";
+                        }
+                        
+                        var depoMetni = depo.DepoAdi + " (" + depo.DepoKodu + ")" + stokBilgisi;
+                        jq("#ddlModalDepo").append('<option value="' + depo.DepoID + '">' + depoMetni + '</option>');
+                    });
+                    console.log("Depolar başarıyla yüklendi:", window.depoListesi.length + " adet");
+                } else {
+                    console.warn("Depo listesi boş veya tanımsız");
+                    jq("#ddlModalDepo").empty();
+                    jq("#ddlModalDepo").append('<option value="1">Ana Depo (Varsayılan)</option>');
+                    
+                    // Depo listesi henüz yüklenmemişse, kısa süre sonra tekrar dene
+                    if (typeof window.depolarYuklendi === 'undefined' || !window.depolarYuklendi) {
+                        console.log("Depolar henüz yüklenmemiş, 1 saniye sonra tekrar denenecek");
+                        setTimeout(function() {
+                            loadDepolar();
+                        }, 1000);
+                    }
+                }
+            } catch (e) {
+                console.error("Depo yükleme hatası:", e);
+                jq("#ddlModalDepo").empty();
+                jq("#ddlModalDepo").append('<option value="1">Ana Depo (Hata)</option>');
             }
         }
         
@@ -604,6 +695,29 @@
                 // Konsola tuş kodunu yazdır (hata ayıklama için)
                 console.log("Global keydown event: " + e.which);
             });
+            
+            // Depoları yükle - birkaç deneme ile
+            var depoYuklemeDenemesi = 0;
+            var maksimumDeneme = 5;
+            
+            function depoYuklemeKontrol() {
+                depoYuklemeDenemesi++;
+                console.log("Depo yükleme denemesi: " + depoYuklemeDenemesi + "/" + maksimumDeneme);
+                
+                if (typeof window.depoListesi !== 'undefined' && window.depoListesi && window.depoListesi.length > 0) {
+                    console.log("Depolar başarıyla yüklendi, loadDepolar çağrılıyor");
+                    loadDepolar();
+                } else if (depoYuklemeDenemesi < maksimumDeneme) {
+                    console.log("Depolar henüz yüklenmemiş, " + (depoYuklemeDenemesi * 500) + "ms sonra tekrar denenecek");
+                    setTimeout(depoYuklemeKontrol, 500);
+                } else {
+                    console.warn("Depolar " + maksimumDeneme + " denemede yüklenemedi, varsayılan depo kullanılacak");
+                    loadDepolar(); // Varsayılan depo ile devam et
+                }
+            }
+            
+            // İlk kontrol
+            setTimeout(depoYuklemeKontrol, 500);
             
             // Debug mesajı - otomatik olarak gösterilecek
             setTimeout(function() {
@@ -810,6 +924,10 @@
                 jq("#urunAramaModal").modal('hide');
                 jq('body').removeClass('modal-open');
                 jq('.modal-backdrop').remove();
+                
+                // Depo listesini her modal açıldığında yeniden yükle
+                console.log("Modal açıldı, depo listesi yeniden yükleniyor");
+                loadDepolar();
                 
                 setTimeout(function() {
                     try {
@@ -1111,7 +1229,7 @@
             // ID kontrolü
             if (!urunID || isNaN(parseInt(urunID))) {
                 console.error("Geçersiz ürün ID:", urunID);
-                alert("Geçersiz ürün ID. Lütfen tekrar deneyin.");
+                showErrorMessage("Hata", "Geçersiz ürün ID. Lütfen tekrar deneyin.");
                 return;
             }
             
@@ -1151,10 +1269,9 @@
                     jq("#lblModalStokMiktari").text(urun.StokMiktari !== undefined ? urun.StokMiktari.toFixed(2) : "0.00");
                     jq("#lblModalBirimAdi").text(urun.BirimAdi || "Adet");
                     
-                    // Depo dropdown'unu güncelle
-                    var depoText = "Ana Depo (" + (urun.StokMiktari || 0).toFixed(2) + " " + (urun.BirimAdi || "Adet") + ")";
-                    jq("#ddlModalDepo").empty();
-                    jq("#ddlModalDepo").append('<option value="Ana Depo">' + depoText + '</option>');
+                    // Depo dropdown'unu güncelle - loadDepolar ile güncel listeyi kullan
+                    console.log("secUrun - Depo dropdown güncelleniyor");
+                    loadDepolar();
                     
                     // Fiyat 
                     jq("#txtModalFiyat").val(urun.BirimFiyat !== undefined ? urun.BirimFiyat.toFixed(2) : (urun.SatisFiyati ? urun.SatisFiyati.toFixed(2) : "0.00"));
@@ -1189,11 +1306,11 @@
                         }
                     }, 500);
                 } else {
-                    alert("Ürün detayları alınamadı.");
+                    showErrorMessage("Hata", "Ürün detayları alınamadı.");
                 }
             }, function (hata) {
                 console.error("AJAX hatası:", hata);
-                alert("Ürün detayları alınırken bir hata oluştu: " + hata.get_message());
+                showErrorMessage("Hata", "Ürün detayları alınırken bir hata oluştu: " + hata.get_message());
             });
         }
         
@@ -1334,15 +1451,21 @@
                 var indirim = parseFloat(jq("#txtModalIndirim").val().replace(",", ".")) || 0;
                 var indirimTuru = jq("#ddlModalIndirimTuru").val();
                 var aciklama = jq("#txtModalAciklama").val();
+                var depoID = parseInt(jq("#ddlModalDepo").val()) || 1; // Varsayılan Ana Depo
                 
                 // Validasyon
                 if (miktar <= 0) {
-                    alert("Miktar sıfırdan büyük olmalıdır.");
+                    showWarningMessage("Uyarı", "Miktar sıfırdan büyük olmalıdır.");
                     return;
                 }
                 
                 if (birimFiyat <= 0) {
-                    alert("Birim fiyat sıfırdan büyük olmalıdır.");
+                    showWarningMessage("Uyarı", "Birim fiyat sıfırdan büyük olmalıdır.");
+                    return;
+                }
+                
+                if (depoID <= 0) {
+                    showWarningMessage("Uyarı", "Geçerli bir depo seçmelisiniz.");
                     return;
                 }
                 
@@ -1362,7 +1485,8 @@
                     Iskonto: indirim,
                     IskontoTuru: indirimTuru,
                     KDV: kdvOrani,
-                    Aciklama: aciklama
+                    Aciklama: aciklama,
+                    DepoID: depoID
                 };
                 
                 console.log("Eklenecek ürün detayları:", urunDetay);
@@ -1377,7 +1501,8 @@
                     kdvOrani, 
                     indirim, 
                     indirimTuru, 
-                    aciklama, 
+                    aciklama,
+                    depoID, 
                     function(basarili) {
                         jq("#urunYukleniyorMessage").hide();
                         
@@ -1397,19 +1522,19 @@
                             }, 500);
                         } else {
                             console.error("Ürün eklenemedi: Sunucu false döndü");
-                            alert("Ürün eklenirken bir hata oluştu. Sunucu işlemi reddetti.");
+                            showErrorMessage("Hata", "Ürün eklenirken bir hata oluştu. Sunucu işlemi reddetti.");
                         }
                     }, 
                     function(hata) {
                         jq("#urunYukleniyorMessage").hide();
                         console.error("Ürün eklenirken hata:", hata);
                         console.error("Hata detayları:", hata.get_message(), hata.get_stackTrace());
-                        alert("Ürün eklenirken bir hata oluştu: " + hata.get_message());
+                        showErrorMessage("Hata", "Ürün eklenirken bir hata oluştu: " + hata.get_message());
                     }
                 );
             } catch (err) {
                 console.error("urunEkle fonksiyonunda hata:", err);
-                alert("Ürün ekleme işlemi sırasında bir hata oluştu: " + err.message);
+                showErrorMessage("Hata", "Ürün ekleme işlemi sırasında bir hata oluştu: " + err.message);
             }
         }
         
@@ -1615,12 +1740,12 @@
                             // GridView'u güncelle
                             updateGridView();
                         } else {
-                            alert("Ürün silinirken bir hata oluştu.");
+                            showErrorMessage("Hata", "Ürün silinirken bir hata oluştu.");
                         }
                     },
                     function(hata) {
                         console.error("Ürün silinirken hata:", hata);
-                        alert("Ürün silinirken bir hata oluştu: " + hata.get_message());
+                        showErrorMessage("Hata", "Ürün silinirken bir hata oluştu: " + hata.get_message());
                     }
                 );
             }

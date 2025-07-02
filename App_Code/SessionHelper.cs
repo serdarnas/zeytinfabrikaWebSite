@@ -42,7 +42,7 @@ public static class SessionHelper
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("GetSirketID hatası: " + ex.Message);
+                MessageHelper.LogError(ex);
             }
         }
         
@@ -95,7 +95,7 @@ public static class SessionHelper
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("GetSirketAdi hatası: " + ex.Message);
+                MessageHelper.LogError(ex);
             }
         }
         
@@ -139,7 +139,7 @@ public static class SessionHelper
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("GetKullaniciID hatası: " + ex.Message);
+                MessageHelper.LogError(ex);
             }
         }
         
@@ -183,7 +183,7 @@ public static class SessionHelper
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("GetKullaniciAdSoyad hatası: " + ex.Message);
+                MessageHelper.LogError(ex);
             }
         }
         
@@ -243,7 +243,7 @@ public static class SessionHelper
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("KullaniciOturumKontrol hatası: " + ex.Message);
+            MessageHelper.LogError(ex);
             // Hata olursa session temizle ve giriş sayfasına yönlendir
             HttpContext.Current.Session.Clear();
             HttpContext.Current.Session.Abandon();

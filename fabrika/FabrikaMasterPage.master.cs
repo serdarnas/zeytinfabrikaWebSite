@@ -11,14 +11,14 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
 {
     public string KlasorAdi
     {
-        get { return lblKlasörAdi.Text; }
-        set { lblKlasörAdi.Text = value; }
+        get { return lblKlasörAdi != null ? lblKlasörAdi.Text : string.Empty; }
+        set { if (lblKlasörAdi != null) lblKlasörAdi.Text = value; }
     }
 
     public string SayfaAdi
     {
-        get { return lblSayfaAdi.Text; }
-        set { lblSayfaAdi.Text = value; }
+        get { return lblSayfaAdi != null ? lblSayfaAdi.Text : string.Empty; }
+        set { if (lblSayfaAdi != null) lblSayfaAdi.Text = value; }
     }
 
     //public string SayfaHata
@@ -44,21 +44,123 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         //    pnlBilgi.Visible = true; 
         //}
 
-        YetkiHelper.TumMenuYetkileriniVer(SessionHelper.GetKullaniciID());
-
         if (!IsPostBack)
         {
-            // Kullanıcı giriş yapmış mı kontrol et
-            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            // Önce kullanıcının giriş yapmış olup olmadığını kontrol et
+            if (HttpContext.Current.User.Identity.IsAuthenticated && IsValidSession())
             {
-                MenuleriOlustur();
-                KullaniciBilgileriniYukle();
+                // Geçerli oturum varsa menüleri ve kullanıcı bilgilerini yükle
+                try
+                {
+                    YetkiHelper.TumMenuYetkileriniVer(SessionHelper.GetKullaniciID());
+                    MenuleriOlustur();
+                    KullaniciBilgileriniYukle();
+                }
+                catch (Exception ex)
+                {
+                    // Hata oluşursa oturumu temizle ve giriş sayfasına yönlendir
+                    MessageHelper.LogError(ex);
+                    ClearSessionAndRedirectToLogin();
+                }
             }
             else
             {
-                // Kullanıcı giriş yapmamışsa login sayfasına yönlendir
-                FormsAuthentication.RedirectToLoginPage();
+                // Kullanıcı giriş yapmamışsa veya geçersiz oturum varsa login sayfasına yönlendir
+                ClearSessionAndRedirectToLogin();
             }
+        }
+        else
+        {
+            // PostBack durumunda da oturum kontrolü yap
+            if (HttpContext.Current.User.Identity.IsAuthenticated && IsValidSession())
+            {
+                try
+                {
+                    YetkiHelper.TumMenuYetkileriniVer(SessionHelper.GetKullaniciID());
+                }
+                catch (Exception ex)
+                {
+                    MessageHelper.LogError(ex);
+                    ClearSessionAndRedirectToLogin();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Geçerli bir oturumun olup olmadığını kontrol eder
+    /// </summary>
+    private bool IsValidSession()
+    {
+        try
+        {
+            // Session'da temel bilgiler var mı kontrol et
+            if (HttpContext.Current.Session != null && 
+                HttpContext.Current.Session["KullaniciID"] != null && 
+                HttpContext.Current.Session["SirketID"] != null)
+            {
+                return true;
+            }
+            
+            // Session'da yoksa cookie'den kontrol et
+            HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                if (ticket != null && !ticket.Expired && !string.IsNullOrEmpty(ticket.UserData))
+                {
+                    var parts = ticket.UserData.Split('|');
+                    if (parts.Length >= 4)
+                    {
+                        // Cookie'den session'ı yeniden oluştur
+                        HttpContext.Current.Session["SirketID"] = Convert.ToInt32(parts[0]);
+                        HttpContext.Current.Session["SirketAdi"] = parts[1];
+                        HttpContext.Current.Session["KullaniciID"] = Convert.ToInt32(parts[2]);
+                        HttpContext.Current.Session["KullaniciAdSoyad"] = parts[3];
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+        catch (Exception ex)
+        {
+            MessageHelper.LogError(ex);
+            return false;
+        }
+    }
+    
+    /// <summary>
+    /// Oturumu temizler ve giriş sayfasına yönlendirir
+    /// </summary>
+    private void ClearSessionAndRedirectToLogin()
+    {
+        try
+        {
+            // Session'ı temizle
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session.Clear();
+                HttpContext.Current.Session.Abandon();
+            }
+            
+            // Authentication çerezini temizle
+            FormsAuthentication.SignOut();
+            
+            // Çerezi manuel olarak da temizle
+            HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            authCookie.Expires = DateTime.Now.AddYears(-1);
+            HttpContext.Current.Response.Cookies.Add(authCookie);
+            
+            // Giriş sayfasına yönlendir
+            FormsAuthentication.RedirectToLoginPage();
+        }
+        catch (Exception ex)
+        {
+            MessageHelper.LogError(ex);
+            // Hata durumunda da giriş sayfasına yönlendir
+            HttpContext.Current.Response.Redirect("~/giris.aspx");
         }
     }
 
@@ -85,7 +187,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         catch (Exception ex)
         {
             // Hata durumunda loglama yapılabilir
-            System.Diagnostics.Debug.WriteLine("Menü oluşturma hatası: " + ex.Message);
+            MessageHelper.LogError(ex);
         }
     }
 
@@ -141,24 +243,29 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
                     currentUrl.EndsWith(m.SayfaURL, StringComparison.OrdinalIgnoreCase));
             }
 
-            // Breadcrumb'ı ayarla
+            // Breadcrumb'ı ayarla - sadece child page'den değer gelmemişse menü sisteminden al
             if (lblKlasörAdi != null && lblSayfaAdi != null)
             {
-                if (aktifUstMenu != null)
+                // Eğer child page'den değer gelmemişse (boş veya null ise) menü sisteminden al
+                if (string.IsNullOrEmpty(lblKlasörAdi.Text) && string.IsNullOrEmpty(lblSayfaAdi.Text))
                 {
-                    lblKlasörAdi.Text = aktifUstMenu.MenuAdi;
-                    lblSayfaAdi.Text = aktifMenu != null ? aktifMenu.MenuAdi : "";
+                    if (aktifUstMenu != null)
+                    {
+                        lblKlasörAdi.Text = aktifUstMenu.MenuAdi;
+                        lblSayfaAdi.Text = aktifMenu != null ? aktifMenu.MenuAdi : "";
+                    }
+                    else
+                    {
+                        lblKlasörAdi.Text = aktifMenu != null ? aktifMenu.MenuAdi : "";
+                        lblSayfaAdi.Text = "";
+                    }
                 }
-                else
-                {
-                    lblKlasörAdi.Text = aktifMenu != null ? aktifMenu.MenuAdi : "";
-                    lblSayfaAdi.Text = "";
-                }
+                // Child page'den değer gelmişse o değerleri koru
             }
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Sayfa bilgileri ayarlama hatası: " + ex.Message);
+            MessageHelper.LogError(ex);
         }
     }
 
@@ -171,7 +278,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Kullanıcı bilgileri yükleme hatası: " + ex.Message);
+            MessageHelper.LogError(ex);
         }
     }
 
@@ -194,7 +301,7 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Çıkış yapma hatası: " + ex.Message);
+            MessageHelper.LogError(ex);
         }
     }
 
@@ -313,8 +420,8 @@ public partial class fabrika_FabrikaMasterPage : System.Web.UI.MasterPage
         }
         catch (Exception ex)
         {
-            // Hata durumunda sessizce devam et
-            System.Diagnostics.Debug.WriteLine("SetActiveMenuItem Hatası: " + ex.Message);
+            // Hata durumunda sessizce devam et (UI'yı etkilemesin)
+            MessageHelper.LogError(ex);
         }
     }
 

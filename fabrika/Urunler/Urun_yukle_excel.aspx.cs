@@ -378,6 +378,7 @@ public partial class fabrika_Urunler_Urun_yukle_excel : System.Web.UI.Page
                         {
                             ParaBirimileri yeniParaBirimler = new ParaBirimileri(); 
                             yeniParaBirimler.ParaBirimiAd = paraBirimiAdi;
+
                             db.ParaBirimileris.InsertOnSubmit(yeniParaBirimler);
                             db.SubmitChanges();
                             paraBirimiID = yeniParaBirimler.ParaBirimiID;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,15 +14,19 @@ public partial class fabrika_Mustahsil_Default : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            var master = this.Master as fabrika_FabrikaMasterPage;
-            if (master != null)
-            {
-                master.KlasorAdi = "Müstahsiller";
-                master.SayfaAdi = "Müstahsil Listesi";
-            }
-            
             // İlk yüklemede tüm müstahsilleri getir
             BindMustahsilList();
+        }
+    }
+    
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        // Master page'in breadcrumb ayarlarını yap
+        var master = this.Master as fabrika_FabrikaMasterPage;
+        if (master != null)
+        {
+            master.KlasorAdi = "Müstahsiller";
+            master.SayfaAdi = "Müstahsil Listesi";
         }
     }
     

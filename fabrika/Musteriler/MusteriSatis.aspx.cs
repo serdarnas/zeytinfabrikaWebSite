@@ -26,31 +26,68 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                 master.SayfaAdi = "Müşteri Satiş";
             }
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine("Page_Load Hata: " + ex.Message);
             Response.Redirect("~/fabrika/Default.aspx");
             return;
         }
         
         if (!IsPostBack)
         {
-            FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext();
-            int sirketID = SessionHelper.GetSirketID();
-            LoadProjeler(sirketID);
-            LoadPazarlamacilar(sirketID);
-            int _MusteriID = int.Parse(Request.QueryString["id"]);
-            Musteriler gelenMusteriler = db.Musterilers.FirstOrDefault(x => x.MusteriID == _MusteriID);
-            lblMusteriAd.Text = gelenMusteriler.FirmaAdi;
+            try
+            {
+                using (FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext())
+                {
+                    int sirketID = SessionHelper.GetSirketID();
+                    LoadProjeler(sirketID);
+                    LoadPazarlamacilar(sirketID);
+                    LoadDepolar(sirketID);
+                    
+                    // QueryString güvenli parse işlemi
+                    int _MusteriID;
+                    if (!int.TryParse(Request.QueryString["id"], out _MusteriID) || _MusteriID <= 0)
+                    {
+                        Response.Redirect("~/fabrika/Musteriler/Default.aspx");
+                        return;
+                    }
+                    
+                    Musteriler gelenMusteriler = db.Musterilers.FirstOrDefault(x => x.MusteriID == _MusteriID && x.SirketID == sirketID);
+                    if (gelenMusteriler == null)
+                    {
+                        Response.Redirect("~/fabrika/Musteriler/Default.aspx");
+                        return;
+                    }
+                    
+                    // Null-safe assignment
+                    lblMusteriAd.Text = !string.IsNullOrEmpty(gelenMusteriler.FirmaAdi) ? gelenMusteriler.FirmaAdi : "Bilinmeyen Müşteri";
+                    
+                    // Varsayılan değerleri ayarla
+                    txtTarih.Text = DateTime.Now.ToString("dd.MM.yyyy");
+                    txtSaat.Text = DateTime.Now.ToString("HH:mm");
+                    txtVadesi.Text = DateTime.Now.AddDays(30).ToString("dd.MM.yyyy");
+                    txtSevkTarihi.Text = DateTime.Now.ToString("dd.MM.yyyy");
+                    txtSiparisTarih.Text = DateTime.Now.ToString("dd.MM.yyyy");
+                    
+                    // Otomatik belge numarası üret
+                    string belgeNo = GenerateBelgeNo(sirketID);
+                    txtBelgeNo.Text = belgeNo;
 
-
-            hplbtnGeriDon.NavigateUrl = "MusteriDetay.aspx?id=" + _MusteriID;
-            
-            // Script dosyalarını kaydet
-            RegisterScripts();
-            
-            // Button event handlers
-            btnProformaSiparis.Click += new EventHandler(btnProformaSiparis_Click);
-            btnIrsaliyeKaydet.Click += new EventHandler(btnIrsaliyeKaydet_Click);
+                    hplbtnGeriDon.NavigateUrl = "MusteriDetay.aspx?id=" + _MusteriID;
+                    
+                    // Script dosyalarını kaydet
+                    RegisterScripts();
+                    
+                    // Button event handlers
+                    btnProformaSiparis.Click += new EventHandler(btnProformaSiparis_Click);
+                    btnIrsaliyeKaydet.Click += new EventHandler(btnIrsaliyeKaydet_Click);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Page_Load İnitializasyon Hatası: " + ex.Message);
+                Response.Redirect("~/fabrika/Musteriler/Default.aspx");
+            }
         }
     }
 
@@ -61,36 +98,119 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
 
     private void LoadPazarlamacilar(int sirketID)
     {
-        FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext();
-        var tumPazarlamacilar = db.Pazarlamacilars.Where(x => x.SirketID == sirketID && x.Durum == true).ToList();
-        
-        // Boş seçenek ekle
-        ddlPazarlama.Items.Clear();
-        ddlPazarlama.Items.Add(new ListItem("Seçiniz", ""));
-        ddlPazarlama.AppendDataBoundItems = true;
-        
-        ddlPazarlama.DataSource = tumPazarlamacilar;
-        ddlPazarlama.DataBind();
-        
-        // Boş seçeneği seç
-        ddlPazarlama.SelectedValue = "";
+        try
+        {
+            using (FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext())
+            {
+                var tumPazarlamacilar = db.Pazarlamacilars
+                    .Where(x => x.SirketID == sirketID && x.Durum == true)
+                    .ToList();
+                
+                // Boş seçenek ekle
+                ddlPazarlama.Items.Clear();
+                ddlPazarlama.Items.Add(new ListItem("Seçiniz", ""));
+                ddlPazarlama.AppendDataBoundItems = true;
+                
+                ddlPazarlama.DataSource = tumPazarlamacilar;
+                ddlPazarlama.DataTextField = "PazarlamaciAdi";
+                ddlPazarlama.DataValueField = "PazarlamaciID";
+                ddlPazarlama.DataBind();
+                
+                // Boş seçeneği seç
+                ddlPazarlama.SelectedValue = "";
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("LoadPazarlamacilar Hatası: " + ex.Message);
+            // Hata durumunda en azından boş dropdown olsun
+            ddlPazarlama.Items.Clear();
+            ddlPazarlama.Items.Add(new ListItem("Seçiniz", ""));
+        }
     }
 
     private void LoadProjeler(int sirketID)
     {
-        FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext();
-        var tumProjeler = db.Projelers.Where(x => x.SirketID == sirketID).ToList();
-        
-        // Boş seçenek ekle
-        ddlProje.Items.Clear();
-        ddlProje.Items.Add(new ListItem("Seçiniz", ""));
-        ddlProje.AppendDataBoundItems = true;
-        
-        ddlProje.DataSource = tumProjeler;
-        ddlProje.DataBind();
-        
-        // Boş seçeneği seç
-        ddlProje.SelectedValue = "";
+        try
+        {
+            using (FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext())
+            {
+                var tumProjeler = db.Projelers
+                    .Where(x => x.SirketID == sirketID)
+                    .ToList();
+                
+                // Boş seçenek ekle
+                ddlProje.Items.Clear();
+                ddlProje.Items.Add(new ListItem("Seçiniz", ""));
+                ddlProje.AppendDataBoundItems = true;
+                
+                ddlProje.DataSource = tumProjeler;
+                ddlProje.DataTextField = "ProjeAdi";
+                ddlProje.DataValueField = "ProjeID";
+                ddlProje.DataBind();
+                
+                // Boş seçeneği seç
+                ddlProje.SelectedValue = "";
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("LoadProjeler Hatası: " + ex.Message);
+            // Hata durumunda en azından boş dropdown olsun
+            ddlProje.Items.Clear();
+            ddlProje.Items.Add(new ListItem("Seçiniz", ""));
+        }
+    }
+
+    private void LoadDepolar(int sirketID)
+    {
+        try
+        {
+            using (FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext())
+            {
+                System.Diagnostics.Debug.WriteLine("LoadDepolar başlıyor - SirketID: " + sirketID);
+                
+                // Önce tüm depoları debug için listele
+                var tumDepolar = db.Depolars.Where(d => d.SirketID == sirketID).ToList();
+                System.Diagnostics.Debug.WriteLine("Toplam depo sayısı (SirketID=" + sirketID + "): " + tumDepolar.Count);
+                
+                foreach (var d in tumDepolar)
+                {
+                    System.Diagnostics.Debug.WriteLine("Depo - ID: " + d.DepoID + ", Adı: " + (d.DepoAdi ?? "null") + ", Kodu: " + (d.DepoKodu ?? "null") + ", Durum: " + d.Durum);
+                }
+                
+                // Depoları JSON formatında Frontend'e gönder
+                // Durum kontrolünü nullable boolean için yap
+                var depolar = db.Depolars
+                    .Where(d => d.SirketID == sirketID && (d.Durum == true || d.Durum.HasValue && d.Durum.Value == true))
+                    .Select(d => new { 
+                        DepoID = d.DepoID, 
+                        DepoAdi = d.DepoAdi ?? "",
+                        DepoKodu = d.DepoKodu ?? "",
+                        Kapasite = d.Kapasite ?? 0,
+                        DoluMiktar = d.DoluMiktar ?? 0,
+                        Durum = d.Durum
+                    })
+                    .ToList();
+                    
+                System.Diagnostics.Debug.WriteLine("Aktif depo sayısı: " + depolar.Count);
+                
+                // JavaScript'e depo listesini gönder
+                string depoJson = Newtonsoft.Json.JsonConvert.SerializeObject(depolar);
+                System.Diagnostics.Debug.WriteLine("Depo JSON: " + depoJson);
+                
+                ClientScript.RegisterStartupScript(this.GetType(), "DepoListesi", 
+                    string.Format("console.log('Depo listesi yüklendi:', {0}); window.depoListesi = {0}; window.depolarYuklendi = true;", depoJson), true);
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("LoadDepolar Hatası: " + ex.Message);
+            System.Diagnostics.Debug.WriteLine("LoadDepolar Hata Detayı: " + ex.StackTrace);
+            // Hata durumunda boş depo listesi gönder
+            ClientScript.RegisterStartupScript(this.GetType(), "DepoListesi", 
+                "console.error('Depo yükleme hatası'); window.depoListesi = []; window.depolarYuklendi = false;", true);
+        }
     }
 
     [WebMethod]
@@ -190,7 +310,7 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
     }
     
     [WebMethod]
-    public static bool UrunSepeteEkle(int urunId, decimal miktar, decimal birimFiyat, int kdvOrani, decimal indirim, string indirimTuru, string aciklama)
+    public static bool UrunSepeteEkle(int urunId, decimal miktar, decimal birimFiyat, int kdvOrani, decimal indirim, string indirimTuru, string aciklama, int depoId)
     {
         try
         {
@@ -258,6 +378,7 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                 mevcutUrun.Iskonto = indirim;
                 mevcutUrun.IskontoTuru = indirimTuru;
                 mevcutUrun.Aciklama = aciklama;
+                mevcutUrun.DepoID = depoId;
             }
             else
             {
@@ -290,7 +411,8 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                             KDV = kdvOrani,
                             Iskonto = indirim,
                             IskontoTuru = indirimTuru ?? "%",
-                            Aciklama = aciklama
+                            Aciklama = aciklama,
+                            DepoID = depoId
                         };
                         sepet.Add(yeniUrun);
                         System.Diagnostics.Debug.WriteLine("UrunSepeteEkle: Ürün başarıyla eklendi - ID: " + urunId);
@@ -385,13 +507,25 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
     
     private static int GetMusteriIDFromSession()
     {
-        // URL'den müşteri ID'sini al
-        if (HttpContext.Current.Request.QueryString["id"] != null)
+        try
         {
-            return Convert.ToInt32(HttpContext.Current.Request.QueryString["id"]);
+            // URL'den müşteri ID'sini al
+            if (HttpContext.Current.Request.QueryString["id"] != null)
+            {
+                int musteriID;
+                if (int.TryParse(HttpContext.Current.Request.QueryString["id"], out musteriID) && musteriID > 0)
+                {
+                    return musteriID;
+                }
+            }
+            
+            return 0; // Geçersiz müşteri ID
         }
-        
-        return 0; // Geçersiz müşteri ID
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("GetMusteriIDFromSession Hatası: " + ex.Message);
+            return 0; // Hata durumunda geçersiz ID dön
+        }
     }
 
     // Proforma/Sipariş button handler
@@ -420,8 +554,7 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
             // Session'da sepet var mı kontrol et
             if (Session["Sepet"] == null || ((List<SepetItem>)Session["Sepet"]).Count == 0)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "sepetBosUyari", 
-                    "alert('Sepette ürün bulunmamaktadır. Lütfen önce sepete ürün ekleyiniz.');", true);
+                MessageHelper.ShowWarningMessage(this, "Uyarı", "Sepette ürün bulunmamaktadır. Lütfen önce sepete ürün ekleyiniz.");
                 return;
             }
             
@@ -431,8 +564,7 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
             
             if (musteriID == null)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "musteriHatasi", 
-                    "alert('Geçerli bir müşteri seçilmelidir.');", true);
+                MessageHelper.ShowErrorMessage(this, "Hata", "Geçerli bir müşteri seçilmelidir.");
                 return;
             }
             
@@ -498,8 +630,6 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                 
                 // Oluşturma tarihi
                 yeniSatis.OlusturmaTarihi = DateTime.Now;
-                
-              
                 
                 // Toplamları hesapla
                 decimal toplamTutar = 0;
@@ -595,10 +725,8 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                     detay.KDVTutari = kdvTutari;
                     detay.ToplamTutar = netTutar + kdvTutari;
                     
-                    // Eğer depo seçilirse (şu anda sabit Ana Depo)
-                    int? depoID = 1; // Ana Depo ID'si
-                    
-                    detay.DepoID = depoID.HasValue ? depoID.Value : 0;
+                    // Sepet öğesinden depo ID'sini al
+                    detay.DepoID = item.DepoID > 0 ? item.DepoID : 1; // Varsayılan olarak Ana Depo (ID=1)
                     
                     db.SatisDetaylaris.InsertOnSubmit(detay);
                     satisDetaylari.Add(detay);
@@ -640,16 +768,27 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
                 string islemAdi = satisTipi == "FATURA" ? "Fatura" : 
                                  (satisTipi == "IRSALIYE" ? "İrsaliye" : "Proforma/Sipariş");
                 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "kayitBasarili", 
-                    "alert('" + islemAdi + " başarıyla kaydedildi. Belge No: " + yeniSatis.SatisID + "'); " +
-                    "window.location='MusteriDetay.aspx?id=" + musteriID + "';", true);
+                // SweetAlert2 ile başarı mesajı ve yönlendirme
+                string successScript = string.Format(@"
+                    Swal.fire({{
+                        icon: 'success',
+                        title: 'Başarılı!',
+                        text: '{0} başarıyla kaydedildi. Belge No: {1}',
+                        confirmButtonText: 'Tamam',
+                        confirmButtonColor: '#3085d6'
+                    }}).then((result) => {{
+                        if (result.isConfirmed) {{
+                            window.location = 'MusteriDetay.aspx?id={2}';
+                        }}
+                    }});", islemAdi, yeniSatis.SatisID, musteriID);
+                
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "kayitBasarili", successScript, true);
             }
         }
         catch (Exception ex)
         {
-            // Hata mesajı göster
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "kayitHatasi", 
-                "alert('Kayıt sırasında bir hata oluştu: " + ex.Message + "');", true);
+            // Hata mesajı göster - SweetAlert2 ile
+            MessageHelper.ShowErrorMessage(this, "Hata", "Kayıt sırasında bir hata oluştu: " + ex.Message);
             
             // Hatayı logla
             System.Diagnostics.Debug.WriteLine("Satış kaydetme hatası: " + ex.Message);
@@ -657,6 +796,50 @@ public partial class fabrika_Musteriler_MusteriSatis : System.Web.UI.Page
         }
     }
 
+    // Belge numarası üretme fonksiyonu
+    private string GenerateBelgeNo(int sirketID)
+    {
+        try
+        {
+            using (FabrikaDataClassesDataContext db = new FabrikaDataClassesDataContext())
+            {
+                // Bugünkü tarih için en son satış belge numarasını bul
+                string today = DateTime.Now.ToString("yyyyMMdd");
+                string prefix = "S" + today;
+                
+                var sonSatis = db.Satislars
+                    .Where(s => s.SirketID == sirketID && s.SatisBelgeNo.StartsWith(prefix))
+                    .OrderByDescending(s => s.SatisBelgeNo)
+                    .FirstOrDefault();
+                
+                int siraNo = 1;
+                if (sonSatis != null)
+                {
+                    // Son belge numarasından sıra numarasını çıkar
+                    string sonBelgeNo = sonSatis.SatisBelgeNo;
+                    if (sonBelgeNo.Length > prefix.Length)
+                    {
+                        string sonSiraStr = sonBelgeNo.Substring(prefix.Length);
+                        int sonSira;
+                        if (int.TryParse(sonSiraStr, out sonSira))
+                        {
+                            siraNo = sonSira + 1;
+                        }
+                    }
+                }
+                
+                // Yeni belge numarası: S20250115001 formatında
+                return prefix + siraNo.ToString("000");
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("GenerateBelgeNo Hatası: " + ex.Message);
+            // Hata durumunda rastgele numara üret
+            return "S" + DateTime.Now.ToString("yyyyMMddHHmm");
+        }
+    }
+    
     // SessionHelper için kullanıcı ID'sini alma yardımcı metodu
     private static int? GetKullaniciID()
     {
@@ -708,4 +891,5 @@ public class SepetItem
     public string IskontoTuru { get; set; }
     public decimal KDV { get; set; }
     public string Aciklama { get; set; }
+    public int DepoID { get; set; }
 }

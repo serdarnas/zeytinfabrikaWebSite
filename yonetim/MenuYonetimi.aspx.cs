@@ -249,6 +249,9 @@ public partial class yonetim_MenuYonetimi : System.Web.UI.Page
     {
         int menuID = Convert.ToInt32(tvMenuler.SelectedNode.Value);
         MenuDetayiGetir(menuID);
+        
+        // Silme butonunu görünür yap
+        btnSilTreeView.Visible = true;
     }
     
     /// <summary>
@@ -375,6 +378,50 @@ public partial class yonetim_MenuYonetimi : System.Web.UI.Page
     protected void btnVazgec_Click(object sender, EventArgs e)
     {
         FormuSifirla();
+    }
+    
+    /// <summary>
+    /// TreeView'daki silme butonuna tıklandığında çalışır
+    /// </summary>
+    protected void btnSilTreeView_Click(object sender, EventArgs e)
+    {
+        if (tvMenuler.SelectedNode != null)
+        {
+            int menuID = Convert.ToInt32(tvMenuler.SelectedNode.Value);
+            
+            try
+            {
+                // Alt menüler varsa silme işlemi iptal
+                if (AltMenuVarMi(menuID))
+                {
+                    pnlHata.Visible = true;
+                    lblHata.Text = "Bu menüye ait alt menüler var. Önce alt menüleri silmelisiniz.";
+                    return;
+                }
+                
+                // Menüyü sil
+                MenuSil(menuID);
+                
+                // Verileri yeniden yükle
+                VerileriYukle();
+                UstMenuleriDoldur();
+                
+                // Başarı mesajı
+                pnlBasari.Visible = true;
+                lblBasari.Text = "Menü başarıyla silindi.";
+                
+                // Silme butonunu gizle
+                btnSilTreeView.Visible = false;
+                
+                // Formu sıfırla
+                FormuSifirla();
+            }
+            catch (Exception ex)
+            {
+                pnlHata.Visible = true;
+                lblHata.Text = "Silme işlemi sırasında bir hata oluştu: " + ex.Message;
+            }
+        }
     }
     
     /// <summary>
@@ -568,49 +615,6 @@ public partial class yonetim_MenuYonetimi : System.Web.UI.Page
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 return count > 0;
             }
-        }
-    }
-
-    protected void btnSil_Click(object sender, EventArgs e)
-    {
-        // TreeView'da seçili düğüm yoksa işlemi iptal et
-        if (tvMenuler.SelectedNode == null)
-        {
-            pnlHata.Visible = true;
-            lblHata.Text = "Lütfen silmek istediğiniz menüyü seçin.";
-            return;
-        }
-
-        int menuID = Convert.ToInt32(tvMenuler.SelectedNode.Value);
-
-        try
-        {
-            // Alt menüler varsa silme işlemi iptal
-            if (AltMenuVarMi(menuID))
-            {
-                pnlHata.Visible = true;
-                lblHata.Text = "Bu menüye ait alt menüler var. Önce alt menüleri silmelisiniz.";
-                return;
-            }
-
-            // Menüyü sil
-            MenuSil(menuID);
-
-            // Formu sıfırla
-            FormuSifirla();
-
-            // Verileri yeniden yükle
-            VerileriYukle();
-            UstMenuleriDoldur();
-
-            // Başarı mesajı
-            pnlBasari.Visible = true;
-            lblBasari.Text = "Menü başarıyla silindi.";
-        }
-        catch (Exception ex)
-        {
-            pnlHata.Visible = true;
-            lblHata.Text = "Silme işlemi sırasında bir hata oluştu: " + ex.Message;
         }
     }
 
